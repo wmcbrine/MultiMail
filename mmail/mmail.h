@@ -522,7 +522,6 @@ class specific_driver
 	virtual const char *getDoorProg() = 0;
 	virtual file_header *getHello() = 0;
 	virtual file_header *getGoodbye() = 0;
-	virtual file_header *getFileList() = 0;
 	virtual file_header **getBulletins() = 0;
 	virtual const char *getTear(int) = 0;
 };

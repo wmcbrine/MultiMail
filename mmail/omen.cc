@@ -39,11 +39,6 @@ omen::~omen()
 	cleanup();
 }
 
-file_header *omen::getFileList()
-{
-	return mm->workList->existsF("nfile");
-}
-
 area_header *omen::getNextArea()
 {
 	int cMsgNum = areas[ID].nummsgs;

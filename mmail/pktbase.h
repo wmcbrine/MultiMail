@@ -82,7 +82,6 @@ class pktbase : public specific_driver
 	const char *getDoorProg();
 	file_header *getHello();
 	file_header *getGoodbye();
-	virtual file_header *getFileList();
 	file_header **getBulletins();
 	virtual const char *getTear(int);
 	const char *getBaseName();

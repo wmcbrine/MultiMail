@@ -430,7 +430,7 @@ void Interface::redraw()
 
 void Interface::newpacket()
 {
-	file_header *hello, *newFiles, **bulletins;
+	file_header *hello, **bulletins;
 	static const char *keepers[] = {"Save", "Kill"};
 	unsaved_reply = any_read = false;
 
@@ -456,8 +456,6 @@ void Interface::newpacket()
 
 	hello = mm.packet->getHello();
 	goodbye = mm.packet->getGoodbye();
-	newFiles = mm.packet->getFileList();
-
 	bulletins = mm.packet->getBulletins();
 
 	if (hello)
@@ -469,7 +467,7 @@ void Interface::newpacket()
 	}
 
 	if (!abortNow && bulletins) {
-		if (WarningWindow("View bulletins?")) {
+		if (WarningWindow("View bulletins / new files?")) {
 			file_header **a = bulletins;
 			while (a && *a) {
 				switch (ansiFile(*a, (*a)->getName(), latin)) {
@@ -485,13 +483,6 @@ void Interface::newpacket()
 				}
 			}
 		} else
-			redraw();
-	}
-
-	if (!abortNow && newFiles) {
-		if (WarningWindow("View new files list?"))
-			ansiFile(newFiles, "New files", latin);
-		else
 			redraw();
 	}
 }

@@ -49,7 +49,6 @@ class omen : public pktbase
  public:
 	omen(mmail *);
 	~omen();
-	file_header *getFileList();
 	area_header *getNextArea();
 	letter_header *getNextLetter();
 	const char *getExtent();

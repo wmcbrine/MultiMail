@@ -389,6 +389,9 @@ void pktbase::listBulletins(const char x[][13], int d, int generic)
 			wl->addItem(bulletins, ".txt", filecount);
 	}
 
+	wl->addItem(bulletins, "newfiles.", filecount);
+	wl->addItem(bulletins, "nfile", filecount);
+
 	if (filecount)
 		bulletins[filecount] = 0;
 	else {
@@ -437,11 +440,6 @@ file_header *pktbase::getGoodbye()
 {
 	return (goodbye && *goodbye) ?
 		mm->workList->existsF(goodbye) : 0;
-}
-
-file_header *pktbase::getFileList()
-{
-	return mm->workList->existsF("newfiles.");
 }
 
 file_header **pktbase::getBulletins()

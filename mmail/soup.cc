@@ -291,11 +291,6 @@ bool soup::msgopen(int area)
 	return true;
 }
 
-file_header *soup::getFileList()
-{
-	return 0;
-}
-
 area_header *soup::getNextArea()
 {
 	int cMsgNum = areas[ID]->nummsgs;

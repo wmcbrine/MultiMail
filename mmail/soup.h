@@ -56,7 +56,6 @@ class soup : public pktbase
  public:
 	soup(mmail *);
 	~soup();
-	file_header *getFileList();
 	area_header *getNextArea();
 	int getNoOfLetters();
 	letter_header *getNextLetter();
