@@ -7,10 +7,10 @@
 #--------------------------------------------------------------
 # Borland C++ 5.5:
 
-CURS_INC = \\"c:/pdcurs25/curses.h\\"
-CURS_DIR = c:\pdcurs25
+CURS_INC = \\"c:/pdcurs26/curses.h\\"
+CURS_DIR = c:\pdcurs26
 CURS_LIB = .
-LIBS = c:\pdcurs25\win32\pdcurses.lib
+LIBS = c:\pdcurs26\win32\pdcurses.lib
 RM = del
 LIST = list
 

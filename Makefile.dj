@@ -13,12 +13,12 @@ include version
 OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space
 
 #--------------------------------------------------------------
-# DJGPP (MSDOS), with PDCurses 2.5 beta:
+# DJGPP (MSDOS), with PDCurses 2.6:
 
 CURS_INC = \<curses.h\>
-CURS_DIR = /djgpp/contrib/pdcurs25
+CURS_DIR = /djgpp/contrib/pdcurs26
 CURS_LIB = .
-LIBS = /djgpp/contrib/pdcurs25/dos/pdcurses.a
+LIBS = /djgpp/contrib/pdcurs26/dos/pdcurses.a
 RM = del
 SEP = ;
 # Optional; attach pmode stub:
