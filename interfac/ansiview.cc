@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * ANSI image/text viewer
 
- Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2004 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -1197,8 +1197,9 @@ void AnsiWindow::KeyHandle(int key)
 			if ((LINES - 1) == mouse_event.y)
 				KeyHandle(KEY_DOWN);
 			else
-				if (mouse_event.y > (LINES >> 1))
-					KeyHandle(KEY_NPAGE);
+				if ((mouse_event.y > (LINES >> 1)) ||
+				    (0 == position))
+					KeyHandle(' ');
 				else
 					KeyHandle(KEY_PPAGE);
 		break;
