@@ -226,9 +226,9 @@ void omen::readSystemBBS()
 	// The following info is unavailable in OMEN:
 	const char *defName = mm->resourceObject->get(UserName);
 
-	mm->resourceObject->set(LoginName, (defName && *defName) ?
+	LoginName = strdupplus((defName && *defName) ?
 		defName: "(set on upload)");
-	mm->resourceObject->set(AliasName, "(set on upload)");
+	AliasName = strdupplus("(set on upload)");
 
 	// INFOxy.BBS:
 

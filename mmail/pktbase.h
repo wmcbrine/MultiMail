@@ -39,7 +39,7 @@ class pktbase : public specific_driver
 
 	FILE *infile;
 	char packetBaseName[9];
-	char *BBSName, *SysOpName;
+	char *LoginName, *AliasName, *BBSName, *SysOpName;
 	int maxConf, numMsgs, ID, currentArea, currentLetter;
 	unsigned long hasOffConfig;
 	bool hasPers;
@@ -73,6 +73,8 @@ class pktbase : public specific_driver
 	virtual bool readOldFlags();
 	virtual bool saveOldFlags();
 	virtual letter_body *getBody(letter_header &);
+	const char *getLoginName();
+	const char *getAliasName();
 	const char *getBBSName();
 	const char *getSysOpName();
 	virtual file_header *getHello();
@@ -129,6 +131,8 @@ class pktreply : public reply_driver
 	const char *oldFlagsName();
 	bool readOldFlags();
 	bool saveOldFlags();
+	const char *getLoginName();
+	const char *getAliasName();
 	const char *getBBSName();
 	const char *getSysOpName();
 	file_header *getHello();

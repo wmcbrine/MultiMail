@@ -338,8 +338,8 @@ void bluewave::initInf()
 	hasOffConfig = (getshort(infoHeader.ctrl_flags) & INF_NO_CONFIG) ?
 		0 : OFFCONFIG;
 
-	mm->resourceObject->set(LoginName, (char *) infoHeader.loginname);
-	mm->resourceObject->set(AliasName, (char *) infoHeader.aliasname);
+	LoginName = strdupplus((char *) infoHeader.loginname);
+	AliasName = strdupplus((char *) infoHeader.aliasname);
 	SysOpName = strdupplus((char *) infoHeader.sysop);
 	BBSName = strdupplus((char *) infoHeader.systemname); 
 
@@ -403,9 +403,6 @@ void bluewave::initMixID()
 
 		FTI_REC ftiRec;
 
-		const char *name = mm->resourceObject->get(LoginName);
-		const char *alias = mm->resourceObject->get(AliasName);
-
 		for (c = 1; c < maxConf; c++)
 		    if ((mixID[c] != -1) &&
 			getshort(mixRecord[mixID[c]].numpers)) {
@@ -421,8 +418,10 @@ void bluewave::initMixID()
 					fatalError("Error reading .FTI file");
 
 				cropesp((char *) ftiRec.to);
-				if ((!strcasecmp((char *) ftiRec.to, name) ||
-				    !strcasecmp((char *) ftiRec.to, alias)) &&
+				if ((!strcasecmp((char *) ftiRec.to,
+				    LoginName) ||
+				    !strcasecmp((char *) ftiRec.to,
+				    AliasName)) &&
 				    (personal < maxpers)) {
 					persNdx[personal].area = c;
 					persNdx[personal++].msgnum = d;
@@ -867,10 +866,8 @@ void bwreply::addHeader(FILE *uplFile)
 	strncpy((char *) newUplHeader.reader_tear, ((tearlen < 17) ?
 		(char *) newUplHeader.reader_name : MM_NAME), 16);
 
-	strcpy((char *) newUplHeader.loginname,
-		mm->resourceObject->get(LoginName));
-	strcpy((char *) newUplHeader.aliasname,
-		mm->resourceObject->get(AliasName));
+	strcpy((char *) newUplHeader.loginname, baseClass->getLoginName());
+	strcpy((char *) newUplHeader.aliasname, baseClass->getAliasName());
 
 	fwrite(&newUplHeader, sizeof(UPL_HEADER), 1, uplFile);
 }

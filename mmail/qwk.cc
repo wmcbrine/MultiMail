@@ -344,8 +344,6 @@ void qwkpack::readIndices()
 
 		long counter;
 		int personal = 0;
-		const char *name = mm->resourceObject->get(LoginName);
-		const char *alias = mm->resourceObject->get(AliasName);
 
 		qheader qHead;
 
@@ -361,8 +359,8 @@ void qwkpack::readIndices()
 
 				tmpndx->confnum = x;
 
-				if (!strcasecmp(qHead.to, name) ||
-				    (qwke && !strcasecmp(qHead.to, alias))) {
+				if (!strcasecmp(qHead.to, LoginName) || (qwke
+				    && !strcasecmp(qHead.to, AliasName))) {
 					tmpndx->pers = true;
 					personal++;
 				} else
@@ -531,8 +529,8 @@ void qwkpack::readControlDat()
 
 	p = nextLine();					// 7: user's name
 	cropesp(p);
-	mm->resourceObject->set(LoginName, p);
-	mm->resourceObject->set(AliasName, p);
+	LoginName = strdupplus(p);
+	AliasName = strdupplus(p);
 
 	nextLine();					// 8: blank/any
 	nextLine();					// 9: anyth.
@@ -647,8 +645,8 @@ void qwkpack::readToReader()
 			} else
 				if (!strncasecmp(s, "alias ", 6)) {
 					cropesp(s);
-					mm->resourceObject->set(AliasName,
-						s + 6);
+					delete[] AliasName;
+					AliasName = strdupplus(s + 6);
 				}
 		}
 		fclose(infile);
@@ -920,7 +918,7 @@ bool qwkreply::makeOffConfig()
 		if (!todoor)
 			return false;
 	} else {
-		myname = mm->resourceObject->get(LoginName);
+		myname = baseClass->getLoginName();
 		ctrlName = ((qwkpack *) baseClass)->ctrlName();
 	}
 

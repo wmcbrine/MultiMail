@@ -125,13 +125,13 @@ letter_header::letter_header(mmail *mmA, const char *subjectA,
 	follow = strdupplus(followA);
 	reply = strdupplus(replyA);
 
-	const char *login = mmA->resourceObject->get(LoginName);
-	const char *alias = mmA->resourceObject->get(AliasName);
+	const char *login = mmA->packet->getLoginName();
+	const char *alias = mmA->packet->getAliasName();
 
-	persto = (!strcasecmp(to, login) || (alias && *alias &&
-		!strcasecmp(to, alias)));
-	persfrom = (!strcasecmp(from, login) || (alias && *alias &&
-		!strcasecmp(from, alias)));
+	persto = ((login && *login && !strcasecmp(to, login)) ||
+		(alias && *alias && !strcasecmp(to, alias)));
+	persfrom = ((login && *login && !strcasecmp(from, login)) ||
+		(alias && *alias && !strcasecmp(from, alias)));
 }
 
 letter_header::~letter_header()

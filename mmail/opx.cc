@@ -287,9 +287,8 @@ void opxpack::readBrdinfoDat()
 	BBSName = pstrget(&header.bbsname);
 	SysOpName = pstrget(&header.sysopname);
 
-	p = pstrget(&header.username);
-	mm->resourceObject->set(LoginName, p);
-	mm->resourceObject->set_noalloc(AliasName, p);
+	LoginName = pstrget(&header.username);
+	AliasName = strdupplus(LoginName);
 
 	bulletins = header.readerfiles ?
 		new char[header.readerfiles * 13] : 0;

@@ -296,12 +296,15 @@ void LetterWindow::setToFrom(char key, char *TO, char *FROM)
 
 	bool usealias = mm.areaList->getUseAlias();
 	if (usealias) {
-		sprintf(FROM, format, mm.resourceObject->get(AliasName));
+		const char *name = mm.packet->getAliasName();
+		sprintf(FROM, format, name ? name : "");
 		if (!FROM[0])
 			usealias = false;
 	}
-	if (!usealias)
-		sprintf(FROM, format, mm.resourceObject->get(LoginName));
+	if (!usealias) {
+		const char *name = mm.packet->getLoginName();
+		sprintf(FROM, format, name ? name : "");
+	}
 
 	if (mm.areaList->isUsenet()) {
 		const char *newsgrps = 0;

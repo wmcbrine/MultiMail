@@ -27,7 +27,7 @@ pktbase::pktbase(mmail *mmA)
 	bodyString = 0;
 	bulletins = 0;
 	infile = 0;
-	BBSName = SysOpName = 0;
+	LoginName = AliasName = BBSName = SysOpName = 0;
 }
 
 pktbase::~pktbase()
@@ -40,6 +40,8 @@ pktbase::~pktbase()
 	delete[] bulletins;
 	delete[] SysOpName;
 	delete[] BBSName;
+	delete[] AliasName;
+	delete[] LoginName;
 }
 
 // Clean up for the QWK-like packets
@@ -380,6 +382,16 @@ void pktbase::listBulletins(const char x[][13], int d, int generic)
 	}
 }
 
+const char *pktbase::getLoginName()
+{
+	return LoginName;
+}
+
+const char *pktbase::getAliasName()
+{
+	return AliasName;
+}
+
 const char *pktbase::getBBSName()
 {
 	return BBSName;
@@ -635,6 +647,16 @@ bool pktreply::readOldFlags()
 bool pktreply::saveOldFlags()
 {
 	return false;
+}
+
+const char *pktreply::getLoginName()
+{
+	return 0;
+}
+
+const char *pktreply::getAliasName()
+{
+	return 0;
 }
 
 const char *pktreply::getBBSName()

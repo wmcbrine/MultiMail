@@ -514,6 +514,8 @@ class specific_driver
 	virtual void resetLetters() = 0;
 	virtual letter_header *getNextLetter() = 0;
 	virtual letter_body *getBody(letter_header &) = 0;
+	virtual const char *getLoginName() = 0;
+	virtual const char *getAliasName() = 0;
 	virtual const char *getBBSName() = 0;
 	virtual const char *getSysOpName() = 0;
 	virtual file_header *getHello() = 0;

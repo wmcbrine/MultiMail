@@ -632,23 +632,18 @@ void soup::readAreas()
 
 	// Info not available in SOUP:
 
-	char *tmp;
 	const char *defName = mm->resourceObject->get(UserName);
 	const char *defAddr = mm->resourceObject->get(InetAddr);
 
 	if (defAddr) {
 		if (defName && *defName && strcmp(defName, defAddr)) {
-			tmp = new char[strlen(defName) +
+			LoginName = new char[strlen(defName) +
 				strlen(defAddr) + 6];
-			sprintf(tmp, quoteIt(defName) ?
+			sprintf(LoginName, quoteIt(defName) ?
 				"\"%s\" <%s>" : "%s <%s>", defName, defAddr);
 		} else
-			tmp = strdupplus(defAddr);
-	} else
-		tmp = strdupplus("");
-
-	mm->resourceObject->set_noalloc(LoginName, tmp);
-	mm->resourceObject->set(AliasName, "");
+			LoginName = strdupplus(defAddr);
+	}
 
 	// AREAS:
 

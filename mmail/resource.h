@@ -17,13 +17,13 @@ enum {
 
 enum {
 	homeDir = noOfRaw, mmHomeDir, PacketDir, TempDir, BaseDir, WorkDir,
-	UncompressCommand, PacketName, ReplyDir, LoginName, AliasName,
-	CompressCommand, UpWorkDir, editor, SaveDir, AddressFile,
-	TaglineFile, arjUncompressCommand, zipUncompressCommand,
-	lhaUncompressCommand, rarUncompressCommand, tarUncompressCommand,
-	unknownUncompressCommand, arjCompressCommand, zipCompressCommand,
-	lhaCompressCommand, rarCompressCommand, tarCompressCommand,
-	unknownCompressCommand, sigFile, ColorFile, oldPacketName, noOfStrings
+	UncompressCommand, PacketName, ReplyDir, CompressCommand, UpWorkDir,
+	editor, SaveDir, AddressFile, TaglineFile, arjUncompressCommand,
+	zipUncompressCommand, lhaUncompressCommand, rarUncompressCommand,
+	tarUncompressCommand, unknownUncompressCommand, arjCompressCommand,
+	zipCompressCommand, lhaCompressCommand, rarCompressCommand,
+	tarCompressCommand, unknownCompressCommand, sigFile, ColorFile,
+	oldPacketName, noOfStrings
 };
 
 enum {
