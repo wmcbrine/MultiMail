@@ -621,7 +621,7 @@ class AnsiWindow
 	bool useAltCharset;
 #endif
 	chtype *chtmp, attrib;	//current attribute
-	bool isLatin, avtparse;
+	bool isLatin, avtparse, bsvparse, isbsv;
 	int atparse;
 	
 	void oneLine(int);
@@ -632,6 +632,7 @@ class AnsiWindow
 	void colreset();
 	chtype colorcore();
 	void colorset();
+	void pc_colorset(unsigned char);
 	void athandle();
 	void cpylow();
 	void cpyhigh();

@@ -256,6 +256,7 @@ void AnsiWindow::Init()
 #endif
 	atparse = 1;
 	avtparse = true;
+	bsvparse = true;
 }
 
 void AnsiWindow::DestroyChain()
@@ -365,6 +366,18 @@ void AnsiWindow::colorset()
 				ccb = ansi_colortable[tmp - 40];
 		}
 	}
+
+	attrib = colorcore();
+}
+
+void AnsiWindow::pc_colorset(unsigned char c)
+{
+	cfl = !(!(c & 0x80));	// or should it be cleared for AVATAR?
+	cbr = !(!(c & 8));
+	crv = 0;
+
+	ccf = pc_colortable[c & 7];
+	ccb = pc_colortable[(c & 0x70) >> 4];
 
 	attrib = colorcore();
 }
@@ -567,14 +580,10 @@ void AnsiWindow::avatar()
 	switch (c) {
 	case 1:				// attribute set
 		c = source.nextchar();
-		cfl = false;
-		cbr = !(!(c & 8));
-		ccf = pc_colortable[c & 7];
-		ccb = pc_colortable[(c & 0x70) >> 4];
-		attrib = colorcore();
+		pc_colorset(c);
 		break;
 	case 2:				// blink on
-		cfl = true;
+		cfl = 1;
 		break;
 	case 3:				// cursor up
 		cpy--;
@@ -752,6 +761,7 @@ void AnsiWindow::ResetChain()
 void AnsiWindow::MakeChain()
 {
 	unsigned char c;
+	unsigned int blen = 1;
 
 	ansiAbort = false;
 	if (!anim) {
@@ -764,6 +774,19 @@ void AnsiWindow::MakeChain()
 
 	source.reset();
 
+	if (bsvparse && isbsv) {
+		c = source.nextchar();
+		if (0xfd != c) {
+			source.backup(c);
+			isbsv = false;
+		}
+		for (blen = 0; blen < 5; blen++)
+			c = source.nextchar();
+		blen = source.nextchar();
+		blen <<= 8;
+		blen += c;
+	}
+
 	do {
 		c = source.nextchar();
 #ifdef LIMIT_MEM
@@ -771,6 +794,13 @@ void AnsiWindow::MakeChain()
 		    sizeof(AnsiLine *) + 0x200))
 			c = 0;
 #endif
+		if (bsvparse && isbsv) {
+			unsigned char attr = source.nextchar();
+			blen -= 2;
+			pc_colorset(attr);
+			if (!c)
+				c = ' ';
+		}
 
 		switch (c) {
 		case 1:			// hidden lines (only in pos 0)
@@ -849,7 +879,7 @@ void AnsiWindow::MakeChain()
 		default:
 			update(c);
 		}
-	} while (c && !ansiAbort);
+	} while (c && !ansiAbort && blen);
 
 	if (!anim) {
 		curr->pack(chtmp, tlen);
@@ -958,6 +988,7 @@ void AnsiWindow::set(letter_body *ansiSource, const char *winTitle,
 	position = 0;
 	isLatin = latin;
 	title = winTitle;
+	isbsv = false;
 }
 
 void AnsiWindow::set(file_header *f, const char *winTitle, bool latin)
@@ -967,6 +998,10 @@ void AnsiWindow::set(file_header *f, const char *winTitle, bool latin)
 	position = 0;
 	isLatin = latin;
 	title = winTitle;
+
+	const char *fname = f->getName();
+	size_t i = strlen(fname);
+	isbsv = (i > 4) && !strcasecmp(fname + i - 4, ".bsv");
 }
 
 void AnsiWindow::MakeActive()
