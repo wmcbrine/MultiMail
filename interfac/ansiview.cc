@@ -532,6 +532,58 @@ void AnsiWindow::escfig()
 	}
 }
 
+void AnsiWindow::avatar()
+{
+	static const int colortable[8] = {COLOR_BLACK, COLOR_BLUE,
+		COLOR_GREEN, COLOR_CYAN, COLOR_RED, COLOR_MAGENTA,
+		COLOR_YELLOW, COLOR_WHITE};
+							
+	unsigned char c = source.nextchar();
+
+	switch (c) {
+	case 1:				// attribute set
+		c = source.nextchar();
+		cfl = false;
+		cbr = !(!(c & 8));
+		ccf = colortable[c & 7];
+		ccb = colortable[(c & 0x70) >> 4];
+		attrib = colorcore();
+		break;
+	case 2:				// blink on
+		cfl = true;
+		break;
+	case 3:				// cursor up
+		cpy--;
+		cpylow();
+		break;
+	case 4:				// cursor down
+		cpy++;
+		cpyhigh();
+		break;
+	case 5:				// cursor left
+		cpx--;
+		cpxlow();
+		break;
+	case 6:				// cursor right
+		cpx++;
+		cpxhigh();
+		break;
+	case 7:				// clrtoeol() TODO
+		break;
+	case 8:				// set cursor position
+		c = source.nextchar();
+		cpy = c;
+		cpyhigh();
+		c = source.nextchar();
+		cpx = c;
+		cpxhigh();
+		break;
+	default:
+		update(22);
+		source.backup(c);
+	}
+}
+
 void AnsiWindow::posreset()
 {
 	cpx = cpy = lpy = spx = spy = 0;
@@ -717,10 +769,11 @@ void AnsiWindow::MakeChain()
 		case 26:		// ^Z: EOF for DOS
 			break;
 		case 12:		// form feed
-			if (anim) {
-				animtext->Clear(C_ANSIBACK);
-				posreset();
-			}
+			//if (anim) {
+			//	animtext->Clear(C_ANSIBACK);
+			//	posreset();
+			//}
+			cls();
 			break;
 #ifndef ALLCHARSOK			// unprintable control codes
 		case 14:		// double musical note
@@ -733,6 +786,19 @@ void AnsiWindow::MakeChain()
 			update('o');	// except in CP 437
 			break;
 #endif
+		case 22:		// Main Avatar code
+			avatar();
+			break;
+		case 25:		// Avatar RLE code
+			{
+				unsigned char x;
+				c = source.nextchar();
+				x = source.nextchar();
+
+				while (x--)
+					update(c);
+			}
+			break;
 		case '`':
 		case 27:		// ESC
 			c = source.nextchar();

@@ -637,6 +637,7 @@ class AnsiWindow
 	void cpxhigh();
 	void cpxlow();
 	void escfig();
+	void avatar();
 	void posreset();
 	void checkpos();
 	void update(unsigned char);
