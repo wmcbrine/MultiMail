@@ -22,7 +22,7 @@ void Welcome::MakeActive()
 	//window->put(2, 13, "http://multimail.sf.net/");
 	window->attrib(C_WELCOME2);
 	window->put(3, 2,
-		"Copyright (c) 2002 William McBrine, Kolossvary"); 
+		"Copyright (c) 2003 William McBrine, Kolossvary"); 
 	window->put(4, 7,
 		"Tamas, Toth Istvan, John Zero, et al.");
 	window->touch();
