@@ -541,7 +541,7 @@ void qwkpack::readControlDat()
 	}
 
 	hello = strdupplus(nextLine());
-	strncpy(newsfile[1], nextLine(), 12);
+	strncpy(newsfile[0], nextLine(), 12);
 	goodbye = strdupplus(nextLine());
 
 	fclose(infile);
