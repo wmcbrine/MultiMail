@@ -371,7 +371,8 @@ void AnsiWindow::athandle()
 {
 	static int oldccf = -1, oldccb, oldcbr, oldcfl;
 	unsigned fg = 0, bg = 0;
-	char c[2];
+	int result;
+	char c[2], bgc[2], fgc[2];
 
 	bool xmode = false;
 
@@ -384,42 +385,65 @@ void AnsiWindow::athandle()
 		c[0] = source.nextchar();
 	case '0': case '1': case '2': case '3': case '4':
 	case '5': case '6': case '7': case '8': case '9':
-		sscanf(c, "%x", &bg);
+		bgc[0] = c[0];
+		bgc[1] = '\0';
+		result = sscanf(bgc, "%x", &bg);
 
-		c[0] = source.nextchar();
-		sscanf(c, "%x", &fg);
+		if (1 == result) {
+		    fgc[0] = source.nextchar();
+		    fgc[1] = '\0';
+		    result = sscanf(fgc, "%x", &fg);
 
-		if (1 == atparse)
-			if (!fg && !bg) {
-				oldccf = ccf;
-				oldccb = ccb;
-				oldcbr = cbr;
-				oldcfl = cfl;
-			} else {
-				if ((15 == fg) && (15 == bg)) {
-					if (-1 != oldccf) {
-						ccf = oldccf;
-						ccb = oldccb;
-						cbr = oldcbr;
-						cfl = oldcfl;
+		    if (1 == result) {
+			if (!xmode) {
+				c[0] = source.nextchar();
+				result = ('@' == c[0]);
+			}
+			if (1 == result) {
+			    if (1 == atparse)
+				if (!fg && !bg) {
+					oldccf = ccf;
+					oldccb = ccb;
+					oldcbr = cbr;
+					oldcfl = cfl;
+				} else {
+					if ((15 == fg) && (15 == bg)) {
+						if (-1 != oldccf) {
+							ccf = oldccf;
+							ccb = oldccb;
+							cbr = oldcbr;
+							cfl = oldcfl;
+
+							attrib = colorcore();
+						}
+					} else {
+						cbr = (fg > 7);
+						cfl = (bg > 7);
+
+						ccf = pc_colortable[fg & 7];
+						ccb = pc_colortable[bg & 7];
 
 						attrib = colorcore();
 					}
-				} else {
-					cbr = (fg > 7);
-					cfl = (bg > 7);
-
-					ccf = pc_colortable[fg & 7];
-					ccb = pc_colortable[bg & 7];
-
-					attrib = colorcore();
 				}
-			}
-
-		if (!xmode) {
-			c[0] = source.nextchar();
-			if ('@' != c[0])
+			} else {
+				update('@');
+				update(bgc[0]);
+				update(fgc[0]);
 				source.backup(c[0]);
+			}
+		    } else {
+			    update('@');
+			    if (xmode)
+				    update('X');
+			    update(bgc[0]);
+			    source.backup(fgc[0]);
+		    }
+		} else {
+			update('@');
+			if (xmode)
+				update('X');
+			source.backup(c[0]);
 		}
 		break;
 	case 'C':
