@@ -23,7 +23,7 @@ void LetterWindow::QuoteText(FILE *reply)
 	char TMP[81];
 	int i;
 	bool inet = !(!(mm.areaList->getType() & INTERNET));
-	const char *TMP2 = mm.letterList->getFrom();
+	const char *From = mm.letterList->getFrom();
 
 	int width = mm.resourceObject->getInt(QuoteWrapCols);
 	if ((width < 20) || (width > 80))
@@ -43,7 +43,7 @@ void LetterWindow::QuoteText(FILE *reply)
 			s = 0;
 			switch (tolower(*quotestr)) {
 			case 'f':
-				s = TMP2;
+				s = From;
 				break;
 			case 't':
 				s = mm.letterList->getTo();
@@ -78,16 +78,16 @@ void LetterWindow::QuoteText(FILE *reply)
 	if (!inet) {
 		char mg[4];
 
-		strncpy(mg, TMP2, 2);
+		strncpy(mg, From, 2);
 		mg[2] = '\0';
 		mg[3] = '\0';
 
 		i = 1;
 		for (int j = 1; j < 3; j++) {
 			bool end = false;
-			while (TMP2[i] && !end) {
-				if ((TMP2[i - 1] == ' ') && (TMP2[i] != ' ')) {
-					mg[j] = TMP2[i];
+			while (From[i] && !end) {
+				if ((From[i - 1] == ' ') && (From[i] != ' ')) {
+					mg[j] = From[i];
 					if (j == 1)
 						end = true;
 				}
