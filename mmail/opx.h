@@ -30,7 +30,6 @@ class opxpack : public pktbase
 	file_header *getHello();
 	area_header *getNextArea();
 	letter_header *getNextLetter();
-	const char *getTear(int);
 	ocfgHeader *offhead();
 	const char *oldFlagsName();
 	bool readOldFlags();

@@ -518,18 +518,6 @@ bool opxpack::saveOldFlags()
 	return true;
 }
 
-const char *opxpack::getTear(int)
-{
-	// All this, just to add a space to the end of the tear line.
-	// (Some versions of the SX door eat the last character.)
-
-	static char tear[80];
-
-	sprintf(tear, "--- " MM_NAME "/%.58s v" MM_VERNUM " ", sysname());
-
-	return tear;
-}
-
 // -----------------------------------------------------------------
 // The OPX reply methods
 // -----------------------------------------------------------------
@@ -639,7 +627,7 @@ bool opxreply::getRep1(const char *orgname, upl_opx *l)
 				}
 				c = '\r';
 			}
-			if (c != '\r') {
+			if (c && (c != '\r')) {
 				fputc(c, destfile);
 				count++;
 			}
@@ -842,6 +830,10 @@ void opxreply::addRep1(FILE *, upl_base *node, int)
 						lastsp = count;
 				}
 			}
+
+			fprintf(destfile, "\r\n");
+			fputc(0, destfile);
+
 			fclose(destfile);
 		}
 		fclose(orgfile);
