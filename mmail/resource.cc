@@ -558,7 +558,7 @@ void resource::homeInit()
 			envhome = error.getOrigDir();
 	}
 
-	set_noalloc(homeDir, fixPath(envhome));
+	set_noalloc(homeDir, canonize(fixPath(envhome)));
 
 	if (usingHOME)
 		set_noalloc(mmHomeDir,
