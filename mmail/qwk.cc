@@ -669,22 +669,14 @@ qwkreply::upl_qwk::upl_qwk(const char *name) : pktreply::upl_base(name)
 	memset(&qHead, 0, sizeof(qHead));
 }
 
-qwkreply::qwkreply(mmail *mmA, specific_driver *baseClassA)
+qwkreply::qwkreply(mmail *mmA, specific_driver *baseClassA) :
+	pktreply(mmA, baseClassA)
 {
-	mm = mmA;
-	baseClass = (pktbase *) baseClassA;
-
-	replyText = 0;
 	qwke = ((qwkpack *) baseClass)->isQWKE();
-
-	uplListHead = 0;
-
-	replyExists = false;
 }
 
 qwkreply::~qwkreply()
 {
-	cleanup();
 }
 
 bool qwkreply::getRep1(FILE *rep, upl_qwk *l)

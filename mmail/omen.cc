@@ -387,20 +387,13 @@ void omenrep::upl_omen::output(FILE *rep)
 	fwrite(&omen_rec, sizeof omen_rec, 1, rep);
 }
 
-omenrep::omenrep(mmail *mmA, specific_driver *baseClassA)
+omenrep::omenrep(mmail *mmA, specific_driver *baseClassA) :
+	pktreply(mmA, baseClassA)
 {
-	mm = mmA;
-	baseClass = (pktbase *) baseClassA;
-
-	replyText = 0;
-	uplListHead = 0;
-
-	replyExists = false;
 }
 
 omenrep::~omenrep()
 {
-	cleanup();
 }
 
 // convert one reply to MultiMail's internal format

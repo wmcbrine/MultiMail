@@ -524,20 +524,13 @@ opxreply::upl_opx::~upl_opx()
 	delete[] msgid;
 }
 
-opxreply::opxreply(mmail *mmA, specific_driver *baseClassA)
+opxreply::opxreply(mmail *mmA, specific_driver *baseClassA) :
+	pktreply(mmA, baseClassA)
 {
-	mm = mmA;
-	baseClass = (pktbase *) baseClassA;
-
-	replyText = 0;
-	uplListHead = 0;
-
-	replyExists = false;
 }
 
 opxreply::~opxreply()
 {
-	cleanup();
 }
 
 int opxreply::getArea(const char *fname)

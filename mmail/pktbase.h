@@ -105,7 +105,6 @@ class pktreply : public reply_driver
 	int currentLetter, noOfLetters;
 	bool replyExists;
 
-	void cleanup();
 	void uncompress();
 	virtual void getReplies(FILE *) = 0;
 	void readRep();
@@ -115,6 +114,8 @@ class pktreply : public reply_driver
 	virtual void addHeader(FILE *) = 0;
 	virtual const char *repTemplate(bool) = 0;
  public:
+	pktreply(mmail *, specific_driver *);
+	~pktreply();
 	bool checkForReplies();
 	void init();
 	int getNoOfAreas();

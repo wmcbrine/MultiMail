@@ -26,11 +26,15 @@ pktbase::pktbase(mmail *mmA)
 	ID = 0;
 	bodyString = 0;
 	bulletins = 0;
+	infile = 0;
 	BBSName = SysOpName = 0;
 }
 
 pktbase::~pktbase()
 {
+	if (infile)
+		fclose(infile);
+
 	delete[] body;
 	delete bodyString;
 	delete[] bulletins;
@@ -50,8 +54,6 @@ void pktbase::cleanup()
 		delete[] areas[maxConf].name;
 	}
 	delete[] areas;
-
-	fclose(infile);
 }
 
 // Final index build for QWK-like packets
@@ -456,7 +458,16 @@ pktreply::upl_base::~upl_base()
 	delete[] fname;
 }
 
-void pktreply::cleanup()
+pktreply::pktreply(mmail *mmA, specific_driver *baseClassA)
+{
+	mm = mmA;
+	baseClass = (pktbase *) baseClassA;
+	replyText = 0;
+	uplListHead = 0;
+	replyExists = false;
+}
+
+pktreply::~pktreply()
 {
 	if (replyExists) {
 		upl_base *next, *curr = uplListHead;

@@ -46,7 +46,6 @@ bluewave::~bluewave()
 	delete[] mixRecord;
 	delete[] persNdx;
 
-	fclose(infile);
 	fclose(ftiFile);
 }
 
@@ -571,21 +570,14 @@ bwreply::upl_bw::~upl_bw()
 	delete[] extsubj;
 }
 
-bwreply::bwreply(mmail *mmA, specific_driver *baseClassA)
+bwreply::bwreply(mmail *mmA, specific_driver *baseClassA) :
+	pktreply(mmA, baseClassA)
 {
-	mm = mmA;
-	baseClass = (pktbase *) baseClassA;
-
 	uplHeader = new UPL_HEADER;
-	uplListHead = 0;
-	replyText = 0;
-
-	replyExists = false;
 }
 
 bwreply::~bwreply()
 {
-	cleanup();
 	delete uplHeader;
 }
 

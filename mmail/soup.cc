@@ -239,8 +239,6 @@ const char *sheader::Refs()
 
 soup::soup(mmail *mmA) : pktbase(mmA)
 {
-	infile = 0;
-
 	strncpy(packetBaseName, findBaseName(mm->resourceObject->
 		get(PacketName)), 8);
 	packetBaseName[8] = '\0';
@@ -264,9 +262,6 @@ soup::~soup()
 		delete areas[maxConf];
 	}
 	delete[] areas;
-
-	if (infile)
-		fclose(infile);
 }
 
 bool soup::msgopen(int area)
@@ -742,20 +737,13 @@ souprep::upl_soup::upl_soup(const char *name) : pktreply::upl_base(name)
 {
 }
 
-souprep::souprep(mmail *mmA, specific_driver *baseClassA)
+souprep::souprep(mmail *mmA, specific_driver *baseClassA) :
+	pktreply(mmA, baseClassA)
 {
-	mm = mmA;
-	baseClass = (pktbase *) baseClassA;
-
-	replyText = 0;
-	uplListHead = 0;
-
-	replyExists = false;
 }
 
 souprep::~souprep()
 {
-	cleanup();
 }
 
 // convert one reply to MultiMail's internal format
