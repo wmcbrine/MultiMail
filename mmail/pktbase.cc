@@ -378,9 +378,12 @@ char *pktbase::nextLine()
 	static char line[128];
 
 	char *end = myfgets(line, sizeof line, infile);
-	if (end)
+	if (end) {
 		while ((*end == '\n') || (*end == '\r'))
 			*end-- = '\0';
+	} else
+		line[0] = '\0';
+
 	return line;
 }
 
