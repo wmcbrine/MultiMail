@@ -16,7 +16,7 @@ enum {
 };
 
 enum {
-	homeDir = noOfRaw, mmHomeDir, PacketDir, TmpDir, WorkDir,
+	homeDir = noOfRaw, mmHomeDir, PacketDir, TempDir, BaseDir, WorkDir,
 	UncompressCommand, PacketName, BBSName, SysOpName, ReplyDir,
 	LoginName, AliasName, CompressCommand, UpWorkDir, editor, SaveDir,
 	AddressFile, TaglineFile, arjUncompressCommand,

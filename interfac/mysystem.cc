@@ -172,7 +172,7 @@ char *mytmpnam()
 
 	sprintf(name, "tmp%05ld.txt", tcount++);
 
-	return fullpath(mm.resourceObject->get(TmpDir), name);
+	return fullpath(mm.resourceObject->get(BaseDir), name);
 }
 
 void edit(const char *reply_filename)

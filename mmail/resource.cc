@@ -159,7 +159,7 @@ void baseconfig::processOneByName(const char *resName, const char *resValue)
 // ==============
 
 const int startUpLen =
- 49
+ 50
 #ifdef USE_SPAWNO
  + 1
 #endif
@@ -171,7 +171,7 @@ const int startUpLen =
 const char *resource::rc_names[startUpLen] =
 {
 	"UserName", "InetAddr", "QuoteHead", "InetQuote",
-	"homeDir", "mmHomeDir", "signature", "editor",
+	"homeDir", "mmHomeDir", "TempDir", "signature", "editor",
 	"PacketDir", "ReplyDir", "SaveDir", "AddressBook", "TaglineFile",
 	"ColorFile", "UseColors",
 #ifdef HAS_TRANS
@@ -214,7 +214,7 @@ const char *resource::rc_comments[startUpLen] = {
  "Your Internet email address (used only in SOUP replies)",
  "Quote header for replies (non-Internet)",
  "Quote header for Internet email and Usenet replies",
- "Base directories (derived from $HOME or $MMAIL)", 0,
+ "Base directories (derived from $HOME or $MMAIL)", 0, 0,
  "Signature (file) that should be appended to each message. (Not used\n"
  "# unless specified here.)",
  "Editor for replies = $EDITOR; or if not defined, " DEFEDIT,
@@ -260,7 +260,7 @@ const char *resource::rc_comments[startUpLen] = {
 const int resource::startUp[startUpLen] =
 {
 	UserName, InetAddr, QuoteHead, InetQuote, homeDir, mmHomeDir,
-	sigFile, editor, PacketDir, ReplyDir, SaveDir, AddressFile,
+	TempDir, sigFile, editor, PacketDir, ReplyDir, SaveDir, AddressFile,
 	TaglineFile, ColorFile, UseColors,
 #ifdef HAS_TRANS
 	Transparency,
@@ -369,10 +369,10 @@ resource::resource()
 	if (!verifyPaths())
 		fatalError("Unable to access data directories");
 
-	resourceData[TmpDir] = mytmpdir(resourceData[mmHomeDir]);
-	bool tmpok = checkPath(resourceData[TmpDir], false);
+	resourceData[BaseDir] = mytmpdir(resourceData[TempDir]);
+	bool tmpok = checkPath(resourceData[BaseDir], false);
 	if (!tmpok)
-		fatalError("Unable to create tmp directory");
+		fatalError("Unable to create temp directory");
 	subPath(WorkDir, "work");
 	subPath(UpWorkDir, "upwork");
 }
@@ -381,12 +381,12 @@ resource::~resource()
 {
 	clearDirectory(resourceData[WorkDir]);
 	clearDirectory(resourceData[UpWorkDir]);
-	mychdir(resourceData[TmpDir]);
+	mychdir(resourceData[BaseDir]);
 	myrmdir(resourceData[WorkDir]);
 	myrmdir(resourceData[UpWorkDir]);
-	clearDirectory(resourceData[TmpDir]);
+	clearDirectory(resourceData[BaseDir]);
 	mychdir("..");
-	myrmdir(resourceData[TmpDir]);
+	myrmdir(resourceData[BaseDir]);
 	for (int c = 0; c < noOfStrings; c++)
 		delete[] resourceData[c];
 }
@@ -560,6 +560,7 @@ void resource::homeInit()
 {
 	set_noalloc(mmHomeDir, canonize(fullpath(resourceData[homeDir],
 		"mmail")));
+	set(TempDir, resourceData[mmHomeDir]);
 }
 
 void resource::mmEachInit(int index, const char *dirname)
@@ -570,7 +571,7 @@ void resource::mmEachInit(int index, const char *dirname)
 
 void resource::subPath(int index, const char *dirname)
 {
-	char *tmp = fullpath(resourceData[TmpDir], dirname);
+	char *tmp = fullpath(resourceData[BaseDir], dirname);
 	set_noalloc(index, tmp);
 	if (!checkPath(tmp, 0))
 		fatalError("tmp Dir could not be created");
