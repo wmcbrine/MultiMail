@@ -982,10 +982,11 @@ void LetterWindow::KeyHandle(int key)
 {
 	int t_area;
 
-	if (ui->active() == letter)
-		TimeUpdate();
-
 	switch (key) {
+	case ERR:			// no key pressed
+		if (ui->active() == letter)
+			TimeUpdate();
+		break;
 #ifdef USE_MOUSE
 	case MM_MOUSE:
 		if (0 == mouse_event.y)
@@ -1046,8 +1047,8 @@ void LetterWindow::KeyHandle(int key)
 		ui->changestate(letter_help);
 		break;
 	case 'V':
-	case 1: // CTRL-A
-	case 11: // CTRL-V
+	case 1:				// Ctrl-A
+	case 11:			// Ctrl-V
 		{
 			int nextAns;
 			bool cont = false;
@@ -1096,7 +1097,7 @@ void LetterWindow::KeyHandle(int key)
 		case 'K':
 			ui->kill_letter();
 			break;
-		case 2:				// Ctrl-B
+		case 2:			// Ctrl-B
 			SplitLetter();
 			ui->redraw();
 			break;
@@ -1113,7 +1114,7 @@ void LetterWindow::KeyHandle(int key)
 		case 'U':
 			StatToggle((key == 'M') ? MS_MARKED : MS_READ);
 			break;
-		case 'R':	// Allow re-editing from here:
+		case 'R':		// Allow re-editing from here:
 		case 'O':
 			if (mm.letterList->getStatus() & MS_REPLIED)
 				if (EditOriginal()) {
