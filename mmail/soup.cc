@@ -184,8 +184,8 @@ void sheader::output(FILE *msg, const char *cset, bool useQPHead,
 	if (has8bit)
 		fprintf(msg, MIMEhead, cset, useQPBody ? QP : eightbit);
 
-	fprintf(msg, "User-Agent: " MM_NAME "/%d.%d (SOUP; %s)\n\n",
-		MM_MAJOR, MM_MINOR, sysname());
+	fprintf(msg, "User-Agent: " MM_NAME "/" MM_VERNUM " (SOUP; %s)\n\n",
+		sysname());
 }
 
 const char *sheader::From()

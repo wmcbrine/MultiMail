@@ -831,8 +831,8 @@ void bwreply::addRep1(FILE *uplFile, upl_base *node, int)
 				fprintf(destfile, *(l->uplRec.net_dest) ?
 					"\001X-Mail" : "\001X-News");
 				fprintf(destfile, "reader: " MM_NAME
-					" Offline Reader for %s v%d.%d\r\n",
-					sysname(), MM_MAJOR, MM_MINOR);
+					" Offline Reader for %s v"
+					MM_VERNUM "\r\n", sysname());
 
 				if (l->msgid)
 					fprintf(destfile,
@@ -870,7 +870,7 @@ void bwreply::addHeader(FILE *uplFile)
 
 	newUplHeader.reader_major = MM_MAJOR;
 	newUplHeader.reader_minor = MM_MINOR;
-	sprintf((char *) newUplHeader.vernum, "%1d.%2d", MM_MAJOR, MM_MINOR);
+	strncpy((char *) newUplHeader.vernum, MM_VERNUM, 20);
 	for (int c = 0; newUplHeader.vernum[c]; newUplHeader.vernum[c++] -= 10);
 
 	int tearlen = sprintf((char *) newUplHeader.reader_name,

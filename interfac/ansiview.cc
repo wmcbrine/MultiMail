@@ -832,7 +832,7 @@ void AnsiWindow::MakeActive()
 	oldAbort = ansiAbort;
 
 	char *tmp = new char[COLS + 1];
-	i = sprintf(tmp, " " MM_TOPHEADER, MM_NAME, MM_MAJOR, MM_MINOR);
+	i = sprintf(tmp, " " MM_TOPHEADER);
 	for (; i < COLS; i++)
 		tmp[i] = ' ';
 	tmp[i] = '\0';

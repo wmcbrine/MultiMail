@@ -153,8 +153,7 @@ void Interface::screen_init()
 
 	// Border and title:
 
-	sprintf(tmp, MM_TOPHEADER, MM_NAME, MM_MAJOR, MM_MINOR);
-	screen->boxtitle(C_SBORDER, tmp, emph(C_SBACK));
+	screen->boxtitle(C_SBORDER, MM_TOPHEADER, emph(C_SBACK));
 
 	// Help window area:
 

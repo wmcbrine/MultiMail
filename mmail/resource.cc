@@ -128,7 +128,7 @@ void baseconfig::newConfig(const char *configname)
 		for (p = intro; *p; p++)
 			fprintf(fd, "# %s\n", *p);
 
-		fprintf(fd, "\nVersion: %d.%d\n", MM_MAJOR, MM_MINOR);
+		fprintf(fd, "\nVersion: " MM_VERNUM "\n");
 
 		for (int x = 0; x < configItemNum; x++) {
 			if (comments[x])
@@ -319,7 +319,7 @@ const int resource::defInt[] =
 resource::resource()
 {
 	const char *greeting =
-		"\nWelcome to " MM_NAME " v%d.%d!\n\n"
+		"\nWelcome to " MM_NAME " v" MM_VERNUM "!\n\n"
 		"A new or updated " RCNAME " has been written. "
 		"If you continue now, " MM_NAME " will\nuse the default "
 		"values for any new keywords. (Existing keywords have been "
@@ -348,7 +348,7 @@ resource::resource()
 
 	if (parseConfig(configFileName)) {
 		newConfig(configFileName);
-		printf(greeting, MM_MAJOR, MM_MINOR);
+		printf(greeting);
 		char inp = fgetc(stdin);
 
 		if (toupper(inp) == 'Y') {

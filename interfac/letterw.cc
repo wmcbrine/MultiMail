@@ -684,8 +684,7 @@ void LetterWindow::MakeActive(bool redo)
 	statbar = new Win(1, COLS, LINES - 1, C_LBOTTSTAT);
 
 	char *tmp = new char[COLS + 1];
-	int i = sprintf(tmp, " " MM_TOPHEADER, MM_NAME, MM_MAJOR,
-		MM_MINOR);
+	int i = sprintf(tmp, " " MM_TOPHEADER);
 	tmp[i] = '\0';
 
 	headbar->put(0, 0, tmp);

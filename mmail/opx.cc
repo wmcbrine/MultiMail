@@ -514,8 +514,7 @@ const char *opxpack::getTear(int)
 
 	static char tear[80];
 
-	sprintf(tear, "--- %.9s/%.58s v%1d.%2d ", MM_NAME, sysname(),
-		MM_MAJOR, MM_MINOR);
+	sprintf(tear, "--- " MM_NAME "/%.58s v" MM_VERNUM " ", sysname());
 
 	return tear;
 }
@@ -811,8 +810,7 @@ void opxreply::addRep1(FILE *, upl_base *node, int)
 
 			if (!skipPID)
 				fprintf(destfile, "\001PID: " MM_NAME
-					"/%s v%d.%d\r\n", sysname(),
-						MM_MAJOR, MM_MINOR);
+					"/%s v" MM_VERNUM "\r\n", sysname());
 
 			int c, count = 0, lastsp = 0;
 			while ((c = fgetc(orgfile)) != EOF) {

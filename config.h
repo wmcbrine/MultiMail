@@ -1,5 +1,9 @@
+#define STRingize(x) #x
+#define STR(x) STRingize(x)
+
 #define MM_NAME "MultiMail"
-#define MM_TOPHEADER "%s offline reader v%d.%d"
+#define MM_VERNUM STR(MM_MAJOR) "." STR(MM_MINOR)
+#define MM_TOPHEADER MM_NAME " offline reader v" MM_VERNUM
 
 #define USE_SHADOWS     // "Shadowed" windows
 #define VANITY_PLATE    // Author info -- undefine for longer packet list
