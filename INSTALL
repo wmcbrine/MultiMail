@@ -151,11 +151,6 @@ This one looks more serious:
 But as far as I can tell, it too is harmless. Apparently it arises on
 systems with mismatched header files.
 
-On linking, some versions of gcc give a warning that reads, in part,
-"tmpnam() may be used unsafely". However, it says this for *any* usage of
-the tmpnam() function; and its suggested substitute is not really relevant
-to the way MultiMail works.
-
 Finally, some versions of the system header files (notably, those included
 with Red Hat 6.0) define toupper() and tolower() as multi-statement
 macros, resulting in warnings like:

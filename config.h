@@ -82,12 +82,10 @@
 
 /* I use strcasecmp() and strncasecmp() throughout, but some systems call
    these functions stricmp() and strincmp(). I haven't yet dealt with the
-   case where neither is defined. TEMP_RELATIVE is for tmpnam() implemen-
-   tations that return a relative path rather than an absolute one.
+   case where neither is defined.
 */
 #if defined (__EMX__) || defined (__TURBOC__)
 # define USE_STRICMP
-# define TEMP_RELATIVE
 #endif
 
 /* unistd.h is the POSIX header file. Borland/Turbo C doesn't have it.

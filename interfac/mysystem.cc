@@ -145,34 +145,21 @@ int mysystem2(const char *cmd, const char *args)
 	return result;
 }
 
-char *mytmpdir()
+char *mytmpdir(const char *home)
 {
-/* EMX, RSX/NT and Borland/Turbo C++ don't return an absolute pathname
-   from tmpnam(), so we create one ourselves. Otherwise, use the system's
-   version, and make sure it hasn't run out of names.
-*/
-	const char *name = tmpnam(0);
-	if (!name)
-		fatalError("Out of temporary filenames");
-#ifdef TEMP_RELATIVE
-	const char *tmppath = getenv("TEMP");
+	mystat st;
+	char name[12];
 
-	if (!tmppath) {
-		tmppath = getenv("TMP");
-		if (!tmppath)
-			tmppath = error.getOrigDir();
-	}
-	size_t lentmp = strlen(tmppath);
-	char end = tmppath[lentmp - 1];
-	bool endslash = ('/' == end) || ('\\' == end);
-	char *newname = new char[lentmp + strlen(name) + (endslash ? 1 : 2)];
+	srand((unsigned) time(0));
 	
-	sprintf(newname, endslash ? "%s%s" : "%s/%s", tmppath, name);
-
-	return newname;
-#else
-	return strdupplus(name);
-#endif
+	if (mychdir(home))
+		fatalError("Could not change to temp dir");
+	
+	do
+		sprintf(name, "work%04x", (rand() & 0xffff));
+	while (st.init(name));
+	
+	return fullpath(home, name);
 }
 
 char *mytmpnam()

@@ -369,7 +369,7 @@ resource::resource()
 	if (!verifyPaths())
 		fatalError("Unable to access data directories");
 
-	resourceData[TmpDir] = mytmpdir();
+	resourceData[TmpDir] = mytmpdir(resourceData[mmHomeDir]);
 	bool tmpok = checkPath(resourceData[TmpDir], false);
 	if (!tmpok)
 		fatalError("Unable to create tmp directory");
