@@ -773,19 +773,6 @@ letter_header *qwkreply::getNextLetter()
 	return newLetter;
 }
 
-int qwkreply::monthval(const char *abbr)
-{
-	static const char *month_abbr[] =
-		{"Jan", "Feb", "Mar", "Apr", "Mar", "Jun",
-	 	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-	int c;
-
-	for (c = 0; c < 12; c++)
-		if (!strcmp(month_abbr[c], abbr))
-			break;
-	return c + 1;
-}
-
 void qwkreply::enterLetter(letter_header &newLetter,
 			const char *newLetterFileName, long length)
 {

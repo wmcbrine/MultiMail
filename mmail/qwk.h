@@ -90,7 +90,6 @@ class qwkreply : public pktreply
 
 	bool getRep1(FILE *, upl_qwk *);
 	void getReplies(FILE *);
-	int monthval(const char *);
 	void addRep1(FILE *, upl_base *, int);
 	void addHeader(FILE *);
 	void repFileName();
