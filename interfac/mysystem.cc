@@ -84,13 +84,12 @@ char *myfgets(char *s, size_t size, FILE *stream)
 
 int mysystem(const char *cmd)
 {
-	if (ui) {
-#ifdef PDCURSKLUDGE
-		// Restore original cursor
-		PDC_set_cursor_mode(curs_start, curs_end);
-#endif
-		if (!isendwin())
+	if (ui && !isendwin()) {
 			endwin();
+#ifdef PDCURSKLUDGE
+			// Restore original cursor
+			PDC_set_cursor_mode(curs_start, curs_end);
+#endif
 	}
 
 #ifdef USE_SPAWNO

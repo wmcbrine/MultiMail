@@ -57,10 +57,9 @@
 */
 # define ALLCHARSOK
 
-/* For the ugly cursor-toggling routines -- no longer needed with PDCurses
-   2.4?
-*/
-# if 0
+/* For the ugly cursor-toggling routines */
+
+# ifndef __WIN32__
 #  define PDCURSKLUDGE
 # endif
 
