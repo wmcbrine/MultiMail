@@ -97,7 +97,7 @@ void AddressBook::MakeActive(bool NoEnterA)
 		int x = xwidth / 3 + 1;
 		int y = list_max_y + 2;
 
-		list->horizline(y, list_max_x);
+		list->horizline(y);
 
 		list->put(++y, 3, ": Quit addressbook");
 		list->put(y, x + 3, ": Add new address");

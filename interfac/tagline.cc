@@ -80,7 +80,7 @@ void TaglineWindow::MakeActive()
 		int y = list_max_y + 1;
 
 		list->attrib(C_TKEYSTEXT);
-		list->horizline(y, xwidth - 2);
+		list->horizline(y);
 		list->put(++y, 2, "Q");
 		list->put(y, x, "R");
 		list->put(y, x * 2, "Enter");

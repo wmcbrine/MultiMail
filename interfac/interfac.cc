@@ -162,7 +162,7 @@ void Interface::screen_init()
 
 	if (!mm.resourceObject->getInt(ExpertMode)) {
 		screen->attrib(C_SSEPBOTT);
-		screen->horizline(LINES - 5, COLS - 2);
+		screen->horizline(LINES - 5);
 	}
 	screen->delay_update();
 }

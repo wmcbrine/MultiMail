@@ -313,7 +313,7 @@ void AreaListWindow::MakeActive()
 	if (hasPers)
 		list->put(1, list_max_x - 9, "Personal");
 
-	list->horizline(list_max_y + 2, list_max_x);
+	list->horizline(list_max_y + 2);
 
 	padding = list_max_x - 28;
 	if (hasPers)

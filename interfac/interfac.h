@@ -157,7 +157,7 @@ class Win
 	int put(int, int, const char *, int = -1);
 	void attrib(chtype);
 	void attrib(coltype);
-	void horizline(int, int);
+	void horizline(int);
 	void update();
 	void delay_update();
 	void wtouch();

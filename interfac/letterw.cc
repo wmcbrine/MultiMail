@@ -560,8 +560,8 @@ void LetterWindow::DrawHeader()
 
 	header->put(3, 2, "Subj:");
 
+	//header->horizline(4);
 	//header->put(4, 0, ACS_LLCORNER);
-	//header->horizline(4, COLS - 2);
 	//header->put(4, COLS - 1, ACS_LRCORNER);
 
 	UpdateHeader();

@@ -143,10 +143,10 @@ void Win::attrib(coltype z)
 	attrib(ColorArray[z]);
 }
 
-void Win::horizline(int y, int len)
+void Win::horizline(int y)
 {
 	wmove(win, y, 1);
-	whline(win, ACS_HLINE, len);
+	whline(win, ACS_HLINE, getmaxx(win) - 2);
 }
 
 void Win::update()
