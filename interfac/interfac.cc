@@ -436,9 +436,10 @@ void Interface::newpacket()
 	unsaved_reply = any_read = false;
 
 	if (mm.checkForReplies())
-		if (!WarningWindow("Existing replies found:", keepers))
+		if (!WarningWindow("Existing replies found:", keepers)) {
 			mm.deleteReplies();
-		else {
+			redraw();
+		} else {
 			redraw();
 			ReportWindow("Opening replies...");
 		}
