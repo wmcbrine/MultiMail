@@ -193,8 +193,8 @@ void AreaListWindow::oneLine(int i)
 
 		sprintf(p, format2, mm.areaList->getDescription());
 		areaconv_in(p);
-		list->put(list_max_y + 4 + hasSys, 20, p);
-
+		list->put(list_max_y + 4 + hasSys, 8, p);
+		
 		list->delay_update();
 	}
 	p += sprintf(p, format, ((attrib & ADDED) ? '+' :
@@ -204,21 +204,21 @@ void AreaListWindow::oneLine(int i)
 		mm.areaList->getShortName(), mm.areaList->getDescription());
 
 	if (mm.areaList->getNoOfLetters())
-		p += sprintf(p, "  %5d  ", mm.areaList->getNoOfLetters());
+		p += sprintf(p, " %6d  ", mm.areaList->getNoOfLetters());
 	else
 		p += sprintf(p, "      .  ");
 
 	if (mm.areaList->getNoOfUnread())
-		p += sprintf(p, "  %5d   ", mm.areaList->getNoOfUnread());
+		p += sprintf(p, "%6d  ", mm.areaList->getNoOfUnread());
 	else
-		p += sprintf(p, "      .   ");
+		p += sprintf(p, "     .  ");
 
 	if (hasPers)
 		if (mm.areaList->getNoOfPersonal())
-			sprintf(p, "   %5d   ",
+			sprintf(p, "%6d  ",
 				mm.areaList->getNoOfPersonal());
 		else
-			sprintf(p, "       .   ");
+			sprintf(p, "     .  ");
 
 	coltype ch = ((attrib & (REPLYAREA | ADDED | DROPPED)) ||
 		((attrib & HASREPLY) && !(attrib & ACTIVE))) ?
@@ -278,7 +278,7 @@ void AreaListWindow::MakeActive()
 
 	const char *bb = mm.packet->getBBSName();
 	const char *sy = mm.packet->getSysOpName();
-	hasSys = ((bb && *bb) || (sy && *sy));
+	hasSys = bb && *bb;
 
 	list_max_y = LINES - (mm.resourceObject->getInt(ExpertMode) ?
 			11 : 15) + !hasSys;
@@ -306,47 +306,52 @@ void AreaListWindow::MakeActive()
 
 	list->attrib(C_ALHEADTEXT);
 	list->put(1, 3, "Area#  Description");
-	int newloc = list_max_x - 15;
+	int newloc = list_max_x - 14;
 	if (hasPers)
-		newloc -= 11;
+		newloc -= 8;
 	list->put(1, newloc, "Total   Unread");
 	if (hasPers)
-		list->put(1, list_max_x - 9, "Personal");
+		list->put(1, list_max_x - 5, "Pers");
 
 	list->horizline(list_max_y + 2);
 
-	padding = list_max_x - 28;
+	padding = list_max_x - 26;
 	if (hasPers)
-		padding -= 11;
+		padding -= 8;
 	sprintf(format, "%%c%%6s  %%-%d.%ds", padding, padding);
 
 	middle = (list_max_x - 2) >> 1;
+	padding = list_max_x - 8;
 
 	list->attrib(C_ALINFOTEXT);
-	if (hasSys) {
+	if (hasSys)
 		list->put(list_max_y + 3, 3, "BBS:");
-		list->put(list_max_y + 3, middle, " Sysop:");
-	}
-	list->put(list_max_y + 3 + hasSys, 2, "Type:");
-	list->put(list_max_y + 4 + hasSys, 2, "Area description:");
 
+	if (sy && *sy)
+		list->put(list_max_y + 4, middle, " Sysop:");
+
+	list->put(list_max_y + 3 + hasSys, 2, "Type:");
+	list->put(list_max_y + 4 + hasSys, 2, "Area:");
+	
 	sprintf(tpad, "%%.%ds", (middle < 87) ? middle - 8 : 79);
 	middle += 8;
+
+	sprintf(format2, "%%-%d.%ds", padding, padding);
 
 	list->attrib(C_ALINFOTEXT2);
 
 	if (hasSys) {
-		sprintf(tmp, tpad, (bb && *bb) ? bb : "(unknown)");
-		charconv_in(tmp);
-		list->put(list_max_y + 3, 8, tmp);
-
-		sprintf(tmp, tpad, (sy && *sy) ? sy : "(unknown)");
-		charconv_in(tmp);
-		list->put(list_max_y + 3, middle, tmp);
+		p = list->lineBuf;
+		sprintf(p, format2, bb);
+		charconv_in(p);
+		list->put(list_max_y + 3, 8, p);
 	}
 
-	padding = list_max_x - 20;
-	sprintf(format2, "%%-%d.%ds", padding, padding);
+	if (sy && *sy) {
+		sprintf(tmp, tpad, sy);
+		charconv_in(tmp);
+		list->put(list_max_y + 4, middle, tmp);
+	}
 
 	DrawAll();
 	Select();
