@@ -93,8 +93,7 @@ area_header *bluewave::getNextArea()
 		((flags_raw & INF_TO_ALL) ? PERSALL : 0) |
 		((flags_raw & INF_POST) ? 0 : READONLY));
 
-	area_header *tmp = new area_header(mm,
-		ID + mm->driverList->getOffset(this), isPers ? "PERS" :
+	area_header *tmp = new area_header(mm, ID + 1, isPers ? "PERS" :
 		(char *) areas[ID].areanum, isPers ? "PERSONAL" :
 		(char *) areas[ID].echotag, (isPers ?
 		"Letters addressed to you" : (areas[ID].title[0] ?
@@ -208,7 +207,7 @@ void bluewave::endproc(letter_header &mhead)
 	char *end;
 
 	net_address &na = mhead.getNetAddr();
-	int AreaID = mhead.getAreaID() - mm->driverList->getOffset(this);
+	int AreaID = mhead.getAreaID() - 1;
 
 	if (areas[AreaID].network_type == INF_NET_INTERNET) {
 

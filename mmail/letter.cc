@@ -264,11 +264,6 @@ int letter_header::getLength() const
 	return length;
 }
 
-specific_driver *letter_header::getDriver() const
-{
-	return driver;
-}
-
 bool letter_header::getRead()
 {
 	return readO->getRead(AreaID, LetterID);

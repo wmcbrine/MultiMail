@@ -3,7 +3,7 @@
  * area_header and area_list
 
  Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 2002 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -298,9 +298,7 @@ void area_list::updatePers()
 	// are valid as the program is currently written, but that are not
 	// made elsewhere in this class.
 
-	specific_driver *actDriver =
-		mm->driverList->getDriver(REPLY_AREA + 1);
-	if (actDriver->hasPersArea()) {
+	if (mm->driver->hasPersArea()) {
 		int c = current;
 		current = REPLY_AREA + 1;
 		if (isCollection() && !isReplyArea()) {

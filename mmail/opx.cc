@@ -46,8 +46,7 @@ area_header *opxpack::getNextArea()
 	int cMsgNum = areas[ID].nummsgs;
 	bool x = (areas[ID].num == - 1);
 
-	area_header *tmp = new area_header(mm,
-		ID + mm->driverList->getOffset(this),
+	area_header *tmp = new area_header(mm, ID + 1,
 		areas[ID].numA, areas[ID].name,
 		(x ? "Letters addressed to you" : areas[ID].name),
 		(x ? "OPX personal" : "OPX"),

@@ -158,7 +158,7 @@ letter_body *pktbase::getBody(letter_header &mhead)
 	long length, offset;
 	letter_body head(0, 0), *currblk = &head;
 
-	AreaID = mhead.getAreaID() - mm->driverList->getOffset(this);
+	AreaID = mhead.getAreaID() - 1;
 	LetterID = mhead.getLetterID();
 
 	delete bodyString;

@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * OMEN
 
- Copyright (c) 2001 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -53,8 +53,7 @@ area_header *omen::getNextArea()
 	int cMsgNum = areas[ID].nummsgs;
 	bool x = (areas[ID].num == -1);
 
-	area_header *tmp = new area_header(mm,
-		ID + mm->driverList->getOffset(this), areas[ID].numA,
+	area_header *tmp = new area_header(mm, ID + 1, areas[ID].numA,
 		areas[ID].name, (x ? "Letters addressed to you" :
 		areas[ID].name), (x ? "OMEN personal" : "OMEN"),
 		areas[ID].attr | (cMsgNum ? ACTIVE : 0), cMsgNum,

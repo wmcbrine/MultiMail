@@ -311,8 +311,7 @@ area_header *soup::getNextArea()
 {
 	int cMsgNum = areas[ID]->nummsgs;
 
-	area_header *tmp = new area_header(mm,
-		ID + mm->driverList->getOffset(this), areas[ID]->numA,
+	area_header *tmp = new area_header(mm, ID + 1, areas[ID]->numA,
 		areas[ID]->msgfile, areas[ID]->name, "SOUP",
 		areas[ID]->attr | (cMsgNum ? ACTIVE : 0), cMsgNum,
 		0, 99, 511);
@@ -545,7 +544,7 @@ letter_body *soup::getBody(letter_header &mhead)
 	long length, offset;
 	letter_body head(0, 0), *currblk = &head;
 
-	AreaID = mhead.getAreaID() - mm->driverList->getOffset(this);
+	AreaID = mhead.getAreaID() - 1;
 	LetterID = mhead.getLetterID();
 
 	delete bodyString;

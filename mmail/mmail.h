@@ -101,7 +101,9 @@ class mmail
 	driver_list *driverList;
 	area_list *areaList;
 	letter_list *letterList;
-
+	specific_driver *driver;
+	reply_driver *replydriver;
+	
 	mmail();
 	~mmail();
 	pktstatus selectPacket(const char *);
@@ -348,7 +350,6 @@ class letter_header
 	net_address &getNetAddr();
 	long getReplyTo() const;
 	bool getPrivate() const;
-	inline specific_driver *getDriver() const;
 	inline letter_body *getBody();
 	int getLetterID() const;
 	int getAreaID() const;

@@ -3,7 +3,7 @@
  * mmail class
 
  Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 2000 William McBrine <wmcbrine@users.sourceforge.net>,
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>,
                     Robert Vukovic <vrobert@uns.ns.ac.yu>
 
  Distributed under the GNU General Public License.
@@ -171,6 +171,9 @@ pktstatus mmail::selectPacket(const char *packetName)
 
 	driverList = new driver_list(this);
 
+	driver = driverList->getDriver(REPLY_AREA + 1);
+	replydriver = driverList->getReplyDriver();
+
 	if (!driverList->getNoOfDrivers()) {
 		delete driverList;
 		delete workList;
@@ -182,55 +185,54 @@ pktstatus mmail::selectPacket(const char *packetName)
 // Save last read pointers
 bool mmail::saveRead()
 {
-	return driverList->getReadObject(driverList->getDriver(REPLY_AREA
-		+ 1))->saveAll();
+	return driverList->getReadObject(driver)->saveAll();
 }
 
 // Get the packet's opening screen, if available
 file_header *mmail::getHello()
 {
-	return (driverList->getDriver(REPLY_AREA + 1))->getHello();
+	return driver->getHello();
 }
 
 // Get the packet's closing screen, if available
 file_header *mmail::getGoodbye()
 {
-	return (driverList->getDriver(REPLY_AREA + 1))->getGoodbye();
+	return driver->getGoodbye();
 }
 
 // Get the BBS' "new files" list, if available
 file_header *mmail::getFileList()
 {
-	return (driverList->getDriver(REPLY_AREA + 1))->getFileList();
+	return driver->getFileList();
 }
 
 // Get extra files, if available
 file_header **mmail::getBulletins()
 {
-	return (driverList->getDriver(REPLY_AREA + 1))->getBulletins();
+	return driver->getBulletins();
 }
 
 // Overall character set for packet (used for files and bulletins)
 bool mmail::isLatin()
 {
-	return (driverList->getDriver(REPLY_AREA + 1))->isLatin();
+	return driver->isLatin();
 }
 
 // Is there a reply packet?
 bool mmail::checkForReplies()
 {
-	return (driverList->getReplyDriver())->checkForReplies();
+	return replydriver->checkForReplies();
 }
 
 // Create a reply packet
 bool mmail::makeReply()
 {
-        return (driverList->getReplyDriver())->makeReply();
+        return replydriver->makeReply();
 }
 
 void mmail::deleteReplies()
 {
-	(driverList->getReplyDriver())->deleteReplies();
+	replydriver->deleteReplies();
 
 	// to reset the "replyExists" flag (inelegant, I know):
 	checkForReplies();	
@@ -238,11 +240,11 @@ void mmail::deleteReplies()
 
 void mmail::openReply()
 {
-	(driverList->getReplyDriver())->init();
+	replydriver->init();
 }
 
 bool mmail::getOffConfig()
 {
-	return (driverList->getReplyDriver())->getOffConfig();
+	return replydriver->getOffConfig();
 }
 
