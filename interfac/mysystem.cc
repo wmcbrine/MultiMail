@@ -293,10 +293,15 @@ void clearDirectory(const char *DirName)
 	mystat st;
 	const char *fname;
 
-	if (myopendir(DirName))
+	if (myopendir(DirName)) {
 		while ((fname = myreaddir(st)) != 0)
 			if (!st.isdir())
 				remove(fname);
+	} else {
+		char tmp[512];
+		sprintf(tmp, "Could not change to %s", DirName);
+		fatalError(tmp);
+	}
 }
 
 #ifdef USE_SETFTIME
