@@ -39,36 +39,6 @@ specific_driver::~specific_driver()
 {
 }
 
-bool specific_driver::hasPersArea()
-{
-	return false;
-}
-
-bool specific_driver::hasPersonal()
-{
-	return false;
-}
-
-bool specific_driver::isLatin()
-{
-	return false;
-}
-
-const char *specific_driver::oldFlagsName()
-{
-	return 0;
-}
-
-bool specific_driver::readOldFlags()
-{
-	return false;
-}
-
-bool specific_driver::saveOldFlags()
-{
-	return false;
-}
-
 reply_driver::~reply_driver()
 {
 }

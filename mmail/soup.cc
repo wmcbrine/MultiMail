@@ -237,11 +237,11 @@ const char *sheader::Refs()
 // The SOUP methods
 // -----------------------------------------------------------------
 
-soup::soup(mmail *mmA)
+soup::soup(mmail *mmA) : pktbase(mmA)
 {
-	mm = mmA;
-	ID = 0;
-	bodyString = 0;
+	//mm = mmA;
+	//ID = 0;
+	//bodyString = 0;
 
 	infile = 0;
 
@@ -660,8 +660,6 @@ void soup::readAreas()
 
 	mm->resourceObject->set_noalloc(LoginName, tmp);
 	mm->resourceObject->set(AliasName, "");
-	mm->resourceObject->set(BBSName, (char *) 0);
-	mm->resourceObject->set(SysOpName, (char *) 0);
 
 	// AREAS:
 

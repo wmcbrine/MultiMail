@@ -18,11 +18,11 @@ enum {OM_WRITE = 1, OM_SYSOP = 2, OM_PRIVATE = 4, OM_PUBLIC = 8,
 // The OMEN methods
 // -----------------------------------------------------------------
 
-omen::omen(mmail *mmA)
+omen::omen(mmail *mmA) : pktbase(mmA)
 {
-	mm = mmA;
-	ID = 0;
-	bodyString = 0;
+	//mm = mmA;
+	//ID = 0;
+	//bodyString = 0;
 
 	strcpy(extent, defExtent());
 
@@ -241,7 +241,7 @@ void omen::readSystemBBS()
 		while (!feof(infile)) {
 			const char *line = nextLine();
 			if (!strncasecmp(line, "sysop:", 6))
-				mm->resourceObject->set(SysOpName, line + 6);
+				SysOpName = strdupplus(line + 6);
 			else
 				if (!strcasecmp(line, "select:on"))
 					hasOffConfig = OFFCONFIG;
@@ -250,8 +250,7 @@ void omen::readSystemBBS()
 						useLatin = LATINCHAR;
 		}
 		fclose(infile);
-	} else
-			mm->resourceObject->set(SysOpName, (char *) 0);
+	}
 
 	// SYSTEMxy.BBS, and BNAMESxy.BBS if available:
 
@@ -270,7 +269,7 @@ void omen::readSystemBBS()
 
 		fread(&b, 1, 41, infile);
 		b.name[b.len] = '\0';
-		mm->resourceObject->set(BBSName, b.name);
+		BBSName = strdupplus(b.name);
 
 		areas = new AREAs[maxConf];
 		areatmp = new ATMP[maxConf - 1];

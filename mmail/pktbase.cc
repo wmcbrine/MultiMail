@@ -20,6 +20,14 @@
 // The packet methods
 // -----------------------------------------------------------------
 
+pktbase::pktbase(mmail *mmA)
+{
+	mm = mmA;
+	ID = 0;
+	bodyString = 0;
+	BBSName = SysOpName = 0;
+}
+
 // Clean up for the QWK-like packets
 void pktbase::cleanup()
 {
@@ -133,6 +141,31 @@ int pktbase::getNoOfLetters()
 bool pktbase::hasPersArea()
 {
 	return hasPers;
+}
+
+bool pktbase::hasPersonal()
+{
+	return false;
+}
+
+bool pktbase::isLatin()
+{
+	return false;
+}
+
+const char *pktbase::oldFlagsName()
+{
+	return 0;
+}
+
+bool pktbase::readOldFlags()
+{
+	return false;
+}
+
+bool pktbase::saveOldFlags()
+{
+	return false;
 }
 
 int pktbase::getNoOfAreas()
@@ -337,6 +370,16 @@ void pktbase::listBulletins(const char x[][13], int d, int generic)
 		delete[] bulletins;
 		bulletins = 0;
 	}
+}
+
+const char *pktbase::getBBSName()
+{
+	return BBSName;
+}
+
+const char *pktbase::getSysOpName()
+{
+	return SysOpName;
 }
 
 file_header *pktbase::getHello()
@@ -545,6 +588,46 @@ letter_body *pktreply::getBody(letter_header &mhead)
 	head.next = 0;
 
 	return replyText;
+}
+
+bool pktreply::hasPersArea()
+{
+	return false;
+}
+
+bool pktreply::hasPersonal()
+{
+	return false;
+}
+
+bool pktreply::isLatin()
+{
+	return false;
+}
+
+const char *pktreply::oldFlagsName()
+{
+	return 0;
+}
+
+bool pktreply::readOldFlags()
+{
+	return false;
+}
+
+bool pktreply::saveOldFlags()
+{
+	return false;
+}
+
+const char *pktreply::getBBSName()
+{
+	return 0;
+}
+
+const char *pktreply::getSysOpName()
+{
+	return 0;
 }
 
 file_header *pktreply::getHello()

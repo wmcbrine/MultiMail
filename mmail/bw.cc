@@ -15,11 +15,11 @@
 // The Blue Wave methods
 // -----------------------------------------------------------------
 
-bluewave::bluewave(mmail *mmA)
+bluewave::bluewave(mmail *mmA) : pktbase(mmA)
 {
-	mm = mmA;
-	ID = 0;
-	bodyString = 0;
+	//mm = mmA;
+	//ID = 0;
+	//bodyString = 0;
 	persNdx = 0;
 
 	findInfBaseName();
@@ -348,8 +348,8 @@ void bluewave::initInf()
 
 	mm->resourceObject->set(LoginName, (char *) infoHeader.loginname);
 	mm->resourceObject->set(AliasName, (char *) infoHeader.aliasname);
-	mm->resourceObject->set(SysOpName, (char *) infoHeader.sysop);
-	mm->resourceObject->set(BBSName, (char *) infoHeader.systemname); 
+	SysOpName = strdupplus((char *) infoHeader.sysop);
+	BBSName = strdupplus((char *) infoHeader.systemname); 
 
 	// Areas
 

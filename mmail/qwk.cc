@@ -159,11 +159,11 @@ void qheader::set_length(FILE *repFile, long headerpos, long curpos)
 // The QWK methods
 // -----------------------------------------------------------------
 
-qwkpack::qwkpack(mmail *mmA)
+qwkpack::qwkpack(mmail *mmA) : pktbase(mmA)
 {
-	mm = mmA;
-	ID = 0;
-	bodyString = 0;
+	//mm = mmA;
+	//ID = 0;
+	//bodyString = 0;
 
 	qwke = !(!mm->workList->exists("toreader.ext"));
 
@@ -508,7 +508,7 @@ void qwkpack::readControlDat()
 	if (!infile)
 		fatalError("Could not open CONTROL.DAT");
 
-	mm->resourceObject->set(BBSName, nextLine());	// 1: BBS name
+	BBSName = strdupplus(nextLine());		// 1: BBS name
 	nextLine();					// 2: city/state
 	nextLine();					// 3: phone#
 
@@ -523,7 +523,7 @@ void qwkpack::readControlDat()
 				*p = '\0';
 		}
 	}
-	mm->resourceObject->set(SysOpName, q);
+	SysOpName = strdupplus(q);
 
 	q = nextLine();					// 5: doorserno,BBSid
 	strtok(q, ",");

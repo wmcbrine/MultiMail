@@ -188,42 +188,6 @@ bool mmail::saveRead()
 	return driverList->getReadObject(packet)->saveAll();
 }
 
-// Get the packet's opening screen, if available
-file_header *mmail::getHello()
-{
-	return packet->getHello();
-}
-
-// Get the packet's closing screen, if available
-file_header *mmail::getGoodbye()
-{
-	return packet->getGoodbye();
-}
-
-// Get the BBS' "new files" list, if available
-file_header *mmail::getFileList()
-{
-	return packet->getFileList();
-}
-
-// Get extra files, if available
-file_header **mmail::getBulletins()
-{
-	return packet->getBulletins();
-}
-
-// Overall character set for packet (used for files and bulletins)
-bool mmail::isLatin()
-{
-	return packet->isLatin();
-}
-
-// Add a "Personal" column in the area list?
-bool mmail::hasPersonal()
-{
-	return packet->hasPersonal();
-}
-
 // Is there a reply packet?
 bool mmail::checkForReplies()
 {

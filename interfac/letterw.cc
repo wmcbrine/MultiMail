@@ -892,7 +892,7 @@ void LetterWindow::write_header_to_file(FILE *fd)
 	mm.areaList->gotoArea(mm.letterList->getAreaID());
 
 	const char *head[items] = {
-		mm.resourceObject->get(BBSName),
+		mm.packet->getBBSName(),
 		mm.areaList->getDescription(),
 		mm.letterList->getNewsgrps(), mm.letterList->getDate(),
 		mm.letterList->getFrom(), mm.letterList->getTo(),

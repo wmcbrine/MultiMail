@@ -39,6 +39,7 @@ class pktbase : public specific_driver
 
 	FILE *infile;
 	char packetBaseName[9];
+	char *BBSName, *SysOpName;
 	int maxConf, numMsgs, ID, currentArea, currentLetter;
 	unsigned long hasOffConfig;
 	bool hasPers;
@@ -46,7 +47,6 @@ class pktbase : public specific_driver
 	void cleanup();
 	void initBody(ndx_fake *, int);
 	int getYNum(int, unsigned long);
-	bool hasPersArea();
 	void checkLatin(letter_header &);
 	const char *getHidden(const char *, char *&);
 	void fidocheck(letter_header &);
@@ -59,12 +59,21 @@ class pktbase : public specific_driver
 	virtual void postfirstblk(unsigned char *&, letter_header &);
 	virtual void endproc(letter_header &);
  public:
+	pktbase(mmail *);
 	int getXNum(int);
 	int getNoOfAreas();
 	virtual int getNoOfLetters();
 	void selectArea(int);
 	void resetLetters();
+	bool hasPersArea();
+	virtual bool hasPersonal();
+	virtual bool isLatin();
+	virtual const char *oldFlagsName();
+	virtual bool readOldFlags();
+	virtual bool saveOldFlags();
 	virtual letter_body *getBody(letter_header &);
+	const char *getBBSName();
+	const char *getSysOpName();
 	virtual file_header *getHello();
 	virtual file_header *getGoodbye();
 	virtual file_header *getFileList();
@@ -112,6 +121,14 @@ class pktreply : public reply_driver
 	int getNoOfLetters();
 	void resetLetters();
 	letter_body *getBody(letter_header &);
+	bool hasPersArea();
+	bool hasPersonal();
+	bool isLatin();
+	const char *oldFlagsName();
+	bool readOldFlags();
+	bool saveOldFlags();
+	const char *getBBSName();
+	const char *getSysOpName();
 	file_header *getHello();
 	file_header *getGoodbye();
 	file_header *getFileList();

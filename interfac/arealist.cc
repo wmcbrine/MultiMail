@@ -270,14 +270,14 @@ void AreaListWindow::MakeActive()
 	int padding, middle;
 	char tmp[80], tpad[7];
 
-	hasPers = mm.hasPersonal();
+	hasPers = mm.packet->hasPersonal();
 	mm.areaList->updatePers();
 
 	mm.areaList->setMode(mm.areaList->getMode() - 1);
 	mm.areaList->relist();
 
-	const char *bb = mm.resourceObject->get(BBSName);
-	const char *sy = mm.resourceObject->get(SysOpName);
+	const char *bb = mm.packet->getBBSName();
+	const char *sy = mm.packet->getSysOpName();
 	hasSys = ((bb && *bb) || (sy && *sy));
 
 	list_max_y = LINES - (mm.resourceObject->getInt(ExpertMode) ?

@@ -14,11 +14,11 @@
 // The OPX methods
 // -----------------------------------------------------------------
 
-opxpack::opxpack(mmail *mmA)
+opxpack::opxpack(mmail *mmA) : pktbase(mmA)
 {
-	mm = mmA;
-	ID = 0;
-	bodyString = 0;
+	//mm = mmA;
+	//ID = 0;
+	//bodyString = 0;
 
 	readBrdinfoDat();
 
@@ -289,11 +289,8 @@ void opxpack::readBrdinfoDat()
 	strcpy(packetBaseName, p);
 	delete[] p;
 
-	p = pstrget(&header.bbsname);
-	mm->resourceObject->set_noalloc(BBSName, p);
-
-	p = pstrget(&header.sysopname);
-	mm->resourceObject->set_noalloc(SysOpName, p);
+	BBSName = pstrget(&header.bbsname);
+	SysOpName = pstrget(&header.sysopname);
 
 	p = pstrget(&header.username);
 	mm->resourceObject->set(LoginName, p);

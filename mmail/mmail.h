@@ -109,12 +109,6 @@ class mmail
 	pktstatus selectPacket(const char *);
 	void Delete();
 	bool saveRead();
-	file_header *getHello();
-	file_header *getGoodbye();
-	file_header *getFileList();
-	file_header **getBulletins();
-	bool isLatin();
-	bool hasPersonal();
 	bool checkForReplies();
 	bool makeReply();
 	void deleteReplies();
@@ -507,12 +501,12 @@ class specific_driver
 {
  public:
 	virtual ~specific_driver();
-	virtual bool hasPersArea();
-	virtual bool hasPersonal();
-	virtual bool isLatin();
-	virtual const char *oldFlagsName();
-	virtual bool readOldFlags();
-	virtual bool saveOldFlags();
+	virtual bool hasPersArea() = 0;
+	virtual bool hasPersonal() = 0;
+	virtual bool isLatin() = 0;
+	virtual const char *oldFlagsName() = 0;
+	virtual bool readOldFlags() = 0;
+	virtual bool saveOldFlags() = 0;
 	virtual int getNoOfAreas() = 0;
 	virtual area_header *getNextArea() = 0;
 	virtual void selectArea(int) = 0;
@@ -520,6 +514,8 @@ class specific_driver
 	virtual void resetLetters() = 0;
 	virtual letter_header *getNextLetter() = 0;
 	virtual letter_body *getBody(letter_header &) = 0;
+	virtual const char *getBBSName() = 0;
+	virtual const char *getSysOpName() = 0;
 	virtual file_header *getHello() = 0;
 	virtual file_header *getGoodbye() = 0;
 	virtual file_header *getFileList() = 0;

@@ -452,13 +452,13 @@ void Interface::newpacket()
 		mm.areaList->relist();
 	}
 
-	bool latin = mm.isLatin();
+	bool latin = mm.packet->isLatin();
 
-	hello = mm.getHello();
-	goodbye = mm.getGoodbye();
-	newFiles = mm.getFileList();
+	hello = mm.packet->getHello();
+	goodbye = mm.packet->getGoodbye();
+	newFiles = mm.packet->getFileList();
 
-	bulletins = mm.getBulletins();
+	bulletins = mm.packet->getBulletins();
 
 	if (hello)
 		ansiFile(hello, hello->getName(), latin);
@@ -572,7 +572,8 @@ bool Interface::back()
 				create_reply_packet();
 			}
 		if (!abortNow && goodbye) {
-			ansiFile(goodbye, goodbye->getName(), mm.isLatin());
+			ansiFile(goodbye, goodbye->getName(),
+				mm.packet->isLatin());
 			goodbye = 0;
 		}
 		mm.Delete();
