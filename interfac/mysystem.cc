@@ -120,9 +120,7 @@ int mysystem(const char *cmd)
 # endif
 #endif
 		keypad(stdscr, TRUE);
-#ifdef NOTYPEAHEAD
 		typeahead(-1);
-#endif
 	}
 
 	return result;

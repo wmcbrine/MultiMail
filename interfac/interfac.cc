@@ -126,10 +126,7 @@ void Interface::alive()
 		BUTTON3_CLICKED, 0);
 # endif
 #endif
-
-#ifdef NOTYPEAHEAD
 	typeahead(-1);
-#endif
 }
 
 void Interface::screen_init()

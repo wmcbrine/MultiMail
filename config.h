@@ -57,14 +57,6 @@
 */
 # define ALLCHARSOK
 
-/* With the RSXNT port, the keyboard check after printing each line makes
-   output very slow, unless line break optimization is disabled. It also
-   causes problems with the BCC port when the mouse is used.
-*/
-# ifdef __WIN32__
-#  define NOTYPEAHEAD
-# endif
-
 /* For the ugly cursor-toggling routines -- no longer needed with PDCurses
    2.4?
 */
