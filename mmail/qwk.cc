@@ -162,7 +162,7 @@ void qheader::set_length(FILE *repFile, long headerpos, long curpos)
 qwkpack::qwkpack(mmail *mmA) : pktbase(mmA)
 {
 	qwke = !(!mm->workList->exists("toreader.ext"));
-
+	
 	readControlDat();
 	readDoorId();
 	if (qwke)
@@ -197,8 +197,9 @@ area_header *qwkpack::getNextArea()
 	area_header *tmp = new area_header(mm,
 		ID + 1, areas[ID].numA, areas[ID].name,
 		(x ? "Letters addressed to you" : areas[ID].name),
+		(greekqwk ? (x ? "GreekQWK personal" : "GreekQWK") :
 		(qwke ? (x ? "QWKE personal" : "QWKE") :
-		(x ? "QWK personal" : "QWK")),
+		(x ? "QWK personal" : "QWK"))),
 		areas[ID].attr | hasOffConfig | (cMsgNum ? ACTIVE : 0),
 		cMsgNum, 0, 25, qwke ? 72 : 25);
 	ID++;
@@ -208,6 +209,11 @@ area_header *qwkpack::getNextArea()
 bool qwkpack::isQWKE()
 {
 	return qwke;
+}
+
+bool qwkpack::isGreekQWK()
+{
+	return greekqwk;
 }
 
 bool qwkpack::externalIndex()
@@ -407,15 +413,17 @@ letter_header *qwkpack::getNextLetter()
 void qwkpack::getblk(int, long &offset, long blklen,
 	unsigned char *&p, unsigned char *&begin)
 {
+	int linebreak = greekqwk ? 12 : 227;
+
 	for (long count = 0; count < blklen; count++) {
 		int kar = fgetc(infile);
 
 		if (!kar)
 			kar = ' ';
 
-		*p++ = (kar == 227) ? '\n' : kar;	
+		*p++ = (kar == linebreak) ? '\n' : kar;	
 
-		if (kar == 227) {
+		if (kar == linebreak) {
 			begin = p;
 			offset = ftell(infile);
 		}
@@ -554,6 +562,8 @@ void qwkpack::readDoorId()
 	if (!qwke)
 		strcpy(controlname, "QMAIL");
 
+	greekqwk = false;
+
 	infile = mm->workList->ftryopen("door.id");
 	if (infile) {
 		const char *s;
@@ -569,7 +579,7 @@ void qwkpack::readDoorId()
 		s = nextLine();			// SYSTEM =
 		BBSProg = strdupplus(strchr(s, '=') + 2);
 
-		while (!qwke && !feof(infile)) {
+		while (!feof(infile)) {
 			s = nextLine();
 			if (!strcasecmp(s, "CONTROLTYPE = ADD"))
 			    hasAdd = true;
@@ -579,6 +589,9 @@ void qwkpack::readDoorId()
 			    else
 				if (!strncasecmp(s, "CONTROLNAME", 11))
 				    sprintf(controlname, "%.25s", s + 14);
+				else
+				    if (!strcasecmp(s, "GREEKQWK"))
+					greekqwk = true;
 		}
 		fclose(infile);
 	}
@@ -673,6 +686,7 @@ qwkreply::qwkreply(mmail *mmA, specific_driver *baseClassA) :
 	pktreply(mmA, baseClassA)
 {
 	qwke = ((qwkpack *) baseClass)->isQWKE();
+	greekqwk = ((qwkpack *) baseClass)->isGreekQWK();
 }
 
 qwkreply::~qwkreply()
@@ -692,12 +706,13 @@ bool qwkreply::getRep1(FILE *rep, upl_qwk *l)
 		return false;
 
 	long count, length = 0, chunks = l->qHead.msglen >> 7;
+	char linebreak = greekqwk ? ((char) 12) : ((char) 227);
 
 	for (count = 0; count < chunks; count++) {
 		fread(blk, 1, 128, rep);
 
 		for (p = blk; p < (blk + 128); p++)
-			if (*p == (char) 227)
+			if (*p == linebreak)
 				*p = '\n';	// PI-softcr
 
 		// Get extended (QWKE-type) subject line, if available:
@@ -747,9 +762,10 @@ void qwkreply::getReplies(FILE *repFile)
 area_header *qwkreply::getNextArea()
 {
 	return new area_header(mm, 0, "REPLY", "REPLIES",
-		"Letters written by you", (qwke ? "QWKE replies" :
-		"QWK replies"), (COLLECTION | REPLYAREA | ACTIVE |
-		PUBLIC | PRIVATE), noOfLetters, 0, 25, qwke ? 72 : 25);
+		"Letters written by you", (greekqwk ? "GreekQWK replies" :
+		(qwke ? "QWKE replies" : "QWK replies")),
+		(COLLECTION | REPLYAREA | ACTIVE | PUBLIC | PRIVATE),
+		noOfLetters, 0, 25, qwke ? 72 : 25);
 }
 
 letter_header *qwkreply::getNextLetter()
@@ -802,13 +818,14 @@ void qwkreply::addRep1(FILE *rep, upl_base *node, int)
 	FILE *replyFile;
 	upl_qwk *l = (upl_qwk *) node;
 	long count = 0;
+	char linebreak = greekqwk ? ((char) 12) : ((char) 227);
 
 	long headerpos = ftell(rep);
 	l->qHead.output(rep);
 
 	if (strlen(l->qHead.subject) > 25)
 		fprintf(rep, "Subject: %s%c%c", l->qHead.subject,
-			(char) 227, (char) 227);
+			linebreak, linebreak);
 
 	replyFile = fopen(l->fname, "rt");
 	if (replyFile) {
@@ -824,7 +841,7 @@ void qwkreply::addRep1(FILE *rep, upl_base *node, int)
 				c = '\n';
 			}
 			if ('\n' == c) {
-				fputc((char) 227, rep);
+				fputc(linebreak, rep);
 				count = lastsp = 0;
 			} else {
 				fputc(c, rep);
@@ -835,7 +852,7 @@ void qwkreply::addRep1(FILE *rep, upl_base *node, int)
 		fclose(replyFile);
 	}
 
-	fputc((char) 227, rep);
+	fputc(linebreak, rep);
 
 	long curpos = ftell(rep);
 	l->qHead.set_length(rep, headerpos, curpos);
