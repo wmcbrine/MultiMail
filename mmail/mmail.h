@@ -3,7 +3,7 @@
  * mmail class
 
  Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 2002 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sourceforge.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -143,9 +143,6 @@ class file_list
 
 	void cleanup();
 	void relist();
-
-	friend int fnamecomp(const void *, const void *);
-	friend int ftimecomp(const void *, const void *);
 
 	void sort();
 	file_header *base() const;
@@ -384,8 +381,6 @@ class letter_list
 
 	void init();
 	void cleanup();
-	friend int lettercomp(const void *, const void *);
-	friend int lmsgncomp(const void *, const void *);
 	void sort();
  public:
 	letter_list(mmail *, int, unsigned long);

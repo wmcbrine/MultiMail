@@ -922,19 +922,19 @@ searchret AnsiWindow::search(const char *item)
 
 	char *buffer = new char[COLS + 1];
 
-	for (int x = position + 1; (x < NumOfLines) && (found == False);
-	    x++) {
+	for (int n = position + 1; (n < NumOfLines) && (found == False);
+	    n++) {
 
 		if (text->keypressed() == 27) {
 			found = Abort;
 			break;
 		}
 
-		linelist[x]->unpacktext(buffer);
+		linelist[n]->unpacktext(buffer);
 		found = searchstr(buffer, item) ? True : False;
 
 		if (found == True) {
-			position = x;
+			position = n;
 			DrawBody();
 			text->delay_update();
 		}

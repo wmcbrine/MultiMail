@@ -70,7 +70,7 @@ enum lineattr {Hidden, Origin, Tearline, Tagline, Sigline, Quoted,
 enum {s_fulltext = 1, s_headers, s_arealist, s_pktlist};
 
 #if defined (SIGWINCH) && !defined (XCURSES) && !defined(NCURSES_SIGWINCH)
-void sigwinchHandler(int);
+extern "C" void sigwinchHandler(int);
 #endif
 
 #define TAGLINE_LENGTH 76
@@ -264,31 +264,29 @@ class Welcome
 
 #endif
 
+class Person
+{
+ public:
+ 	Person *next;
+	char *name;
+	net_address netmail_addr;
+	bool killed;
+
+	Person(const char * = 0, const char * = 0);
+	Person(const char *, net_address &);
+	~Person();
+
+	void setname(const char *);
+	void dump(FILE *);
+};
+
 class AddressBook : public ListWindow
 {
-	class Person
-	{
-	 public:
-	 	Person *next;
- 		char *name;
- 		net_address netmail_addr;
-		bool killed;
-
-		Person(const char * = 0, const char * = 0);
-		Person(const char *, net_address &);
-		~Person();
-
-		void setname(const char *);
-		void dump(FILE *);
-	};
-
 	Person head, *curr, *highlighted, **people, **living;
 	const char *addfname;
 	char *filter;
 	int NumOfPersons, NumOfActive;
 	bool NoEnter, inletter;
-
-	friend int perscomp(const void *, const void *);
 
   	int NumOfItems();
 	void oneLine(int);
@@ -317,18 +315,17 @@ public:
 	void Init();
 };
 
+class tagline
+{
+ public:
+	tagline(const char * = 0);
+	tagline *next;
+	char text[TAGLINE_LENGTH + 1];
+	bool killed;
+};
 
 class TaglineWindow : public ListWindow
 {
-	class tagline
-	{
-	 public:
-		tagline(const char * = 0);
-		tagline *next;
-		char text[TAGLINE_LENGTH + 1];
-		bool killed;
-	};
-
 	char format[20];
 
 	tagline head, *curr, *highlighted, **taglist, **tagactive;
@@ -336,8 +333,6 @@ class TaglineWindow : public ListWindow
 	char *filter;
   	int NumOfTaglines, NumOfActive;
 	bool nodraw, sorted;
-
-	friend int tnamecmp(const void *, const void *);
 
 	void oneLine(int);
 	searchret oneSearch(int, const char *, int);

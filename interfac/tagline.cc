@@ -10,12 +10,12 @@
 
 #include "interfac.h"
 
-int tnamecmp(const void *a, const void *b)
+extern "C" int tnamecmp(const void *a, const void *b)
 {
 	int d;
 	
-	const char *p = (*((TaglineWindow::tagline **) a))->text;
-	const char *q = (*((TaglineWindow::tagline **) b))->text;
+	const char *p = (*((tagline **) a))->text;
+	const char *q = (*((tagline **) b))->text;
 
 	d = strcasecmp(p, q);
 	if (!d)
@@ -24,8 +24,7 @@ int tnamecmp(const void *a, const void *b)
 	return d;
 }
 
-
-TaglineWindow::tagline::tagline(const char *tag)
+tagline::tagline(const char *tag)
 {
 	if (tag)
 		strncpy(text, tag, TAGLINE_LENGTH);

@@ -3,12 +3,33 @@
  * file_header and file_list
 
  Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 2002 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sourceforge.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
 
 #include "mmail.h"
+
+extern "C" int fnamecomp(const void *a, const void *b)
+{
+	int d;
+
+	const char *p = (*((file_header **) a))->getName();
+	const char *q = (*((file_header **) b))->getName();
+
+	d = strcasecmp(p, q);
+	if (!d)
+		d = strcmp(q, p);
+
+	return d;
+}
+
+extern "C" int ftimecomp(const void *a, const void *b)
+{
+	long result = (*((file_header **) b))->getDate() -
+		(*((file_header **) a))->getDate();
+	return (result > 0) ? 1 : (result < 0) ? -1 : 0;
+}
 
 // ----------------------------------------------------------------
 // file_header methods
@@ -147,27 +168,6 @@ void file_list::resort()
 {
 	sorttype = !sorttype;
 	sort();
-}
-
-int fnamecomp(const void *a, const void *b)
-{
-	int d;
-
-	const char *p = (*((file_header **) a))->getName();
-	const char *q = (*((file_header **) b))->getName();
-
-	d = strcasecmp(p, q);
-	if (!d)
-		d = strcmp(q, p);
-
-	return d;
-}
-
-int ftimecomp(const void *a, const void *b)
-{
-	long result = (*((file_header **) b))->getDate() -
-		(*((file_header **) a))->getDate();
-	return (result > 0) ? 1 : (result < 0) ? -1 : 0;
 }
 
 const char *file_list::getDirName() const

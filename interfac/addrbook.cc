@@ -3,14 +3,20 @@
  * address book
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright (c) 2000 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sourceforge.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
 
 #include "interfac.h"
 
-AddressBook::Person::Person(const char *sname, const char *saddr)
+extern "C" int perscomp(const void *a, const void *b)
+{
+	return strcasecmp((*((Person **) a))->name,
+		(*((Person **) b))->name);
+}
+
+Person::Person(const char *sname, const char *saddr)
 {
 	if (saddr && (*saddr == 'I'))
 		saddr++;
@@ -20,7 +26,7 @@ AddressBook::Person::Person(const char *sname, const char *saddr)
 	next = 0;
 }
 
-AddressBook::Person::Person(const char *sname, net_address &naddr)
+Person::Person(const char *sname, net_address &naddr)
 {
 	netmail_addr = naddr;
 	setname(sname);
@@ -28,17 +34,17 @@ AddressBook::Person::Person(const char *sname, net_address &naddr)
 	next = 0;
 }
 
-AddressBook::Person::~Person()
+Person::~Person()
 {
 	delete[] name;
 }
 
-void AddressBook::Person::setname(const char *sname)
+void Person::setname(const char *sname)
 {
 	name = strdupplus(sname);
 }
 
-void AddressBook::Person::dump(FILE *fd)
+void Person::dump(FILE *fd)
 {
 	fprintf(fd, (netmail_addr.isInternet ? "%s\nI%s\n\n" :
 		"%s\n%s\n\n"), name, (const char *) netmail_addr);
@@ -344,12 +350,6 @@ searchret AddressBook::oneSearch(int x, const char *item, int)
 int AddressBook::NumOfItems()
 {
 	return NumOfActive;
-}
-
-int perscomp(const void *a, const void *b)
-{
-	return strcasecmp((*((AddressBook::Person **) a))->name,
-		(*((AddressBook::Person **) b))->name);
 }
 
 void AddressBook::ReadFile()
