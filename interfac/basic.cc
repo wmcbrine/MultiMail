@@ -582,13 +582,8 @@ chtype ListWindow::setHighlight(chtype ch)
 
 void ListWindow::Draw()
 {
-#ifdef __PDCURSES__
-	const chtype current = ACS_DIAMOND | A_ALTCHARSET;
-	const chtype old = ACS_BOARD;
-#else
 	const chtype current = ACS_DIAMOND;
 	const chtype old = ACS_CKBOARD;
-#endif
 	int i, j, limit = NumOfItems();
 
 	checkPos(limit);
