@@ -256,7 +256,7 @@ void opxpack::readBrdinfoDat()
 	brdHeader header;
 	brdRec boardrec;
 	ocfgRec offrec;
-	char *p;
+	char *p, *q, tmp[80];
 	int brdCount, extCount;
 	bool hasExtra;
 
@@ -280,6 +280,14 @@ void opxpack::readBrdinfoDat()
 
 	BBSName = pstrget(&header.bbsname);
 	SysOpName = pstrget(&header.sysopname);
+	BBSProg = pstrget(&header.bbstype);
+
+	p = pstrget(&header.doorid);
+	q = pstrget(&header.doorver);
+	sprintf(tmp, "%s %s", p, q);
+	DoorProg = strdupplus(tmp);
+	delete[] q;
+	delete[] p;
 
 	LoginName = pstrget(&header.username);
 	AliasName = strdupplus(LoginName);

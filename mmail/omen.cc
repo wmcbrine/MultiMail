@@ -237,13 +237,16 @@ void omen::readSystemBBS()
 		while (!feof(infile)) {
 			const char *line = nextLine();
 			if (!strncasecmp(line, "sysop:", 6))
-				SysOpName = strdupplus(line + 6);
+			    SysOpName = strdupplus(line + 6);
 			else
-				if (!strcasecmp(line, "select:on"))
-					hasOffConfig = OFFCONFIG;
+			    if (!strcasecmp(line, "select:on"))
+				hasOffConfig = OFFCONFIG;
+			    else
+				if (!strcasecmp(line, "c_set:iso"))
+				    useLatin = LATINCHAR;
 				else
-					if (!strcasecmp(line, "c_set:iso"))
-						useLatin = LATINCHAR;
+				    if (!strncasecmp(line, "origin:", 7))
+					DoorProg = strdupplus(line + 7);
 		}
 		fclose(infile);
 	}

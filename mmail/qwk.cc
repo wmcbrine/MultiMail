@@ -164,10 +164,9 @@ qwkpack::qwkpack(mmail *mmA) : pktbase(mmA)
 	qwke = !(!mm->workList->exists("toreader.ext"));
 
 	readControlDat();
+	readDoorId();
 	if (qwke)
 		readToReader();
-	else
-		readDoorId();
 
 	infile = mm->workList->ftryopen("messages.dat");
 	if (!infile)
@@ -550,14 +549,27 @@ void qwkpack::readControlDat()
 
 void qwkpack::readDoorId()
 {
-	const char *s;
 	bool hasAdd = false, hasDrop = false;
 
-	strcpy(controlname, "QMAIL");
+	if (!qwke)
+		strcpy(controlname, "QMAIL");
 
 	infile = mm->workList->ftryopen("door.id");
 	if (infile) {
-		while (!feof(infile)) {
+		const char *s;
+		char tmp[80], *t;
+
+		t = strdupplus(nextLine());	// DOOR =
+		s = nextLine();			// VERSION =
+		sprintf(tmp, "%s %s", strchr(t, '=') + 2,
+			strchr(s, '=') + 2);
+		delete[] t;
+		DoorProg = strdupplus(tmp);
+
+		s = nextLine();			// SYSTEM =
+		BBSProg = strdupplus(strchr(s, '=') + 2);
+
+		while (!qwke && !feof(infile)) {
 			s = nextLine();
 			if (!strcasecmp(s, "CONTROLTYPE = ADD"))
 			    hasAdd = true;
@@ -570,7 +582,8 @@ void qwkpack::readDoorId()
 		}
 		fclose(infile);
 	}
-	hasOffConfig = (hasAdd && hasDrop) ? OFFCONFIG : 0;
+	if (!qwke)
+		hasOffConfig = (hasAdd && hasDrop) ? OFFCONFIG : 0;
 }
 
 // Read the QWKE file TOREADER.EXT

@@ -518,6 +518,8 @@ class specific_driver
 	virtual const char *getAliasName() = 0;
 	virtual const char *getBBSName() = 0;
 	virtual const char *getSysOpName() = 0;
+	virtual const char *getBBSProg() = 0;
+	virtual const char *getDoorProg() = 0;
 	virtual file_header *getHello() = 0;
 	virtual file_header *getGoodbye() = 0;
 	virtual file_header *getFileList() = 0;

@@ -191,10 +191,10 @@ void AreaListWindow::oneLine(int i)
 		list->attrib(C_ALINFOTEXT2);
 		list->put(list_max_y + 3 + hasSys, 8, p);
 
-		sprintf(p, format2, mm.areaList->getDescription());
-		areaconv_in(p);
-		list->put(list_max_y + 4 + hasSys, 8, p);
-		
+		//sprintf(p, format2, mm.areaList->getDescription());
+		//areaconv_in(p);
+		//list->put(list_max_y + 4 + hasSys, 8, p);
+
 		list->delay_update();
 	}
 	p += sprintf(p, format, ((attrib & ADDED) ? '+' :
@@ -278,10 +278,14 @@ void AreaListWindow::MakeActive()
 
 	const char *bb = mm.packet->getBBSName();
 	const char *sy = mm.packet->getSysOpName();
+	const char *bp = mm.packet->getBBSProg();
+	const char *dp = mm.packet->getDoorProg();
+
 	hasSys = bb && *bb;
+	bool hasProg = (bp && *bp) || (dp && *dp);
 
 	list_max_y = LINES - (mm.resourceObject->getInt(ExpertMode) ?
-			11 : 15) + !hasSys;
+			11 : 15) + !hasSys + !hasProg;
 	list_max_x = COLS - 6;
 	top_offset = 2;
 
@@ -301,8 +305,9 @@ void AreaListWindow::MakeActive()
 
 	borderCol = C_ALBORDER;
 
-	list = new InfoWin(list_max_y + 6 + hasSys, list_max_x + 2, 2, 
-		borderCol, tmp, C_ALBTEXT, 6 + hasSys);
+	list = new InfoWin(list_max_y + 5 + hasSys + hasProg,
+		list_max_x + 2, 2,  borderCol, tmp, C_ALBTEXT,
+		5 + hasSys + hasProg);
 
 	list->attrib(C_ALHEADTEXT);
 	list->put(1, 3, "Area#  Description");
@@ -325,13 +330,18 @@ void AreaListWindow::MakeActive()
 
 	list->attrib(C_ALINFOTEXT);
 	if (hasSys)
-		list->put(list_max_y + 3, 3, "BBS:");
+		list->put(list_max_y + 3, 2, "Name:");
 
 	if (sy && *sy)
-		list->put(list_max_y + 4, middle, " Sysop:");
+		list->put(list_max_y + 3 + hasSys, middle, " Sysop:");
 
 	list->put(list_max_y + 3 + hasSys, 2, "Type:");
-	list->put(list_max_y + 4 + hasSys, 2, "Area:");
+
+	if (dp && *dp)
+		list->put(list_max_y + 4 + hasSys, 2, "Door:");
+
+	if (bp && *bp)
+		list->put(list_max_y + 4 + hasSys, middle, "   BBS:");
 	
 	sprintf(tpad, "%%.%ds", (middle < 87) ? middle - 8 : 79);
 	middle += 8;
@@ -350,7 +360,19 @@ void AreaListWindow::MakeActive()
 	if (sy && *sy) {
 		sprintf(tmp, tpad, sy);
 		charconv_in(tmp);
-		list->put(list_max_y + 4, middle, tmp);
+		list->put(list_max_y + 3 + hasSys, middle, tmp);
+	}
+
+	if (dp && *dp) {
+		sprintf(tmp, tpad, dp);
+		charconv_in(tmp);
+		list->put(list_max_y + 4 + hasSys, 8, tmp);
+	}
+
+	if (bp && *bp) {
+		sprintf(tmp, tpad, bp);
+		charconv_in(tmp);
+		list->put(list_max_y + 4 + hasSys, middle, tmp);
 	}
 
 	DrawAll();

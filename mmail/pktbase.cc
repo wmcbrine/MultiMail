@@ -27,7 +27,7 @@ pktbase::pktbase(mmail *mmA)
 	bodyString = 0;
 	bulletins = 0;
 	infile = 0;
-	LoginName = AliasName = BBSName = SysOpName = 0;
+	LoginName = AliasName = BBSName = SysOpName = BBSProg = DoorProg = 0;
 	hello = goodbye = 0;
 }
 
@@ -41,6 +41,8 @@ pktbase::~pktbase()
 	delete[] bulletins;
 	delete[] goodbye;
 	delete[] hello;
+	delete[] DoorProg;
+	delete[] BBSProg;
 	delete[] SysOpName;
 	delete[] BBSName;
 	delete[] AliasName;
@@ -415,6 +417,16 @@ const char *pktbase::getSysOpName()
 	return SysOpName;
 }
 
+const char *pktbase::getBBSProg()
+{
+	return BBSProg;
+}
+
+const char *pktbase::getDoorProg()
+{
+	return DoorProg;
+}
+
 file_header *pktbase::getHello()
 {
 	return (hello && *hello) ?
@@ -680,6 +692,16 @@ const char *pktreply::getBBSName()
 }
 
 const char *pktreply::getSysOpName()
+{
+	return 0;
+}
+
+const char *pktreply::getBBSProg()
+{
+	return 0;
+}
+
+const char *pktreply::getDoorProg()
 {
 	return 0;
 }
