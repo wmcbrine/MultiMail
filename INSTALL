@@ -33,7 +33,10 @@ precompiled binaries, see the README files that accompany them instead.
     libraries, not just C.
 
     Note that although DJGPP 2.01 comes with PDCurses 2.2, I've made some
-    changes that depend on 2.3.
+    changes that depend on 2.3. In general, you should use PDCurses 2.6
+    or later, since it incorporates my patch to make halfdelay() work
+    correctly (instead of hogging the CPU); however, the OS/2 port of 2.6
+    has a fatal bug. (Write me if you want a patch for that.)
 
     The 16-bit MS-DOS port also uses Ralf Brown's SPAWNO library:
 
@@ -89,9 +92,9 @@ Be sure to try out the window resizing; the SIGWINCH handling in XCurses
 is much smoother than under an xterm (with ncurses or another
 implementation).
 
-You should use PDCurses beta 2.4 or later. Earlier versions don't support
-the use of a black (or dark grey) foreground color on a black background
-(the default color for the shadows, also found in many ANSI pics).
+You need PDCurses 2.5 or later. Earlier versions expected an external
+define, "XCursesProgramName", which is no longer used, and hence no longer
+included in the MultiMail source.
 
 
 Compile notes: Win32, MS-DOS, and OS/2
