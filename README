@@ -1,16 +1,14 @@
-MultiMail version 0.43
+MultiMail version 0.44
 ======================
 
-What's New in version 0.43?
+What's New in version 0.44?
 ---------------------------
 
- * Filter function for all lists
- * Clock in letter window
- * "AT code" parser in ANSI viewer for PCBoard/Wildcat
- * Monochrome option in XT, DOS, Win32 and OS/2
- * Better SOUP mail parsing
- * Packet name always visible
- * Much more
+ * Speculative fix for corrupt QWK reply problem
+ * New key for filter function, other filter fixes
+ * Fixes for END key in input, segfaults in ANSI, display bugs
+ * Compiles under Sun C++
+ * Etc.
 
 See the HISTORY file for other changes. See INSTALL for the installation
 procedure, and the man page (mm.1) for information on usage.
@@ -30,7 +28,7 @@ General Public License (q.v.).
 
 You can get the latest version by anonymous ftp from:
 
- ftp://download.sourceforge.net/pub/sourceforge/multimail/mmail-0.43.tar.gz
+ ftp://download.sourceforge.net/pub/sourceforge/multimail/mmail-0.44.tar.gz
 
 or at the MultiMail home page:
 
@@ -66,9 +64,9 @@ personally used it on:
 
 Operating Systems:  Linux, Solaris, NetBSD, DOS, OS/2, Windows, BeOS,
                     FreeBSD, AtheOS, MacOS X
-Processors:         i386, Sparc, m68k, Alpha, i86, PPC
+Processors:         i386, Sparc, m68k, Alpha, i86, PPC, ARM
 Compilers:          GCC (including DJGPP, EMX, and RSXNT), Compaq Alpha
-                    (w/ GNU make), Borland/Turbo C++
+                    (w/ GNU make), Borland/Turbo C++, Sun C++ (w/ GNU make)
 Libraries:          ncurses, Solaris curses, PDCurses
 
 If you get it going on a dissimilar system, please let me know (along with
@@ -81,8 +79,7 @@ Credits
 
 MultiMail was originally developed under Linux by Kolossvary Tamas and
 Toth Istvan. John Zero was the maintainer for versions 0.2 through 0.6;
-since version 0.7, the maintainer is William McBrine
-<wmcbrine@users.sourceforge.net>.
+since version 0.7, the maintainer is William McBrine <wmcbrine@users.sf.net>.
 
 Additional code has been contributed by Peter Karlsson, Mark D. Rejhon,
 Ingo Brueckl, and Robert Vukovic.

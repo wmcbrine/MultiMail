@@ -1,6 +1,50 @@
 Revision History
 ================
 
+0.44 - 2003/05/07:
+
+New features:
+
+- Added the pipe character, '|', as an alternative to '^' for invoking the
+  filter function. It turns out that '^' is a poor choice for many non-U.S.
+  keyboards; sorry. The pipe character is also somewhat more consistent with
+  other programs with similar functions. Problem reported by Peter Karlsson.
+
+Bug fixes and such:
+
+- Changed the way that the length of QWK replies is calculated. This is a
+  speculative fix for a reported problem with corrupt replies that I
+  couldn't reproduce; but from what was described, this _should_ do it. At
+  any rate, the new code is simpler and cleaner. Reported by Jimmy Day et
+  al.
+
+- Pressing the "END" key in string input fields now works corrrectly, taking
+  the cursor to the end of the field instead of ending the edit. Reported by
+  Touko Rajala.
+
+- Bogus/unintentional '@' color code sequences could cause segfaults in the
+  ANSI viewer. Reported by Neall Mercado.
+
+- In the Win32 version, under NT (though not 9x), the temporary directories
+  were not being deleted.
+
+- The filter was not working correctly in the LittleAreaListWindow.
+
+- Junk could appear in the LetterList on a resort if some messages were
+  read.
+
+- Narrowed the width of some windows as a workaround for display bugs in
+  xterm.
+
+- Added "-inul" to the default command lines for RAR to supress the output.
+
+- Minor internal changes to allow compilation and remove warnings under
+  Sun's SUNWspro C++ compiler. This also entailed the elimination of the
+  sillier of the "set_Letter_Params()" functions, which was long overdue.
+  :-)
+
+- Miscellaneous small changes for efficiency.
+
 0.43 - 2002/03/09:
 
 New features:
