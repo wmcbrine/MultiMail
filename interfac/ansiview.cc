@@ -240,10 +240,11 @@ bool StringFile::anyleft()
 //--------------------
 
 #ifdef NCURSES_VERSION
-AnsiWindow::AnsiWindow()
+void AnsiWindow::Init()
 {
-	// Very simplistic. What other term types work?
-	useAltCharset = !strcmp(getenv("TERM"), "linux");
+	// Is the "PC" character set available?
+	char *result = tigetstr("smpch");
+	useAltCharset = (result && (result != ((char *) -1)));
 }
 #endif
 

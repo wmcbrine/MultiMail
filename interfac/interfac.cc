@@ -38,6 +38,9 @@ void Interface::init()
 	addresses.Init();
 	alive();
 	screen_init();
+#ifdef NCURSES_VERSION
+	ansiwindow.Init();
+#endif
 }
 
 void Interface::main()

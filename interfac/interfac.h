@@ -648,7 +648,7 @@ class AnsiWindow
 	void Save();
  public:
 #ifdef NCURSES_VERSION
-	AnsiWindow();
+	void Init();
 #endif
 	void set(letter_body *, const char *, bool);
 	void set(file_header *, const char *, bool);
