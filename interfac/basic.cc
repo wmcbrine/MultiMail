@@ -661,29 +661,29 @@ void ListWindow::DrawAll()
 	Draw();
 }
 
-void ListWindow::Move(direction dir)
+void ListWindow::Move(int dir)
 {
 	int limit = NumOfItems();
 
 	switch (dir) {
-	case UP:
+	case KEY_UP:
 		active--;
 		break;
-	case DOWN:
+	case KEY_DOWN:
 		active++;
 		break;
-	case PGUP:
+	case KEY_PPAGE:
 		position -= list_max_y;
 		active -= list_max_y;
 		break;
-	case PGDN:
+	case KEY_NPAGE:
 		position += list_max_y;
 		active += list_max_y;
 		break;
-	case HOME:
+	case KEY_HOME:
 		active = 0;
 		break;
-	case END:
+	case KEY_END:
 		active = limit - 1;
 		break;
 	}
@@ -724,12 +724,12 @@ searchret ListWindow::search(const char *item, int mode)
 
 void ListWindow::Prev()
 {
-	Move(UP);
+	Move(KEY_UP);
 }
 
 void ListWindow::Next()
 {
-	Move(DOWN);
+	Move(KEY_DOWN);
 }
 
 
@@ -752,18 +752,18 @@ bool ListWindow::KeyHandle(int key)
 		    } else {
 			mouse_event.y -= begy;
 			if (-1 == mouse_event.y)
-			    Move(UP);
+			    Move(KEY_UP);
 			else
 			    if (list_max_y == mouse_event.y)
-				Move(DOWN);
+				Move(KEY_DOWN);
 			    else
 				if ((begx + list_max_x) ==
 				    mouse_event.x) {
 					if (mouse_event.y > oldHigh)
-					    Move(PGDN);
+					    Move(KEY_NPAGE);
 					else
 					    if (mouse_event.y < oldHigh)
-						Move(PGUP);
+						Move(KEY_PPAGE);
 				} else {
 					bool select = (mouse_event.bstate &
 					    BUTTON1_DOUBLE_CLICKED) || (active
@@ -798,25 +798,25 @@ bool ListWindow::KeyHandle(int key)
 		Next();
 		break;
 	case MM_DOWN:
-		Move(DOWN);
+		Move(KEY_DOWN);
 		break;
 	case MM_UP:
-		Move(UP);
+		Move(KEY_UP);
 		break;
 	case MM_HOME:
-		Move(HOME);
+		Move(KEY_HOME);
 		break;
 	case MM_END:
-		Move(END);
+		Move(KEY_END);
 		break;
 	case 'B':
 	case MM_PPAGE:
-		Move(PGUP);
+		Move(KEY_PPAGE);
 		break;
 	case ' ':
 	case 'F':
 	case MM_NPAGE:
-		Move(PGDN);
+		Move(KEY_NPAGE);
 		break;
 	case '|':
 	case '^':

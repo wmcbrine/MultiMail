@@ -703,7 +703,7 @@ void LetterWindow::MakeActive(bool redo)
 bool LetterWindow::Next()
 {
 	if (mm.letterList->getActive() < (mm.letterList->noOfActive() - 1)) {
-		ui->letters.Move(DOWN);
+		ui->letters.Move(KEY_DOWN);
 		mm.letterList->gotoActive(mm.letterList->getActive() + 1);
 		Draw(true);
 		return true;
@@ -720,7 +720,7 @@ bool LetterWindow::Next()
 bool LetterWindow::Previous()
 {
 	if (mm.letterList->getActive() > 0) {
-		ui->letters.Move(UP);
+		ui->letters.Move(KEY_UP);
 		mm.letterList->gotoActive(mm.letterList->getActive() - 1);
 		Draw(true);
 		return true;

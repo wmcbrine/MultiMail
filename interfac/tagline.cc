@@ -151,9 +151,9 @@ void TaglineWindow::RandomTagline()
 {
 	int i = rand() / (RAND_MAX / NumOfActive);
 
-	Move(HOME);
+	Move(KEY_HOME);
 	for (int j = 1; j <= i; j++)
-		Move(DOWN);
+		Move(KEY_DOWN);
 	DrawAll();
 }
 
@@ -163,7 +163,7 @@ void TaglineWindow::EnterTagline(const char *tag)
 	char newtagline[TAGLINE_LENGTH + 1];
 	int y;
 
-	Move(END);
+	Move(KEY_END);
 	if (NumOfActive >= list_max_y) {
 		y = list_max_y;
 		position++;
@@ -218,7 +218,7 @@ void TaglineWindow::EnterTagline(const char *tag)
 				ui->nonFatalError("Already in file");
 		}
 	}
-	Move(END);
+	Move(KEY_END);
 
 	if (!nodraw) {
 		DrawAll();

@@ -59,7 +59,6 @@ extern "C" {
 # define MINHIEXPERT 17
 #endif
 
-enum direction {UP, DOWN, PGUP, PGDN, HOME, END};
 enum statetype {nostate, packetlist, arealist, letterlist, letter,
 		letter_help, littlearealist, address, tagwin, ansiwin,
 		ansi_help};
@@ -242,7 +241,7 @@ class ListWindow
  public:
  	ListWindow();
 	virtual ~ListWindow();
-	void Move(direction);		//scrolloz
+	void Move(int);		//scrolloz
 	void setActive(int);
 	int getActive();
 	searchret search(const char *, int);

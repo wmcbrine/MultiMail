@@ -133,7 +133,7 @@ void AreaListWindow::FirstUnread()
 	for (i = 0; i < NumOfItems(); i++) {
 		mm.areaList->gotoActive(i);
 		if (!mm.areaList->getNoOfUnread())
-			Move(DOWN);
+			Move(KEY_DOWN);
 		else
 			break;
 	}
@@ -142,7 +142,7 @@ void AreaListWindow::FirstUnread()
 		for (i = 0; i < NumOfItems(); i++) {
 			mm.areaList->gotoActive(i);
 			if (!mm.areaList->getNoOfLetters())
-				Move(DOWN);
+				Move(KEY_DOWN);
 			else
 				break;
 		}
@@ -360,7 +360,7 @@ void AreaListWindow::Delete()
 void AreaListWindow::Prev()
 {
 	do {
-		Move(UP);
+		Move(KEY_UP);
 		Select();
 	} while (!mm.areaList->getNoOfLetters() &&
 		 (mm.areaList->getActive() > 0));
@@ -369,7 +369,7 @@ void AreaListWindow::Prev()
 void AreaListWindow::Next()
 {
 	do {
-		Move(DOWN);
+		Move(KEY_DOWN);
 		Select();
 	} while (!mm.areaList->getNoOfLetters() &&
 		 (mm.areaList->getActive() <
@@ -424,7 +424,7 @@ bool AreaListWindow::extrakeys(int key)
 				mm.areaList->Drop();
 			}
 			ui->setUnsavedNoAuto();
-			Move(DOWN);
+			Move(KEY_DOWN);
 			Draw();
 		} else
 			ui->nonFatalError(

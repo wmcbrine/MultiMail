@@ -28,14 +28,14 @@ void LetterListWindow::listSave()
 	if (status) {
 		bool saveok = ui->letterwindow.Save(status);
 		if ((status == 1) && saveok)
-			Move(DOWN);
+			Move(KEY_DOWN);
 	}
 }
 
 void LetterListWindow::Next()
 {
 	do {
-		Move(DOWN);
+		Move(KEY_DOWN);
 		mm.letterList->gotoActive(active);
 	} while (mm.letterList->getRead() && ((active + 1) < NumOfItems()));
 }
@@ -49,7 +49,7 @@ void LetterListWindow::FirstUnread()
 void LetterListWindow::Prev()
 {
 	do {
-		Move(UP);
+		Move(KEY_UP);
 		mm.letterList->gotoActive(active);
 	} while (mm.letterList->getRead() && (active > 0));
 }
@@ -253,7 +253,7 @@ bool LetterListWindow::extrakeys(int key)
 		mm.letterList->setStatus(mm.letterList->getStatus() ^
 			((key == 'U') ? MS_READ : MS_MARKED));
 		ui->setAnyRead();
-		Move(DOWN);
+		Move(KEY_DOWN);
 		Draw();
 		break;
 	case 5:
