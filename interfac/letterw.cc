@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2004 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -60,12 +60,12 @@ net_address &LetterWindow::PickNetAddr()
 
 		while (((line->text[i - 1]) != '(') && i > 0)
 			i--;
-		//we have the opening bracket
+		// we have the opening bracket
 
 		while ((i < (int) line->length) &&
 			((line->text[i] < '0') || (line->text[i] > '9')))
 				i++;
-		//we have the begining of the address
+		// we have the begining of the address
 
 		char c = *end;
 		*end = '\0';
@@ -261,8 +261,6 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
 				// begin == start of last word (for wrapping):
 
 				begin = 0;
-				//if (rejoin && (Quoted != tmpattr))
-				//if (Quoted != tmpattr)
 				if (Normal == tmpattr)
 					if (len >= (maxcol - 1))
 						wrapped = true;
@@ -307,7 +305,6 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
 			    len -= x;
 			    while (x--)
 				*--src = *--dest;
-			    //wrapped = rejoin;
 			    wrapped = (Hidden != tmpattr);
 		    }
 
@@ -316,7 +313,6 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
 		    const char *ct = curr->text;
 
 		    if (inet && !insig && (ct[0] == '-') && (ct[1] == '-') &&
-		    // (((ct[2] == ' ') && (len == 3)) )) // || (len == 2)))
 		    (((ct[2] == ' ') && (len == 3)) || (len == 2)))
 			insig = true;
 
@@ -351,7 +347,7 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
 					tmpattr = Origin;
 
 					// SEEN-BY: should only appear
-					//after Origin:
+					// after Origin:
 					skipSeenBy = true;
 				}
 		    }
