@@ -94,16 +94,8 @@ int mysystem(const char *cmd)
 	}
 
 #ifdef USE_SPAWNO
-	const char *tmp = getenv("TEMP");
-
-	if (!tmp) {
-		tmp = getenv("TMP");
-		if (!tmp)
-			tmp = error.getOrigDir();
-	}
-
 	int result = mm.resourceObject->getInt(swapOut) ?
-		systemo(tmp, cmd) : -1;
+		systemo(mm.resourceObject->get(BaseDir), cmd) : -1;
 
 	if (-1 == result)
 		result = system(cmd);

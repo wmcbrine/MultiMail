@@ -34,24 +34,10 @@ ErrorType::ErrorType()
 {
 	set_new_handler(memError);
 	origdir = mygetcwd();
-#ifdef __DJGPP__
-	if (!getenv("TMP") && !getenv("DJGPP")) {
-		const char *temp = getenv("TEMP");
-		if (!temp)
-			temp = origdir;
-		newtmp = new char[strlen(temp) + 5];
-		sprintf(newtmp, "TMP=%s", temp);
-		putenv(newtmp);
-	} else
-		newtmp = 0;
-#endif
 }
 
 ErrorType::~ErrorType()
 {
-#ifdef __DJGPP__
-	delete[] newtmp;
-#endif
 	mychdir(origdir);
 	delete[] origdir;
 }
