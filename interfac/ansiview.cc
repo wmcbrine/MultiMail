@@ -354,7 +354,7 @@ void AnsiWindow::athandle()
 		COLOR_GREEN, COLOR_CYAN, COLOR_RED, COLOR_MAGENTA,
 		COLOR_YELLOW, COLOR_WHITE};
 	static int oldccf = -1, oldccb, oldcbr, oldcfl;
-	unsigned fg, bg;
+	unsigned fg = 0, bg = 0;
 	char c[2];
 
 	bool xmode = false;
