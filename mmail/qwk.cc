@@ -776,6 +776,10 @@ letter_header *qwkreply::getNextLetter()
 void qwkreply::enterLetter(letter_header &newLetter,
 			const char *newLetterFileName, long length)
 {
+	// Specify the format separately from strftime() to supress
+	// GCC's Y2K warning:
+	const char *datefmt_qwk = "%m-%d-%y %H:%M";
+
 	upl_qwk *newList = new upl_qwk(newLetterFileName);
 
 	strncpy(newList->qHead.subject, newLetter.getSubject(), 71);
@@ -786,9 +790,8 @@ void qwkreply::enterLetter(letter_header &newLetter,
 	newList->qHead.privat = newLetter.getPrivate();
 	newList->qHead.refnum = newLetter.getReplyTo();
 
-	time_t tt = time(0);
-	strftime(newList->qHead.date, 15, "%m-%d-%y %H:%M",
-		localtime(&tt));
+	time_t now = time(0);
+	strftime(newList->qHead.date, 15, datefmt_qwk, localtime(&now));
 
 	newList->qHead.msglen = newList->msglen = length;
 

@@ -703,6 +703,10 @@ letter_header *opxreply::getNextLetter()
 void opxreply::enterLetter(letter_header &newLetter,
 			const char *newLetterFileName, long length)
 {
+	// Specify the format separately from strftime() to supress
+	// GGC's Y2K warning:
+	const char *datefmt_opx = "%d %b %y  %H:%M:%S";
+
 	upl_opx *newList = new upl_opx(newLetterFileName);
 
 	int attrib = newLetter.getPrivate() ? OPX_PRIVATE : 0;
@@ -722,8 +726,7 @@ void opxreply::enterLetter(letter_header &newLetter,
 	putshort(newList->rhead.reply, newLetter.getReplyTo());
 
 	time_t now = time(0);
-	strftime(newList->rhead.date, 20, "%d %b %y  %H:%M:%S",
-		localtime(&now));
+	strftime(newList->rhead.date, 20, datefmt_opx, localtime(&now));
 	unsigned long dostime = mkdostime(localtime(&now));
 	putlong(newList->rhead.date_written, dostime);
 	putlong(newList->rhead.date_arrived, dostime);

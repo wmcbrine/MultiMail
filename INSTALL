@@ -151,17 +151,6 @@ This one looks more serious:
 But as far as I can tell, it too is harmless. Apparently it arises on
 systems with mismatched header files.
 
-Newer versions of gcc (2.7.2.3 or later?) give the following warning in an
-attempt to alert you to possible Y2K problems:
-
-  qwk.cc: In method `void qwkreply::enterLetter(class letter_header &,
-  const char *, int)':
-  qwk.cc:696: warning: `%y' yields only last 2 digits of year
-
-(This refers to an invocation of strftime() with that parameter.) In this
-case, the two-digit year is mandated by the QWK format. Don't worry; it
-still works in 2000. :-) This warning will also appear for the OPX module.
-
 On linking, some versions of gcc give a warning that reads, in part,
 "tmpnam() may be used unsafely". However, it says this for *any* usage of
 the tmpnam() function; and its suggested substitute is not really relevant
