@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2002 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sourceforge.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -284,8 +284,7 @@ bool LetterListWindow::extrakeys(int key)
 		break;
 	case '$':
 		mm.letterList->resort();
-		delete list;
-		MakeActiveCore();
+		ui->redraw();
 		break;
 	case 'S':
 		listSave();
