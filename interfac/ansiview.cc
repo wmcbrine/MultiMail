@@ -239,6 +239,14 @@ bool StringFile::anyleft()
 // AnsiWindow methods
 //--------------------
 
+const int AnsiWindow::ansi_colortable[8] = {COLOR_BLACK, COLOR_RED,
+	COLOR_GREEN, COLOR_YELLOW, COLOR_BLUE, COLOR_MAGENTA,
+	COLOR_CYAN, COLOR_WHITE};
+
+const int AnsiWindow::pc_colortable[8] = {COLOR_BLACK, COLOR_BLUE,
+	COLOR_GREEN, COLOR_CYAN, COLOR_RED, COLOR_MAGENTA,
+	COLOR_YELLOW, COLOR_WHITE};
+
 #ifdef NCURSES_VERSION
 void AnsiWindow::Init()
 {
@@ -331,9 +339,6 @@ chtype AnsiWindow::colorcore()
 
 void AnsiWindow::colorset()
 {
-	static const int colortable[8] = {COLOR_BLACK, COLOR_RED,
-		COLOR_GREEN, COLOR_YELLOW, COLOR_BLUE, COLOR_MAGENTA,
-		COLOR_CYAN, COLOR_WHITE};
 	int tmp;
 
 	while(escparm[0]) {
@@ -353,9 +358,9 @@ void AnsiWindow::colorset()
 			break;
 		default:
 			if ((tmp > 29) && (tmp < 38))		// foreground
-				ccf = colortable[tmp - 30];
+				ccf = ansi_colortable[tmp - 30];
 			else if ((tmp > 39) && (tmp < 48))	// background
-				ccb = colortable[tmp - 40];
+				ccb = ansi_colortable[tmp - 40];
 		}
 	}
 
@@ -364,9 +369,6 @@ void AnsiWindow::colorset()
 
 void AnsiWindow::athandle()
 {
-	static const int colortable[8] = {COLOR_BLACK, COLOR_BLUE,
-		COLOR_GREEN, COLOR_CYAN, COLOR_RED, COLOR_MAGENTA,
-		COLOR_YELLOW, COLOR_WHITE};
 	static int oldccf = -1, oldccb, oldcbr, oldcfl;
 	unsigned fg = 0, bg = 0;
 	char c[2];
@@ -407,8 +409,8 @@ void AnsiWindow::athandle()
 					cbr = (fg > 7);
 					cfl = (bg > 7);
 
-					ccf = colortable[cbr ? (fg - 8) : fg];
-					ccb = colortable[cfl ? (bg - 8) : bg];
+					ccf = pc_colortable[fg & 7];
+					ccb = pc_colortable[bg & 7];
 
 					attrib = colorcore();
 				}
@@ -534,10 +536,6 @@ void AnsiWindow::escfig()
 
 void AnsiWindow::avatar()
 {
-	static const int colortable[8] = {COLOR_BLACK, COLOR_BLUE,
-		COLOR_GREEN, COLOR_CYAN, COLOR_RED, COLOR_MAGENTA,
-		COLOR_YELLOW, COLOR_WHITE};
-							
 	unsigned char c = source.nextchar();
 
 	switch (c) {
@@ -545,8 +543,8 @@ void AnsiWindow::avatar()
 		c = source.nextchar();
 		cfl = false;
 		cbr = !(!(c & 8));
-		ccf = colortable[c & 7];
-		ccb = colortable[(c & 0x70) >> 4];
+		ccf = pc_colortable[c & 7];
+		ccb = pc_colortable[(c & 0x70) >> 4];
 		attrib = colorcore();
 		break;
 	case 2:				// blink on

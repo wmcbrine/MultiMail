@@ -599,6 +599,7 @@ class AnsiWindow
 		void remapzero(chtype newatt);
 	};
 
+	static const int ansi_colortable[], pc_colortable[];
 	bool colorsused[64];
 	char escparm[256];	//temp copy of ESC sequence parameters
 	const char *title;
