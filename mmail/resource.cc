@@ -159,7 +159,7 @@ void baseconfig::processOneByName(const char *resName, const char *resValue)
 // ==============
 
 const int startUpLen =
- 50
+ 49
 #ifdef USE_SPAWNO
  + 1
 #endif
@@ -171,7 +171,7 @@ const int startUpLen =
 const char *resource::rc_names[startUpLen] =
 {
 	"UserName", "InetAddr", "QuoteHead", "InetQuote",
-	"homeDir", "mmHomeDir", "TempDir", "signature", "editor",
+	"mmHomeDir", "TempDir", "signature", "editor",
 	"PacketDir", "ReplyDir", "SaveDir", "AddressBook", "TaglineFile",
 	"ColorFile", "UseColors",
 #ifdef HAS_TRANS
@@ -214,7 +214,7 @@ const char *resource::rc_comments[startUpLen] = {
  "Your Internet email address (used only in SOUP replies)",
  "Quote header for replies (non-Internet)",
  "Quote header for Internet email and Usenet replies",
- "Base directories (derived from $HOME or $MMAIL)", 0, 0,
+ "Base directories (derived from $HOME or $MMAIL)", 0,
  "Signature (file) that should be appended to each message. (Not used\n"
  "# unless specified here.)",
  "Editor for replies = $EDITOR; or if not defined, " DEFEDIT,
@@ -259,8 +259,8 @@ const char *resource::rc_comments[startUpLen] = {
 
 const int resource::startUp[startUpLen] =
 {
-	UserName, InetAddr, QuoteHead, InetQuote, homeDir, mmHomeDir,
-	TempDir, sigFile, editor, PacketDir, ReplyDir, SaveDir, AddressFile,
+	UserName, InetAddr, QuoteHead, InetQuote, mmHomeDir, TempDir,
+	sigFile, editor, PacketDir, ReplyDir, SaveDir, AddressFile,
 	TaglineFile, ColorFile, UseColors,
 #ifdef HAS_TRANS
 	Transparency,
@@ -318,7 +318,7 @@ const int resource::defInt[] =
 
 resource::resource()
 {
-	const char *envhome, *greeting =
+	const char *greeting =
 		"\nWelcome to " MM_NAME " v%d.%d!\n\n"
 		"A new or updated " RCNAME " has been written. "
 		"If you continue now, " MM_NAME " will\nuse the default "
@@ -340,18 +340,11 @@ resource::resource()
 	}
 	set(outCharset, "iso-8859-1");
 
-	envhome = getenv("MMAIL");
-	if (!envhome)
-		envhome = getenv("HOME");
-	if (!envhome)
-		envhome = error.getOrigDir();
-
-	set_noalloc(homeDir, fixPath(envhome));
-	char *configFileName = fullpath(get(homeDir), RCNAME);
-	
 	initinit();
 	homeInit();
 	mmHomeInit();
+
+	char *configFileName = fullpath(resourceData[homeDir], RCNAME);
 
 	if (parseConfig(configFileName)) {
 		newConfig(configFileName);
@@ -359,7 +352,7 @@ resource::resource()
 		char inp = fgetc(stdin);
 
 		if (toupper(inp) == 'Y') {
-			mysystem2(get(editor), configFileName);
+			mysystem2(resourceData[editor], configFileName);
 			parseConfig(configFileName);
 		}
 	}
@@ -385,7 +378,7 @@ resource::~resource()
 	myrmdir(resourceData[WorkDir]);
 	myrmdir(resourceData[UpWorkDir]);
 	clearDirectory(resourceData[BaseDir]);
-	mychdir("..");
+	mychdir(resourceData[TempDir]);
 	myrmdir(resourceData[BaseDir]);
 	for (int c = 0; c < noOfStrings; c++)
 		delete[] resourceData[c];
@@ -421,12 +414,8 @@ void resource::processOne(int c, const char *resValue)
 			set_noalloc(c, (c >= noOfRaw) ?
 				canonize(fixPath(resValue)) :
 				strdupplus(resValue));
-			switch (c) {
-			case homeDir:
-				homeInit();
-			case mmHomeDir:
+			if (mmHomeDir == c)
 				mmHomeInit();
-			}
 		} else {
 			int x = 0;
 			char r = toupper(*resValue);
@@ -558,9 +547,24 @@ void resource::set(int ID, int newValue)
 
 void resource::homeInit()
 {
-	set_noalloc(mmHomeDir, canonize(fullpath(resourceData[homeDir],
-		"mmail")));
-	set(TempDir, resourceData[mmHomeDir]);
+	bool usingHOME = false;
+
+	const char *envhome = getenv("MMAIL");
+	if (!envhome) {
+		envhome = getenv("HOME");
+		if (envhome)
+			usingHOME = true;
+		else
+			envhome = error.getOrigDir();
+	}
+
+	set_noalloc(homeDir, fixPath(envhome));
+
+	if (usingHOME)
+		set_noalloc(mmHomeDir,
+			canonize(fullpath(resourceData[homeDir], "mmail")));
+	else
+		set(mmHomeDir, resourceData[homeDir]);
 }
 
 void resource::mmEachInit(int index, const char *dirname)
@@ -607,6 +611,8 @@ void resource::initinit()
 
 void resource::mmHomeInit()
 {
+	set(TempDir, resourceData[mmHomeDir]);
+
 	mmEachInit(PacketDir, "down");
 	mmEachInit(ReplyDir, "up");
 	mmEachInit(SaveDir, "save");

@@ -148,10 +148,10 @@ int mysystem2(const char *cmd, const char *args)
 char *mytmpdir(const char *home)
 {
 	mystat st;
-	char name[12];
+	char name[9];
 
 	srand((unsigned) time(0));
-	
+
 	if (mychdir(home))
 		fatalError("Could not change to temp dir");
 	
@@ -159,20 +159,20 @@ char *mytmpdir(const char *home)
 		sprintf(name, "work%04x", (rand() & 0xffff));
 	while (st.init(name));
 	
-	return fullpath(home, name);
+	return canonize(fullpath(home, name));
 }
 
 char *mytmpnam()
 {
 	static long tcount = 1;
-	char name[12];
+	char name[13];
 
 	if (tcount > 99999L)
 		fatalError("Out of temporary filenames");
 
 	sprintf(name, "tmp%05ld.txt", tcount++);
 
-	return fullpath(mm.resourceObject->get(BaseDir), name);
+	return canonize(fullpath(mm.resourceObject->get(BaseDir), name));
 }
 
 void edit(const char *reply_filename)
