@@ -11,10 +11,7 @@
 #include "mmail.h"
 #include "../interfac/error.h"
 
-/* Default filenames. Note that EMX now serves for the Win32 port (via
-   RSXNT), as well as for OS/2; one of the few differences is the default
-   editor defined here:
-*/
+/* Default filenames. */
 
 #ifdef __MSDOS__
 # define DEFEDIT "edit"
