@@ -369,11 +369,12 @@ void pktbase::listBulletins(const char x[][13], int d, int generic)
 
 	for (int c = 0; c < d; c++)
 		if (x[c][0]) {
-			if (!hello && (!strcasecmp("hello", x[c]) ||
-			    !strcasecmp("welcome", x[c])))
+			if (!hello && (!strncasecmp("hello", x[c], 5) ||
+			    !strncasecmp("welcome", x[c], 7)))
 				hello = strdupplus(x[c]);
 			else
-				if (!goodbye && !strcasecmp("goodbye", x[c]))
+				if (!goodbye && !strncasecmp("goodbye",
+				    x[c], 7))
 					goodbye = strdupplus(x[c]);
 				else
 					wl->addItem(bulletins, x[c],
