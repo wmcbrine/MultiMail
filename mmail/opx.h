@@ -16,6 +16,7 @@
 class opxpack : public pktbase
 {
 	ocfgHeader confhead;
+	char *bulletins;
 
 	char *pstrget(void *);
 	void readBrdinfoDat();
@@ -26,6 +27,7 @@ class opxpack : public pktbase
  public:
 	opxpack(mmail *);
 	~opxpack();
+	file_header *getHello();
 	area_header *getNextArea();
 	letter_header *getNextLetter();
 	const char *getTear(int);

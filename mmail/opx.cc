@@ -31,7 +31,14 @@ opxpack::opxpack(mmail *mmA)
 
 opxpack::~opxpack()
 {
+	delete[] bulletins;
 	cleanup();
+}
+
+file_header *opxpack::getHello()
+{
+	return (bulletins && *bulletins) ?
+		mm->workList->existsF(bulletins) : 0;
 }
 
 area_header *opxpack::getNextArea()
@@ -293,19 +300,23 @@ void opxpack::readBrdinfoDat()
 	mm->resourceObject->set(LoginName, p);
 	mm->resourceObject->set_noalloc(AliasName, p);
 
-	char *bulls = new char[header.readerfiles * 13];
+	bulletins = header.readerfiles ?
+		new char[header.readerfiles * 13] : 0;
 
 	int c;
 	for (c = 0; c < header.readerfiles; c++) {
 		pstring(readerf,12);
 
 		fread(&readerf, 13, 1, brdinfoFile);
-		strncpy(bulls + c * 13, (char *) readerf + 1, *readerf);
-		bulls[c * 13 + *readerf] = '\0';
+		strncpy(bulletins + c * 13, (char *) readerf + 1, *readerf);
+		bulletins[c * 13 + *readerf] = '\0';
 	}
 
-	listBulletins((const char (*)[13]) bulls,
-		header.readerfiles, 1);
+	if (header.readerfiles > 1)
+		listBulletins((const char (*)[13]) (bulletins + 13),
+			header.readerfiles - 1, 1);
+	else
+		listBulletins(0, 0, 1);
 
 	// Skip old numofareas byte:
 	fseek(brdinfoFile, 1, SEEK_CUR);
