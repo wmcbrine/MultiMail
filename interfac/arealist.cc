@@ -1,5 +1,3 @@
-/* $Id$ */
-
 /*
  * MultiMail offline mail reader
  * area list
