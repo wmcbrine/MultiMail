@@ -1032,8 +1032,6 @@ void Interface::KeyHandle()		// Main loop
 				case ansiwin:
 					switch (Key) {
 					case MM_RIGHT:
-						if (lynxNav)
-							break;
 					case MM_LEFT:
 					case MM_PLUS:
 					case MM_MINUS:
