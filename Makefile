@@ -71,11 +71,12 @@ LIBS = -lcurses
 #LIBS = /opt/sfw/lib/libncurses.a
 
 #--------------------------------------------------------------
-# With ncurses installed in my home directory:
+# With ncurses installed in the user's home directory:
 
-#CURS_INC = \\\"/home/wmcbrine/ncurses-5.3/include/curses.h\\\"
-#CURS_DIR = /home/wmcbrine/ncurses-5.3/include
-#CURS_LIB = /home/wmcbrine/ncurses-5.3/lib
+# Example with quotes (relative pathnames start from ./interfac):
+#CURS_INC = \\\"../../ncurses-5.2/include/curses.h\\\"
+#CURS_DIR = ../../ncurses-5.2/include
+#CURS_LIB = ../ncurses-5.2/lib
 #LIBS = -lncurses
 
 #--------------------------------------------------------------
