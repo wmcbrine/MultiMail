@@ -247,14 +247,16 @@ const int AnsiWindow::pc_colortable[8] = {COLOR_BLACK, COLOR_BLUE,
 	COLOR_GREEN, COLOR_CYAN, COLOR_RED, COLOR_MAGENTA,
 	COLOR_YELLOW, COLOR_WHITE};
 
-#ifdef NCURSES_VERSION
 void AnsiWindow::Init()
 {
+#ifdef NCURSES_VERSION
 	// Is the "PC" character set available?
 	char *result = tigetstr("smpch");
 	useAltCharset = (result && (result != ((char *) -1)));
-}
 #endif
+	atparse = 1;
+	avtparse = true;
+}
 
 void AnsiWindow::DestroyChain()
 {
@@ -956,8 +958,6 @@ void AnsiWindow::set(letter_body *ansiSource, const char *winTitle,
 	position = 0;
 	isLatin = latin;
 	title = winTitle;
-	atparse = 1;
-	avtparse = true;
 }
 
 void AnsiWindow::set(file_header *f, const char *winTitle, bool latin)
@@ -967,8 +967,6 @@ void AnsiWindow::set(file_header *f, const char *winTitle, bool latin)
 	position = 0;
 	isLatin = latin;
 	title = winTitle;
-	atparse = 1;
-	avtparse = true;
 }
 
 void AnsiWindow::MakeActive()
