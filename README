@@ -1,13 +1,14 @@
-MultiMail version 0.44
+MultiMail version 0.45
 ======================
 
-What's New in version 0.44?
+What's New in version 0.45?
 ---------------------------
 
- * Speculative fix for corrupt QWK reply problem
- * New key for filter function, other filter fixes
- * Fixes for END key in input, segfaults in ANSI, display bugs
- * Compiles under Sun C++
+ * New temporary file system (see HISTORY); fixes many problems
+ * ANSI viewer works much better in Unix
+ * Fixed some ANSI bugs on all platforms
+ * No more "extra" mmail directory
+ * Various minor display improvements
  * Etc.
 
 See the HISTORY file for other changes. See INSTALL for the installation
@@ -28,7 +29,7 @@ General Public License (q.v.).
 
 You can get the latest version by anonymous ftp from:
 
- ftp://download.sourceforge.net/pub/sourceforge/multimail/mmail-0.44.tar.gz
+ ftp://download.sourceforge.net/pub/sourceforge/multimail/mmail-0.45.tar.gz
 
 or at the MultiMail home page:
 

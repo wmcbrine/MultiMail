@@ -1,4 +1,4 @@
-.TH MultiMail 1 "May  7, 2003"
+.TH MultiMail 1 "June  8, 2003"
 .SH NAME
 mm - offline mail reader for Blue Wave, QWK, OMEN, SOUP and OPX packets
 .SH SYNOPSIS
@@ -15,7 +15,7 @@ provide a better interface to the message base.
 Not all packet formats may be available, depending on how the program was
 compiled.
 
-This manpage is for version 0.44.
+This manpage is for version 0.45.
 .SH USAGE
 On most screens, a summary of the available keystroke commands is
 displayed in the lower part of the screen. (You can disable this, and
@@ -313,10 +313,8 @@ configuration file, .mmailrc; and EDITOR for the default editor. MMAIL
 takes precedence over HOME if it's defined. If neither is defined, the
 startup directory is used.
 
-Depending on the implementation, TMP and/or TEMP may also be used to
-specify the directory for temporary files. The use of EDITOR can be
-overridden in .mmailrc; however, environment variables can't be used
-within .mmailrc.
+The use of EDITOR can be overridden in .mmailrc; however, environment
+variables can't be used within .mmailrc.
 
 You should also make sure that your time zone is set correctly. On many
 systems, that means setting the TZ environment variable. A typical value
@@ -328,11 +326,9 @@ The only hardwired file is the configuration file:
 It's used to specify the pathnames to MultiMail's other files, and the
 command lines for external programs (the editor and the archivers).
 
-By default, the other permanent files are placed in the MultiMail home
-directory ($HOME/mmail or $MMAIL/mmail). For temporary directories and
-files, MultiMail uses the tmpnam() function (the location is
-system-dependent). Directories specified in the .mmailrc are created
-automatically; the default values are shown here:
+By default, the other files are placed in the MultiMail home directory
+($HOME/mmail or $MMAIL). Directories specified in the .mmailrc are
+created automatically; the default Unix values are shown here:
 
 .TP
 .B ~/mmail
@@ -422,11 +418,15 @@ Note that you can't put white space at the start of one of these strings
 (it will be eaten by the config parser), but you can get around that by
 putting a newline first.
 .TP
-.B homeDir
-User's home directory.
-.TP
 .B mmHomeDir
 MultiMail's home directory.
+.TP
+.B TempDir
+This is the directory where MultiMail puts its temporary files -- by
+default, as of 0.45, the same as mmHomeDir. The files are actually
+created within a subdirectory of this directory; the subdirectory is
+named "workNNNN", where NNNN is a random number (checked against any
+existing files or directories before being created).
 .TP
 .B signature
 Path to optional signature file, which should be a simple text file. If
@@ -613,9 +613,13 @@ your .mmailrc and ColorFile with any new keywords. (Old keywords, and the
 values you've set for them, are preserved. However, comments are lost.)
 Some notes on specific upgrades:
 
-Version 0.43 adds the .mmailrc option "ClockMode", and makes
-"UseColors" available in all ports. Also note that CPU usage while idle
-may be higher in some configurations.
+Version 0.45 adds the .mmailrc option "TempDir". Note that temporary
+files are handled differently in this version, and the TEMP and TMP
+environment variables are ignored. "homeDir" has been removed.
+
+Version 0.43 adds "ClockMode", and makes "UseColors" available in all
+ports. Also note that CPU usage while idle may be higher in some
+configurations.
 
 Version 0.41 adds the option "IgnoreNDX".
 
@@ -732,11 +736,6 @@ since version 0.7, the maintainer is William McBrine
 Additional code has been contributed by Peter Karlsson, Mark D. Rejhon,
 Ingo Brueckl, Robert Vukovic and Mark Crispin.
 .SH BUGS AND KNOWN PROBLEMS
-If your editor produces automatic backup files, you should disable this
-feature, if possible, or wrap it with a batch file to delete them when
-done. MultiMail will erase the temporary files it creates itself, but it
-doesn't know to erase the backup files from an editor.
-
 The RSX/NT version is reported to be incompatible with 4DOS: shelling to
 external programs (archivers or editors) fails. Thanks to Tony Summerfelt
 for figuring this one out. You can set the MultiMail session to use

@@ -1,6 +1,93 @@
 Revision History
 ================
 
+0.45 - 2003/06/08:
+
+New features:
+
+- New temporary directory and file system: Instead of using tmpnam() --
+  which frankly never worked properly outside of Unix, and is sometimes
+  regarded as a security risk there -- MultiMail now generates temp
+  directories of the form "workNNNN", where NNNN is a random number, under
+  the directory specified by the new .mmailrc keyword "TempDir". By default,
+  TempDir is set to the same value as mmHomeDir. NOTE THAT IF YOU'VE BEEN
+  USING ENVIRONMENT VARAIBLES TO SPECIFY A TEMP DIR, IT WILL NO LONGER WORK.
+  They aren't even used to set the default (as with EDITOR). In the XT port,
+  TempDir also now specifies the location of the swap file, if that feature
+  is enabled. And temporary files are now created as "tmpNNNNN.txt" under
+  the workNNNN directory, where NNNNN is a serial number; so they no longer
+  clutter the base temp directory, they have the ".txt" extension some
+  editors depend on, and there's no longer a problem with editor-created
+  backup files being cleared out.
+
+- Big improvements in the ANSI viewer under Unix: For those terminals (like
+  the Linux console) that support the "smpch" terminfo capability, the IBM
+  PC characters are passed through directly. For other terminals (like
+  xterm), the use of the widely unimplemented ACS_BLOCK and ACS_BOARD has
+  been replaced with an inverse space and ACS_CKBOARD, respectively. (In
+  ncurses' curses.h, ACS_BLOCK and ACS_BOARD are identified as "Teletype
+  5410v1 symbols", while ACS_CKBOARD is in the "VT100 symbols" group.
+  Everything supports VT100, but few terminals support the other class.)
+  Note that the use of the inverse space does present a problem when
+  characters have the A_BOLD attribute, as it's interpreted differently by
+  different terminals, so that some will make the cell "bright", and some
+  won't; but this seems to look best on the greatest number of terminals.
+  Also note that "xterm -fn vga -tn linux" is still the best way to view
+  ANSI under X. ;-)
+
+- A new method for setting mmHomeDir: If it's based on the environment
+  variable "HOME", add "mmail" to the end, as before; but if it's based on
+  "MMAIL" or the start directory, don't. Practically speaking, this should
+  make it apply "mmail" under Unix and not under DOS-ish systems, in most
+  cases. That means that if you create a directory like "C:\MMAIL" and run
+  mm.exe from there, it will no longer create "C:\MMAIL\MMAIL\DOWN", etc.,
+  but simply "C:\MMAIL\DOWN". Note that this (unlike the new temp system)
+  applies only to new installations; upgrades will not alter existing
+  MMAIL.RC pathnames.
+
+- The name shown at the top of the screen is now "MultiMail/Sysname vX.X" --
+  i.e., the same as would appear in a QWK reply tearline -- instead of
+  "MultiMail offline reader vX.X". Shorter, yet more informative. :-)
+
+Bug fixes and such:
+
+- Doing a ^X during a bulletin would cause a segfault.
+
+- A malformed 'H' command (e.g., using "0" as a parameter) in ANSI could
+  cause a segfault.
+
+- The window title is explicitly set to "MultiMail" in the Win32 and XCurses
+  ports. This eliminates the problem where "UNZIP" would remain in the title
+  after unarchiving a packet under Win 9x.
+
+- Revived cursor mode save/restore routines for PDCurses (except for Win32,
+  where it doesn't work); moved cursor restoration after endwin() call in
+  mysystem() (this is why it didn't do the job before).
+
+- Updated Makefiles for PDCurses 2.6, and GCC 3.2.1 (in the case of EMX). I
+  strongly recommend upgrading to PDCurses 2.6, in most cases, as it already
+  incorporates my patch for halfdelay(); however, there's a fatal bug in the
+  OS/2 version. (Write me for a patch.) I also recommend ncurses 5.3 over
+  5.2 -- for one thing, it fixes the problem with the bool declaration that
+  broke searching and animation in some installations -- but I've left it as
+  5.2 in the Makefile, for now, because I have too many systems to recompile
+  it for. :-)
+
+- Remaining compilation warnings eliminated for most platforms: Got rid of
+  tmpnam() (see above), moved "%y" strftime() strings outside the calls
+  (copied this from Ingo Brueckl), and added "-Wno-deprecated" to the
+  Makefile options for the latest versions of gcc.
+
+- Useless .mmailrc keyword "homeDir" removed. (It specified the base value
+  for mmHomeDir, but in most cases that was already specified explicitly on
+  the very next line.)
+
+- Stronger attempts to use backslash characters instead of slash where
+  appropriate in MMAIL.RC (depending on the platform). But again, this is
+  cosmetic.
+
+- Optimizations, comments, etc.
+
 0.44 - 2003/05/07:
 
 New features:
