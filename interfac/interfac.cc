@@ -436,10 +436,9 @@ void Interface::newpacket()
 	unsaved_reply = any_read = false;
 
 	if (mm.checkForReplies())
-		if (!WarningWindow("Existing replies found:", keepers)) {
+		if (!WarningWindow("Existing replies found:", keepers))
 			mm.deleteReplies();
-			redraw();
-		} else {
+		else {
 			redraw();
 			ReportWindow("Opening replies...");
 		}
@@ -465,7 +464,12 @@ void Interface::newpacket()
 	if (hello)
 		ansiFile(hello, hello->getName(), latin);
 
-	if (!abortNow && bulletins)
+	if (!abortNow) {
+		areas.FirstUnread();
+		changestate(arealist);
+	}
+
+	if (!abortNow && bulletins) {
 		if (WarningWindow("View bulletins?")) {
 			file_header **a = bulletins;
 			while (a && *a) {
@@ -481,15 +485,15 @@ void Interface::newpacket()
 					a = 0;
 				}
 			}
-		}
+		} else
+			redraw();
+	}
 
-	if (!abortNow && newFiles)
+	if (!abortNow && newFiles) {
 		if (WarningWindow("View new files list?"))
 			ansiFile(newFiles, "New files", latin);
-
-	if (!abortNow) {
-		areas.FirstUnread();
-		changestate(arealist);
+		else
+			redraw();
 	}
 }
 
