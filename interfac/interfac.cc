@@ -472,12 +472,14 @@ void Interface::newpacket()
 		} else
 			changestate(arealist);
 
-	newFiles = mm.getFileList();
-	if (newFiles)
-		if (WarningWindow("View new files list?"))
-			ansiFile(newFiles, "New files", latin);
-		else
-			changestate(arealist);
+	if (!abortNow) {
+		newFiles = mm.getFileList();
+		if (newFiles)
+			if (WarningWindow("View new files list?"))
+				ansiFile(newFiles, "New files", latin);
+			else
+				changestate(arealist);
+	}
 }
 
 bool Interface::select()
