@@ -10,7 +10,8 @@ include version
 #OPTS = -g -Wall -pedantic
 
 # Optimized for egcs, no debug:
-OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space
+OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space \
+-Wno-deprecated
 
 #--------------------------------------------------------------
 # DJGPP (MSDOS), with PDCurses 2.6:

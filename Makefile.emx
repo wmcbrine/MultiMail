@@ -14,7 +14,8 @@ include version
 
 # Optimized for egcs -- since MultiMail does not (yet) use exceptions, we
 # can save a little space in the executable:
-OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space
+OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space \
+-Wno-deprecated
 
 #--------------------------------------------------------------
 # EMX (OS/2), with GNU make, GCC 3.x, and PDCurses 2.6:
