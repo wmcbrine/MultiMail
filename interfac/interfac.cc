@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2004 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -467,22 +467,9 @@ void Interface::newpacket()
 	}
 
 	if (!abortNow && bulletins) {
-		if (WarningWindow("View bulletins / new files?")) {
-			file_header **a = bulletins;
-			while (a && *a) {
-				switch (ansiFile(*a, (*a)->getName(), latin)) {
-				case 1:
-					a++;
-					break;
-				case -1:
-					if (a != bulletins)
-						a--;
-					break;
-				default:
-					a = 0;
-				}
-			}
-		} else
+		if (WarningWindow("View bulletins / new files?"))
+			ansiList(bulletins, latin);
+		else
 			redraw();
 	}
 }
@@ -688,6 +675,25 @@ int Interface::ansiFile(file_header *f, const char *title, bool latin)
 {
 	ansiwindow.set(f, title, latin);
 	return ansiCommon();
+}
+
+void Interface::ansiList(file_header **base, bool latin)
+{
+	file_header **a = base;
+
+	while (a && *a) {
+		switch (ansiFile(*a, (*a)->getName(), latin)) {
+		case 1:
+			a++;
+			break;
+		case -1:
+			if (a != base)
+				a--;
+			break;
+		default:
+			a = 0;
+		}
+	}
 }
 
 int Interface::ansiCommon()
