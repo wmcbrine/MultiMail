@@ -581,7 +581,7 @@ class AnsiWindow
 		AnsiLine *prev, *next;
 		union {
 			chtype *text;
-			char *atext;
+			unsigned char *atext;
 		};
 		unsigned length;
 		chtype att;
@@ -632,6 +632,10 @@ class AnsiWindow
 	void colorcore();
 	void colorset();
 	void athandle();
+	void cpylow();
+	void cpyhigh();
+	void cpxhigh();
+	void cpxlow();
 	void escfig();
 	void posreset();
 	void checkpos();

@@ -56,10 +56,11 @@ int AnsiWindow::AnsiLine::unpack(chtype *tmp)
 		for (i = 0; i < (int) length; i++)
 			tmp[i] = att | atext[i];
 	else
-		memcpy(tmp, text, length * sizeof(chtype));
+		if (length)
+			memcpy(tmp, text, length * sizeof(chtype));
 
 	for (i = length; i < COLS; i++)
-		tmp[i] = ' ' | C_ANSIBACK;
+		tmp[i] = ' ' | (C_ANSIBACK);
 
 	return length;
 }
@@ -74,19 +75,20 @@ void AnsiWindow::AnsiLine::pack(chtype *tmp, int newlen)
 		delete[] text;
 
 	isasc = true;
-	att = *tmp & ~(A_CHARTEXT);
+	att = newlen ? (*tmp & ~(A_CHARTEXT)) : C_ANSIBACK;
 
 	for (i = 0; (i < newlen) && isasc; i++)
 		if ((tmp[i] & ~(A_CHARTEXT)) != att)
 			isasc = false;
 
 	if (isasc) {
-		atext = new char[newlen];
+		atext = newlen ? new unsigned char[newlen] : 0;
 		for (i = 0; i < newlen; i++)
 			atext[i] = tmp[i] & (A_CHARTEXT);
 	} else {
-		text = new chtype[newlen];
-		memcpy(text, tmp, newlen * sizeof(chtype));
+		text = newlen ? new chtype[newlen] : 0;
+		if (newlen)
+			memcpy(text, tmp, newlen * sizeof(chtype));
 	}
 
 	length = newlen;
@@ -97,7 +99,7 @@ void AnsiWindow::AnsiLine::show(Win *win, int i)
 	if (length)
 		if (isasc) {
 			win->attrib(att);
-			win->put(i, 0, atext, length);
+			win->put(i, 0, (char *) atext, length);
 		} else {
 			win->attrib(0);
 			win->put(i, 0, text, length);
@@ -110,7 +112,8 @@ void AnsiWindow::AnsiLine::show(Win *win, int i)
 void AnsiWindow::AnsiLine::unpacktext(char *tmp)
 {
 	if (isasc) {
-		memcpy(tmp, atext, length);
+		if (length)
+			memcpy((unsigned char *) tmp, atext, length);
 		tmp += length;
 	} else
 		for (unsigned i = 0; i < length; i++)
@@ -434,6 +437,30 @@ void AnsiWindow::athandle()
 	}
 }
 
+void AnsiWindow::cpylow()
+{
+	if (cpy < 0)
+		cpy = 0;
+}
+
+void AnsiWindow::cpyhigh()
+{
+	if (anim && (cpy > (LINES - 2)))
+		cpy = LINES - 2;
+}
+
+void AnsiWindow::cpxhigh()
+{
+	if (cpx > (COLS - 1))
+		cpx = COLS - 1;
+}
+
+void AnsiWindow::cpxlow()
+{
+	if (cpx < 0)
+		cpx = 0;
+}
+
 void AnsiWindow::escfig()
 {
 	char a[2];
@@ -444,23 +471,19 @@ void AnsiWindow::escfig()
 	switch (a[0]) {
 	case 'A':			// cursor up
 		cpy -= getparm();
-		if (cpy < 0)
-			cpy = 0;
+		cpylow();
 		break;
 	case 'B':			// cursor down
 		cpy += getparm();
-		if (anim && (cpy > (LINES - 2)))
-			cpy = LINES - 2;
+		cpyhigh();
 		break;
 	case 'C':			// cursor right
 		cpx += getparm();
-		if (cpx > (COLS - 1))
-			cpx = COLS - 1;
+		cpxhigh();
 		break;
 	case 'D':			// cursor left
 		cpx -= getparm();
-		if (cpx < 0)
-			cpx = 0;
+		cpxlow();
 		break;
 	case 'J':			// clear screen
 		if (getparm() == 2)
@@ -469,7 +492,9 @@ void AnsiWindow::escfig()
 	case 'H':			// set cursor position
 	case 'f':
 		cpy = getparm() - 1;
+		cpylow(); cpyhigh();
 		cpx = getparm() - 1;
+		cpxlow(); cpxhigh();
 		break;
 	case 's':			// save position
 		spx = cpx;
