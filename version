@@ -1,0 +1,11 @@
+# The MultiMail version number is now defined here. It's a separate file
+# because it's sourced by both make (here), and bash (in some scripts I
+# use to build the distribution archives).
+
+MM_MAJOR=0
+MM_MINOR=44
+
+# Last-released version (used only by the aforementioned scripts)
+
+OLD_MAJOR=0
+OLD_MINOR=43

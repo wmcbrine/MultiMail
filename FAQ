@@ -1,0 +1,207 @@
+
+                            MultiMail FAQ v1.10
+     _________________________________________________________________
+
+   Some frequently asked questions about the MultiMail Offline Reader,
+   and my answers.
+
+  Topics covered in this FAQ:
+
+    1. How do I set up my spell checker in MultiMail?
+    2. Is MultiMail Y2K compliant?
+    3. What are the differences between the MS-DOS and Win32 versions?
+    4. There are only eight colors to choose from in the color file.
+    5. I see by your tear line that you're using version 0.42...
+    6. I haven't actually tried MultiMail yet, but I have lots of
+       questions
+    7. How about adding X feature?
+    8. Will you port MultiMail to the XYZ system?
+    9. Did you know that "MultiMail" is also the name of a commercial...
+   10. I'm a programmer. How can I collaborate with you?
+   11. Is there an Internet mailing list for MultiMail?
+     _________________________________________________________________
+
+    1.1: How do I set up my spell checker in MultiMail? There's no option
+    for it in MMAIL.RC.
+
+   There won't be a separate option for spell checkers. But there are two
+   ways you can handle it:
+
+   Call the spell checker from your text editor. This is what I
+   recommend.
+
+   or
+
+   Create a batch file that calls both the editor and the spell-checker,
+   and set the "editor:" keyword in mmail.rc to point to this batch file.
+
+   I can't tell you exactly what the batch file should look like, since I
+   don't do this myself. (Anyone who uses one of the popular spell
+   checkers, feel free to flesh this answer out a bit.) But the general
+   idea would be something like this:
+
+ editor %1
+ spell %1
+
+   (For Unix, substitute '$' for '%'.)
+     _________________________________________________________________
+
+    2.1: Is MultiMail Y2K compliant?
+
+   By now, most people have stopped asking me this, but oddly enough it's
+   still an issue -- not because of MultiMail itself, but because of the
+   sometimes-abandoned software it has to interact with: QWK, Blue Wave,
+   OMEN and OPX doors, as well as SOUP handlers. And some of them
+   definitely have problems, though I can't give you a complete list of
+   which do what. (I'll only vouch for the correctness of my own QWK
+   door, Valence -- preferably version 1.6 or later.) SOUP is probably
+   the least affected.
+
+   One set of programs that have real problems are the Blue Wave doors by
+   George Hatchew. These share the problem of misinterpreting the
+   "tm_year" field in the standard C "struct tm" as though it were (year
+   % 100) -- i.e., the last two digits -- instead of (year - 1900), which
+   is the true definition. So, whenever these programs convert the year
+   to an ASCII value, they print it as "100". This causes a range of
+   problems, from the purely cosmetic, to the corruption of BBS message
+   bases.
+
+   Please note, however, that these bugs are due neither to MultiMail,
+   nor to any flaw in the Blue Wave format; they're specific to George
+   Hatchew's implementations. There are third-party BW doors with no Y2K
+   bugs at all, so the format is still viable. There are also workarounds
+   for some of Hatchew's programs.
+
+   MultiMail itself contains no date-related bugs. It achieves this, in
+   part, by having rather simple-minded date handling. :-) No message
+   sorting by date is available, for example.
+     _________________________________________________________________
+
+    3.1: What are the differences between the MS-DOS and Win32 versions?
+    They look the same.
+
+   They're quite different internally; but yes, they function nearly
+   identically. (So do the other ports.) The MS-DOS version is a 32-bit
+   DPMI client, so (depending on your settings) it can read messages and
+   packets just as large as the Win32 version. It even understands long
+   filenames under Windows 9x. About the only advantages of the Win32
+   version are mouse support, better multitasking with other Windows
+   apps, and support for long filenames under Windows NT.
+
+   Under Windows 9x, the 32-bit DOS version actually performs a little
+   better than the native Win32 port. But for use under NT, I strongly
+   recommend the Win32 version.
+     _________________________________________________________________
+
+    4.1: There are only eight colors to choose from in the color file. Why
+    is it so limited?
+
+   No, there are really 16 foreground colors, and 8 background. The high
+   bit of the foreground color is set by using the "Bold" attribute in
+   the color file. These are all the colors available to you in text mode
+   on a standard PC-type display, with the exception of a special mode
+   (not supported by MultiMail) which lets you swap the "blinking"
+   attribute for 16 colors in the background, too.
+
+    4.2: So why is it called "Bold", anyway?
+
+   That's the ANSI name for it, and also the curses name (A_BOLD). On
+   some displays (e.g., an xterm), it actually boldfaces the text,
+   instead of (or in addition to) affecting the color.
+
+    4.3: What's the purpose of the "Reverse" attribute? Why not just
+    switch the colors around? Isn't that the same?
+
+   On a monochrome terminal, no. The "Reverse" and "Bold" attributes are
+   the only way to get highlighting on such a terminal. The color schemes
+   I've made (though not the contrib schemes) make use of these
+   attributes to ensure that they look OK when the program is run on a
+   monochrome screen.
+     _________________________________________________________________
+
+    5.1: I see by your tear line that you're using version 0.42, but your
+    web site only has 0.41. Where can I get 0.42?
+
+   You should always ignore my tear lines. One of the first things I do
+   after releasing a new version is to increment the version number; so
+   I'm often using a version that's just ahead of the released one. It
+   doesn't mean that a new release is imminent, either. My web site will
+   always have the most current version.
+     _________________________________________________________________
+
+    6.1: I haven't actually tried MultiMail yet, but I have lots of
+    questions about it.
+
+   Try it first, then get back to me. That goes for individual features,
+   too. Don't ask me what will happen if you do something -- find out for
+   yourself.
+     _________________________________________________________________
+
+    7.1: How about adding X feature?
+
+   Please read the TODO file before asking for new features. If X is
+   listed there, you need not write me about it. (Otherwise, I don't
+   mind.)
+     _________________________________________________________________
+
+    8.1: Will you port MultiMail to the XYZ system?
+
+   Send me a C++ development system for XYZ, and I'll be happy to try.
+   (Note that in this section, I used to use "16-bit MS-DOS" and "BeOS"
+   as examples. Both are actually available now, because I was sent a
+   development system for 16-bit MS-DOS, and BeOS was released for free
+   online.)
+     _________________________________________________________________
+
+    9.1: Did you know that "MultiMail" is also the name of a commercial
+    POP/IMAP/SMTP client for the Palm OS?
+
+   Yes.
+
+    9.2: So, couldn't you get in trouble for that?
+
+   Actually, as far as I can tell, the subject of this FAQ predates the
+   Palm OS program. (Version 0.1 came out in January 1996.) There are a
+   number of other programs and products which also go by the name.
+
+    9.3: Wow, 1996. Shouldn't you have hit version 1.0 by now?
+
+   Yes. But bear in mind that MultiMail has had four maintainers (in
+   three groups), and essentially lain fallow for long periods in
+   bewteen. Also, none of us are getting paid for this. :-)
+     _________________________________________________________________
+
+    10.1: I'm a programmer. How can I collaborate with you?
+
+   Use the source, Luke. Show me some actual code patches, made against
+   the last released version, and document them. Then we'll talk.
+
+   Code should look more or less like it was processed with "indent -i8
+   -kr", or "-i4" if the output is too wide. No lines over 79 characters,
+   please.
+     _________________________________________________________________
+
+    11.1: Is there an Internet mailing list for MultiMail?
+
+   There's a discussion list, which you can subscribe to via the web at
+   http://lists.sourceforge.net/lists/listinfo/multimail-user, or via
+   email by sending an empty message with the subject "subscribe" to
+   multimail-user-request@lists.sourceforge.net.
+
+   I also have an announce list at
+   http://lists.sourceforge.net/lists/listinfo/multimail-announce, email
+   multimail-announce-request@lists.sourceforge.net. This is mostly used
+   for notices of new versions. I recommend that every MultiMail user at
+   least subscribe to the announce list, if possible.
+
+   Please note that announcements are NOT crossposted to the discussion
+   list.
+
+    11.2: I'm changing ISPs; here's my new email address.
+
+   Please tell it to the list software, not me. The lists are automated
+   now, and I won't manually change a subscriber's address.
+     _________________________________________________________________
+
+    FAQ by William McBrine <wmcbrine@users.sourceforge.net>.
+    Last updated: Oct 16 2001

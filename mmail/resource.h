@@ -1,0 +1,89 @@
+/*
+ * MultiMail offline mail reader
+ * resource class
+
+ Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
+ Copyright (c) 2002 William McBrine <wmcbrine@users.sourceforge.net>
+
+ Distributed under the GNU General Public License.
+ For details, see the file COPYING in the parent directory. */
+
+#ifndef RESOURCE_H
+#define RESOURCE_H
+
+enum {
+	UserName, InetAddr, QuoteHead, InetQuote, outCharset, noOfRaw
+};
+
+enum {
+	homeDir = noOfRaw, mmHomeDir, PacketDir, WorkDir,
+	UncompressCommand, PacketName, BBSName, SysOpName, ReplyDir,
+	LoginName, AliasName, CompressCommand, UpWorkDir, editor, SaveDir,
+	AddressFile, TaglineFile, arjUncompressCommand,
+	zipUncompressCommand, lhaUncompressCommand, rarUncompressCommand,
+	tarUncompressCommand, unknownUncompressCommand,
+	arjCompressCommand, zipCompressCommand, lhaCompressCommand,
+	rarCompressCommand, tarCompressCommand, unknownCompressCommand,
+	sigFile, ColorFile, oldPacketName, noOfStrings
+};
+
+enum {
+	PacketSort = noOfStrings, AreaMode, LetterSort, LetterMode,
+	Charset, UseTaglines, AutoSaveReplies, StripSoftCR, BeepOnPers,
+	UseLynxNav, ReOnReplies, QuoteWrapCols, MaxLines, UseQPMailHead,
+	UseQPNewsHead, UseQPMail, UseQPNews, ExpertMode, IgnoreNDX,
+#ifdef USE_SPAWNO
+	swapOut,
+#endif
+	UseColors,
+#ifdef HAS_TRANS
+	Transparency,
+#endif
+	BackFill, ClockMode, noOfResources
+};
+
+class baseconfig
+{
+ protected:
+	const char **names, **comments, **intro;
+	int configItemNum;
+
+	bool parseConfig(const char *);
+	void newConfig(const char *);
+	virtual void processOne(int, const char *) = 0;
+	virtual const char *configLineOut(int) = 0;
+ public:
+	void processOneByName(const char *, const char *);
+	virtual ~baseconfig();
+};
+
+class resource : public baseconfig
+{
+	static const char *rc_names[], *rc_intro[], *rc_comments[];
+	static const int startUp[], defInt[];
+ 
+	char *basedir;
+
+	char *resourceData[noOfStrings];
+	int resourceInt[noOfResources - noOfStrings];
+
+	void homeInit();
+	void mmEachInit(int, const char *);
+	void subPath(int, const char *);
+	void initinit();
+	void mmHomeInit();
+	void processOne(int, const char *);
+	const char *configLineOut(int);
+	bool checkPath(const char *, bool);
+	bool verifyPaths();
+ public:
+	resource();
+	~resource();
+	const char *get(int) const;
+	int getInt(int) const;
+	void set(int, const char *);
+	void set_noalloc(int, char *);
+	void set(int, int);
+};
+	  
+#endif

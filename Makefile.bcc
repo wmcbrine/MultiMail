@@ -1,0 +1,51 @@
+#-----------------------------------------------
+# MultiMail Makefile (top) for Borland/Turbo C++
+#-----------------------------------------------
+
+!include version
+
+#--------------------------------------------------------------
+# Borland C++ 5.5:
+
+CURS_INC = \\"c:/pdcurs25/curses.h\\"
+CURS_DIR = c:\pdcurs25
+CURS_LIB = .
+LIBS = c:\pdcurs25\win32\pdcurses.lib
+RM = del
+LIST = list
+
+#--------------------------------------------------------------
+#--------------------------------------------------------------
+
+all:	mm
+
+mm-main:
+	cd mmail
+	$(MAKE) -fMakefile.bcc -DMM_MAJOR=$(MM_MAJOR) \
+		-DMM_MINOR=$(MM_MINOR) mm-main
+	cd ..
+
+intrfc:
+	cd interfac
+	$(MAKE) -fMakefile.bcc -DMM_MAJOR=$(MM_MAJOR) \
+		-DMM_MINOR=$(MM_MINOR) -DOPTS="-I$(CURS_DIR)" \
+		-DCURS_INC="$(CURS_INC)" intrfc
+	cd ..
+
+mm:	mm-main intrfc
+	$(CC) -emm @$(LIST) $(LIBS)
+
+clean:
+	cd interfac
+	$(MAKE) -fMakefile.bcc -DRM="$(RM)" clean
+	cd ..
+	cd mmail
+	$(MAKE) -fMakefile.bcc -DRM="$(RM)" clean
+	cd ..
+	$(RM) mm.exe
+	$(RM) mm.tds
+
+modclean:
+	cd mmail
+	$(MAKE) -fMakefile.bcc -DRM="$(RM)" modclean
+	cd ..

@@ -1,0 +1,178 @@
+MultiMail compilation and installation procedure
+================================================
+
+These instructions assume that you're compiling MultiMail from source. For
+precompiled binaries, see the README files that accompany them instead.
+
+1. Make sure any needed packages are installed --
+    In addition to the MultiMail package itself, you'll also need InfoZip
+    or PKZIP (and/or LHA, ARJ, etc.) to uncompress the packets and
+    compress the replies. InfoZip is available from:
+
+    http://www.info-zip.org/
+
+    PKZIP is at:
+
+    http://www.pkware.com/
+
+    (PKZIP is the default for DOS; InfoZip is the default for other
+    platforms.) The programs should be installed somewhere in the PATH;
+    otherwise, the full path must be specified in ~/.mmailrc.
+
+    To compile MultiMail, you'll need curses -- either ncurses, SysV
+    curses (e.g., Solaris curses), or PDCurses. You can get ncurses from:
+
+    http://dickey.his.com/ncurses/
+
+    PDCurses is available at:
+
+    http://www.lightlink.com/hessling/PDCurses/
+
+    (If you're using Linux, odds are that you already have ncurses and
+    InfoZip.) Also, bear in mind that MultiMail needs the C++ standard 
+    libraries, not just C.
+
+    Note that although DJGPP 2.01 comes with PDCurses 2.2, I've made some
+    changes that depend on 2.3.
+
+    The 16-bit MS-DOS port also uses Ralf Brown's SPAWNO library:
+
+    http://www.cs.cmu.edu/afs/cs.cmu.edu/user/ralf/pub/WWW/files.html
+
+2. Configure it (for compilation) --
+    Check the options and paths in the Makefile. If your curses header
+    file is not in /usr/include/curses.h, change CURS_INC and/or
+    CURS_DIR as appropriate. If the curses library is not in the linker's
+    search path, specify the directory in CURS_LIB.
+
+3. Compile MultiMail --
+    At the base directory, type: make
+
+4. Run it --
+    Type: ./mm
+    (For DOS, OS/2 or Win32, set the MMAIL or HOME variable, then run mm.)
+
+5. (Optional:) Configure it (for end user) --
+    Edit the ~/.mmailrc file. (For DOS, OS/2 or Win32, mmail.rc.)
+
+6. (Optional:) Install it system-wide --
+    Type: make install
+    to install the manual and binary under /usr/local
+    (requires root access). (This doesn't work in DOS, OS/2 or Win32.)
+
+See the man page (mmail.1) and README for more information.
+
+This package includes some example color schemes, in the "colors"
+directory. How or whether you install these is up to you. (If you want to
+use them, I suggest putting them in your "mmail" directory. To select one,
+alter the "ColorFile" keyword in .mmailrc to point to it.)
+
+
+Support for XCurses (PDCurses)
+==============================
+
+When MultiMail is compiled with XCurses, you can use the X resource
+database to set certain startup options. Here are some example resources:
+
+MultiMail.normalFont:	9x15
+MultiMail.boldFont:	9x15bold
+MultiMail.lines:	30
+MultiMail.cols:		80
+
+For details, see the PDCurses documentation.
+
+If you're using a non-X text editor with an XCurses version of MultiMail,
+it will work better if you set MultiMail's editor variable to "xterm -e
+$EDITOR" instead of just "$EDITOR" (the default).
+
+Be sure to try out the window resizing; the SIGWINCH handling in XCurses
+is much smoother than under an xterm (with ncurses or another
+implementation).
+
+You should use PDCurses beta 2.4 or later. Earlier versions don't support
+the use of a black (or dark grey) foreground color on a black background
+(the default color for the shadows, also found in many ANSI pics).
+
+
+Compile notes: Win32, MS-DOS, and OS/2
+======================================
+
+In the MultiMail source, separate makefiles are provided for these ports.
+
+Makefile.dj -  DJGPP (32-bit MS-DOS)
+Makefile.emx - EMX (32-bit OS/2)
+Makefile.rsx - RSX/NT (Win32)
+Makefile.bcc - Borland C++ (Win32)
+Makefile.tcc - Turbo C++ (16-bit MS-DOS)
+
+Edit the appropriate makefile to point to your installation of PDCurses,
+and compile with, e.g.:
+
+ make -f Makefile.rsx
+
+The RSX/NT port is technically a port of the EMX OS/2 port. :-) To compile
+with RSX/NT, you first need a working curses library. There's no direct
+support for RSX/NT in PDCurses; but you can use the EMX support in the
+*OS/2* directory. Just edit "gccos2.mak" as appropriate, and compile it
+with the EMXVIDEO option, like so:
+
+ make -f gccos2.mak EMXVIDEO=Y
+
+The compilation will fail once it gets to the demos, but the library will
+work OK. (You can alter the makefile to compile the demos, too.)
+
+
+Compile notes: Warnings to ignore
+=================================
+
+In some environments, certain warnings may occur which you can safely
+ignore. Any others should probably be reported to me.
+
+With many versions of curses, warnings similar to this:
+
+  /usr/include/curses.h:80: warning: abstract declarator used as declaration
+
+will appear for each file in the interfac/ section. These result from a
+conflict between the C++ definition of "bool" and the definition in
+curses.h. However, the operation of the compiled program is unaffected.
+More recent versions of curses avoid this by ifdef'ing the bool defintion.
+
+This one looks more serious:
+
+  In file included from /opt/local/lib/g++-include/new:5,
+                   from main.cc:14:
+  /opt/local/lib/g++-include/std/new.h:26: warning: declaration of
+  `operator delete(void *)' throws different exceptions
+  <internal>:26: warning: previous declaration here
+  /opt/local/lib/g++-include/std/new.h:27: warning: declaration of
+  `operator delete [](void *)' throws different exceptions
+  <internal>:27: warning: previous declaration here
+
+But as far as I can tell, it too is harmless. Apparently it arises on
+systems with mismatched header files.
+
+Newer versions of gcc (2.7.2.3 or later?) give the following warning in an
+attempt to alert you to possible Y2K problems:
+
+  qwk.cc: In method `void qwkreply::enterLetter(class letter_header &,
+  const char *, int)':
+  qwk.cc:696: warning: `%y' yields only last 2 digits of year
+
+(This refers to an invocation of strftime() with that parameter.) In this
+case, the two-digit year is mandated by the QWK format. Don't worry; it
+still works in 2000. :-) This warning will also appear for the OPX module.
+
+On linking, some versions of gcc give a warning that reads, in part,
+"tmpnam() may be used unsafely". However, it says this for *any* usage of
+the tmpnam() function; and its suggested substitute is not really relevant
+to the way MultiMail works.
+
+Finally, some versions of the system header files (notably, those included
+with Red Hat 6.0) define toupper() and tolower() as multi-statement
+macros, resulting in warnings like:
+
+  misc.cc: In function `const char * findBaseName(const char *)':
+  misc.cc:98: warning: ANSI C++ forbids braced-groups within expressions
+
+for every place where one of them is used. (What this means is that it
+_does_ work with gcc, but doesn't conform to strict ANSI.)

@@ -1,0 +1,18 @@
+# If you've previously compiled with a different set of modules, be sure
+# to run "make modclean" before updating this file.
+
+# Supported packet types are defined here. If there are some that you
+# never use, you can make the executable smaller by commenting out the
+# corresponding module here.
+
+USE_BW = -DUSE_BW
+USE_QWK = -DUSE_QWK
+USE_OMEN = -DUSE_OMEN
+USE_SOUP = -DUSE_SOUP
+USE_OPX = -DUSE_OPX
+
+# You also need to remove it here. Sorry for the redundancy, but this was
+# the only way I found to make it work with all versions of make. This may
+# be superseded by a config script at some point.
+
+MODULES = bw.$(O) qwk.$(O) omen.$(O) soup.$(O) opx.$(O)

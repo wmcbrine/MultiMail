@@ -1,0 +1,31 @@
+area.$(O): area.cc mmail.h ../config.h ../mmail/misc.h ../mmail/resource.h \
+  ../interfac/mysystem.h
+bw.$(O): bw.cc bw.h pktbase.h mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h bluewave.h compress.h
+compress.$(O): compress.cc compress.h mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h
+driverl.$(O): driverl.cc bw.h pktbase.h mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h bluewave.h qwk.h omen.h \
+  soup.h opx.h opxstrct.h
+filelist.$(O): filelist.cc mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h
+letter.$(O): letter.cc mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h
+misc.$(O): misc.cc mmail.h ../config.h ../mmail/misc.h ../mmail/resource.h \
+  ../interfac/mysystem.h
+mmail.$(O): mmail.cc mmail.h ../config.h ../mmail/misc.h ../mmail/resource.h \
+  ../interfac/mysystem.h compress.h ../interfac/error.h
+omen.$(O): omen.cc omen.h pktbase.h mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h compress.h
+opx.$(O): opx.cc opx.h pktbase.h mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h opxstrct.h compress.h
+pktbase.$(O): pktbase.cc compress.h mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h pktbase.h
+qwk.$(O): qwk.cc qwk.h pktbase.h mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h compress.h
+read.$(O): read.cc mmail.h ../config.h ../mmail/misc.h ../mmail/resource.h \
+  ../interfac/mysystem.h compress.h
+resource.$(O): resource.cc mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h ../interfac/error.h
+soup.$(O): soup.cc soup.h pktbase.h mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h compress.h

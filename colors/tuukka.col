@@ -1,0 +1,98 @@
+# -----------------------------------------------------
+# Tuukka Lehtinen's MultiMail Color Scheme (Monochrome)
+# -----------------------------------------------------
+
+Version: 0.33
+
+# Background colors
+Main_Back: White, Black
+Main_Border: Black, Black, Bold
+Main_BottSeparator: White, Black
+
+# Bottom help window
+BottHelp_Descrip: White, Black, Bold
+BottHelp_Keys: White, Black, Bold
+
+# Pop-up help
+Help_Border: White, Black, Bold
+Help_Text: White, Black, Bold
+
+# Welcome window (vanity plate)
+Welcome_Border: White, Black, Bold
+Welcome_Header: White, Black, Bold
+Welcome_Text: White, Black, Bold
+
+# Address book
+Address_Border: White, Black, Bold
+Address_Descrip: White, Black, Bold
+Address_List: White, Black
+
+# Warning window
+Warn_Text: Black, Black, Bold
+Warn_Keys: White, Black, Bold
+
+# Letter window
+Letter_Text: White, Black, Bold
+Letter_Quoted: White, Black
+Letter_Tagline: White, Black, Bold
+Letter_Tearline: White, Black, Bold
+Letter_Hidden: White, Black, Bold
+Letter_Origin: White, Black, Bold
+Letter_Border: White, Black
+
+# Letter header
+LH_Text: White, Black
+LH_Msgnum: White, Black, Bold
+LH_From: White, Black, Bold
+LH_To: White, Black, Bold
+LH_Subject: Black, Black, Bold
+LH_Date: White, Black, Bold
+LH_FlagsHigh: Black, Black, Bold
+LH_Flags: White, Black
+
+# Packet list
+Packet_Border: Black, Black, Bold
+Packet_Header: White, Black, Bold
+Packet_List: White, Black, Bold
+
+# Little area list
+LittleArea_Header: White, Black, Bold
+LittleArea_List: White, Black, Bold
+
+# Area list
+Area_Reply: White, Black
+Area_List: White, Black
+Area_InfoDescrip: Black, Black, Bold
+Area_InfoText: White, Black, Bold
+Area_TopText: White, Black, Bold
+Area_Border: Black, Black, Bold
+Area_Header: White, Black, Bold
+
+# Header editor
+HeadEdit_Text: White, Black, Bold
+HeadEdit_Input1: White, Black
+HeadEdit_Input2: White, Black, Bold
+
+# Save filename input
+Save_Border: White, Black, Bold
+Save_Header: White, Black, Bold
+Save_Input: White, Black, Bold
+
+# Letter list
+LettList_Text: White, Black
+LettList_Personal: White, Black
+LettList_Border: Black, Black, Bold
+LettList_TopText: White, Black, Bold
+LettList_Area: White, Black, Bold
+LettList_Header: Black, Black, Bold
+
+# Taglines
+Tag_Border: Black, Black, Bold
+Tag_Text: White, Black, Bold
+Tag_Keys: White, Black, Bold
+Tag_Input1: White, Black, Bold
+Tag_Input2: White, Black, Bold
+Tag_List: White, Black, Bold
+
+# Shadows
+Shadow: Black, Black, Bold

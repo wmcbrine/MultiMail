@@ -1,0 +1,57 @@
+#-----------------------------------
+# MultiMail Makefile (top) for DJGPP
+#-----------------------------------
+
+include version
+
+# General options (passed to mmail/Makefile and interfac/Makefile):
+
+# With debug:
+#OPTS = -g -Wall -pedantic
+
+# Optimized for egcs, no debug:
+OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space
+
+#--------------------------------------------------------------
+# DJGPP (MSDOS), with PDCurses 2.5 beta:
+
+CURS_INC = \<curses.h\>
+CURS_DIR = /djgpp/contrib/pdcurs25
+CURS_LIB = .
+LIBS = /djgpp/contrib/pdcurs25/dos/pdcurses.a
+RM = del
+SEP = ;
+# Optional; attach pmode stub:
+POST = $(RM) mm.exe $(SEP) strip mm $(SEP) copy /b \
+	\djgpp\bin\pmodstub.exe+mm mm.exe $(SEP) $(RM) mm
+
+#--------------------------------------------------------------
+#--------------------------------------------------------------
+
+all:	mm
+
+mm-main:
+	cd mmail $(SEP) $(MAKE) MM_MAJOR="$(MM_MAJOR)" \
+		MM_MINOR="$(MM_MINOR)" OPTS="$(OPTS)" mm-main $(SEP) cd ..
+
+intrfc:
+	cd interfac $(SEP) $(MAKE) MM_MAJOR="$(MM_MAJOR)" \
+		MM_MINOR="$(MM_MINOR)" OPTS="$(OPTS) -I$(CURS_DIR)" \
+		CURS_INC="$(CURS_INC)" intrfc $(SEP) cd ..
+
+mm:	mm-main intrfc
+	$(CXX) -o mm mmail/*.o interfac/*.o -L$(CURS_LIB) $(LIBS)
+	$(POST)
+
+dep:
+	cd interfac $(SEP) $(MAKE) CURS_INC="$(CURS_INC)" dep $(SEP) cd ..
+	cd mmail $(SEP) $(MAKE) dep $(SEP) cd ..
+
+clean:
+	cd interfac $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
+	cd mmail $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
+	$(RM) mm
+	$(RM) mm.exe
+
+modclean:
+	cd mmail $(SEP) $(MAKE) RM="$(RM)" modclean $(SEP) cd ..

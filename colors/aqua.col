@@ -1,0 +1,101 @@
+# -------------------------------
+# Aqua Color Scheme for MultiMail
+# -------------------------------
+# 
+# The first one I've done for myself. Light colors, with Blue and Cyan.
+# This is what I'm using right now.
+
+Version: 0.26
+
+# Background colors
+Main_Back: Black, Cyan
+Main_Border: Blue
+Main_BottSeparator: Magenta
+
+# Bottom help window
+BottHelp_Descrip: Black, Cyan
+BottHelp_Keys: Red
+
+# Pop-up help
+Help_Border: Blue, Cyan
+Help_Text: Black
+
+# Welcome window (vanity plate)
+Welcome_Border: Blue, White
+Welcome_Header: Red
+Welcome_Text: Black
+
+# Address book
+Address_Border: Blue, Cyan
+Address_Descrip: Red
+Address_List: Black
+
+# Warning window
+Warn_Text: Black, Cyan
+Warn_Keys: Red
+
+# Letter window
+Letter_Text: Black, White
+Letter_Quoted: Bold
+Letter_Tagline: Blue
+Letter_Tearline: Red
+Letter_Hidden:
+Letter_Origin: Blue
+Letter_Border: Reverse
+
+# Letter header
+LH_Text: Blue, Cyan
+LH_Msgnum: Black
+LH_From:
+LH_To:
+LH_Subject:
+LH_Date:
+LH_FlagsHigh: Cyan, Black, Reverse
+LH_Flags: White, Cyan
+
+# Packet list
+Packet_Border: Blue, White
+Packet_Header: Red
+Packet_List: Black
+
+# Little area list
+LittleArea_Header: Blue, Cyan
+LittleArea_List: Black
+
+# Area list
+Area_Reply: Blue, White
+Area_List: Black
+Area_InfoDescrip: Blue
+Area_InfoText: Black
+Area_TopText: Red
+Area_Border: Blue
+Area_Header: Magenta
+
+# Header editor
+HeadEdit_Text: Blue, Cyan
+HeadEdit_Input1: Black
+HeadEdit_Input2:
+
+# Save filename input
+Save_Border: Blue, Cyan
+Save_Header: Red
+Save_Input: Black
+
+# Letter list
+LettList_Text: Black, White
+LettList_Personal: Red
+LettList_Border: Blue
+LettList_TopText: Red
+LettList_Area: Magenta
+LettList_Header: Red
+
+# Taglines
+Tag_Border: Blue, Cyan
+Tag_Text: Black
+Tag_Keys: Red
+Tag_Input1:
+Tag_Input2: Black
+Tag_List:
+
+# Shadows
+Shadow: Black, Black, Bold

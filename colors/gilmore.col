@@ -1,0 +1,98 @@
+# -------------------------------------
+# Gary Gilmore's MultiMail Color Scheme
+# -------------------------------------
+
+Version: 0.26
+
+# Background colors
+Main_Back: White, Black
+Main_Border: Blue, Black, Bold
+Main_BottSeparator: Magenta, Black
+
+# Bottom help window
+BottHelp_Descrip: White, Black, Bold
+BottHelp_Keys: Yellow, Black, Bold
+
+# Pop-up help
+Help_Border: White, Blue, Bold
+Help_Text: Yellow, Blue, Bold
+
+# Welcome window (vanity plate)
+Welcome_Border: Yellow, Blue, Bold
+Welcome_Header: Yellow, Blue, Bold
+Welcome_Text: Cyan, Blue, Bold
+
+# Address book
+Address_Border: White, Green, Bold
+Address_Descrip: Green, Green, Bold
+Address_List: Red, Green
+
+# Warning window
+Warn_Text: White, Red, Bold
+Warn_Keys: Yellow, Red, Bold
+
+# Letter window
+Letter_Text: Cyan, Black
+Letter_Quoted: White, Black
+Letter_Tagline: Cyan, Black
+Letter_Tearline: Cyan, Black
+Letter_Hidden: Magenta, Black, Bold
+Letter_Origin: Cyan, Black
+Letter_Border: Yellow, Blue, Bold
+
+# Letter header
+LH_Text: White, Blue, Bold
+LH_Msgnum: Red, Blue, Bold
+LH_From: Yellow, Blue, Bold
+LH_To: Yellow, Blue, Bold
+LH_Subject: Yellow, Blue, Bold
+LH_Date: White, Blue, Bold
+LH_FlagsHigh: Yellow, Blue, Bold
+LH_Flags: White, Blue
+
+# Packet list
+Packet_Border: Yellow, Blue, Bold
+Packet_Header: Green, Blue, Bold
+Packet_List: Cyan, Blue, Bold
+
+# Little area list
+LittleArea_Header: White, Blue, Bold
+LittleArea_List: White, Blue, Bold
+
+# Area list
+Area_Reply: Green, Black
+Area_List: Cyan, Black
+Area_InfoDescrip: Yellow, Blue, Bold
+Area_InfoText: White, Blue, Bold
+Area_TopText: Yellow, Red, Bold
+Area_Border: Yellow, Blue, Bold
+Area_Header: Magenta, Blue, Bold
+
+# Header editor
+HeadEdit_Text: White, Blue, Bold
+HeadEdit_Input1: Yellow, Black, Bold
+HeadEdit_Input2: Yellow, Black, Bold
+
+# Save filename input
+Save_Border: White, Red, Bold
+Save_Header: White, Red, Bold
+Save_Input: Yellow, Red, Bold
+
+# Letter list
+LettList_Text: White, Blue
+LettList_Personal: Green, Blue
+LettList_Border: Yellow, Blue, Bold
+LettList_TopText: White, Blue, Bold
+LettList_Area: Green, Blue, Bold
+LettList_Header: Yellow, Blue, Bold
+
+# Taglines
+Tag_Border: Yellow, Blue, Bold
+Tag_Text: White, Blue, Bold
+Tag_Keys: Red, Blue, Bold
+Tag_Input1: Green, Yellow, Bold
+Tag_Input2: Yellow, Blue, Bold
+Tag_List: Yellow, Black, Bold
+
+# Shadows
+Shadow: Black, Black, Bold

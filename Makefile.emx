@@ -1,0 +1,61 @@
+#----------------------------------------
+# MultiMail Makefile (top) for EMX (OS/2)
+#----------------------------------------
+
+include version
+
+# General options (passed to mmail/Makefile and interfac/Makefile):
+
+# With debug:
+#OPTS = -g -Wall -pedantic
+
+# Optimized, no debug:
+#OPTS = -O2 -Wall -pedantic
+
+# Optimized for egcs -- since MultiMail does not (yet) use exceptions, we
+# can save a little space in the executable:
+OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space
+
+#--------------------------------------------------------------
+# EMX (OS/2), with GNU make, and PDCurses 2.5:
+# Note: If you get "g++: Command not found", then type "set cxx=gcc"
+# before running make.
+
+CURS_INC = \\\"../../PDCurses-2.5/curses.h\\\"
+CURS_DIR = /emx/PDCurses-2.5
+CURS_LIB = .
+LIBS = /emx/PDCurses-2.5/os2/pdcurses.a -Zcrtdll -lwrap
+RM = del /n
+SEP = &&
+# Remove "emxbind -s mm" for a debug executable:
+POST = emxbind mm $(SEP) $(RM) mm $(SEP) emxbind -s mm
+
+#--------------------------------------------------------------
+#--------------------------------------------------------------
+
+all:	mm
+
+mm-main:
+	cd mmail $(SEP) $(MAKE) MM_MAJOR="$(MM_MAJOR)" \
+		MM_MINOR="$(MM_MINOR)" OPTS="$(OPTS)" mm-main $(SEP) cd ..
+
+intrfc:
+	cd interfac $(SEP) $(MAKE) MM_MAJOR="$(MM_MAJOR)" \
+		MM_MINOR="$(MM_MINOR)" OPTS="$(OPTS) -I$(CURS_DIR)" \
+		CURS_INC="$(CURS_INC)" intrfc $(SEP) cd ..
+
+mm:	mm-main intrfc
+	$(CXX) -o mm mmail/*.o interfac/*.o -L$(CURS_LIB) $(LIBS)
+	$(POST)
+
+dep:
+	cd interfac $(SEP) $(MAKE) CURS_INC="$(CURS_INC)" dep $(SEP) cd ..
+	cd mmail $(SEP) $(MAKE) dep $(SEP) cd ..
+
+clean:
+	cd interfac $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
+	cd mmail $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
+	$(RM) mm mm.exe
+
+modclean:
+	cd mmail $(SEP) $(MAKE) RM="$(RM)" modclean $(SEP) cd ..

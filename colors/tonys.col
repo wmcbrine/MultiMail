@@ -1,0 +1,98 @@
+# ----------------------------------------
+# Tony Summerfelt's MultiMail Color Scheme
+# ----------------------------------------
+
+Version: 0.29
+
+# Background colors
+Main_Back: White, Black
+Main_Border: Cyan, Black, Bold
+Main_BottSeparator: Cyan, Black, Bold
+
+# Bottom help window
+BottHelp_Descrip: White, Black, Bold
+BottHelp_Keys: Yellow, Black, Bold
+
+# Pop-up help
+Help_Border: Cyan, Black, Bold
+Help_Text: Red, Black, Bold
+
+# Welcome window (vanity plate)
+Welcome_Border: Cyan, Black, Bold
+Welcome_Header: Yellow, Black, Bold
+Welcome_Text: Red, Black, Bold
+
+# Address book
+Address_Border: Cyan, Black, Bold
+Address_Descrip: Red, Black, Bold
+Address_List: Red, Black, Bold
+
+# Warning window
+Warn_Text: Yellow, Red, Bold
+Warn_Keys: Yellow, Red, Bold
+
+# Letter window
+Letter_Text: Red, Black, Bold
+Letter_Quoted: Yellow, Black, Bold
+Letter_Tagline: Cyan, Black, Bold
+Letter_Tearline: Magenta, Black, Bold
+Letter_Hidden: Magenta, Black, Bold
+Letter_Origin: Cyan, Black
+Letter_Border: Cyan, Black, Bold
+
+# Letter header
+LH_Text: Cyan, Blue, Bold
+LH_Msgnum: White, Blue, Bold
+LH_From: Cyan, Blue, Bold
+LH_To: Cyan, Blue, Bold
+LH_Subject: Cyan, Blue, Bold
+LH_Date: White, Blue, Bold
+LH_FlagsHigh: Yellow, Blue, Bold
+LH_Flags: White, Blue, Bold
+
+# Packet list
+Packet_Border: Cyan, Black, Bold
+Packet_Header: Yellow, Black, Bold
+Packet_List: Red, Black, Bold
+
+# Little area list
+LittleArea_Header: Yellow, Black, Bold
+LittleArea_List: Red, Black, Bold
+
+# Area list
+Area_Reply: Red, Black
+Area_List: Red, Black
+Area_InfoDescrip: Red, Black, Bold
+Area_InfoText: Red, Black, Bold
+Area_TopText: Yellow, Black, Bold
+Area_Border: Cyan, Black, Bold
+Area_Header: Yellow, Black, Bold
+
+# Header editor
+HeadEdit_Text: Yellow, Black, Bold
+HeadEdit_Input1: Red, Black, Bold
+HeadEdit_Input2: Red, Black, Bold
+
+# Save filename input
+Save_Border: Cyan, Black, Bold
+Save_Header: Red, Black, Bold
+Save_Input: Red, Black, Bold
+
+# Letter list
+LettList_Text: Red, Black
+LettList_Personal: Red, Black
+LettList_Border: Cyan, Black, Bold
+LettList_TopText: Yellow, Black, Bold
+LettList_Area: White, Black, Bold
+LettList_Header: Yellow, Black, Bold
+
+# Taglines
+Tag_Border: Cyan, Black, Bold
+Tag_Text: Red, Black, Bold
+Tag_Keys: Yellow, Black, Bold
+Tag_Input1: Cyan, Blue, Bold
+Tag_Input2: Cyan, Blue, Bold
+Tag_List: Red, Black, Bold
+
+# Shadows
+Shadow: Black, Black, Bold

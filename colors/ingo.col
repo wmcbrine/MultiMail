@@ -1,0 +1,101 @@
+# -------------------------------------
+# Ingo Brueckl's MultiMail Color Scheme
+# -------------------------------------
+#
+# More or less. (Some things don't translate.)
+
+Version: 0.26
+
+# Background colors
+Main_Back: White, Black
+Main_Border: Blue, Bold
+Main_BottSeparator: Magenta
+
+# Bottom help window
+BottHelp_Descrip: White, Black, Bold
+BottHelp_Keys: Yellow, Bold
+
+# Pop-up help
+Help_Border: White, Blue, Bold
+Help_Text: Yellow, Bold
+
+# Welcome window (vanity plate)
+Welcome_Border: Blue, Black, Bold
+Welcome_Header: Yellow, Bold
+Welcome_Text: Cyan, Bold
+
+# Address book
+Address_Border: Red, Black
+Address_Descrip: White, Bold
+Address_List: Blue, Bold
+
+# Warning window
+Warn_Text: White, Red, Bold
+Warn_Keys: Yellow, Bold
+
+# Letter window
+Letter_Text: White, Black
+Letter_Quoted: Yellow
+Letter_Tagline: White
+Letter_Tearline: Blue, Bold
+Letter_Hidden: Bold
+Letter_Origin: Green, Bold
+Letter_Border: Yellow, Magenta, Bold
+
+# Letter header
+LH_Text: White, Cyan, Bold
+LH_Msgnum: Green, Bold
+LH_From: Blue
+LH_To:
+LH_Subject: Black
+LH_Date: Green, Bold
+LH_FlagsHigh: Yellow, Bold
+LH_Flags: White
+
+# Packet list
+Packet_Border: Yellow, Blue, Bold
+Packet_Header: Green, Bold
+Packet_List: Cyan, Bold
+
+# Little area list
+LittleArea_Header: Yellow, Blue, Bold
+LittleArea_List: White, Bold
+
+# Area list
+Area_Reply: Magenta, Black
+Area_List: Cyan
+Area_InfoDescrip: Yellow, Bold
+Area_InfoText: White, Bold
+Area_TopText: Bold
+Area_Border: Blue, Bold
+Area_Header: Green, Bold
+
+# Header editor
+HeadEdit_Text: White, Blue, Bold
+HeadEdit_Input1: Cyan, Bold
+HeadEdit_Input2: Yellow, Bold
+
+# Save filename input
+Save_Border: Yellow, Blue, Bold
+Save_Header: White, Bold
+Save_Input: Cyan, Bold
+
+# Letter list
+LettList_Text: Cyan, Blue
+LettList_Personal: Magenta
+LettList_Border: Yellow, Bold
+LettList_TopText: White, Bold
+LettList_Area: Yellow, Bold
+LettList_Header: Green, Bold
+LettList_Lines: Cyan
+
+# Taglines
+Tag_Border: Red, Black
+Tag_Text: White, Bold
+Tag_Keys: Yellow, Bold
+Tag_Input1: Cyan, Bold
+Tag_Input2: Blue, Bold
+Tag_List: Bold
+
+# Shadows
+Shadow: Black, Black, Bold

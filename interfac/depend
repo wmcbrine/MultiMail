@@ -1,0 +1,43 @@
+addrbook.$(O): addrbook.cc interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h
+ansiview.$(O): ansiview.cc interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h
+arealist.$(O): arealist.cc interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h
+basic.$(O): basic.cc interfac.h ../mmail/mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h mmcolor.h isoconv.h
+help.$(O): help.cc interfac.h ../mmail/mmail.h ../config.h ../mmail/misc.h \
+  ../mmail/resource.h ../interfac/mysystem.h mmcolor.h isoconv.h
+interfac.$(O): interfac.cc error.h interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h
+isoconv.$(O): isoconv.cc interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h
+letterl.$(O): letterl.cc interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h
+letterw.$(O): letterw.cc interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h
+lettpost.$(O): lettpost.cc interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h
+main.$(O): main.cc error.h interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h
+mmcolor.$(O): mmcolor.cc interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h
+mysystem.$(O): mysystem.cc interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h error.h
+packet.$(O): packet.cc interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h
+tagline.$(O): tagline.cc interfac.h ../mmail/mmail.h ../config.h \
+  ../mmail/misc.h ../mmail/resource.h ../interfac/mysystem.h mmcolor.h \
+  isoconv.h tagline.h

@@ -1,0 +1,102 @@
+# -----------------------------------------------------------
+# Version 0.1 MultiMail Color Scheme (after Kolossvary Tamas)
+# -----------------------------------------------------------
+#
+# This is an approximation of the look of the version 0.1x series. (Some
+# things aren't translatable.)
+
+Version: 0.26
+
+# Background colors
+Main_Back: White, Black
+Main_Border: Blue, Bold
+Main_BottSeparator: Magenta
+
+# Bottom help window
+BottHelp_Descrip: White, Black, Bold
+BottHelp_Keys: Yellow, Bold
+
+# Pop-up help
+Help_Border: White, Blue, Bold
+Help_Text: Yellow, Bold
+
+# Welcome window (vanity plate)
+Welcome_Border: Yellow, Blue, Bold
+Welcome_Header: Bold
+Welcome_Text: Cyan, Bold
+
+# Address book
+Address_Border: White, Green, Bold
+Address_Descrip: Green, Bold
+Address_List: Red
+
+# Warning window
+Warn_Text: White, Red, Bold
+Warn_Keys: Yellow, Bold
+
+# Letter window
+Letter_Text: Green, Black
+Letter_Quoted: White
+Letter_Tagline: Magenta, Bold
+Letter_Tearline: Red
+Letter_Hidden:
+Letter_Origin: White, Bold
+Letter_Border: Yellow, Red, Bold
+
+# Letter header
+LH_Text: Blue, Black, Bold
+LH_Msgnum: Red
+LH_From: Green
+LH_To: White
+LH_Subject: Yellow, Bold
+LH_Date: Yellow, Bold
+LH_FlagsHigh: Bold
+LH_Flags:
+
+# Packet list
+Packet_Border: Yellow, Blue, Bold
+Packet_Header: Green, Bold
+Packet_List: Cyan, Bold
+
+# Little area list
+LittleArea_Header: White, Blue, Bold
+LittleArea_List: Yellow, Bold
+
+# Area list
+Area_Reply: Yellow, Black
+Area_List: White
+Area_InfoDescrip: Yellow, Bold
+Area_InfoText: White, Bold
+Area_TopText: Green, Bold
+Area_Border: Yellow, Bold
+Area_Header: Magenta
+
+# Header editor
+HeadEdit_Text: White, Blue, Bold
+HeadEdit_Input1: Cyan
+HeadEdit_Input2: Green, Bold
+
+# Save filename input
+Save_Border: White, Red, Bold
+Save_Header: Bold
+Save_Input: Yellow, Bold
+
+# Letter list
+LettList_Text: White, Blue
+LettList_Personal: Green
+LettList_Border: Yellow, Bold
+LettList_TopText: White, Bold
+LettList_Area: Green, Bold
+LettList_Header: Yellow, Bold
+LettList_Lines: White
+
+# Taglines
+Tag_Border: Yellow, Yellow, Bold
+Tag_Text: White, Bold
+Tag_Keys: Green, Bold
+Tag_Input1: Bold
+Tag_Input2: Magenta, Bold
+Tag_List: Bold
+
+# Shadows
+Shadow: Black, Black, Bold
