@@ -145,7 +145,7 @@ void HelpWindow::h_letterlist()
 void HelpWindow::h_letter(bool isAnsi)
 {
 	enum {width = 60, citems = 18, regitems = 7, repitems = 3,
-		ansitems = 11};
+		ansitems = 12};
 
 	static const char *common[citems] = {
 		"S - Save letter",
@@ -189,6 +189,7 @@ void HelpWindow::h_letter(bool isAnsi)
 		"+ - next",
 		"@ - toggle at-code parsing",
 		"^V - toggle AVATAR parsing",
+		"^B - toggle BSAVE parsing",
 		"Q - Quit ANSI viewer"
 	};
 

@@ -579,8 +579,7 @@ void AnsiWindow::avatar()
 
 	switch (c) {
 	case 1:				// attribute set
-		c = source.nextchar();
-		pc_colorset(c);
+		pc_colorset(source.nextchar());
 		break;
 	case 2:				// blink on
 		cfl = 1;
@@ -604,11 +603,9 @@ void AnsiWindow::avatar()
 	case 7:				// clrtoeol() TODO
 		break;
 	case 8:				// set cursor position
-		c = source.nextchar();
-		cpy = c;
+		cpy = source.nextchar();
 		cpyhigh();
-		c = source.nextchar();
-		cpx = c;
+		cpx = source.nextchar();
 		cpxhigh();
 		break;
 	default:
@@ -664,9 +661,21 @@ void AnsiWindow::update(unsigned char c)
 		//ACS_BULLET, ACS_VLINE, ACS_VLINE, ACS_BULLET
 	};
 
-
 	if (!ansiAbort) {
 		chtype ouch, localattrib = attrib;
+
+#ifndef ALLCHARSOK			// unprintable control codes
+		switch (c) {
+		case 14:		// double musical note
+			c = 19;
+			break;
+		case 15:		// much like an asterisk
+			c = '*';
+			break;
+		case 155:		// ESC + high bit = slash-o,
+			c = 'o';	// except in CP 437
+		}
+#endif
 
 		if (isoConsole && !isLatin) {
 #ifdef NCURSES_VERSION
@@ -791,94 +800,86 @@ void AnsiWindow::MakeChain()
 		c = source.nextchar();
 #ifdef LIMIT_MEM
 		if (coreleft() < ((unsigned long) NumOfLines *
-		    sizeof(AnsiLine *) + 0x200))
+		    sizeof(AnsiLine *) + 0x200)) {
 			c = 0;
+			blen = 2;
+		}
 #endif
 		if (bsvparse && isbsv) {
-			unsigned char attr = source.nextchar();
-			blen -= 2;
-			pc_colorset(attr);
+			pc_colorset(source.nextchar());
 			if (!c)
 				c = ' ';
-		}
-
-		switch (c) {
-		case 1:			// hidden lines (only in pos 0)
-			if (!cpx) {
-				do
-					c = source.nextchar();
-				while (source.anyleft() && (c != '\n'));
-			}
-		case 0:
-			break;
-		case 8:			// backspace
-			if (cpx)
-				cpx--;
-			break;
-		case 10:
-			cpy++;
-		case 13:
-			cpx = 0;
-		case 7:			// ^G: beep
-		case 26:		// ^Z: EOF for DOS
-			break;
-		case 12:		// form feed
-			cls();
-			break;
-#ifndef ALLCHARSOK			// unprintable control codes
-		case 14:		// double musical note
-			update(19);
-			break;
-		case 15:		// much like an asterisk
-			update('*');
-			break;
-		case 155:		// ESC + high bit = slash-o,
-			update('o');	// except in CP 437
-			break;
-#endif
-		case 22:		// Main Avatar code
-			if (avtparse)
-				avatar();
-			else
-				update(c);
-			break;
-		case 25:		// Avatar RLE code
-			if (avtparse) {
-				unsigned char x;
-				c = source.nextchar();
-				x = source.nextchar();
-
-				while (x--)
-					update(c);
-			} else
-				update(c);
-			break;
-		case '`':
-		case 27:		// ESC
-			c = source.nextchar();
-			if ('[' == c) {
-				escparm[0] = '\0';
-				escfig();
-			} else {
-				source.backup(c);
-				update('`');
-			}
-			break;
-		case '\t':		// TAB
-			cpx = ((cpx / 8) + 1) * 8;
-			while (cpx >= COLS) {
-				cpx -= COLS;
-				cpy++;
-			}
-			break;
-		case '@':
-			if (atparse) {
-				athandle();
-				break;
-			}
-		default:
 			update(c);
-		}
+
+			blen -= 2;
+		} else
+			switch (c) {
+			case 1:			// hidden lines (in pos 0)
+				if (!cpx) {
+				    do
+					c = source.nextchar();
+				    while (source.anyleft() && (c != '\n'));
+				}
+			case 0:
+				break;
+			case 8:			// backspace
+				if (cpx)
+					cpx--;
+				break;
+			case 10:
+				cpy++;
+			case 13:
+				cpx = 0;
+			case 7:			// ^G: beep
+			case 26:		// ^Z: EOF for DOS
+				break;
+			case 12:		// form feed
+				cls();
+				break;
+			case 22:		// Main Avatar code
+				if (avtparse)
+					avatar();
+				else
+					update(c);
+				break;
+			case 25:		// Avatar RLE code
+				if (avtparse) {
+					unsigned char x;
+					c = source.nextchar();
+					x = source.nextchar();
+
+					while (x--)
+						update(c);
+				} else
+					update(c);
+				break;
+			case '`':
+			case 27:		// ESC
+				c = source.nextchar();
+				if ('[' == c) {
+					escparm[0] = '\0';
+					escfig();
+				} else {
+					source.backup(c);
+					update('`');
+				}
+				break;
+			case '\t':		// TAB
+				cpx = ((cpx / 8) + 1) * 8;
+				while (cpx >= COLS) {
+					cpx -= COLS;
+					cpy++;
+				}
+				break;
+			case '@':
+				if (atparse) {
+					athandle();
+					break;
+				}
+			default:
+				update(c);
+			}
+		
 	} while (c && !ansiAbort && blen);
 
 	if (!anim) {
@@ -1249,6 +1250,10 @@ void AnsiWindow::KeyHandle(int key)
 		break;
 	case 22:
 		avtparse = !avtparse;
+		ui->redraw();
+		break;
+	case 2:
+		bsvparse = !bsvparse;
 		ui->redraw();
 		break;
 	case MM_F1:
