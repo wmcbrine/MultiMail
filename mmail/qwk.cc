@@ -3,7 +3,7 @@
  * QWK
 
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2001 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
