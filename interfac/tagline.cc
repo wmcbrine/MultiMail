@@ -51,8 +51,6 @@ void TaglineWindow::MakeActive()
 	int expmode = mm.resourceObject->getInt(ExpertMode);
 	nodraw = false;
 
-	srand((unsigned) time(0));
-
 	list_max_y = LINES - (expmode ? 12 : 15);
 
 	int xwidth = COLS - 4;

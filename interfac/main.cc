@@ -32,6 +32,9 @@ void fatalError(const char *description);
 
 ErrorType::ErrorType()
 {
+	starttime = time(0);
+	srand((unsigned) starttime);
+
 	set_new_handler(memError);
 	origdir = mygetcwd();
 }
@@ -90,8 +93,6 @@ int main(int argc, char **argv)
 	char **ARGV = argv;
 	int ARGC = argc;
 
-	starttime = time(0);
-	
 	while ((ARGC > 2) && ('-' == ARGV[1][0])) {
 		char *resName = ARGV[1] + 1;
 		char *resValue = ARGV[2];

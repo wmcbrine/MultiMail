@@ -145,8 +145,6 @@ char *mytmpdir(const char *home)
 	mystat st;
 	char name[9];
 
-	srand((unsigned) time(0));
-
 	if (mychdir(home))
 		fatalError("Could not change to temp dir");
 	
