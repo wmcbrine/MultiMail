@@ -43,10 +43,6 @@ extern "C" {
 # endif
 #endif
 
-#ifdef XCURSES
-# define NOREVERSE
-#endif
-
 #include "mmcolor.h"
 #include "isoconv.h"
 

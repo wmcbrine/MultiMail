@@ -72,6 +72,12 @@
 
 #endif
 
+/* One remaining PDCurses platform not covered by the above */
+
+#ifdef XCURSES
+# define NOREVERSE
+#endif
+
 /* Also, see the NCURSES_SIGWINCH definition in interfac/interfac.h -- it
    should be fine as is, but may need manual adjustment in some cases.
 */
