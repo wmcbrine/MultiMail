@@ -16,3 +16,4 @@ USE_OPX = -DUSE_OPX
 # be superseded by a config script at some point.
 
 MODULES = bw.$(O) qwk.$(O) omen.$(O) soup.$(O) opx.$(O)
+

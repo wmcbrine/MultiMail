@@ -12,8 +12,7 @@ include version
 # Optimized, no debug:
 #OPTS = -O2 -Wall -pedantic
 
-# Optimized for egcs -- since MultiMail does not (yet) use exceptions, we
-# can save a little space in the executable:
+# Optimized for recent versions of gcc:
 OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space \
 -Wno-deprecated
 

@@ -9,7 +9,7 @@ include version
 # With debug:
 #OPTS = -g -Wall -pedantic
 
-# Optimized for egcs, no debug:
+# Optimized for recent versions of gcc:
 OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space \
 -Wno-deprecated
 
