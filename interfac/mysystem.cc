@@ -118,11 +118,14 @@ int mysystem(const char *cmd)
 #endif
 
 	if (ui) {
-#if defined(__PDCURSES__) && defined(__WIN32__)
+#ifdef __PDCURSES__
+# ifdef __WIN32__
 		// Force scroll bars off in Windows 2000, XP
 		resize_term(LINES, COLS);
-
+# endif
+# if defined(__WIN32__) || defined(XCURSES)
 		PDC_set_title(MM_NAME);
+# endif
 #endif
 		keypad(stdscr, TRUE);
 #ifdef NOTYPEAHEAD

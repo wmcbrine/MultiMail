@@ -12,10 +12,6 @@
 #include "error.h"
 #include "interfac.h"
 
-#ifdef XCURSES
-const char *XCursesProgramName = MM_NAME;
-#endif
-
 Interface::Interface()
 {
         isoConsole = mm.resourceObject->getInt(Charset);
@@ -153,7 +149,7 @@ void Interface::screen_init()
 
 	// Border and title:
 
-#if defined(__PDCURSES__) && defined(__WIN32__)
+#if (defined(__PDCURSES__) && defined(__WIN32__)) || defined(XCURSES)
 	PDC_set_title(MM_NAME);
 #endif
 	screen->boxtitle(C_SBORDER, MM_TOPHEADER, emph(C_SBACK));
