@@ -480,7 +480,7 @@ class LetterWindow
 	Win *headbar, *header, *text, *statbar;
 	Line **linelist;
 	char tagline1[TAGLINE_LENGTH + 1], *To;
-	int letter_in_chain;	//0 = no letter in chain
+	int letter_in_chain;	//-1 = no letter in chain
 	int position;		//which row is the first in the text window
 	int NumOfLines;
 	int y;			//height of the window, set by MakeActive
