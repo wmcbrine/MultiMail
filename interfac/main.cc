@@ -61,7 +61,7 @@ const char *ErrorType::getOrigDir()
 	return origdir;
 }
 
-#if defined (SIGWINCH) && !defined (XCURSES) && !defined(NCURSES_SIGWINCH)
+#if defined(SIGWINCH) && !defined(XCURSES) && !defined(NCURSES_SIGWINCH)
 extern "C" void sigwinchHandler(int sig)
 {
 	if (sig == SIGWINCH)
