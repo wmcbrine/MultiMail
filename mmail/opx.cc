@@ -30,12 +30,6 @@ opxpack::~opxpack()
 	cleanup();
 }
 
-file_header *opxpack::getHello()
-{
-	return (bulletins && *bulletins) ?
-		mm->workList->existsF(bulletins) : 0;
-}
-
 area_header *opxpack::getNextArea()
 {
 	int cMsgNum = areas[ID].nummsgs;
@@ -302,10 +296,11 @@ void opxpack::readBrdinfoDat()
 		bulletins[c * 13 + *readerf] = '\0';
 	}
 
-	if (header.readerfiles > 1)
+	if (header.readerfiles > 1) {
 		listBulletins((const char (*)[13]) (bulletins + 13),
 			header.readerfiles - 1, 1);
-	else
+		hello = strdupplus(bulletins);
+	} else
 		listBulletins(0, 0, 1);
 
 	// Skip old numofareas byte:

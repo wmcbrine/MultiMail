@@ -54,7 +54,7 @@ class qheader {
 
 class qwkpack : public pktbase
 {
-	char textfiles[3][13];
+	char newsfile[1][13];
 	char controlname[26];
 	bool qwke;
 
@@ -71,8 +71,6 @@ class qwkpack : public pktbase
  public:
 	qwkpack(mmail *);
 	~qwkpack();
-	file_header *getHello();
-	file_header *getGoodbye();
 	area_header *getNextArea();
 	letter_header *getNextLetter();
 	bool isQWKE();

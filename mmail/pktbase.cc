@@ -28,6 +28,7 @@ pktbase::pktbase(mmail *mmA)
 	bulletins = 0;
 	infile = 0;
 	LoginName = AliasName = BBSName = SysOpName = 0;
+	hello = goodbye = 0;
 }
 
 pktbase::~pktbase()
@@ -38,6 +39,8 @@ pktbase::~pktbase()
 	delete[] body;
 	delete bodyString;
 	delete[] bulletins;
+	delete[] goodbye;
+	delete[] hello;
 	delete[] SysOpName;
 	delete[] BBSName;
 	delete[] AliasName;
@@ -365,8 +368,17 @@ void pktbase::listBulletins(const char x[][13], int d, int generic)
 	bulletins = new file_header *[wl->getNoOfFiles() + 1];
 
 	for (int c = 0; c < d; c++)
-		if (x[c][0])
-			wl->addItem(bulletins, x[c], filecount);
+		if (x[c][0]) {
+			if (!hello && (!strcasecmp("hello", x[c]) ||
+			    !strcasecmp("welcome", x[c])))
+				hello = strdupplus(x[c]);
+			else
+				if (!goodbye && !strcasecmp("goodbye", x[c]))
+					goodbye = strdupplus(x[c]);
+				else
+					wl->addItem(bulletins, x[c],
+						filecount);
+		}
 
 	if (generic) {
 		wl->addItem(bulletins, "blt", filecount);
@@ -404,12 +416,14 @@ const char *pktbase::getSysOpName()
 
 file_header *pktbase::getHello()
 {
-	return 0;
+	return (hello && *hello) ?
+		mm->workList->existsF(hello) : 0;
 }
 
 file_header *pktbase::getGoodbye()
 {
-	return 0;
+	return (goodbye && *goodbye) ?
+		mm->workList->existsF(goodbye) : 0;
 }
 
 file_header *pktbase::getFileList()

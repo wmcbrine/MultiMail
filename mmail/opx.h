@@ -27,7 +27,6 @@ class opxpack : public pktbase
  public:
 	opxpack(mmail *);
 	~opxpack();
-	file_header *getHello();
 	area_header *getNextArea();
 	letter_header *getNextLetter();
 	ocfgHeader *offhead();

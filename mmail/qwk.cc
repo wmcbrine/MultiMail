@@ -175,24 +175,12 @@ qwkpack::qwkpack(mmail *mmA) : pktbase(mmA)
 
 	readIndices();
 
-	listBulletins(&textfiles[1], 1);
+	listBulletins(newsfile, 1);
 }
 
 qwkpack::~qwkpack()
 {
 	cleanup();
-}
-
-file_header *qwkpack::getHello()
-{
-	return (textfiles[0] && textfiles[0][0]) ?
-		mm->workList->existsF(textfiles[0]) : 0;
-}
-
-file_header *qwkpack::getGoodbye()
-{
-	return (textfiles[2] && textfiles[2][0]) ?
-		mm->workList->existsF(textfiles[2]) : 0;
 }
 
 unsigned long qwkpack::MSBINtolong(unsigned const char *ms)
@@ -553,8 +541,9 @@ void qwkpack::readControlDat()
 		areas[c].attr = PUBLIC | PRIVATE;
 	}
 
-	for (c = 0; c < 3; c++)
-		strncpy(textfiles[c], nextLine(), 12);
+	hello = strdupplus(nextLine());
+	strncpy(newsfile[1], nextLine(), 12);
+	goodbye = strdupplus(nextLine());
 
 	fclose(infile);
 }
