@@ -293,7 +293,7 @@ void AnsiWindow::cls()
 	if (anim)
 		animtext->Clear(C_ANSIBACK);
 	else {
-		cpy = NumOfLines - baseline - 1;
+		cpy = NumOfLines - baseline - !cpy;
 		checkpos();
 
 		if (baseline < (NumOfLines - 1))
