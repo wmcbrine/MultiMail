@@ -202,20 +202,14 @@ void area_header::killReply()
 
 area_list::area_list(mmail *mmA) : mm(mmA)
 {
-	no = 0;
+	no = mm->driver->getNoOfAreas() + 1;
 	filter = 0;
-
-	int c = 0;
-	do {
-		no += mm->driverList->getDriver(no)->getNoOfAreas();
-		c++;
-	} while (c < mm->driverList->getNoOfDrivers());
 
 	activeHeader = new int[no];
 	areaHeader = new area_header *[no];
 
 	specific_driver *actDriver;
-	for (c = 0; c < no; c++) {
+	for (int c = 0; c < no; c++) {
 		actDriver = mm->driverList->getDriver(c);
 		areaHeader[c] = actDriver->getNextArea();
 	}
@@ -438,16 +432,14 @@ void area_list::enterLetter(int areaNo, const char *from, const char *to,
 			net_address &netAddress, const char *filename,
 			long length)
 {
-	reply_driver *replyDriver = mm->driverList->getReplyDriver();
-
 	gotoArea(areaNo);
 	areaHeader[current]->addReply();
 
 	letter_header newLetter(mm, subject, to, from, "", replyID,
-		replyTo, 0, 0, areaNo, privat, 0, replyDriver,
+		replyTo, 0, 0, areaNo, privat, 0, mm->replydriver,
 		netAddress, isLatin(), newsgrp);
 
-	replyDriver->enterLetter(newLetter, filename, length);
+	mm->replydriver->enterLetter(newLetter, filename, length);
 
 	refreshArea();
 }
@@ -455,7 +447,7 @@ void area_list::enterLetter(int areaNo, const char *from, const char *to,
 void area_list::killLetter(int areaNo, long letterNo)
 {
 	areaHeader[areaNo]->killReply();
-	mm->driverList->getReplyDriver()->killLetter((int) letterNo);
+	mm->replydriver->killLetter((int) letterNo);
 	refreshArea();
 }
 
@@ -463,8 +455,7 @@ void area_list::refreshArea()
 {
 	delete areaHeader[REPLY_AREA];
 
-	areaHeader[REPLY_AREA] =
-		mm->driverList->getReplyDriver()->refreshArea();
+	areaHeader[REPLY_AREA] = mm->replydriver->refreshArea();
 	if (current == REPLY_AREA)
 		mm->letterList->rrefresh();
 }
