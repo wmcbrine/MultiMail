@@ -452,8 +452,6 @@ void Interface::newpacket()
 		mm.areaList->setMode(0);
 		mm.areaList->relist();
 	}
-	//areas.FirstUnread();
-	//changestate(arealist);
 
 	bool latin = mm.isLatin();
 
@@ -482,15 +480,11 @@ void Interface::newpacket()
 					a = 0;
 				}
 			}
-		} //else
-			//changestate(arealist);
+		}
 
-	if (!abortNow && newFiles) {
+	if (!abortNow && newFiles)
 		if (WarningWindow("View new files list?"))
 			ansiFile(newFiles, "New files", latin);
-		//else
-		//	changestate(arealist);
-	}
 
 	if (!abortNow) {
 		areas.FirstUnread();
