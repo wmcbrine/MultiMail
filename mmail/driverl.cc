@@ -3,7 +3,7 @@
  * driver_list
 
  Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 2000 William McBrine <wmcbrine@users.sourceforge.net>,
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>,
                     Robert Vukovic <vrobert@uns.ns.ac.yu>
 
  Distributed under the GNU General Public License.
@@ -146,9 +146,6 @@ driver_list::driver_list(mmail *mm)
 		driverList[0].driver = 0;
 	}
 
-	driverList[0].offset = REPLY_AREA;
-	driverList[1].offset = REPLY_AREA + 1;
-
 	noOfDrivers = (mode != PKT_UNDEF) ? 2 : 0;
 
 	if (noOfDrivers) {
@@ -202,8 +199,7 @@ read_class *driver_list::getReadObject(specific_driver *driver)
 
 int driver_list::getOffset(specific_driver *driver)
 {
-	int c = (driver == driverList[1].driver);
-	return driverList[c].offset;
+	return (driver == driverList[1].driver);
 }
 
 bool driver_list::hasPersonal() const

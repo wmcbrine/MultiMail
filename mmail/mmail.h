@@ -438,7 +438,6 @@ class driver_list
 	struct driver_struct {
 		specific_driver *driver;
 		read_class *read;
-		int offset;
 	} driverList[2];
 
 	int noOfDrivers, attributes;
