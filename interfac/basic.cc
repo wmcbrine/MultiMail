@@ -429,6 +429,7 @@ int ShadowedWin::getstring(int y, int x, char *string, int maxlen,
 			break;
 		case MM_END:
 			i = strlen(tmp);
+			break;
 #ifdef USE_MOUSE
 		case MM_MOUSE:
 			mm_mouse_get();
