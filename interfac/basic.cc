@@ -41,7 +41,7 @@ void Win::init(int height, int width, int topline)
 
 void Win::Clear(chtype backg)
 {
-	wbkgdset(win, backg | ' ');
+	wbkgdset(win, backg);
 	werase(win);
 	wbkgdset(win, ' ');
 	attrib(backg);
@@ -49,7 +49,10 @@ void Win::Clear(chtype backg)
 
 void Win::Clear(coltype backg)
 {
-	Clear(ColorArray[backg]);
+	wbkgdset(win, ColorArray[backg] | ' ');
+	werase(win);
+	wbkgdset(win, ' ');
+	attrib(ColorArray[backg]);
 }
 
 void Win::put(int y, int x, chtype z)
