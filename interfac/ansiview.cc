@@ -297,13 +297,13 @@ void AnsiWindow::colreset()
 	ccb = COLOR_BLACK;
 }
 
-void AnsiWindow::colorcore()
+chtype AnsiWindow::colorcore()
 {
 	// Attribute set
 
 	// Check bold and blinking:
 
-	attrib = (cbr ? A_BOLD : 0) | (cfl ? A_BLINK : 0) |
+	chtype tmpattrib = (cbr ? A_BOLD : 0) | (cfl ? A_BLINK : 0) |
 
 	// If animating, check for color pair 0 (assumes COLOR_BLACK == 0),
 	// and for remapped black-on-black:
@@ -324,6 +324,8 @@ void AnsiWindow::colorcore()
 		else
 #endif
 			colorsused[(ccf << 3) + ccb] = true;
+
+	return tmpattrib;
 }
 
 void AnsiWindow::colorset()
@@ -356,7 +358,7 @@ void AnsiWindow::colorset()
 		}
 	}
 
-	colorcore();
+	attrib = colorcore();
 }
 
 void AnsiWindow::athandle()
@@ -398,7 +400,7 @@ void AnsiWindow::athandle()
 						cbr = oldcbr;
 						cfl = oldcfl;
 
-						colorcore();
+						attrib = colorcore();
 					}
 				} else {
 					cbr = (fg > 7);
@@ -407,7 +409,7 @@ void AnsiWindow::athandle()
 					ccf = colortable[cbr ? (fg - 8) : fg];
 					ccb = colortable[cfl ? (bg - 8) : bg];
 
-					colorcore();
+					attrib = colorcore();
 				}
 			}
 
@@ -578,7 +580,7 @@ void AnsiWindow::update(unsigned char c)
 
 
 	if (!ansiAbort) {
-		chtype ouch;
+		chtype ouch, localattrib = attrib;
 
 		if (isoConsole && !isLatin) {
 #ifdef NCURSES_VERSION
@@ -591,6 +593,23 @@ void AnsiWindow::update(unsigned char c)
 			{
 				if ((c > 175) && (c < 224)) {
 					ouch = acstrans[c - 176];
+
+					// IBM character 219 should map to
+					// ACS_BLOCK, but since that's
+					// widely unimplemented, we map it
+					// to a reverse space instead. Note
+					// that some terminals (like PuTTY)
+					// would also like cfl and cbr
+					// swapped, but XFree86's xterm
+					// prefers otherwise.
+
+					if (c == 219) {
+						ouch = ' ';
+
+						crv = !crv;
+						localattrib = colorcore();
+						crv = !crv;
+					}
 
 					// suppress or'ing of A_ALTCHARSET:
 					c = ' ';
@@ -613,7 +632,7 @@ void AnsiWindow::update(unsigned char c)
 		if ((c < ' ') || ((c > 126) && (c < 160)))
 			ouch |= A_ALTCHARSET;
 
-		ouch |= attrib;
+		ouch |= localattrib;
 
 		int limit = LINES - 2;
 

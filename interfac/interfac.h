@@ -629,7 +629,7 @@ class AnsiWindow
 	int getparm();
 	void cls();
 	void colreset();
-	void colorcore();
+	chtype colorcore();
 	void colorset();
 	void athandle();
 	void cpylow();
