@@ -17,6 +17,7 @@ Interface::Interface()
         isoConsole = mm.resourceObject->getInt(Charset);
 	lynxNav = mm.resourceObject->getInt(UseLynxNav);
 	searchItem = 0;
+	goodbye = 0;
 #ifdef SIGWINCH
 	resized = false;
 # if !defined(XCURSES) && !defined(NCURSES_SIGWINCH)
@@ -572,8 +573,10 @@ bool Interface::back()
 				redraw();
 				create_reply_packet();
 			}
-		if (!abortNow && goodbye)
+		if (!abortNow && goodbye) {
 			ansiFile(goodbye, goodbye->getName(), mm.isLatin());
+			goodbye = 0;
+		}
 		mm.Delete();
 		if (abortNow || commandline) {
 			oldstate(state);
