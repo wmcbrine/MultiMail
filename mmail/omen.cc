@@ -20,10 +20,6 @@ enum {OM_WRITE = 1, OM_SYSOP = 2, OM_PRIVATE = 4, OM_PUBLIC = 8,
 
 omen::omen(mmail *mmA) : pktbase(mmA)
 {
-	//mm = mmA;
-	//ID = 0;
-	//bodyString = 0;
-
 	strcpy(extent, defExtent());
 
 	readSystemBBS();

@@ -25,14 +25,22 @@ pktbase::pktbase(mmail *mmA)
 	mm = mmA;
 	ID = 0;
 	bodyString = 0;
+	bulletins = 0;
 	BBSName = SysOpName = 0;
+}
+
+pktbase::~pktbase()
+{
+	delete[] body;
+	delete bodyString;
+	delete[] bulletins;
+	delete[] SysOpName;
+	delete[] BBSName;
 }
 
 // Clean up for the QWK-like packets
 void pktbase::cleanup()
 {
-	delete[] bulletins;
-
 	if (!hasPers) {
 		areas--;
 		maxConf++;
@@ -41,9 +49,7 @@ void pktbase::cleanup()
 		delete[] body[maxConf];
 		delete[] areas[maxConf].name;
 	}
-	delete[] body;
 	delete[] areas;
-	delete bodyString;
 
 	fclose(infile);
 }

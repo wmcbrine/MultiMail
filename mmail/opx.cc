@@ -16,10 +16,6 @@
 
 opxpack::opxpack(mmail *mmA) : pktbase(mmA)
 {
-	//mm = mmA;
-	//ID = 0;
-	//bodyString = 0;
-
 	readBrdinfoDat();
 
 	infile = mm->workList->ftryopen("mail.dat");
@@ -31,7 +27,6 @@ opxpack::opxpack(mmail *mmA) : pktbase(mmA)
 
 opxpack::~opxpack()
 {
-	delete[] bulletins;
 	cleanup();
 }
 

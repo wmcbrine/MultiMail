@@ -239,10 +239,6 @@ const char *sheader::Refs()
 
 soup::soup(mmail *mmA) : pktbase(mmA)
 {
-	//mm = mmA;
-	//ID = 0;
-	//bodyString = 0;
-
 	infile = 0;
 
 	strncpy(packetBaseName, findBaseName(mm->resourceObject->
@@ -267,9 +263,7 @@ soup::~soup()
 		delete[] areas[maxConf]->name;
 		delete areas[maxConf];
 	}
-	delete[] body;
 	delete[] areas;
-	delete bodyString;
 
 	if (infile)
 		fclose(infile);

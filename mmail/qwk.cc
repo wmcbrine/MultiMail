@@ -161,10 +161,6 @@ void qheader::set_length(FILE *repFile, long headerpos, long curpos)
 
 qwkpack::qwkpack(mmail *mmA) : pktbase(mmA)
 {
-	//mm = mmA;
-	//ID = 0;
-	//bodyString = 0;
-
 	qwke = !(!mm->workList->exists("toreader.ext"));
 
 	readControlDat();

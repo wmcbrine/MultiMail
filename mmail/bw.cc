@@ -17,9 +17,6 @@
 
 bluewave::bluewave(mmail *mmA) : pktbase(mmA)
 {
-	//mm = mmA;
-	//ID = 0;
-	//bodyString = 0;
 	persNdx = 0;
 
 	findInfBaseName();
@@ -37,8 +34,6 @@ bluewave::bluewave(mmail *mmA) : pktbase(mmA)
 
 bluewave::~bluewave()
 {
-	delete[] bulletins;
-
 	if (!hasPers) {
 		areas--;
 		mixID--;
@@ -46,11 +41,9 @@ bluewave::~bluewave()
 	while (maxConf--)
 		delete[] body[maxConf];
 
-	delete[] body;
 	delete[] mixID;
 	delete[] areas;
 	delete[] mixRecord;
-	delete bodyString;
 	delete[] persNdx;
 
 	fclose(infile);

@@ -60,6 +60,7 @@ class pktbase : public specific_driver
 	virtual void endproc(letter_header &);
  public:
 	pktbase(mmail *);
+	~pktbase();
 	int getXNum(int);
 	int getNoOfAreas();
 	virtual int getNoOfLetters();
