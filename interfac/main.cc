@@ -128,5 +128,7 @@ int main(int argc, char **argv)
 	else
 		ui->main();
 	delete ui;
+	ui = 0;		// some destructors, executed after this, may
+			// check for this
 	return EXIT_SUCCESS;
 }
