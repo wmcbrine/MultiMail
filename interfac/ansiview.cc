@@ -236,6 +236,14 @@ bool StringFile::anyleft()
 // AnsiWindow methods
 //--------------------
 
+#ifdef NCURSES_VERSION
+AnsiWindow::AnsiWindow()
+{
+	// Very simplistic. What other term types work?
+	useAltCharset = !strcmp(getenv("TERM"), "linux");
+}
+#endif
+
 void AnsiWindow::DestroyChain()
 {
 	while (NumOfLines--)
@@ -548,17 +556,26 @@ void AnsiWindow::update(unsigned char c)
 		chtype ouch;
 
 		if (isoConsole && !isLatin) {
-			if ((c > 175) && (c < 224)) {
-				ouch = acstrans[c - 176];
-
-				// suppress or'ing of A_ALTCHARSET:
-				c = ' ';
-
-			} else {
-				if (c & 0x80)
-					c = (unsigned char)
-						dos2isotab[c & 0x7f];
+#ifdef NCURSES_VERSION
+			if (useAltCharset) {
 				ouch = c;
+				if (c > 159)
+					ouch |= A_ALTCHARSET;
+			} else
+#endif
+			{
+				if ((c > 175) && (c < 224)) {
+					ouch = acstrans[c - 176];
+
+					// suppress or'ing of A_ALTCHARSET:
+					c = ' ';
+
+				} else {
+					if (c & 0x80)
+						c = (unsigned char)
+							dos2isotab[c & 0x7f];
+					ouch = c;
+				}
 			}
 		} else {
 			if (!isoConsole && isLatin)

@@ -616,6 +616,9 @@ class AnsiWindow
 	int baseline;		//base for positions in non-anim mode
 	bool anim;		//animate mode?
 	bool ansiAbort;
+#ifdef NCURSES_VERSION
+	bool useAltCharset;
+#endif
 	chtype *chtmp, attrib;	//current attribute
 	bool isLatin;
 	int atparse;
@@ -640,6 +643,9 @@ class AnsiWindow
 	void statupdate(const char * = 0);
 	void Save();
  public:
+#ifdef NCURSES_VERSION
+	AnsiWindow();
+#endif
 	void set(letter_body *, const char *, bool);
 	void set(file_header *, const char *, bool);
 	void MakeActive();
