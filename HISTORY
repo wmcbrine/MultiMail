@@ -1,6 +1,61 @@
 Revision History
 ================
 
+0.46 - 2003/12/31:
+
+New features:
+
+- First, an apology: This version probably should've come out in July, when
+  most of these changes were done... though there was a bug in one of the
+  new features that didn't show up until Halloween.
+
+- MultiMail now displays the appropriate screens (when it can determine
+  them) on opening and closing a packet, instead of just adding them to the
+  bulletin list. This is more like the way most other OLRs work (though not,
+  e.g., Blue Wave). I hope you like it. :-) I had to adjust to it myself,
+  but now I wouldn't go back.
+
+- The ANSI viewer now includes partial support for AVATAR (level 0) and
+  BSAVE (.BSV; text-only). As with the parsing of AT codes, these can be
+  toggled, via ^V and ^B respectively.
+
+- The lower portion of the area list display has been redesigned. It now
+  includes the name of the Door and BBS that created the packet, if
+  available, and omits the duplicate description. The field formerly
+  labelled "BBS:" is now "Name:"; "BBS:" is used for the software type
+  instead. In the upper portion, there's a little more room for the
+  descriptions. Door type in OPX mode is not entirely satisfactory; some SX
+  doors seem to use the field for BBS version instead. Neither of the new
+  fields is available in Blue Wave mode.
+
+Bug fixes and such:
+
+- With this version, I've added MIPS and AMD64 to my list of tested systems
+  (no mods needed). However, I'm not including those binaries, because a)
+  the MIPS binary I built is only for a Tivo, and doesn't display onscreen
+  anyway, so you'd have to telnet in or use a serial console; and b) there's
+  a small but annoying bug in the (beta) version of ncurses used on SF.net's
+  AMD64 compile farm machine, such that the window borders all show up with
+  the wrong color. (The problem is not actually 64-bit related. Also, please
+  note that MultiMail itself has been 64-bit ready for a long time, since
+  being ported to the Alpha processor.)
+
+- Fix for some incorrect CONTROL.DAT files -- a failed read (because a file
+  was too short) was returning a dupe of the last line; now returns a blank.
+
+- Make reply endings in OPX conform better to what SX does -- CR/LF, and a
+  trailing zero. (I noticed that the tearline was being eaten by the Wildcat
+  SX door on Doc's Place, and there was _no_ final CR/LF... I don't think it
+  used to do that, but anyway, this fixes it.)
+
+- ANSI viewer: Allowed right arrow to exit even in lynxNav mode -- makes
+  more sense with new Hello/Goodbye behavior; fewer false positives when
+  interpreting AT codes; better handling of chars 0-31 and some others,
+  under ncurses; no more overlapping of screens when a screen clear command
+  is rendered.
+
+- Some code simplification.
+
 0.45 - 2003/06/08:
 
 New features:

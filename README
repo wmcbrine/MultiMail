@@ -1,15 +1,14 @@
-MultiMail version 0.45
+MultiMail version 0.46
 ======================
 
-What's New in version 0.45?
+What's New in version 0.46?
 ---------------------------
 
- * New temporary file system (see HISTORY); fixes many problems
- * ANSI viewer works much better in Unix
- * Fixed some ANSI bugs on all platforms
- * No more "extra" mmail directory
- * Various minor display improvements
- * Etc.
+ * New opening/closing behavior -- screens shown automatically
+ * AVATAR and BSAVE support in the ANSI viewer, plus some bug fixes
+ * Door and BBS info added to area list
+ * Fix for missing tear lines in OPX mode
+ * Code simplification, etc.
 
 See the HISTORY file for other changes. See INSTALL for the installation
 procedure, and the man page (mm.1) for information on usage.
@@ -29,7 +28,7 @@ General Public License (q.v.).
 
 You can get the latest version by anonymous ftp from:
 
- ftp://download.sourceforge.net/pub/sourceforge/multimail/mmail-0.45.tar.gz
+ ftp://download.sourceforge.net/pub/sourceforge/multimail/mmail-0.46.tar.gz
 
 or at the MultiMail home page:
 
@@ -65,7 +64,7 @@ personally used it on:
 
 Operating Systems:  Linux, Solaris, NetBSD, DOS, OS/2, Windows, BeOS,
                     FreeBSD, AtheOS, MacOS X
-Processors:         i386, Sparc, m68k, Alpha, i86, PPC, ARM
+Processors:         i386, Sparc, m68k, Alpha, i86, PPC, ARM, MIPS, AMD64
 Compilers:          GCC (including DJGPP, EMX, and RSXNT), Compaq Alpha
                     (w/ GNU make), Borland/Turbo C++, Sun C++ (w/ GNU make)
 Libraries:          ncurses, Solaris curses, PDCurses
