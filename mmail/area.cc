@@ -202,7 +202,7 @@ void area_header::killReply()
 
 area_list::area_list(mmail *mmA) : mm(mmA)
 {
-	no = mm->driver->getNoOfAreas() + 1;
+	no = mm->packet->getNoOfAreas() + 1;
 	filter = 0;
 
 	activeHeader = new int[no];
@@ -292,7 +292,7 @@ void area_list::updatePers()
 	// are valid as the program is currently written, but that are not
 	// made elsewhere in this class.
 
-	if (mm->driver->hasPersArea()) {
+	if (mm->packet->hasPersArea()) {
 		int c = current;
 		current = REPLY_AREA + 1;
 		if (isCollection() && !isReplyArea()) {
@@ -436,10 +436,10 @@ void area_list::enterLetter(int areaNo, const char *from, const char *to,
 	areaHeader[current]->addReply();
 
 	letter_header newLetter(mm, subject, to, from, "", replyID,
-		replyTo, 0, 0, areaNo, privat, 0, mm->replydriver,
+		replyTo, 0, 0, areaNo, privat, 0, mm->reply,
 		netAddress, isLatin(), newsgrp);
 
-	mm->replydriver->enterLetter(newLetter, filename, length);
+	mm->reply->enterLetter(newLetter, filename, length);
 
 	refreshArea();
 }
@@ -447,7 +447,7 @@ void area_list::enterLetter(int areaNo, const char *from, const char *to,
 void area_list::killLetter(int areaNo, long letterNo)
 {
 	areaHeader[areaNo]->killReply();
-	mm->replydriver->killLetter((int) letterNo);
+	mm->reply->killLetter((int) letterNo);
 	refreshArea();
 }
 
@@ -455,7 +455,7 @@ void area_list::refreshArea()
 {
 	delete areaHeader[REPLY_AREA];
 
-	areaHeader[REPLY_AREA] = mm->replydriver->refreshArea();
+	areaHeader[REPLY_AREA] = mm->reply->refreshArea();
 	if (current == REPLY_AREA)
 		mm->letterList->rrefresh();
 }

@@ -171,8 +171,8 @@ pktstatus mmail::selectPacket(const char *packetName)
 
 	driverList = new driver_list(this);
 
-	driver = driverList->getDriver(REPLY_AREA + 1);
-	replydriver = driverList->getReplyDriver();
+	packet = driverList->getDriver(REPLY_AREA + 1);
+	reply = driverList->getReplyDriver();
 
 	if (!driverList->getNoOfDrivers()) {
 		delete driverList;
@@ -185,60 +185,60 @@ pktstatus mmail::selectPacket(const char *packetName)
 // Save last read pointers
 bool mmail::saveRead()
 {
-	return driverList->getReadObject(driver)->saveAll();
+	return driverList->getReadObject(packet)->saveAll();
 }
 
 // Get the packet's opening screen, if available
 file_header *mmail::getHello()
 {
-	return driver->getHello();
+	return packet->getHello();
 }
 
 // Get the packet's closing screen, if available
 file_header *mmail::getGoodbye()
 {
-	return driver->getGoodbye();
+	return packet->getGoodbye();
 }
 
 // Get the BBS' "new files" list, if available
 file_header *mmail::getFileList()
 {
-	return driver->getFileList();
+	return packet->getFileList();
 }
 
 // Get extra files, if available
 file_header **mmail::getBulletins()
 {
-	return driver->getBulletins();
+	return packet->getBulletins();
 }
 
 // Overall character set for packet (used for files and bulletins)
 bool mmail::isLatin()
 {
-	return driver->isLatin();
+	return packet->isLatin();
 }
 
 // Add a "Personal" column in the area list?
 bool mmail::hasPersonal()
 {
-	return driver->hasPersonal();
+	return packet->hasPersonal();
 }
 
 // Is there a reply packet?
 bool mmail::checkForReplies()
 {
-	return replydriver->checkForReplies();
+	return reply->checkForReplies();
 }
 
 // Create a reply packet
 bool mmail::makeReply()
 {
-        return replydriver->makeReply();
+        return reply->makeReply();
 }
 
 void mmail::deleteReplies()
 {
-	replydriver->deleteReplies();
+	reply->deleteReplies();
 
 	// to reset the "replyExists" flag (inelegant, I know):
 	checkForReplies();	
@@ -246,11 +246,11 @@ void mmail::deleteReplies()
 
 void mmail::openReply()
 {
-	replydriver->init();
+	reply->init();
 }
 
 bool mmail::getOffConfig()
 {
-	return replydriver->getOffConfig();
+	return reply->getOffConfig();
 }
 

@@ -101,8 +101,8 @@ class mmail
 	driver_list *driverList;
 	area_list *areaList;
 	letter_list *letterList;
-	specific_driver *driver;
-	reply_driver *replydriver;
+	specific_driver *packet;
+	reply_driver *reply;
 	
 	mmail();
 	~mmail();
