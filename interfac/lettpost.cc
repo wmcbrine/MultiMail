@@ -692,7 +692,7 @@ bool LetterWindow::SplitLetter(int lines)
 	int replyto_area = mm.letterList->getAreaID();
 	int replyto_num = mm.letterList->getReplyTo();
 
-	char ORGSUBJ[514], format[15], *from, *to, *msgid, *newsgrps;
+	char ORGSUBJ[514], *from, *to, *msgid, *newsgrps;
 
 	from = strdupplus(mm.letterList->getFrom());
 	to = strdupplus(mm.letterList->getTo());
@@ -701,9 +701,11 @@ bool LetterWindow::SplitLetter(int lines)
 
 	sprintf(ORGSUBJ, "%.510s", mm.letterList->getSubject());
 
-	sprintf(format, "%d", parts);
-	int padsize = strlen(format);
-
+	int x = parts;
+	int padsize = 1;
+	while (x /= 10)
+		padsize++;
+	
 	bool privat = mm.letterList->getPrivate();
 
 	int clines = 0;

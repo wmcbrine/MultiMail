@@ -58,8 +58,6 @@ void TaglineWindow::MakeActive()
 		xwidth = TAGLINE_LENGTH + 2;
 	list_max_x = xwidth - 2;
 
-	sprintf(format, "%%-%d.%ds", list_max_x, list_max_x);
-
 	top_offset = 1;
 
 	borderCol = C_TBBACK;
@@ -349,7 +347,8 @@ void TaglineWindow::oneLine(int i)
 	if (z == active)
 		highlighted = curr;
 
-	sprintf(list->lineBuf, format, curr ? curr->text : " ");
+	sprintf(list->lineBuf, "%-*.*s", list_max_x, list_max_x,
+		curr ? curr->text : " ");
 
 	DrawOne(i, C_TLINES);
 }

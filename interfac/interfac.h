@@ -321,8 +321,6 @@ class tagline
 
 class TaglineWindow : public ListWindow
 {
-	char format[20];
-
 	tagline head, *curr, *highlighted, **taglist, **tagactive;
 	const char *tagname;
 	char *filter;
