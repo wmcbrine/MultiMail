@@ -3,7 +3,7 @@
  * area list
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright (c) 2002 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sourceforge.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -213,7 +213,7 @@ void AreaListWindow::oneLine(int i)
 	else
 		p += sprintf(p, "      .   ");
 
-	if (mode)
+	if (hasPers)
 		if (mm.areaList->getNoOfPersonal())
 			sprintf(p, "   %5d   ",
 				mm.areaList->getNoOfPersonal());
@@ -270,7 +270,7 @@ void AreaListWindow::MakeActive()
 	int padding, middle;
 	char tmp[80], tpad[7];
 
-	mode = mm.driverList->hasPersonal();
+	hasPers = mm.driverList->hasPersonal();
 	mm.areaList->updatePers();
 
 	mm.areaList->setMode(mm.areaList->getMode() - 1);
@@ -307,16 +307,16 @@ void AreaListWindow::MakeActive()
 	list->attrib(C_ALHEADTEXT);
 	list->put(1, 3, "Area#  Description");
 	int newloc = list_max_x - 15;
-	if (mode)
+	if (hasPers)
 		newloc -= 11;
 	list->put(1, newloc, "Total   Unread");
-	if (mode)
+	if (hasPers)
 		list->put(1, list_max_x - 9, "Personal");
 
 	list->horizline(list_max_y + 2, list_max_x);
 
 	padding = list_max_x - 28;
-	if (mode)
+	if (hasPers)
 		padding -= 11;
 	sprintf(format, "%%c%%6s  %%-%d.%ds", padding, padding);
 
@@ -389,9 +389,8 @@ bool AreaListWindow::extrakeys(int key)
 				ui->addressbook();
 				Select();
 			}
-			ui->letterwindow.set_Letter_Params(
+			ui->letterwindow.EnterLetter(
 				mm.areaList->getAreaNo(), 'E');
-			ui->letterwindow.EnterLetter();
 		} else
 			ui->nonFatalError("Cannot reply there");
 		break;

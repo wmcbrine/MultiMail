@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * OMEN
 
- Copyright (c) 2001 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sourceforge.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -11,6 +11,31 @@
 #define OMEN_H
 
 #include "pktbase.h"
+
+// HEADERxy.BBS records:
+struct omenReplyRec {
+	unsigned char command;
+	unsigned char curboard, moveboard;
+	unsigned char msgnumber[2];
+
+	unsigned char tolen;
+	char to[35];
+
+	unsigned char sublen;
+	char subject[72];
+
+	unsigned char destzone[2], destnet[2], destnode[2];
+
+	unsigned char netattrib;
+
+	unsigned char aliaslen;
+	char alias[20];
+
+	unsigned char curhighboard;
+	unsigned char movehighboard;
+	unsigned char msghighnumber[2];
+	char extraspace[4];
+};
 
 class omen : public pktbase
 {
@@ -33,31 +58,6 @@ class omen : public pktbase
 
 class omenrep : public pktreply
 {
-	// HEADERxy.BBS records:
-	struct omenReplyRec {
-		unsigned char command;
-		unsigned char curboard, moveboard;
-		unsigned char msgnumber[2];
-
-		unsigned char tolen;
-		char to[35];
-
-		unsigned char sublen;
-		char subject[72];
-
-		unsigned char destzone[2], destnet[2], destnode[2];
-
-		unsigned char netattrib;
-
-		unsigned char aliaslen;
-		char alias[20];
-
-		unsigned char curhighboard;
-		unsigned char movehighboard;
-		unsigned char msghighnumber[2];
-		char extraspace[4];
-	};
-
 	class upl_omen : public upl_base
 	{
 		omenReplyRec omen_rec;

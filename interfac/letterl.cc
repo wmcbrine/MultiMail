@@ -264,9 +264,8 @@ bool LetterListWindow::extrakeys(int key)
 		    if (!(mm.areaList->getType() & (COLLECTION | READONLY))) {
 			    if ((5 == key) || mm.areaList->isEmail())
 				ui->addressbook();
-			    ui->letterwindow.set_Letter_Params(
+			    ui->letterwindow.EnterLetter(
 				mm.areaList->getAreaNo(), 'E');
-			    ui->letterwindow.EnterLetter();
 		    } else
 			    ui->nonFatalError("Cannot reply there");
 		break;

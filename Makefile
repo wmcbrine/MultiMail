@@ -14,7 +14,7 @@ include version
 
 # Optimized for egcs -- since MultiMail does not (yet) use exceptions, we
 # can save a little space in the executable:
-OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space -march=athlon -mcpu=athlon
+OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space
 
 # PREFIX is the base directory under which to install the binary and man 
 # page; generally either /usr/local or /usr (or perhaps /opt...):
@@ -65,9 +65,10 @@ LIBS = -lcurses
 #CURS_LIB = /usr/local/lib
 #LIBS = -lncurses
 
-# For static linking:
+# For static linking (examples):
 
 #LIBS = /usr/lib/libncurses.a
+#LIBS = /opt/sfw/lib/libncurses.a
 
 #--------------------------------------------------------------
 # With ncurses installed in the user's home directory:

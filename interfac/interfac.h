@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2002 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sourceforge.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -430,7 +430,7 @@ class PacketListWindow : public ListWindow
 class AreaListWindow : public ListWindow
 {
 	char format[40], format2[40];
-	bool mode, hasSys;
+	bool hasPers, hasSys;
 
  	int NumOfItems();
 	void oneLine(int);
@@ -489,12 +489,12 @@ class LetterWindow
 
 	Win *headbar, *header, *text, *statbar;
 	Line **linelist;
-	char key, tagline1[TAGLINE_LENGTH + 1], *To;
+	char tagline1[TAGLINE_LENGTH + 1], *To;
 	int letter_in_chain;	//0 = no letter in chain
 	int position;		//which row is the first in the text window
 	int NumOfLines;
 	int y;			//height of the window, set by MakeActive
-	int replyto_area, beepPers;
+	int beepPers;
 	bool rot13, hidden, lynxNav;
 	net_address NM;
 	time_t lasttime;
@@ -507,7 +507,7 @@ class LetterWindow
 	int EnterHeader(char *, char *, char *, bool &);
 	void QuoteText(FILE *);
 	void DestroyChain();
-	void setToFrom(char *, char *);
+	void setToFrom(char, char *, char *);
 	void forward_header(FILE *, const char *, const char *,
 		const char *, int, bool);
 	void EditLetter(bool);
@@ -537,10 +537,9 @@ class LetterWindow
  	void Draw(bool = false);
 	void ReDraw();
 	bool Save(int);
-	void EnterLetter();
+	void EnterLetter(int, char);
 	void StatToggle(int);
 	net_address &PickNetAddr();
-	void set_Letter_Params(int, char);
 	void set_Letter_Params(net_address &, const char *);
 	void setPos(int);
 	int getPos();

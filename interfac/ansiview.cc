@@ -906,9 +906,9 @@ void AnsiWindow::Delete()
 	source.close();
 }
 
-void AnsiWindow::setPos(int x)
+void AnsiWindow::setPos(int n)
 {
-	position = x;
+	position = n;
 }
 
 int AnsiWindow::getPos()

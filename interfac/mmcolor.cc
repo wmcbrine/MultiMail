@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * color handling, and default colors
 
- Copyright (c) 2002 William McBrine <wmcbrine@users.sourceforge.net>,
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sourceforge.net>,
                     Ingo Brueckl <ib@wupperonline.de>
 
  Distributed under the GNU General Public License.
@@ -232,13 +232,13 @@ const char *ColorClass::configLineOut(int x)
 
 const char *ColorClass::findcol(chtype ch)
 {
-	static const char *const names[] = {"Black", "Blue", "Green",
+	static const char *const cnames[] = {"Black", "Blue", "Green",
 		"Cyan", "Red", "Magenta", "Yellow", "White", ""};
 	int x;
 	for (x = 0; x < 8; x++)
 		if (ch == mapped[x])
 			break;
-	return names[x];
+	return cnames[x];
 }
 
 const char *ColorClass::decompose(chtype ch)

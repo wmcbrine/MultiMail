@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2002 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sourceforge.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -1126,8 +1126,6 @@ void LetterWindow::KeyHandle(int key)
 			t_area = ui->areaMenu();
 			if (t_area != -1) {
 				mm.areaList->gotoArea(t_area);
-				set_Letter_Params(t_area, (5 == key) ? 'E'
-					: key);
 
 				if ((5 == key) || mm.areaList->isEmail())
 					if ((5 == key) || ('E' == key))
@@ -1136,7 +1134,7 @@ void LetterWindow::KeyHandle(int key)
 						net_address nm = PickNetAddr();
 						set_Letter_Params(nm, 0);
 					}
-				EnterLetter();
+				EnterLetter(t_area, (5 == key) ? 'E' : key);
 			}
 			break;
 		case 'N':
@@ -1146,9 +1144,8 @@ void LetterWindow::KeyHandle(int key)
 			if (t_area != -1) {
 			    net_address nm = PickNetAddr();
 			    if (nm.isSet) {
-				set_Letter_Params(t_area, 'N');
 				set_Letter_Params(nm, 0);
-				EnterLetter();
+				EnterLetter(t_area, 'N');
 			    } else
 				ui->nonFatalError(
 					"No reply address");

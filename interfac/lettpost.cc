@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2001 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2003 William McBrine <wmcbrine@users.sourceforge.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -16,12 +16,6 @@ void LetterWindow::set_Letter_Params(net_address &nm, const char *to)
 	NM = nm;
 	delete[] To;
 	To = strdupplus(to);
-}
-
-void LetterWindow::set_Letter_Params(int area, char param_key)
-{
-	key = param_key;
-	replyto_area = area;
 }
 
 void LetterWindow::QuoteText(FILE *reply)
@@ -292,7 +286,7 @@ long LetterWindow::reconvert(const char *reply_filename)
 	return replen;
 }
 
-void LetterWindow::setToFrom(char *TO, char *FROM)
+void LetterWindow::setToFrom(char key, char *TO, char *FROM)
 {
 	char format[7];
 	sprintf(format, "%%.%ds", mm.areaList->maxToLen());
@@ -342,7 +336,7 @@ void LetterWindow::setToFrom(char *TO, char *FROM)
 					mm.letterList->getFrom());
 }
 
-void LetterWindow::EnterLetter()
+void LetterWindow::EnterLetter(int replyto_area, char key)
 {
 	FILE *reply;
 	char FROM[74], TO[514], SUBJ[514];
@@ -361,7 +355,7 @@ void LetterWindow::EnterLetter()
 
 	// HEADER
 
-	setToFrom(TO, FROM);
+	setToFrom(key, TO, FROM);
 
 	if (key == 'E')
 		SUBJ[0] = '\0';	//we don't have subject yet
@@ -577,8 +571,7 @@ void LetterWindow::EditLetter(bool forwarding)
 			NM.isSet = false;
 			newsflag = mm.areaList->isUsenet();
 		}
-		key = 'E';
-		setToFrom(TO, FROM);
+		setToFrom('E', TO, FROM);
 		sprintf(SUBJ, "%.513s", mm.letterList->getSubject());
 		privat = false;
 	} else {
