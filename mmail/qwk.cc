@@ -189,12 +189,14 @@ qwkpack::~qwkpack()
 
 file_header *qwkpack::getHello()
 {
-	return mm->workList->existsF(textfiles[0]);
+	return (textfiles[0] && textfiles[0][0]) ?
+		mm->workList->existsF(textfiles[0]) : 0;
 }
 
 file_header *qwkpack::getGoodbye()
 {
-	return mm->workList->existsF(textfiles[2]);
+	return (textfiles[2] && textfiles[2][0]) ?
+		mm->workList->existsF(textfiles[2]) : 0;
 }
 
 unsigned long qwkpack::MSBINtolong(unsigned const char *ms)
