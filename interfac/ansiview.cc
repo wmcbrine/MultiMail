@@ -642,6 +642,16 @@ void AnsiWindow::checkpos()
 
 void AnsiWindow::update(unsigned char c)
 {
+	// Characters 0 - 31
+	static const chtype lowtrans[] = {
+		' ', '0', '*', 'V', ACS_DIAMOND, ACS_PLUS, ACS_PLMINUS,
+		ACS_DEGREE, ACS_BLOCK, 'O', ACS_BLOCK, 'Q', 't', 'd',
+		'd', '*', 187, 171, ACS_VLINE, '!', 182, 167, ACS_BULLET,
+		ACS_PLMINUS, ACS_UARROW, ACS_DARROW, ACS_LARROW, ACS_RARROW,
+		ACS_LLCORNER, ACS_HLINE, ACS_UARROW, ACS_DARROW
+	};
+
+	// Characters 176 - 223
 	static const chtype acstrans[] = {
 		ACS_CKBOARD, ACS_CKBOARD, ACS_CKBOARD, ACS_VLINE, ACS_RTEE,
 		ACS_RTEE, ACS_RTEE, ACS_URCORNER, ACS_URCORNER, ACS_RTEE,
@@ -663,19 +673,6 @@ void AnsiWindow::update(unsigned char c)
 
 	if (!ansiAbort) {
 		chtype ouch, localattrib = attrib;
-
-#ifndef ALLCHARSOK			// unprintable control codes
-		switch (c) {
-		case 14:		// double musical note
-			c = 19;
-			break;
-		case 15:		// much like an asterisk
-			c = '*';
-			break;
-		case 155:		// ESC + high bit = slash-o,
-			c = 'o';	// except in CP 437
-		}
-#endif
 
 		if (isoConsole && !isLatin) {
 #ifdef NCURSES_VERSION
@@ -710,10 +707,18 @@ void AnsiWindow::update(unsigned char c)
 					c = ' ';
 
 				} else {
-					if (c & 0x80)
-						c = (unsigned char)
-							dos2isotab[c & 0x7f];
-					ouch = c;
+					if (c < 32) {
+						ouch = lowtrans[c];
+						c = ' ';
+					} else {
+						if (c == 127)
+							c = 'A';
+						else
+						    if (c & 0x80)
+							c = (unsigned char)
+							  dos2isotab[c & 0x7f];
+						ouch = c;
+					}
 				}
 			}
 		} else {
