@@ -674,6 +674,18 @@ void AnsiWindow::update(unsigned char c)
 	if (!ansiAbort) {
 		chtype ouch, localattrib = attrib;
 
+#ifndef ALLCHARSOK			// unprintable control codes
+		switch (c) {		// double musical note
+		case 14:
+			c = 19;
+			break;
+		case 15:		// much like an asterisk
+			c = '*';
+			break;
+		case 155:		// ESC + high-bit = slash-o,
+			c = 'o';	// except in CP 437
+		}
+#endif
 		if (isoConsole && !isLatin) {
 #ifdef NCURSES_VERSION
 			if (useAltCharset) {
