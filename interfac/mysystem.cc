@@ -292,7 +292,7 @@ void clearDirectory(const char *DirName)
 				remove(fname);
 	} else {
 		char tmp[512];
-		sprintf(tmp, "Could not change to %s", DirName);
+		sprintf(tmp, "Could not change to %.491s", DirName);
 		fatalError(tmp);
 	}
 }
@@ -392,9 +392,9 @@ const char *homify(const char *raw)
 
 	if (home && raw && (raw[0] == '~') &&
 	    ((raw[1] == '/') || (raw[1] == '\0'))) {
-		static char expanded[256];
+		static char expanded[512];
 
-		sprintf(expanded, "%s/%s", home, raw + 1);
+		sprintf(expanded, "%.255s/%.255s", home, raw + 1);
 		return expanded;
 	} else
 		return raw;

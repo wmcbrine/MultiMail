@@ -419,7 +419,7 @@ class PacketListWindow : public ListWindow
 
 class AreaListWindow : public ListWindow
 {
-	char format[40], format2[40];
+	char format[40];
 	bool hasPers, hasSys;
 
  	int NumOfItems();

@@ -154,9 +154,7 @@ void PacketListWindow::MakeActiveCore()
 		if (flen > fmax)
 			flen = fmax;
 
-		char fmt[12];
-		sprintf(fmt, " | %%.%ds", flen);
-		sprintf(tmp + newend, fmt, filter);
+		sprintf(tmp + newend, " | %.*s", flen, filter);
 	}
 
 	list = new InfoWin(list_max_y + 3, list_max_x + 2, stline, borderCol,
@@ -205,55 +203,47 @@ void PacketListWindow::oneLine(int i)
 	int absPos = position + i;
 	time_t tmpt;
 
-	if (absPos < NumOfItems()) {
-		packetList->gotoFile(absPos);
+	packetList->gotoFile(absPos);
 
-		if (absPos < noDirs) {
-			absPos = sprintf(tmp, "  <%.28s",
-				packetList->getName());
-			char *tmp2 = tmp + absPos;
-			*tmp2++ = '>';
+	if (absPos < noDirs) {
+		absPos = sprintf(tmp, "  <%.28s",
+			packetList->getName());
+		char *tmp2 = tmp + absPos;
+		*tmp2++ = '>';
 
-			absPos = 32 - absPos;
-			while (--absPos > 0)
-				*tmp2++ = ' ';
-		} else {
-			const char *tmp2 = packetList->getName();
+		absPos = 32 - absPos;
+		while (--absPos > 0)
+			*tmp2++ = ' ';
+	} else {
+		const char *tmp2 = packetList->getName();
 
-			strcpy(tmp, "          ");
+		strcpy(tmp, "          ");
 
-			if (*tmp2 == '.')
-				sprintf(&tmp[2], "%-20.20s", tmp2);
-			else {
-				for (int j = 2; *tmp2 && (*tmp2 != '.') &&
-					(j < 10); j++)
-						tmp[j] = *tmp2++;
+		if (*tmp2 == '.')
+			sprintf(&tmp[2], "%-20.20s", tmp2);
+		else {
+			for (int j = 2; *tmp2 && (*tmp2 != '.') &&
+				(j < 10); j++)
+					tmp[j] = *tmp2++;
 
-				sprintf(&tmp[10], "%-10.10s", tmp2);
-			}
-
-			sprintf(&tmp[20], "%12lu",
-				(unsigned long) packetList->getSize());
+			sprintf(&tmp[10], "%-10.10s", tmp2);
 		}
 
-		tmpt = packetList->getDate();
+		sprintf(&tmp[20], "%12lu",
+			(unsigned long) packetList->getSize());
+	}
+
+	tmpt = packetList->getDate();
 
 #ifdef TIMEKLUDGE
-		if (!tmpt)
-			tmpt = currTime;
+	if (!tmpt)
+		tmpt = currTime;
 #endif
-		long dtime = currTime - tmpt;
+	long dtime = currTime - tmpt;
 
-		// 15000000 secs = approx six months (use year if older):
-		strftime(&tmp[32], 17, ((dtime < 0 || dtime > 15000000L) ?
-			"  %b %d  %Y  " : "  %b %d %H:%M  "),
-				localtime(&tmpt));
-	} else {
-		char fmt[12];
-
-		sprintf(fmt, "%%-%d.%ds", list_max_x, list_max_x);
-		sprintf(tmp, fmt, " ");
-	}
+	// 15000000 secs = approx six months (use year if older):
+	strftime(&tmp[32], 17, ((dtime < 0 || dtime > 15000000L) ?
+		"  %b %d  %Y  " : "  %b %d %H:%M  "), localtime(&tmpt));
 
 	DrawOne(i, C_PLINES);
 }

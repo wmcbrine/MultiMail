@@ -191,10 +191,6 @@ void AreaListWindow::oneLine(int i)
 		list->attrib(C_ALINFOTEXT2);
 		list->put(list_max_y + 3 + hasSys, 8, p);
 
-		//sprintf(p, format2, mm.areaList->getDescription());
-		//areaconv_in(p);
-		//list->put(list_max_y + 4 + hasSys, 8, p);
-
 		list->delay_update();
 	}
 	p += sprintf(p, format, ((attrib & ADDED) ? '+' :
@@ -346,13 +342,11 @@ void AreaListWindow::MakeActive()
 	sprintf(tpad, "%%.%ds", (middle < 87) ? middle - 8 : 79);
 	middle += 8;
 
-	sprintf(format2, "%%-%d.%ds", padding, padding);
-
 	list->attrib(C_ALINFOTEXT2);
 
 	if (hasSys) {
 		p = list->lineBuf;
-		sprintf(p, format2, bb);
+		sprintf(p, "%-*.*s", padding, padding, bb);
 		charconv_in(p);
 		list->put(list_max_y + 3, 8, p);
 	}

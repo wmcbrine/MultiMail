@@ -703,7 +703,6 @@ bool LetterWindow::SplitLetter(int lines)
 
 	sprintf(format, "%d", parts);
 	int padsize = strlen(format);
-	sprintf(format, "%%s (%%0%dd/%%d)", padsize);
 
 	bool privat = mm.letterList->getPrivate();
 
@@ -727,7 +726,7 @@ bool LetterWindow::SplitLetter(int lines)
 		}
 		fclose(reply);
 
-		sprintf(SUBJ, format, ORGSUBJ, partno, parts);
+		sprintf(SUBJ, "%s (%0*d/%d)", ORGSUBJ, padsize, partno, parts);
 
 		mm.areaList->enterLetter(replyto_area, from, to, SUBJ, msgid,
 			newsgrps, replyto_num, privat, NM, reply_filename,
