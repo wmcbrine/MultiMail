@@ -76,27 +76,30 @@ void LetterWindow::QuoteText(FILE *reply)
 	// Set quote initials if necessary:
 
 	if (!inet) {
-		char mg[4];
+		char initials[4];
 
-		strncpy(mg, From, 2);
-		mg[2] = '\0';
-		mg[3] = '\0';
+		// Start off with the first two letters of the name
+		strncpy(initials, From, 2);
+		initials[2] = '\0';
+		initials[3] = '\0';
 
+		// Find the first letters of each of the second and last
+		// words in the name, if available
 		i = 1;
 		for (int j = 1; j < 3; j++) {
 			bool end = false;
 			while (From[i] && !end) {
 				if ((From[i - 1] == ' ') && (From[i] != ' ')) {
-					mg[j] = From[i];
+					initials[j] = From[i];
 					if (j == 1)
 						end = true;
 				}
 				i++;
 			}
 		}
-		letterconv_in(mg);
 
-		sprintf(TMP, " %s> ", mg);
+		letterconv_in(initials);
+		sprintf(TMP, " %s> ", initials);
 	} else
 		strcpy(TMP, "> ");
 
