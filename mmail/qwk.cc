@@ -105,24 +105,18 @@ bool qheader::init_short(FILE *datFile)
 	return true;
 }
 
+// Write the header to a file, except for the length:
 void qheader::output(FILE *repFile)
 {
 	qwkmsg_header qh;
 	char buf[10];
-	long chunks, length;
 	int sublen;
 
-	length = msglen;
 	sublen = strlen(subject);
-	if (sublen > 25) {
-		length += sublen + 11;
+	if (sublen > 25)
 		sublen = 25;
-	}
 
 	memset(&qh, ' ', sizeof qh);
-
-	length++;
-	chunks = length / 128 + ((length % 128) != 0);
 
 	sprintf(buf, " %-6ld", msgnum);
 	strncpy(qh.msgnum, buf, 7);
@@ -142,12 +136,23 @@ void qheader::output(FILE *repFile)
 	strncpy(qh.date, date, 8);
 	strncpy(qh.time, &date[9], 5);
 
-	sprintf(buf, "%-6ld", chunks + 1);
-	strncpy(qh.chunks, buf, 6);
 	if (privat)
 		qh.status = '*';
 
 	fwrite(&qh, 1, sizeof qh, repFile);
+}
+
+// Pad out with spaces, as necessary, and write the length to the header:
+void qheader::set_length(FILE *repFile, long headerpos, long curpos)
+{
+	long length;
+
+	for (length = curpos - headerpos; (length & 0x7f); length++)
+		fputc(' ', repFile);
+
+	fseek(repFile, headerpos + CHUNK_OFFSET, SEEK_SET);
+	fprintf(repFile, "%-6ld", (length >> 7));
+	fseek(repFile, headerpos + length, SEEK_SET);
 }
 
 // -----------------------------------------------------------------
@@ -807,21 +812,14 @@ void qwkreply::addRep1(FILE *rep, upl_base *node, int)
 {
 	FILE *replyFile;
 	upl_qwk *l = (upl_qwk *) node;
-	long length, count = 0;
-	int sublen;
-	bool longsub;
+	long count = 0;
 
+	long headerpos = ftell(rep);
 	l->qHead.output(rep);
 
-	length = l->qHead.msglen;
-	sublen = strlen(l->qHead.subject);
-	longsub = (sublen > 25);
-
-	if (longsub) {
-		length += sublen + 11;
+	if (strlen(l->qHead.subject) > 25)
 		fprintf(rep, "Subject: %s%c%c", l->qHead.subject,
 			(char) 227, (char) 227);
-	}
 
 	replyFile = fopen(l->fname, "rt");
 	if (replyFile) {
@@ -849,12 +847,9 @@ void qwkreply::addRep1(FILE *rep, upl_base *node, int)
 	}
 
 	fputc((char) 227, rep);
-	length++;
 
-	length %= 128L;
-	if (length)
-		for (count = 0; count < (128L - length); count++)
-			fputc(' ', rep);
+	long curpos = ftell(rep);
+	l->qHead.set_length(rep, headerpos, curpos);
 }
 
 void qwkreply::addHeader(FILE *repFile)

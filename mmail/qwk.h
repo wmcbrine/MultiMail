@@ -15,6 +15,9 @@
 
 #define ndxRecLen 5
 
+// Offset of the "chunks" field, so it can be written separately
+#define CHUNK_OFFSET 116
+
 #define getQfield(d, s, l) { strncpy(d, s, l); d[l] = '\0'; }
 
 class qheader {
@@ -46,6 +49,7 @@ class qheader {
 	bool init(FILE *);
 	bool init_short(FILE *);
 	void output(FILE *);
+	void set_length(FILE *, long, long);
 };
 
 class qwkpack : public pktbase
