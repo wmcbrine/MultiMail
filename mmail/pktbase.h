@@ -65,6 +65,8 @@ class pktbase : public specific_driver
 	void selectArea(int);
 	void resetLetters();
 	virtual letter_body *getBody(letter_header &);
+	virtual file_header *getHello();
+	virtual file_header *getGoodbye();
 	virtual file_header *getFileList();
 	file_header **getBulletins();
 	virtual const char *getTear(int);
@@ -110,6 +112,8 @@ class pktreply : public reply_driver
 	int getNoOfLetters();
 	void resetLetters();
 	letter_body *getBody(letter_header &);
+	file_header *getHello();
+	file_header *getGoodbye();
 	file_header *getFileList();
 	file_header **getBulletins();
 	const char *getTear(int);

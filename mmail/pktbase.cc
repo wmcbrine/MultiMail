@@ -339,6 +339,16 @@ void pktbase::listBulletins(const char x[][13], int d, int generic)
 	}
 }
 
+file_header *pktbase::getHello()
+{
+	return 0;
+}
+
+file_header *pktbase::getGoodbye()
+{
+	return 0;
+}
+
 file_header *pktbase::getFileList()
 {
 	return mm->workList->existsF("newfiles.");
@@ -532,6 +542,16 @@ letter_body *pktreply::getBody(letter_header &mhead)
 	head.next = 0;
 
 	return replyText;
+}
+
+file_header *pktreply::getHello()
+{
+	return 0;
+}
+
+file_header *pktreply::getGoodbye()
+{
+	return 0;
 }
 
 file_header *pktreply::getFileList()

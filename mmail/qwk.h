@@ -71,6 +71,8 @@ class qwkpack : public pktbase
  public:
 	qwkpack(mmail *);
 	~qwkpack();
+	file_header *getHello();
+	file_header *getGoodbye();
 	area_header *getNextArea();
 	letter_header *getNextLetter();
 	bool isQWKE();

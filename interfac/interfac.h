@@ -674,7 +674,7 @@ class Interface
 	ListWindow *currList;
  	statetype state, prevstate, searchstate;
 	const char *searchItem, *cmdpktname;
-	file_header *newFiles, **bulletins;
+	file_header *goodbye;
 	int Key, searchmode, s_oldpos, width_min, height_min;
 	bool unsaved_reply, any_read, addrparm, commandline, abortNow,
 		dontSetAsRead, lynxNav;

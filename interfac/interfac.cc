@@ -431,6 +431,7 @@ void Interface::redraw()
 
 void Interface::newpacket()
 {
+	file_header *hello, *newFiles, **bulletins;
 	static const char *keepers[] = {"Save", "Kill"};
 	unsaved_reply = any_read = false;
 
@@ -451,13 +452,21 @@ void Interface::newpacket()
 		mm.areaList->setMode(0);
 		mm.areaList->relist();
 	}
-	areas.FirstUnread();
-	changestate(arealist);
+	//areas.FirstUnread();
+	//changestate(arealist);
 
 	bool latin = mm.isLatin();
 
+	hello = mm.getHello();
+	goodbye = mm.getGoodbye();
+	newFiles = mm.getFileList();
+
 	bulletins = mm.getBulletins();
-	if (bulletins)
+
+	if (hello)
+		ansiFile(hello, hello->getName(), latin);
+
+	if (!abortNow && bulletins)
 		if (WarningWindow("View bulletins?")) {
 			file_header **a = bulletins;
 			while (a && *a) {
@@ -473,16 +482,19 @@ void Interface::newpacket()
 					a = 0;
 				}
 			}
-		} else
-			changestate(arealist);
+		} //else
+			//changestate(arealist);
+
+	if (!abortNow && newFiles) {
+		if (WarningWindow("View new files list?"))
+			ansiFile(newFiles, "New files", latin);
+		//else
+		//	changestate(arealist);
+	}
 
 	if (!abortNow) {
-		newFiles = mm.getFileList();
-		if (newFiles)
-			if (WarningWindow("View new files list?"))
-				ansiFile(newFiles, "New files", latin);
-			else
-				changestate(arealist);
+		areas.FirstUnread();
+		changestate(arealist);
 	}
 }
 
@@ -561,6 +573,8 @@ bool Interface::back()
 				redraw();
 				create_reply_packet();
 			}
+		if (!abortNow && goodbye)
+			ansiFile(goodbye, goodbye->getName(), mm.isLatin());
 		mm.Delete();
 		if (abortNow || commandline) {
 			oldstate(state);
@@ -582,7 +596,7 @@ bool Interface::back()
 	case tagwin:
 	case ansiwin:
 		changestate(prevstate);
-		return abortNow ? back() : true;
+		return (abortNow && (state != arealist)) ? back() : true;
 	default:;
 	}
 	return false;

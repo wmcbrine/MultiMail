@@ -179,12 +179,22 @@ qwkpack::qwkpack(mmail *mmA)
 
 	readIndices();
 
-	listBulletins(textfiles, 3);
+	listBulletins(&textfiles[1], 1);
 }
 
 qwkpack::~qwkpack()
 {
 	cleanup();
+}
+
+file_header *qwkpack::getHello()
+{
+	return mm->workList->existsF(textfiles[0]);
+}
+
+file_header *qwkpack::getGoodbye()
+{
+	return mm->workList->existsF(textfiles[2]);
 }
 
 unsigned long qwkpack::MSBINtolong(unsigned const char *ms)

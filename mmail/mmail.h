@@ -107,6 +107,8 @@ class mmail
 	pktstatus selectPacket(const char *);
 	void Delete();
 	bool saveRead();
+	file_header *getHello();
+	file_header *getGoodbye();
 	file_header *getFileList();
 	file_header **getBulletins();
 	bool isLatin();
@@ -517,6 +519,8 @@ class specific_driver
 	virtual void resetLetters() = 0;
 	virtual letter_header *getNextLetter() = 0;
 	virtual letter_body *getBody(letter_header &) = 0;
+	virtual file_header *getHello() = 0;
+	virtual file_header *getGoodbye() = 0;
 	virtual file_header *getFileList() = 0;
 	virtual file_header **getBulletins() = 0;
 	virtual const char *getTear(int) = 0;

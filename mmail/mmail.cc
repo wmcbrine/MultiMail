@@ -186,6 +186,18 @@ bool mmail::saveRead()
 		+ 1))->saveAll();
 }
 
+// Get the packet's opening screen, if available
+file_header *mmail::getHello()
+{
+	return (driverList->getDriver(REPLY_AREA + 1))->getHello();
+}
+
+// Get the packet's closing screen, if available
+file_header *mmail::getGoodbye()
+{
+	return (driverList->getDriver(REPLY_AREA + 1))->getGoodbye();
+}
+
 // Get the BBS' "new files" list, if available
 file_header *mmail::getFileList()
 {
