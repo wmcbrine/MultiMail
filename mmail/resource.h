@@ -16,7 +16,7 @@ enum {
 };
 
 enum {
-	homeDir = noOfRaw, mmHomeDir, PacketDir, WorkDir,
+	homeDir = noOfRaw, mmHomeDir, PacketDir, TmpDir, WorkDir,
 	UncompressCommand, PacketName, BBSName, SysOpName, ReplyDir,
 	LoginName, AliasName, CompressCommand, UpWorkDir, editor, SaveDir,
 	AddressFile, TaglineFile, arjUncompressCommand,
@@ -62,8 +62,6 @@ class resource : public baseconfig
 	static const char *rc_names[], *rc_intro[], *rc_comments[];
 	static const int startUp[], defInt[];
  
-	char *basedir;
-
 	char *resourceData[noOfStrings];
 	int resourceInt[noOfResources - noOfStrings];
 

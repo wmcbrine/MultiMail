@@ -369,8 +369,8 @@ resource::resource()
 	if (!verifyPaths())
 		fatalError("Unable to access data directories");
 
-	basedir = mytmpnam();
-	bool tmpok = checkPath(basedir, false);
+	resourceData[TmpDir] = mytmpdir();
+	bool tmpok = checkPath(resourceData[TmpDir], false);
 	if (!tmpok)
 		fatalError("Unable to create tmp directory");
 	subPath(WorkDir, "work");
@@ -381,12 +381,12 @@ resource::~resource()
 {
 	clearDirectory(resourceData[WorkDir]);
 	clearDirectory(resourceData[UpWorkDir]);
-	mychdir(basedir);
+	mychdir(resourceData[TmpDir]);
 	myrmdir(resourceData[WorkDir]);
 	myrmdir(resourceData[UpWorkDir]);
+	clearDirectory(resourceData[TmpDir]);
 	mychdir("..");
-	myrmdir(basedir);
-	delete[] basedir;
+	myrmdir(resourceData[TmpDir]);
 	for (int c = 0; c < noOfStrings; c++)
 		delete[] resourceData[c];
 }
@@ -570,7 +570,7 @@ void resource::mmEachInit(int index, const char *dirname)
 
 void resource::subPath(int index, const char *dirname)
 {
-	char *tmp = fullpath(basedir, dirname);
+	char *tmp = fullpath(resourceData[TmpDir], dirname);
 	set_noalloc(index, tmp);
 	if (!checkPath(tmp, 0))
 		fatalError("tmp Dir could not be created");

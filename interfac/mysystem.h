@@ -19,6 +19,7 @@ class mystat;
 char *myfgets(char *, size_t, FILE *);
 int mysystem(const char *);
 int mysystem2(const char *, const char *);
+char *mytmpdir();
 char *mytmpnam();
 void edit(const char *);
 int mychdir(const char *);

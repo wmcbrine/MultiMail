@@ -145,7 +145,7 @@ int mysystem2(const char *cmd, const char *args)
 	return result;
 }
 
-char *mytmpnam()
+char *mytmpdir()
 {
 /* EMX, RSX/NT and Borland/Turbo C++ don't return an absolute pathname
    from tmpnam(), so we create one ourselves. Otherwise, use the system's
@@ -173,6 +173,19 @@ char *mytmpnam()
 #else
 	return strdupplus(name);
 #endif
+}
+
+char *mytmpnam()
+{
+	static long tcount = 1;
+	char name[12];
+
+	if (tcount > 99999L)
+		fatalError("Out of temporary filenames");
+
+	sprintf(name, "tmp%05ld.txt", tcount++);
+
+	return fullpath(mm.resourceObject->get(TmpDir), name);
 }
 
 void edit(const char *reply_filename)
