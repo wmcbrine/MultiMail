@@ -621,7 +621,7 @@ class AnsiWindow
 	bool useAltCharset;
 #endif
 	chtype *chtmp, attrib;	//current attribute
-	bool isLatin;
+	bool isLatin, avtparse;
 	int atparse;
 	
 	void oneLine(int);

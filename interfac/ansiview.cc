@@ -791,10 +791,6 @@ void AnsiWindow::MakeChain()
 		case 26:		// ^Z: EOF for DOS
 			break;
 		case 12:		// form feed
-			//if (anim) {
-			//	animtext->Clear(C_ANSIBACK);
-			//	posreset();
-			//}
 			cls();
 			break;
 #ifndef ALLCHARSOK			// unprintable control codes
@@ -809,17 +805,21 @@ void AnsiWindow::MakeChain()
 			break;
 #endif
 		case 22:		// Main Avatar code
-			avatar();
+			if (avtparse)
+				avatar();
+			else
+				update(c);
 			break;
 		case 25:		// Avatar RLE code
-			{
+			if (avtparse) {
 				unsigned char x;
 				c = source.nextchar();
 				x = source.nextchar();
 
 				while (x--)
 					update(c);
-			}
+			} else
+				update(c);
 			break;
 		case '`':
 		case 27:		// ESC
@@ -957,6 +957,7 @@ void AnsiWindow::set(letter_body *ansiSource, const char *winTitle,
 	isLatin = latin;
 	title = winTitle;
 	atparse = 1;
+	avtparse = true;
 }
 
 void AnsiWindow::set(file_header *f, const char *winTitle, bool latin)
@@ -967,6 +968,7 @@ void AnsiWindow::set(file_header *f, const char *winTitle, bool latin)
 	isLatin = latin;
 	title = winTitle;
 	atparse = 1;
+	avtparse = true;
 }
 
 void AnsiWindow::MakeActive()
@@ -1198,8 +1200,8 @@ void AnsiWindow::KeyHandle(int key)
 		}
 		break;
 	case 'V':
+	case 'A':
 	case 1:
-	case 22:
 		animate();
 		break;
 	case 'S':
@@ -1210,6 +1212,10 @@ void AnsiWindow::KeyHandle(int key)
 		atparse++;
 		if (3 == atparse)
 			atparse = 0;
+		ui->redraw();
+		break;
+	case 22:
+		avtparse = !avtparse;
 		ui->redraw();
 		break;
 	case MM_F1:

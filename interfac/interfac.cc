@@ -971,6 +971,9 @@ void Interface::KeyHandle()		// Main loop
 				case address:
 				case tagwin:
 					currList->KeyHandle(Key);
+					break;
+				case ansiwin:
+					ansiwindow.KeyHandle(Key);
 				default:;
 				}
 				break;
