@@ -581,11 +581,11 @@ void ListWindow::Draw()
 {
 #ifdef __PDCURSES__
 	const chtype current = ACS_DIAMOND | A_ALTCHARSET;
-	const chtype old = ACS_BOARD;
 #else
 	const chtype current = ACS_DIAMOND;
-	const chtype old = ACS_CKBOARD;
 #endif
+	const chtype old = ACS_CKBOARD;
+
 	int i, j, limit = NumOfItems();
 
 	checkPos(limit);
