@@ -114,6 +114,7 @@ class mmail
 	file_header *getFileList();
 	file_header **getBulletins();
 	bool isLatin();
+	bool hasPersonal();
 	bool checkForReplies();
 	bool makeReply();
 	void deleteReplies();
@@ -440,7 +441,7 @@ class driver_list
 		read_class *read;
 	} driverList[2];
 
-	int noOfDrivers, attributes;
+	int noOfDrivers;
  public:
 	driver_list(mmail *);
 	~driver_list();
@@ -450,7 +451,6 @@ class driver_list
 	reply_driver *getReplyDriver();
 	read_class *getReadObject(specific_driver *);
 	int getOffset(specific_driver *);
-	bool hasPersonal() const;
 };
 
 class read_class
@@ -508,6 +508,7 @@ class specific_driver
  public:
 	virtual ~specific_driver();
 	virtual bool hasPersArea();
+	virtual bool hasPersonal();
 	virtual bool isLatin();
 	virtual const char *oldFlagsName();
 	virtual bool readOldFlags();

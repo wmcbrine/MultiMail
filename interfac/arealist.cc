@@ -270,7 +270,7 @@ void AreaListWindow::MakeActive()
 	int padding, middle;
 	char tmp[80], tpad[7];
 
-	hasPers = mm.driverList->hasPersonal();
+	hasPers = mm.hasPersonal();
 	mm.areaList->updatePers();
 
 	mm.areaList->setMode(mm.areaList->getMode() - 1);

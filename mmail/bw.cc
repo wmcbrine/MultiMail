@@ -57,6 +57,11 @@ bluewave::~bluewave()
 	fclose(ftiFile);
 }
 
+bool bluewave::hasPersonal()
+{
+	return true;
+}
+
 area_header *bluewave::getNextArea()
 {
 	int x, totmsgs, numpers;

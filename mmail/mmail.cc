@@ -218,6 +218,12 @@ bool mmail::isLatin()
 	return driver->isLatin();
 }
 
+// Add a "Personal" column in the area list?
+bool mmail::hasPersonal()
+{
+	return driver->hasPersonal();
+}
+
 // Is there a reply packet?
 bool mmail::checkForReplies()
 {

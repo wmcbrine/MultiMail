@@ -31,8 +31,6 @@
 
 enum pktype {PKT_QWK, PKT_BW, PKT_OMEN, PKT_SOUP, PKT_OPX, PKT_UNDEF};
 
-enum {PERSONAL = 1};
-
 // ------------------------------------------------
 // Virtual specific_driver and reply_driver methods
 // ------------------------------------------------
@@ -42,6 +40,11 @@ specific_driver::~specific_driver()
 }
 
 bool specific_driver::hasPersArea()
+{
+	return false;
+}
+
+bool specific_driver::hasPersonal()
 {
 	return false;
 }
@@ -79,8 +82,6 @@ driver_list::driver_list(mmail *mm)
 	pktype mode;
 	file_list *wl = mm->workList;
 
-	attributes = 0;
-
 	// This is the new way to set the packet type
 #ifdef USE_QWK
 	if (wl->exists("control.dat") && wl->exists("messages.dat"))
@@ -113,7 +114,6 @@ driver_list::driver_list(mmail *mm)
 #ifdef USE_BW
 	case PKT_BW:
 		driverList[1].driver = new bluewave(mm);
-		attributes = PERSONAL;
 		driverList[0].driver = new bwreply(mm, driverList[1].driver);
 		break;
 #endif
@@ -200,9 +200,4 @@ read_class *driver_list::getReadObject(specific_driver *driver)
 int driver_list::getOffset(specific_driver *driver)
 {
 	return (driver == driverList[1].driver);
-}
-
-bool driver_list::hasPersonal() const
-{
-	return !(!(attributes & PERSONAL));
 }
