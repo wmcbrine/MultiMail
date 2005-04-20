@@ -124,6 +124,12 @@ extern "C" void sigwinchHandler(int);
 # define MM_MOUSE	KEY_MOUSE
 #endif
 
+#ifdef MM_WIDE
+# define MM_BOARD	((wchar_t) 0x2591)
+#else
+# define MM_BOARD	(ACS_BOARD)
+#endif
+
 class ColorClass : public baseconfig
 {
 	static chtype allcolors[];
@@ -153,6 +159,9 @@ class Win
 	void Clear(coltype);
 	void put(int, int, chtype);
 	void put(int, int, char);
+#ifdef MM_WIDE
+	void put(int, int, wchar_t);
+#endif
 	void put(int, int, const chtype *, int = 0);
 	int put(int, int, const char *, int = -1);
 	void attrib(chtype);

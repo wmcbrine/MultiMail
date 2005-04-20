@@ -138,10 +138,15 @@ void Interface::screen_init()
 {
 	char tmp[80];
 
-	// Make a new background window, fill it with ACS_BOARD characters:
+	// Make a new background window, fill it with MM_BOARD characters:
 
-	screen = new Win(LINES, COLS, 0, ColorArray[C_SBACK] |
-		(mm.resourceObject->getInt(BackFill) ? ACS_BOARD : 0));
+	screen = new Win(LINES, COLS, 0, C_SBACK);
+
+	if (mm.resourceObject->getInt(BackFill)) {
+		for (int y = 1; y < (LINES - 1); y++)
+			for (int x = 1; x < (COLS - 1); x++)
+				screen->put(y, x, MM_BOARD);
+	}
 
 	if ((COLS < width_min) || (LINES < height_min)) {
 		sprintf(tmp, "A screen at least %dx%d is required",

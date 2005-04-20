@@ -65,6 +65,18 @@ void Win::put(int y, int x, char z)
 	mvwaddch(win, y, x, (unsigned char) z);
 }
 
+#ifdef MM_WIDE
+void Win::put(int y, int x, wchar_t z)
+{
+	wchar_t tmp[2];
+
+	tmp[0] = z;
+	tmp[1] = 0;
+
+	mvwaddwstr(win, y, x, tmp);
+}
+#endif
+
 void Win::put(int y, int x, const chtype *z, int len)
 {
 	// The cast is to suppress warnings with certain implementations
