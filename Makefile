@@ -13,8 +13,7 @@ include version
 #OPTS = -O2 -Wall -pedantic
 
 # Optimized for recent versions of gcc:
-OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space \
--Wno-deprecated
+OPTS = -O2 -Wall -pedantic -fno-rtti -fconserve-space -Wno-deprecated
 
 # PREFIX is the base directory under which to install the binary and man 
 # page; generally either /usr/local or /usr (or perhaps /opt...):
