@@ -154,6 +154,15 @@ This one looks more serious:
 But as far as I can tell, it too is harmless. Apparently it arises on
 systems with mismatched header files.
 
+Using PDCurses and a recent version of MinGW, I saw several like this:
+
+  basic.cc: In member function `void Win::init(int, int, int)':
+  basic.cc:38: warning: right-hand operand of comma has no effect
+
+This arises from macros defined as "(action, OK)", where "OK" is defined
+as "1". Earlier versions of GCC didn't complain, but in any case, it's
+harmless.
+
 Finally, some versions of the system header files (notably, those included
 with Red Hat 6.0) define toupper() and tolower() as multi-statement
 macros, resulting in warnings like:
