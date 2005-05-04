@@ -1,0 +1,57 @@
+#----------------------------------------
+# MultiMail Makefile (top) for MinGW
+#----------------------------------------
+
+include version
+
+# General options (passed to mmail/Makefile and interfac/Makefile):
+
+# With debug:
+#OPTS = -g -Wall -pedantic
+
+# Optimized, no debug:
+#OPTS = -O2 -Wall -pedantic
+
+# Optimized for recent versions of gcc:
+OPTS = -O2 -fno-exceptions -fno-rtti -fconserve-space -Wno-deprecated
+
+#--------------------------------------------------------------
+# MinGW, with GCC 3.x, and PDCurses 2.6:
+
+CURS_INC = \\\"/MinGW/pdcurs26/curses.h\\\"
+CURS_DIR = /MinGW/pdcurs26
+CURS_LIB = .
+LIBS = /MinGW/pdcurs26/win32/pdcurses.a
+RM = del
+SEP = &&
+POST = strip mm.exe
+
+#--------------------------------------------------------------
+#--------------------------------------------------------------
+
+all:	mm
+
+mm-main:
+	cd mmail $(SEP) $(MAKE) MM_MAJOR="$(MM_MAJOR)" \
+		MM_MINOR="$(MM_MINOR)" OPTS="$(OPTS)" mm-main $(SEP) cd ..
+
+intrfc:
+	cd interfac $(SEP) $(MAKE) MM_MAJOR="$(MM_MAJOR)" \
+		MM_MINOR="$(MM_MINOR)" OPTS="$(OPTS) -I$(CURS_DIR)" \
+		CURS_INC="$(CURS_INC)" intrfc $(SEP) cd ..
+
+mm:	mm-main intrfc
+	$(CXX) -o mm mmail/*.o interfac/*.o -L$(CURS_LIB) $(LIBS)
+	$(POST)
+
+dep:
+	cd interfac $(SEP) $(MAKE) CURS_INC="$(CURS_INC)" dep $(SEP) cd ..
+	cd mmail $(SEP) $(MAKE) dep $(SEP) cd ..
+
+clean:
+	cd interfac $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
+	cd mmail $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
+	$(RM) mm mm.exe
+
+modclean:
+	cd mmail $(SEP) $(MAKE) RM="$(RM)" modclean $(SEP) cd ..

@@ -29,7 +29,7 @@
    from the uname() function, or is hardwired. Turbo and Borland C++ don't
    have it, and it's broken in RSX/NT.
 */
-#if !defined(__RSXNT__) && !defined(__TURBOC__)
+#if !defined(__RSXNT__) && !defined(__TURBOC__) && !defined(__MINGW32__)
 # define HAS_UNAME
 #endif
 
@@ -92,7 +92,7 @@
 /* unistd.h is the POSIX header file. Borland/Turbo C doesn't have it.
    The sleep() function is also defined there.
 */
-#ifndef __TURBOC__
+#if !defined(__TURBOC__) && !defined(__MINGW32__)
 # define HAS_UNISTD
 # define HAS_SLEEP
 #endif
