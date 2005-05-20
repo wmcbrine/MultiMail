@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * some low-level routines common to both sides
 
- Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2005 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -13,7 +13,7 @@
 #include "error.h"
 
 extern "C" {
-#ifndef USE_FINDFIRST
+#if !defined(USE_FINDFIRST) && !defined(__WATCOMC__)
 # include <dirent.h>
 #endif
 
@@ -43,12 +43,21 @@ extern "C" {
 # include <fcntl.h>
 # include <io.h>
 #else
-# include <utime.h>
+# ifdef __WATCOMC__
+#  include <sys/utime.h>
+# else
+#  include <utime.h>
+# endif
 #endif
 
 #ifdef __EMX__
 int _chdir2(const char *);
 char *_getcwd2(char *, int);
+#endif
+
+#ifdef __WATCOMC__
+# include <dos.h>
+# include <direct.h>
 #endif
 }
 

@@ -26,10 +26,10 @@
 */
 
 /* HAS_UNAME determines whether the "System" part of the tearline is taken
-   from the uname() function, or is hardwired. Turbo and Borland C++ don't
-   have it, and it's broken in RSX/NT.
+   from the uname() function, or is hardwired. Turbo/Borland C++ and
+   Watcom don't have it, and it's broken in RSX/NT.
 */
-#if !defined(__RSXNT__) && !defined(__TURBOC__) && !defined(__MINGW32__)
+#if !defined(__RSXNT__) && !defined(__TURBOC__) && !defined(__MINGW32__) && !defined(__WATCOMC__)
 # define HAS_UNAME
 #endif
 
@@ -82,17 +82,16 @@
 */
 
 /* I use strcasecmp() and strncasecmp() throughout, but some systems call
-   these functions stricmp() and strincmp(). I haven't yet dealt with the
-   case where neither is defined.
+   these functions stricmp() and strincmp().
 */
-#if defined(__EMX__) || defined(__TURBOC__)
+#if defined(__EMX__) || defined(__TURBOC__) || defined(__WATCOMC__)
 # define USE_STRICMP
 #endif
 
 /* unistd.h is the POSIX header file. Borland/Turbo C doesn't have it.
    The sleep() function is also defined there.
 */
-#if !defined(__TURBOC__) && !defined(__MINGW32__)
+#if !defined(__TURBOC__) && !defined(__MINGW32__) && !defined(__WATCOMC__)
 # define HAS_UNISTD
 # define HAS_SLEEP
 #endif
