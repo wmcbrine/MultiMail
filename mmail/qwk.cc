@@ -3,7 +3,7 @@
  * QWK
 
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2004 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2005 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -174,7 +174,7 @@ qwkpack::qwkpack(mmail *mmA) : pktbase(mmA)
 
 	readIndices();
 
-	listBulletins(newsfile, 1);
+	listBulletins((const char (*)[13]) newsfile, 1);
 }
 
 qwkpack::~qwkpack()
