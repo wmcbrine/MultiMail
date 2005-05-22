@@ -13,8 +13,12 @@
 #include "error.h"
 
 extern "C" {
-#if !defined(USE_FINDFIRST) && !defined(__WATCOMC__)
-# include <dirent.h>
+#ifndef USE_FINDFIRST
+# ifdef __WATCOMC__
+#  include <direct.h>
+# else
+#  include <dirent.h>
+# endif
 #endif
 
 #ifdef USE_SPAWNO
@@ -53,11 +57,6 @@ extern "C" {
 #ifdef __EMX__
 int _chdir2(const char *);
 char *_getcwd2(char *, int);
-#endif
-
-#ifdef __WATCOMC__
-# include <dos.h>
-# include <direct.h>
 #endif
 }
 
@@ -232,10 +231,14 @@ const char *sysname()
 
 	return buf.sysname;
 #else
-# ifdef __WIN32__
-	return "Win32";
+# ifdef __OS2__
+	return "OS/2";
 # else
+#  ifdef __WIN32__
+	return "Win32";
+#  else
 	return "XT";
+#  endif
 # endif
 #endif
 }

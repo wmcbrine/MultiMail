@@ -7,10 +7,8 @@
 #--------------------------------------------------------------
 # Borland C++ 5.5:
 
-CURS_INC = \\"c:/Progra~1/Borland/BCC55/pdcurs26/curses.h\\"
-CURS_DIR = c:\Progra~1\Borland\BCC55\pdcurs26
-CURS_LIB = .
-LIBS = c:\Progra~1\Borland\BCC55\pdcurs26\win32\pdcurses.lib
+CURS_INC = \\"/Progra~1/Borland/BCC55/pdcurs26/curses.h\\"
+LIBS = \Progra~1\Borland\BCC55\pdcurs26\win32\pdcurses.lib
 RM = del
 LIST = list
 
@@ -28,8 +26,7 @@ mm-main:
 intrfc:
 	cd interfac
 	$(MAKE) -fMakefile.bcc -DMM_MAJOR=$(MM_MAJOR) \
-		-DMM_MINOR=$(MM_MINOR) -DOPTS="-I$(CURS_DIR)" \
-		-DCURS_INC="$(CURS_INC)" intrfc
+		-DMM_MINOR=$(MM_MINOR) -DCURS_INC="$(CURS_INC)" intrfc
 	cd ..
 
 mm:	mm-main intrfc

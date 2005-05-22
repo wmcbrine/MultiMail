@@ -8,10 +8,7 @@
 # Turbo C++ 3.0:
 
 CURS_INC = \\"/tc/pdcurs24/curses.h\\"
-CURS_DIR = \tc\pdcurs24
-CURS_LIB = .
-LIBS = spawnl.lib e:\tc\pdcurs24\dos\pdcurses.lib
-#LIBS = spawnh.lib e:\tc\pdcurs24\dos\cursesh.lib
+LIBS = spawnl.lib \tc\pdcurs24\dos\pdcurses.lib
 RM = del
 LIST = tclist
 
@@ -29,8 +26,7 @@ mm-main:
 intrfc:
 	cd interfac
 	$(MAKE) -fMakefile.bcc -DMM_MAJOR=$(MM_MAJOR) \
-		-DMM_MINOR=$(MM_MINOR) -DOPTS="-I$(CURS_DIR)" \
-		-DCURS_INC="$(CURS_INC)" intrfc
+		-DMM_MINOR=$(MM_MINOR) -DCURS_INC="$(CURS_INC)" intrfc
 	cd ..
 
 mm:	mm-main intrfc

@@ -22,7 +22,7 @@
 /* ----- Platform-specific defines ----- */
 
 /* This could be improved on. Currently, it's only written to deal with
-   GCC, DJGPP, EMX, RSX/NT, BCC 5.5, and Turbo C++ 3.0.
+   GCC, DJGPP, EMX, RSX/NT, BCC 5.5, Turbo C++ 3.0, MinGW and Watcom.
 */
 
 /* HAS_UNAME determines whether the "System" part of the tearline is taken
@@ -33,12 +33,9 @@
 # define HAS_UNAME
 #endif
 
-/* MS-DOS and DOS-like systems. Unfortunately, EMX doesn't define an
-   "__OS2__" symbol, so I just check for "__EMX__". (RSX/NT also defines
-   it, so if you wanted to distinguish them, you'd also have to check for
-   the presence or absence of "__WIN32__".)
-*/
-#if defined(__MSDOS__) || defined(__WIN32__) || defined(__EMX__)
+/* MS-DOS and DOS-like systems. */
+
+#if defined(__MSDOS__) || defined(__WIN32__) || defined(__OS2__)
 # define DOSCHARS
 # define DOSNAMES
 # define USE_SHELL
@@ -131,7 +128,8 @@
 #endif
 
 /* In Borland/Turbo C++ and in DJGPP, using findfirst()/findnext() is
-   faster than using readdir()/stat().
+   faster than using readdir()/stat(). Probably in Watcom and MinGW too, 
+   but they have a different interface.
 */
 #if defined(__MSDOS__) || defined(__TURBOC__)
 # define USE_DIRH

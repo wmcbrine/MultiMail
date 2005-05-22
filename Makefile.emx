@@ -7,14 +7,14 @@ include version
 # General options (passed to mmail/Makefile and interfac/Makefile):
 
 # With debug:
-#OPTS = -g -Wall -pedantic
+#OPTS = -g -Wall -pedantic -D__OS2__
 
 # Optimized, no debug:
-#OPTS = -O2 -Wall -pedantic
+#OPTS = -O2 -Wall -pedantic -D__OS2__
 
 # Optimized for recent versions of gcc:
 OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space \
--Wno-deprecated
+-Wno-deprecated -D__OS2__
 
 #--------------------------------------------------------------
 # EMX (OS/2), with GNU make, GCC 3.x, and PDCurses 2.6:
