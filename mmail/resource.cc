@@ -23,7 +23,7 @@
 # ifdef __WIN32__
 #  define DEFEDIT "start /w notepad"
 # else
-#  ifdef __EMX__
+#  ifdef __OS2__
 #   define DEFEDIT "tedit"
 #  else
 #   define DEFEDIT "vi"
