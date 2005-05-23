@@ -54,6 +54,10 @@ extern "C" {
 # endif
 #endif
 
+#ifdef __WATCOMC__
+# include <dos.h>
+#endif
+
 #ifdef __EMX__
 int _chdir2(const char *);
 char *_getcwd2(char *, int);
@@ -180,6 +184,15 @@ void edit(const char *reply_filename)
 {
         mysystem2(mm.resourceObject->get(editor), reply_filename);
 }
+
+#ifdef __WATCOMC__
+void setdisk(int drive)
+{
+	unsigned total;	/* We don't care, but we have to feed it. */
+
+	_dos_setdrive((unsigned) ++drive, &total);
+}
+#endif
 
 int mychdir(const char *pathname)
 {

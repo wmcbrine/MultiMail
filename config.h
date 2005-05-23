@@ -102,11 +102,17 @@
 # define USE_SPAWNO
 # define LIMIT_MEM
 # define MAXBLOCK 0x0FFE0L
-# define USE_SETDISK
 # undef HAS_BOOL
 # undef HAS_OFFT
 #else
 # define MAXBLOCK 0x07FFFFFE0L
+#endif
+
+/* Watcom (all DOSish platforms) and Turbo C++ need an extra call to get
+   the drive letter changed, when changing directories.
+*/
+#if defined(__WATCOMC__) || (defined(__TURBOC__) && defined(__MSDOS__))
+# define USE_SETDISK
 #endif
 
 /* Borland C++ 5.5 barfs on time_t = 0, which appears as the timestamp of
