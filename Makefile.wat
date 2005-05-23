@@ -15,7 +15,7 @@ COMPILER = "wpp386 -bt=nt -D__WIN32__ -DWIN32"
 LINKER = wlink system nt
 
 #--------------------------------------------------------------
-# For 32-bit OS/2 -- compiles, resultant executable not tested:
+# For 32-bit OS/2:
 
 #LIBS = $(CURS_DIR)/os2/pdcurses.lib
 #COMPILER = "wpp386 -bt=os2v2 -D__OS2__ -I/watcom/h/os2"
