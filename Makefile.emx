@@ -19,10 +19,10 @@ OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space \
 #--------------------------------------------------------------
 # EMX (OS/2), with GNU make, GCC 3.x, and PDCurses 2.6:
 
-CURS_INC = \\\"../../PDCurses-2.6/curses.h\\\"
-CURS_DIR = /emx/PDCurses-2.6
+CURS_INC = \\\"c:/emx/PDCurses-2.6/curses.h\\\"
+CURS_DIR = c:/emx/PDCurses-2.6
 CURS_LIB = .
-LIBS = /emx/PDCurses-2.6/os2/pdcurses.a -Zcrtdll -lwrap -static-libgcc
+LIBS = c:/emx/PDCurses-2.6/os2/pdcurses.a -Zcrtdll -lwrap -static-libgcc
 RM = del /n
 SEP = &&
 # Remove "emxbind -s mm" for a debug executable:
@@ -71,3 +71,4 @@ clean:
 
 modclean:
 	cd mmail $(SEP) $(MAKE) RM="$(RM)" modclean $(SEP) cd ..
+
