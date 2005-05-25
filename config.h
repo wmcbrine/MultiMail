@@ -121,7 +121,7 @@
 
 /* For the 16-bit MS-DOS version compiled with Turbo C++ 3.0, I've added
    the SPAWNO library by Ralf Brown to get more memory when shelling.
-
+*/
 #ifdef TURBO16
 # define USE_SPAWNO
 #endif
