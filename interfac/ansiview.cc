@@ -2,22 +2,12 @@
  * MultiMail offline mail reader
  * ANSI image/text viewer
 
- Copyright (c) 2004 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2005 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
 
 #include "interfac.h"
-
-#ifdef LIMIT_MEM
-extern "C" {
-# ifdef __WATCOMC__
-#  include <malloc.h>
-# else
-#  include <alloc.h>
-# endif
-}
-#endif
 
 //------------------
 // AnsiLine methods
@@ -820,13 +810,7 @@ void AnsiWindow::MakeChain()
 	do {
 		c = source.nextchar();
 #ifdef LIMIT_MEM
-		if (
-# ifdef __WATCOMC__
-		_memmax()
-# else
-		coreleft()
-# endif
-		< ((unsigned long) NumOfLines *
+		if (maxfreemem() < ((long) NumOfLines *
 		    sizeof(AnsiLine *) + 0x200)) {
 			c = 0;
 			blen = 2;

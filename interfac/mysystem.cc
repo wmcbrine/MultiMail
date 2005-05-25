@@ -374,14 +374,19 @@ time_t touchFile(const char *fname)
    memory remaining. Currently used only in the 16-bit MS-DOS port.
 */
 
-long limitmem(long wanted)
+long maxfreemem()
 {
-	long maxavail =
+	return
 # ifdef __WATCOMC__
 		(long) _memmax();
 # else	// Turbo C++
 		(long) coreleft();
 # endif
+}
+
+long limitmem(long wanted)
+{
+	long maxavail = maxfreemem();
 
 	// Give it a 25% margin
 	maxavail -= (wanted >> 2);
