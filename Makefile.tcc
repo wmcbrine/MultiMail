@@ -9,7 +9,6 @@
 
 CURS_INC = \\"/tc/pdcurs24/curses.h\\"
 LIBS = spawnl.lib \tc\pdcurs24\dos\pdcurses.lib
-RM = del
 LIST = tclist
 
 #--------------------------------------------------------------
@@ -33,15 +32,11 @@ mm:	mm-main intrfc
 	$(CC) -emm @$(LIST) $(LIBS)
 
 clean:
-	cd interfac
-	$(MAKE) -fMakefile.bcc -DRM="$(RM)" clean
-	cd ..
-	cd mmail
-	$(MAKE) -fMakefile.bcc -DRM="$(RM)" clean
-	cd ..
-	$(RM) mm.exe
+	del interfac\*.obj
+	del mmail\*.obj
+	del mm.exe
 
 modclean:
 	cd mmail
-	$(MAKE) -fMakefile.bcc -DRM="$(RM)" modclean
+	$(MAKE) -fMakefile.bcc modclean
 	cd ..

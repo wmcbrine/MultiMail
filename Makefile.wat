@@ -22,7 +22,7 @@ LINKER = wlink system nt
 #LINKER = wlink system os2v2
 
 #--------------------------------------------------------------
-# For 16-bit DOS -- not ready yet:
+# For 16-bit DOS:
 
 #LIBS = $(CURS_DIR)/dos/pdcurses.lib
 #COMPILER = "wpp -bt=dos -ml -D__MSDOS__"
@@ -49,7 +49,9 @@ mm.exe:	mm-main intrfc
 	$(LINKER) name mm.exe file mmail/*.obj,interfac/*.obj libfile $(LIBS)
 
 clean
-	del mmail\*.obj interfac\*.obj mm.exe
+	del mmail\*.obj
+	del interfac\*.obj
+	del mm.exe
 
 modclean
 	cd mmail
