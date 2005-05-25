@@ -12,7 +12,4 @@ ansiview.$(O) addrbook.$(O) tagline.$(O) help.$(O) main.$(O)
 
 !include depend
 
-clean:
-	$(RM) *.$(O)
-
 intrfc: $(OBJS)

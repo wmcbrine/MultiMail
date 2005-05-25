@@ -9,7 +9,6 @@
 
 CURS_INC = \\"/Borland/BCC55/pdcurs26/curses.h\\"
 LIBS = \Borland\BCC55\pdcurs26\win32\pdcurses.lib
-RM = del
 LIST = list
 
 #--------------------------------------------------------------
@@ -33,16 +32,12 @@ mm:	mm-main intrfc
 	$(CC) -emm @$(LIST) $(LIBS)
 
 clean:
-	cd interfac
-	$(MAKE) -fMakefile.bcc -DRM="$(RM)" clean
-	cd ..
-	cd mmail
-	$(MAKE) -fMakefile.bcc -DRM="$(RM)" clean
-	cd ..
-	$(RM) mm.exe
-	$(RM) mm.tds
+	del interfac\*.obj
+	del mmail\*.obj
+	del mm.exe
+	del mm.tds
 
 modclean:
 	cd mmail
-	$(MAKE) -fMakefile.bcc -DRM="$(RM)" modclean
+	$(MAKE) -fMakefile.bcc modclean
 	cd ..

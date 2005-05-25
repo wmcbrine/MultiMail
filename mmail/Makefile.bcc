@@ -14,9 +14,6 @@ area.$(O) letter.$(O) read.$(O) compress.$(O) pktbase.$(O)
 !include depend
 
 modclean:
-	$(RM) driverl.$(O) $(MODULES)
-
-clean:
-	$(RM) *.$(O)
+	del driverl.$(O) $(MODULES)
 
 mm-main: $(OBJS) $(MODULES)
