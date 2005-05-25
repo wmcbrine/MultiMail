@@ -11,7 +11,11 @@
 
 #ifdef LIMIT_MEM
 extern "C" {
-#include <alloc.h>
+# ifdef __WATCOMC__
+#  include <malloc.h>
+# else
+#  include <alloc.h>
+# endif
 }
 #endif
 
@@ -816,7 +820,13 @@ void AnsiWindow::MakeChain()
 	do {
 		c = source.nextchar();
 #ifdef LIMIT_MEM
-		if (coreleft() < ((unsigned long) NumOfLines *
+		if (
+# ifdef __WATCOMC__
+		_memmax()
+# else
+		coreleft()
+# endif
+		< ((unsigned long) NumOfLines *
 		    sizeof(AnsiLine *) + 0x200)) {
 			c = 0;
 			blen = 2;

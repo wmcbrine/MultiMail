@@ -15,9 +15,23 @@
 */
 #define TAR_KLUDGE
 
-#define HAS_BOOL
-#define HAS_OFFT
-#define HAS_HOME
+/* ----- Some supported compilers ----- */
+
+#if defined(__TURBOC__) && defined(__MSDOS__)
+# define TURBO16
+#endif
+
+#if defined(__TURBOC__) && defined(__WIN32__)
+# define BORLAND32
+#endif
+
+#if defined(__WATCOMC__) && defined(__I86__)
+# define WATCOM16
+#endif
+
+#if defined(TURBO16) || defined(WATCOM16)
+# define SIXTEENBIT
+#endif
 
 /* ----- Platform-specific defines ----- */
 
@@ -36,10 +50,10 @@
 /* MS-DOS and DOS-like systems. */
 
 #if defined(__MSDOS__) || defined(__WIN32__) || defined(__OS2__)
+
 # define DOSCHARS
 # define DOSNAMES
 # define USE_SHELL
-# undef HAS_HOME
 
 /* Assume the use of PDCurses on these platforms (can't check it
    explicitly until curses.h is included), and so:
@@ -62,9 +76,12 @@
 
 #else
 
-/* Not a DOS-like system -- enable "Transparency" keyword */
+/* Not a DOS-like system -- enable "Transparency" keyword and home
+   directory elision.
+*/
 
 # define HAS_TRANS
+# define HAS_HOME
 
 #endif
 
@@ -93,35 +110,52 @@
 # define HAS_SLEEP
 #endif
 
-/* For the 16-bit MS-DOS version compiled with Turbo C++ 3.0, I've added
-   the SPAWNO library by Ralf Brown to get more memory when shelling.
-   Also, this version lacks the "bool" and "off_t" types. (Check should be
-   more restrictive.)
-*/
-#if defined(__TURBOC__) && defined(__MSDOS__)
-# define USE_SPAWNO
+/* Limit allocation sizes for 16-bit systems */
+
+#ifdef SIXTEENBIT
 # define LIMIT_MEM
 # define MAXBLOCK 0x0FFE0L
-# undef HAS_BOOL
-# undef HAS_OFFT
 #else
 # define MAXBLOCK 0x07FFFFFE0L
+#endif
+
+/* For the 16-bit MS-DOS version compiled with Turbo C++ 3.0, I've added
+   the SPAWNO library by Ralf Brown to get more memory when shelling.
+
+#ifdef TURBO16
+# define USE_SPAWNO
 #endif
 
 /* Watcom (all DOSish platforms) and Turbo C++ need an extra call to get
    the drive letter changed, when changing directories.
 */
-#if defined(__WATCOMC__) || (defined(__TURBOC__) && defined(__MSDOS__))
+#if defined(__WATCOMC__) || defined(TURBO16)
 # define USE_SETDISK
+#endif
+
+/* In Borland/Turbo C++ and in DJGPP, using findfirst()/findnext() is
+   faster than using readdir()/stat(). Probably in Watcom and MinGW too, 
+   but they have a different interface.
+*/
+#if defined(__DJGPP__) || defined(__TURBOC__)
+# define USE_DIRH
+# define USE_FINDFIRST
 #endif
 
 /* Borland C++ 5.5 barfs on time_t = 0, which appears as the timestamp of
    the top-level directory. Also, utime(), though implemented, doesn't work
    right.
 */
-#if defined(__TURBOC__) && defined(__WIN32__)
+#ifdef BORLAND32
 # define TIMEKLUDGE
 # define USE_SETFTIME
+#endif
+
+/* Turbo C++ 3.0 lacks the "bool" and "off_t" types.*/
+
+#ifndef TURBO16
+# define HAS_BOOL
+# define HAS_OFFT
 #endif
 
 /* Some lines in the code serve no purpose but to supress the GCC warning
@@ -131,15 +165,6 @@
 */
 #ifndef __TURBOC__
 # define BOGUS_WARNING
-#endif
-
-/* In Borland/Turbo C++ and in DJGPP, using findfirst()/findnext() is
-   faster than using readdir()/stat(). Probably in Watcom and MinGW too, 
-   but they have a different interface.
-*/
-#if defined(__MSDOS__) || defined(__TURBOC__)
-# define USE_DIRH
-# define USE_FINDFIRST
 #endif
 
 /* ----- End of platform-specific defines ----- */

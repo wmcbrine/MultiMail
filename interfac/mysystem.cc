@@ -26,7 +26,11 @@ extern "C" {
 #endif
 
 #ifdef LIMIT_MEM
-# include <alloc.h>
+# ifdef __WATCOMC__
+#  include <malloc.h>
+# else
+#  include <alloc.h>
+# endif
 #endif
 
 #ifdef HAS_UNISTD
@@ -250,7 +254,15 @@ const char *sysname()
 #  ifdef __WIN32__
 	return "Win32";
 #  else
+#   ifdef __MSDOS__
+#    ifdef SIXTEENBIT
 	return "XT";
+#    else
+	return "DOS"
+#    endif
+#   else
+	return "?";
+#   endif
 #  endif
 # endif
 #endif
@@ -280,7 +292,7 @@ const char *myreaddir(mystat &st)
                 result = findnext(&blk);
 
 	if (result) {
-# ifdef __WIN32__
+# ifndef __MSDOS__
 		findclose(&blk);
 # endif
 		first = true;
@@ -364,7 +376,12 @@ time_t touchFile(const char *fname)
 
 long limitmem(long wanted)
 {
-	long maxavail = (long) coreleft();
+	long maxavail =
+# ifdef __WATCOMC__
+		(long) _memmax();
+# else	// Turbo C++
+		(long) coreleft();
+# endif
 
 	// Give it a 25% margin
 	maxavail -= (wanted >> 2);
@@ -483,7 +500,7 @@ bool mystat::init(const char *fname)
 	else
 		init();
 
-# ifdef __WIN32__
+# ifndef __MSDOS__
 	findclose(&blk);
 # endif
 #else
