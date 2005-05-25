@@ -71,4 +71,3 @@ clean:
 
 modclean:
 	cd mmail $(SEP) $(MAKE) RM="$(RM)" modclean $(SEP) cd ..
-
