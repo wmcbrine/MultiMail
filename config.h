@@ -134,12 +134,20 @@
 #endif
 
 /* In Borland/Turbo C++ and in DJGPP, using findfirst()/findnext() is
-   faster than using readdir()/stat(). Probably in Watcom and MinGW too, 
-   but they have a different interface.
+   faster than using readdir()/stat().
 */
 #if defined(__DJGPP__) || defined(__TURBOC__)
 # define USE_DIRH
 # define USE_FINDFIRST
+#endif
+
+/* Another variation, _findfirst()/_findnext(), for Windows. */
+
+#ifdef __WIN32__
+# ifndef USE_FINDFIRST
+#  define USE_FINDFIRST
+# endif
+# define USE_IOH
 #endif
 
 /* Borland C++ 5.5 barfs on time_t = 0, which appears as the timestamp of

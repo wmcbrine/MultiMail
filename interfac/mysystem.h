@@ -62,14 +62,18 @@ class mystat
 {
 	int mode;
 	off_t size;
-	time_t date, adate;
+	time_t date;
  public:
 	mystat(const char *);
 	mystat();
 
 	bool init(const char *);
 #ifdef USE_FINDFIRST
+# ifdef USE_IOH
+	void init(long, time_t, unsigned);
+# else
 	void init(long, long, char);
+# endif
 #endif
 	void init();
 	bool isdir();

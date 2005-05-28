@@ -13,10 +13,10 @@
 #include "error.h"
 
 extern "C" {
-#ifndef USE_FINDFIRST
-# ifdef __WATCOMC__
-#  include <direct.h>
-# else
+#ifdef __WATCOMC__
+# include <direct.h>
+#else
+# ifndef USE_FINDFIRST
 #  include <dirent.h>
 # endif
 #endif
@@ -49,13 +49,16 @@ extern "C" {
 
 #ifdef USE_SETFTIME
 # include <fcntl.h>
-# include <io.h>
 #else
 # ifdef __WATCOMC__
 #  include <sys/utime.h>
 # else
 #  include <utime.h>
 # endif
+#endif
+
+#if defined(USE_IOH) || defined(USE_SETFTIME)
+# include <io.h>
 #endif
 
 #ifdef __WATCOMC__
@@ -281,6 +284,30 @@ bool myopendir(const char *dirname)
 const char *myreaddir(mystat &st)
 {
 #ifdef USE_FINDFIRST
+# ifdef USE_IOH				// Win32
+	static long handle = -1;
+	static bool first = true;
+	static struct _finddata_t blk;
+	long result;
+
+	if (first) {
+		result = _findfirst("*", &blk);
+		handle = result;
+		first = false;
+	} else
+		result = _findnext(handle, &blk);
+
+	if (-1 == result) {
+		if (-1 != handle)
+			_findclose(handle);
+
+		first = true;
+		return 0;
+	} else {
+		st.init((long) blk.size, blk.time_write, blk.attrib);
+		return blk.name;
+	}
+# else					// DOS(ish)
 	static struct ffblk blk;
 	static bool first = true;
 	int result;
@@ -292,9 +319,9 @@ const char *myreaddir(mystat &st)
                 result = findnext(&blk);
 
 	if (result) {
-# ifndef __MSDOS__
+#  ifndef __MSDOS__
 		findclose(&blk);
-# endif
+#  endif
 		first = true;
 		return 0;
 	} else {
@@ -302,7 +329,8 @@ const char *myreaddir(mystat &st)
 			(long) blk.ff_fdate, blk.ff_attrib);
 		return blk.ff_name;
 	}
-#else
+# endif
+#else					// POSIX
 	static dirent *entry;
 	const char *result = 0;
 
@@ -496,6 +524,18 @@ mystat::mystat()
 bool mystat::init(const char *fname)
 {
 #ifdef USE_FINDFIRST
+# ifdef USE_IOH				// Win32
+	struct _finddata_t blk;
+	long result = _findfirst((char *) fname, &blk);
+	bool retval = (-1 != result);
+
+	if (retval) {
+		init((long) blk.size, blk.time_write, blk.attrib);
+		_findclose(result);
+	} else
+		init();
+
+# else					// DOS(ish)
 	struct ffblk blk;
 	bool retval = !findfirst(fname, &blk, FA_DIREC);
 
@@ -505,17 +545,17 @@ bool mystat::init(const char *fname)
 	else
 		init();
 
-# ifndef __MSDOS__
+#  ifndef __MSDOS__
 	findclose(&blk);
+#  endif
 # endif
-#else
+#else					// POSIX
 	struct stat fileStat;
 	bool retval = !stat((char *) fname, &fileStat);
 
 	if (retval) {
 		size = fileStat.st_size;
 		date = fileStat.st_mtime;
-		adate = fileStat.st_atime;
 		mode = fileStat.st_mode;
 	} else
 		init();
@@ -524,23 +564,33 @@ bool mystat::init(const char *fname)
 }
 
 #ifdef USE_FINDFIRST
+# ifdef USE_IOH
+
+void mystat::init(long sizeA, time_t dateA, unsigned attrib)
+{
+	size = sizeA;
+	date = dateA;
+	mode = S_IREAD | ((attrib & _A_RDONLY) ? 0 : S_IWRITE) |
+		((attrib & _A_SUBDIR) ? S_IFDIR : 0);
+}
+
+# else
 
 void mystat::init(long sizeA, long dateA, char ff_attrib)
 {
 	size = sizeA;
 	date = mktime(getdostime(dateA));
-	adate = date;
 	mode = S_IREAD | ((ff_attrib & FA_RDONLY) ? 0 : S_IWRITE) |
 		((ff_attrib & FA_DIREC) ? S_IFDIR : 0);
 }
 
+# endif
 #endif
 
 void mystat::init()
 {
 	size = -1;
 	date = (time_t) -1;
-	adate = date;
 	mode = 0;
 }
 
@@ -577,7 +627,7 @@ void mystat::reset_date(const char *fname)
 #else
 	{
 		struct utimbuf ut;
-		ut.actime = adate;
+		ut.actime = date;	// Should be current time
 		ut.modtime = date;
 		utime((char *) fname, &ut);
 	}
