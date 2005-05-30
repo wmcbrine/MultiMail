@@ -13,7 +13,7 @@
 #include "error.h"
 
 extern "C" {
-#ifdef __WATCOMC__
+#if defined(__WATCOMC__) || defined(_MSC_VER)
 # include <direct.h>
 #else
 # ifndef USE_FINDFIRST
@@ -50,7 +50,7 @@ extern "C" {
 #ifdef USE_SETFTIME
 # include <fcntl.h>
 #else
-# ifdef __WATCOMC__
+# if defined(__WATCOMC__) || defined(_MSC_VER)
 #  include <sys/utime.h>
 # else
 #  include <utime.h>

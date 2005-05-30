@@ -43,7 +43,7 @@
    from the uname() function, or is hardwired. Turbo/Borland C++ and
    Watcom don't have it, and it's broken in RSX/NT.
 */
-#if !defined(__RSXNT__) && !defined(__TURBOC__) && !defined(__MINGW32__) && !defined(__WATCOMC__)
+#if !defined(__RSXNT__) && !defined(__TURBOC__) && !defined(__MINGW32__) && !defined(__WATCOMC__) && !defined(_MSC_VER)
 # define HAS_UNAME
 #endif
 
@@ -98,14 +98,14 @@
 /* I use strcasecmp() and strncasecmp() throughout, but some systems call
    these functions stricmp() and strincmp().
 */
-#if defined(__EMX__) || defined(__TURBOC__) || defined(__WATCOMC__)
+#if defined(__EMX__) || defined(__TURBOC__) || defined(__WATCOMC__) || defined(_MSC_VER)
 # define USE_STRICMP
 #endif
 
 /* unistd.h is the POSIX header file. Borland/Turbo C doesn't have it.
    The sleep() function is also defined there.
 */
-#if !defined(__TURBOC__) && !defined(__MINGW32__) && !defined(__WATCOMC__)
+#if !defined(__TURBOC__) && !defined(__MINGW32__) && !defined(__WATCOMC__) && !defined(_MSC_VER)
 # define HAS_UNISTD
 # define HAS_SLEEP
 #endif
@@ -157,6 +157,13 @@
 #ifdef BORLAND32
 # define TIMEKLUDGE
 # define USE_SETFTIME
+#endif
+
+/* MSVC seems to have a nonstandard version of set_new_handler(). It's 
+   not that useful anyway.
+*/
+#ifndef _MSC_VER
+# define USE_NEWHANDLER
 #endif
 
 /* Turbo C++ 3.0 lacks the "bool" and "off_t" types.*/
