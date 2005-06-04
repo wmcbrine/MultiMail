@@ -7,7 +7,7 @@
 #--------------------------------------------------------------
 # For Win32:
 
-CURS_DIR = /watcom/pdcurs26
+CURS_DIR = c:/watcom/pdcurs26
 CURS_INC = \"$(CURS_DIR)/curses.h\"
 
 LIBS = $(CURS_DIR)/win32/pdcurses.lib

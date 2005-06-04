@@ -15,10 +15,10 @@ OPTS = -O2 -fno-exceptions -fno-rtti -fconserve-space -Wno-deprecated
 #--------------------------------------------------------------
 # MinGW, with GCC 3.x, and PDCurses 2.6:
 
-CURS_INC = \\\"/MinGW/pdcurs26/curses.h\\\"
-CURS_DIR = /MinGW/pdcurs26
+CURS_INC = \\\"c:/MinGW/pdcurs26/curses.h\\\"
+CURS_DIR = c:/MinGW/pdcurs26
 CURS_LIB = .
-LIBS = /MinGW/pdcurs26/win32/pdcurses.a
+LIBS = c:/MinGW/pdcurs26/win32/pdcurses.a
 RM = del
 SEP = &&
 POST = strip mm.exe
