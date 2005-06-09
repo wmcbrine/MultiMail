@@ -511,6 +511,35 @@ void Shell::out()
 
 #endif
 
+#ifdef EXTRAPATH
+
+/* Add the starting directory and the MMAIL directory to the PATH, 
+   mainly for the benefit of Windows, where InfoZip is not standard. 
+   (But currently this is enabled for all the DOSish ports.)
+*/
+ExtraPath::ExtraPath()
+{
+	const char *oldpath = getenv("PATH");
+	if (!oldpath)
+		fatalError("No PATH defined!");
+
+	const char *orig = error.getOrigDir();
+	const char *home = mm.resourceObject->get(homeDir);
+
+	int len = strlen(oldpath) + strlen(orig) + strlen(home) + 8;
+	newpath = new char[len];
+
+	sprintf(newpath, "PATH=%s;%s;%s", oldpath, orig, home);
+	putenv(newpath);
+}
+
+ExtraPath::~ExtraPath()
+{
+	delete[] newpath;
+}
+
+#endif
+
 mystat::mystat(const char *fname)
 {
 	init(fname);

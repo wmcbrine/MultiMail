@@ -58,6 +58,16 @@ class Shell
 };
 #endif
 
+#ifdef EXTRAPATH
+class ExtraPath
+{
+	char *newpath;
+ public:
+	ExtraPath();
+	~ExtraPath();
+};
+#endif
+
 class mystat
 {
 	int mode;

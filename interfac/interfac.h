@@ -673,6 +673,9 @@ class Interface
 #ifdef USE_SHELL
 	Shell shell;
 #endif
+#ifdef EXTRAPATH
+	ExtraPath extrapath;
+#endif
 	PacketListWindow packets;
 	AddressBook addresses;
 	HelpWindow helpwindow;

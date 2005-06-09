@@ -54,6 +54,7 @@
 # define DOSCHARS
 # define DOSNAMES
 # define USE_SHELL
+# define EXTRAPATH
 
 /* Assume the use of PDCurses on these platforms (can't check it
    explicitly until curses.h is included), and so:
