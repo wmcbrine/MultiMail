@@ -10,6 +10,7 @@
 CURS_INC = \\"/tc/pdcurs24/curses.h\\"
 LIBS = spawnl.lib \tc\pdcurs24\dos\pdcurses.lib
 LIST = tclist
+COMPILER = "$(CC) -c -P"
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------
@@ -18,13 +19,13 @@ all:	mm
 
 mm-main:
 	cd mmail
-	$(MAKE) -fMakefile.bcc -DMM_MAJOR=$(MM_MAJOR) \
+	$(MAKE) -fMakefile.bcc -DCOMPILER=$(COMPILER) -DMM_MAJOR=$(MM_MAJOR) \
 		-DMM_MINOR=$(MM_MINOR) mm-main
 	cd ..
 
 intrfc:
 	cd interfac
-	$(MAKE) -fMakefile.bcc -DMM_MAJOR=$(MM_MAJOR) \
+	$(MAKE) -fMakefile.bcc -DCOMPILER=$(COMPILER) -DMM_MAJOR=$(MM_MAJOR) \
 		-DMM_MINOR=$(MM_MINOR) -DCURS_INC="$(CURS_INC)" intrfc
 	cd ..
 

@@ -10,6 +10,7 @@
 CURS_INC = \\"c:/Borland/BCC55/pdcurs26/curses.h\\"
 LIBS = c:\Borland\BCC55\pdcurs26\win32\pdcurses.lib
 LIST = list
+COMPILER = "$(CC) -c -P"
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------
@@ -18,13 +19,13 @@ all:	mm
 
 mm-main:
 	cd mmail
-	$(MAKE) -fMakefile.bcc -DMM_MAJOR=$(MM_MAJOR) \
+	$(MAKE) -fMakefile.bcc -DCOMPILER=$(COMPILER) -DMM_MAJOR=$(MM_MAJOR) \
 		-DMM_MINOR=$(MM_MINOR) mm-main
 	cd ..
 
 intrfc:
 	cd interfac
-	$(MAKE) -fMakefile.bcc -DMM_MAJOR=$(MM_MAJOR) \
+	$(MAKE) -fMakefile.bcc -DCOMPILER=$(COMPILER) -DMM_MAJOR=$(MM_MAJOR) \
 		-DMM_MINOR=$(MM_MINOR) -DCURS_INC="$(CURS_INC)" intrfc
 	cd ..
 

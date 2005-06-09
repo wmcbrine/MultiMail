@@ -3,8 +3,10 @@ O = obj
 CPPFLAGS = -DCURS_INC=$(CURS_INC) -DMM_MAJOR=$(MM_MAJOR) \
 -DMM_MINOR=$(MM_MINOR)
 
+.SUFFIXES: .cc
+
 .cc.obj:
-	$(CC) -c -P $(CPPFLAGS) $<
+	$(COMPILER) $(CPPFLAGS) $<
 
 OBJS = mmcolor.$(O) mysystem.$(O) isoconv.$(O) basic.$(O) interfac.$(O) \
 packet.$(O) arealist.$(O) letterl.$(O) letterw.$(O) lettpost.$(O) \

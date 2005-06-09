@@ -1,0 +1,41 @@
+#--------------------------------------------------
+# MultiMail Makefile (top) for Microsoft Visual C++
+#--------------------------------------------------
+
+!include version
+
+#--------------------------------------------------------------
+
+CURS_INC = \\\"c:/msvc/pdcurs26/curses.h\\\"
+LIBS = c:\msvc\pdcurs26\win32\pdcurses.lib user32.lib
+COMPILER = "$(CC) -nologo -c -O2 -D__WIN32__ -DPDC_STATIC_BUILD"
+
+#--------------------------------------------------------------
+#--------------------------------------------------------------
+
+all:	mm
+
+mm-main:
+	cd mmail
+	$(MAKE) -f Makefile.bcc COMPILER=$(COMPILER) MM_MAJOR=$(MM_MAJOR) \
+		MM_MINOR=$(MM_MINOR) mm-main
+	cd ..
+
+intrfc:
+	cd interfac
+	$(MAKE) -f Makefile.bcc COMPILER=$(COMPILER) MM_MAJOR=$(MM_MAJOR) \
+		MM_MINOR=$(MM_MINOR) CURS_INC="$(CURS_INC)" intrfc
+	cd ..
+
+mm:	mm-main intrfc
+	link -out:mm.exe mmail\*.obj interfac\*.obj $(LIBS)
+
+clean:
+	del interfac\*.obj
+	del mmail\*.obj
+	del mm.exe
+
+modclean:
+	cd mmail
+	$(MAKE) -f Makefile.bcc modclean
+	cd ..
