@@ -261,7 +261,7 @@ const char *sysname()
 #    ifdef SIXTEENBIT
 	return "XT";
 #    else
-	return "DOS"
+	return "DOS";
 #    endif
 #   else
 	return "?";
