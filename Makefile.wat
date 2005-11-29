@@ -7,7 +7,7 @@
 #--------------------------------------------------------------
 # For Win32:
 
-CURS_DIR = c:/watcom/pdcurs26
+CURS_DIR = e:/home/pdcurs27
 CURS_INC = \"$(CURS_DIR)/curses.h\"
 
 LIBS = $(CURS_DIR)/win32/pdcurses.lib
@@ -20,6 +20,13 @@ LINKER = wlink system nt
 #LIBS = $(CURS_DIR)/os2/pdcurses.lib
 #COMPILER = "wpp386 -zq -bt=os2v2 -D__OS2__ -Ic:/watcom/h/os2"
 #LINKER = wlink system os2v2
+
+#--------------------------------------------------------------
+# For 32-bit DOS:
+
+#LIBS = $(CURS_DIR)/dos/pdcurses.lib
+#COMPILER = "wpp386 -zq -bt=dos4g -mf -D__MSDOS__"
+#LINKER = wlink system dos4g
 
 #--------------------------------------------------------------
 # For 16-bit DOS:
