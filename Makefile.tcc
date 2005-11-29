@@ -7,8 +7,10 @@
 #--------------------------------------------------------------
 # Turbo C++ 3.0:
 
-CURS_INC = \\"/tc/pdcurs24/curses.h\\"
-LIBS = spawnl.lib \tc\pdcurs24\dos\pdcurses.lib
+#CURS_INC = \\"/tc/pdcurs24/curses.h\\"
+#LIBS = spawnl.lib \tc\pdcurs24\dos\pdcurses.lib
+CURS_INC = \\"/pdcurs27/curses.h\\"
+LIBS = spawnl.lib \pdcurs27\dos\pdcurses.lib
 LIST = tclist
 COMPILER = "$(CC) -c -P"
 
