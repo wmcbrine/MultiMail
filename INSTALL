@@ -26,17 +26,13 @@ precompiled binaries, see the README files that accompany them instead.
 
     PDCurses is available at:
 
-    http://www.lightlink.com/hessling/PDCurses/
+    http://pdcurses.sf.net/
 
     (If you're using Linux, odds are that you already have ncurses and
     InfoZip.) Also, bear in mind that MultiMail needs the C++ standard 
     libraries, not just C.
 
-    Note that although DJGPP 2.01 comes with PDCurses 2.2, I've made some
-    changes that depend on 2.3. In general, you should use PDCurses 2.6
-    or later, since it incorporates my patch to make halfdelay() work
-    correctly (instead of hogging the CPU); however, the OS/2 port of 2.6
-    has a fatal bug. (Write me if you want a patch for that.)
+    If using PDCurses, MultiMail now requires version 2.7 or later.
 
     The 16-bit MS-DOS port also uses Ralf Brown's SPAWNO library:
 
@@ -88,14 +84,6 @@ If you're using a non-X text editor with an XCurses version of MultiMail,
 it will work better if you set MultiMail's editor variable to "xterm -e
 $EDITOR" instead of just "$EDITOR" (the default).
 
-Be sure to try out the window resizing; the SIGWINCH handling in XCurses
-is much smoother than under an xterm (with ncurses or another
-implementation).
-
-You need PDCurses 2.5 or later. Earlier versions expected an external
-define, "XCursesProgramName", which is no longer used, and hence no longer
-included in the MultiMail source.
-
 
 Compile notes: Win32, MS-DOS, and OS/2
 ======================================
@@ -107,22 +95,18 @@ Makefile.emx - EMX (32-bit OS/2)
 Makefile.rsx - RSX/NT (Win32)
 Makefile.bcc - Borland C++ (Win32)
 Makefile.tcc - Turbo C++ (16-bit MS-DOS)
+Makefile.mng - MinGW (Win32)
+Makefile.wat - Watcom (All platforms -- Win32 by default)
+Makefile.msv - Microsoft Visual C++ (Win32)
 
 Edit the appropriate makefile to point to your installation of PDCurses,
 and compile with, e.g.:
 
- make -f Makefile.rsx
+ make -f Makefile.mng
 
-The RSX/NT port is technically a port of the EMX OS/2 port. :-) To compile
-with RSX/NT, you first need a working curses library. There's no direct
-support for RSX/NT in PDCurses; but you can use the EMX support in the
-*OS/2* directory. Just edit "gccos2.mak" as appropriate, and compile it
-with the EMXVIDEO option, like so:
+(Use "wmake" instead of "make" for Watcom; "nmake" for MSVC.)
 
- make -f gccos2.mak EMXVIDEO=Y
-
-The compilation will fail once it gets to the demos, but the library will
-work OK. (You can alter the makefile to compile the demos, too.)
+The RSX/NT port is now deprecated. I haven't tried to build it in years.
 
 
 Compile notes: Warnings to ignore
