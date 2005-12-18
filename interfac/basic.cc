@@ -454,7 +454,7 @@ int ShadowedWin::getstring(int y, int x, char *string, int maxlen,
 				end = 2;
 			break;
 #endif
-		case MM_DISCARD:
+		case ERR:
 			break;
 		default:
 			for (j = (maxlen - 1); j > i; j--)

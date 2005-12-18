@@ -108,17 +108,6 @@ extern "C" void sigwinchHandler(int);
 # define MM_DEL		KEY_DC
 #endif
 
-/* Deal with the latest PDCurses misfeature -- version 2.4, for Windows
-   or X, reports shift, control and alt as keys:
-*/
-#ifdef KEY_SHIFT_R
-# define MM_DISCARD	KEY_SHIFT_R: case KEY_SHIFT_L: case KEY_CONTROL_R: \
-			case KEY_CONTROL_L: case KEY_ALT_R: case KEY_ALT_L: \
-			case ERR
-#else
-# define MM_DISCARD	ERR
-#endif
-
 #define MM_BACKSP	KEY_BACKSPACE: case 8
 #define MM_ESC		27
 #define MM_F1		KEY_F(1)
