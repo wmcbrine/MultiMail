@@ -73,10 +73,10 @@ Support for XCurses (PDCurses)
 When MultiMail is compiled with XCurses, you can use the X resource
 database to set certain startup options. Here are some example resources:
 
-MultiMail.normalFont:	9x15
-MultiMail.boldFont:	9x15bold
-MultiMail.lines:	30
-MultiMail.cols:		80
+XCurses*normalFont:	9x15
+XCurses*boldFont:	9x15bold
+XCurses*lines:		30
+XCurses*cols:		80
 
 For details, see the PDCurses documentation.
 
