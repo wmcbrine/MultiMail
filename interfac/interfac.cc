@@ -128,10 +128,6 @@ void Interface::alive()
 		BUTTON3_CLICKED, 0);
 # endif
 #endif
-
-#ifdef __PDCURSES__
-	typeahead(-1);
-#endif
 }
 
 void Interface::screen_init()

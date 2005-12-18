@@ -3,7 +3,7 @@
  * color pairs #define'd here
 
  Copyright (c) 1996 John Zero <john@graphisoft.hu>
- Copyright (c) 2000 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2005 William McBrine <wmcbrine@users.sourceforge.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -12,12 +12,7 @@
 #define MMCOLOR_H
 
 #define COL(f, b) COLOR_PAIR(((f) << 3) + (b))
-
-#ifdef NOREVERSE
-# define REVERSE(f, b) (COL((b), (f)))
-#else
-# define REVERSE(f, b) ((COL((f), (b))) | (A_REVERSE))
-#endif
+#define REVERSE(f, b) ((COL((f), (b))) | (A_REVERSE))
 
 #define C_ANSIBACK	COL(COLOR_WHITE, COLOR_BLACK)
 

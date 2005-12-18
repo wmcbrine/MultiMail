@@ -136,7 +136,6 @@ int mysystem(const char *cmd)
 # if defined(__WIN32__) || defined(XCURSES)
 		PDC_set_title(MM_NAME);
 # endif
-		typeahead(-1);
 #endif
 		keypad(stdscr, TRUE);
 	}

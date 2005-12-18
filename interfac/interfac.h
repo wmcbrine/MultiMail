@@ -20,6 +20,10 @@ extern "C" {
 #include CURS_INC
 }
 
+#if defined(__PDCURSES__) && (PDC_BUILD < 2700)
+# error Please upgrade to PDCurses 2.7 or later
+#endif
+
 #if defined(NCURSES_MOUSE_VERSION) && (NCURSES_MOUSE_VERSION == 1)
 # define USE_MOUSE
 #else

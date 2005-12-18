@@ -282,30 +282,11 @@ void ColorClass::Init()
 
 #ifdef __PDCURSES__
 
-// Here is the implementation of monochrome mode for PDCurses. Since we
-// now have to carry over the A_REVERSE flag in allcolors[], and since
-// PDCurses does not handle A_REVERSE properly (it forces black on white),
-// we must also adjust those attributes here even when in color mode.
-// Bonus: the reverse attribute is no longer stripped from color files.
-
-	for (int x = 0; x < numColors; x++) {
-		chtype bold, rev, ch = allcolors[x];
-
-		bold = ch & A_BOLD;
-		rev = ch & A_REVERSE;
-
-		if (rev)
-			if (usecol) {
-				chtype fg = PAIR_NUMBER(ch) >> 3;
-				chtype bg = PAIR_NUMBER(ch) & 7;
-				allcolors[x] = COL(bg, fg) | bold;
-			} else
-				allcolors[x] = A_REVERSE;
-		else
-			if (!usecol)
-				allcolors[x] =
-					COL(COLOR_WHITE, COLOR_BLACK) | bold;
-	}
+// Here is the implementation of monochrome mode for PDCurses.
+	if (!usecol)
+		for (int x = 0; x < numColors; x++)
+			allcolors[x] = (allcolors[x] & (~A_COLOR)) | 
+				COL(COLOR_WHITE, COLOR_BLACK);
 #endif
 	
 	ColorArray = allcolors;

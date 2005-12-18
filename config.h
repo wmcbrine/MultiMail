@@ -59,12 +59,7 @@
 /* Assume the use of PDCurses on these platforms (can't check it
    explicitly until curses.h is included), and so:
 
-   In PDCurses, the A_REVERSE attribute resets the colors, so I avoid
-   using it.
-*/
-# define NOREVERSE
-
-/* Some characters are unprintable on standard Unix terminals, even with
+   Some characters are unprintable on standard Unix terminals, even with
    A_ALTCHARSET set. But PDCurses will handle them.
 */
 # define ALLCHARSOK
@@ -84,12 +79,6 @@
 # define HAS_TRANS
 # define HAS_HOME
 
-#endif
-
-/* One remaining PDCurses platform not covered by the above */
-
-#ifdef XCURSES
-# define NOREVERSE
 #endif
 
 /* Also, see the NCURSES_SIGWINCH definition in interfac/interfac.h -- it

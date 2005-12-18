@@ -324,12 +324,7 @@ chtype AnsiWindow::colorcore()
 	// If not animating, mark color pair as used:
 
 	if (!anim)
-#ifdef NOREVERSE
-		if (crv)
-			colorsused[(ccb << 3) + ccf] = true;
-		else
-#endif
-			colorsused[(ccf << 3) + ccb] = true;
+		colorsused[(ccf << 3) + ccb] = true;
 
 	return tmpattrib;
 }
