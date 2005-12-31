@@ -18,7 +18,7 @@ LINKER = wlink system nt
 # For 32-bit OS/2:
 
 #LIBS = $(CURS_DIR)/os2/pdcurses.lib
-#COMPILER = "wpp386 -zq -bt=os2v2 -D__OS2__ -Ic:/watcom/h/os2"
+#COMPILER = "wpp386 -zq -bt=os2v2 -3s -D__OS2__ -Ic:/watcom/h/os2"
 #LINKER = wlink system os2v2
 
 #--------------------------------------------------------------
