@@ -92,7 +92,6 @@ In the MultiMail source, separate makefiles are provided for these ports.
 
 Makefile.dj -  DJGPP (32-bit MS-DOS)
 Makefile.emx - EMX (32-bit OS/2)
-Makefile.rsx - RSX/NT (Win32)
 Makefile.bcc - Borland C++ (Win32)
 Makefile.tcc - Turbo C++ (16-bit MS-DOS)
 Makefile.mng - MinGW (Win32)
