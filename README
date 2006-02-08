@@ -1,14 +1,16 @@
-MultiMail version 0.46
+MultiMail version 0.47
 ======================
 
-What's New in version 0.46?
+What's New in version 0.47?
 ---------------------------
 
- * New opening/closing behavior -- screens shown automatically
- * AVATAR and BSAVE support in the ANSI viewer, plus some bug fixes
- * Door and BBS info added to area list
- * Fix for missing tear lines in OPX mode
- * Code simplification, etc.
+ * Added support for Microsoft Visual C++, MinGW, and Open Watcom
+ * OS/2 port now built with Watcom
+ * Win32 port now built with MSVC
+ * Starting and MMAIL directories now searched for archivers and editors
+ * Bundled zip and unzip with Win32 port
+ * Support for "GreekQWK"
+ * Other minor stuff
 
 See the HISTORY file for other changes. See INSTALL for the installation
 procedure, and the man page (mm.1) for information on usage.
@@ -17,61 +19,16 @@ procedure, and the man page (mm.1) for information on usage.
 What is MultiMail?
 ------------------
 
-MultiMail is an offline mail packet reader for Unix and other systems.
-(This version also compiles under MSDOS, with DJGPP or Turbo C++; OS/2,
-with EMX; Win32, with RSX/NT or Borland C++; BeOS and AtheOS.) It currently
-supports the Blue Wave, QWK, OMEN, SOUP and OPX formats. It uses a simple
-curses-based interface.
+MultiMail is an offline mail packet reader for Unix/Linux, MS-DOS, OS/2,
+Windows, Mac OS X, and other systems, using a curses-based interface. It
+supports the Blue Wave, QWK, OMEN, SOUP and OPX formats.
 
-MultiMail is free, "open source" software, distributed under the GNU
-General Public License (q.v.).
+MultiMail is free, open source software, distributed under the GNU
+General Public License.
 
-You can get the latest version by anonymous ftp from:
-
- ftp://download.sourceforge.net/pub/sourceforge/multimail/mmail-0.46.tar.gz
-
-or at the MultiMail home page:
+You can get the latest version at:
 
  http://multimail.sourceforge.net/
-
-
-Features
---------
-
- * auto-decompression of packets with external compress programs
- * user-friendly menus to select packet, area, letter, etc.
- * save whole area or one letter in a text file
- * enter mail in any area (using external editor)
- * insert tagline from a tagline file
- * reply with quote
- * write netmail
- * netmail addressbook
-
-
-Requirements for compiling
---------------------------
-
- * Unix-compatible (POSIX) API, or Borland/Turbo C++
- * curses -- tested with ncurses 1.9.3+, Solaris curses, and PDCurses
- * GNU make *may* be required on some systems
-
-
-Tested Systems
---------------
-
-I'd like to get MultiMail tested on as many platforms as possible. I've
-personally used it on:
-
-Operating Systems:  Linux, Solaris, NetBSD, DOS, OS/2, Windows, BeOS,
-                    FreeBSD, AtheOS, MacOS X
-Processors:         i386, Sparc, m68k, Alpha, i86, PPC, ARM, MIPS, AMD64
-Compilers:          GCC (including DJGPP, EMX, and RSXNT), Compaq Alpha
-                    (w/ GNU make), Borland/Turbo C++, Sun C++ (w/ GNU make)
-Libraries:          ncurses, Solaris curses, PDCurses
-
-If you get it going on a dissimilar system, please let me know (along with
-any necessary patches). Or, let me telnet to your machine, and I'll try
-porting it myself. :-)
 
 
 Credits
