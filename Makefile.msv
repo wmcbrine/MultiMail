@@ -6,8 +6,8 @@
 
 #--------------------------------------------------------------
 
-CURS_INC = \\\"e:/home/pdcurs27/curses.h\\\"
-LIBS = e:\home\pdcurs27\win32\pdcurses.lib user32.lib
+CURS_INC = \\\"/pdcurses/curses.h\\\"
+LIBS = \pdcurses\win32\pdcurses.lib user32.lib
 COMPILER = "$(CC) -nologo -c -O2 -D__WIN32__ -DPDC_STATIC_BUILD"
 
 #--------------------------------------------------------------

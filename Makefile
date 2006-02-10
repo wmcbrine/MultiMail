@@ -76,14 +76,14 @@ LIBS = -lcurses
 #LIBS = -lncurses
 
 #--------------------------------------------------------------
-# With XCurses (PDCurses 2.7) in my home directory:
+# With XCurses (PDCurses 2.8) in my home directory:
 
-CURS_INC = \\\"/home/wmcbrine/pdcurs27/curses.h\\\"
+CURS_INC = \\\"/home/wmcbrine/PDCurses-2.8/curses.h\\\"
 # Sneak some extra defines in through the back door:
-CURS_DIR = /home/wmcbrine/pdcurs27 -DXCURSES -DHAVE_PROTO
-CURS_LIB = /home/wmcbrine/pdcurs27/pdcurses
+CURS_DIR = /home/wmcbrine/PDCurses-2.8 -DXCURSES -DHAVE_PROTO
+CURS_LIB = /home/wmcbrine/PDCurses-2.8/pdcurses
 LIBS = -L/usr/X11R6/lib \
-/home/wmcbrine/pdcurs27/pdcurses/libXCurses.a \
+/home/wmcbrine/PDCurses-2.8/pdcurses/libXCurses.a \
 -lXaw -lXmu -lXt -lX11 -lSM -lICE -lXext
 
 #--------------------------------------------------------------

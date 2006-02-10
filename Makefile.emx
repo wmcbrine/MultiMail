@@ -17,30 +17,16 @@ OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space \
 -Wno-deprecated -D__OS2__
 
 #--------------------------------------------------------------
-# EMX (OS/2), with GNU make, GCC 3.x, and PDCurses 2.6:
+# EMX (OS/2), with GNU make, GCC 3.x, and PDCurses 2.8:
 
-CURS_INC = \\\"c:/emx/PDCurses-2.6/curses.h\\\"
-CURS_DIR = c:/emx/PDCurses-2.6
+CURS_INC = \\\"c:/emx/PDCurses-2.8/curses.h\\\"
+CURS_DIR = c:/emx/PDCurses-2.8
 CURS_LIB = .
-LIBS = c:/emx/PDCurses-2.6/os2/pdcurses.a -Zcrtdll -lwrap -static-libgcc
+LIBS = c:/emx/PDCurses-2.8/os2/pdcurses.a -Zcrtdll -lwrap -static-libgcc
 RM = del /n
 SEP = &&
 # Remove "emxbind -s mm" for a debug executable:
 POST = emxbind mm $(SEP) $(RM) mm $(SEP) emxbind -s mm
-
-#--------------------------------------------------------------
-# EMX (OS/2), with GNU make, and PDCurses 2.5:
-# Note: If you get "g++: Command not found", then type "set cxx=gcc"
-# before running make.
-
-#CURS_INC = \\\"../../PDCurses-2.5/curses.h\\\"
-#CURS_DIR = /emx/PDCurses-2.5
-#CURS_LIB = .
-#LIBS = /emx/PDCurses-2.5/os2/pdcurses.a -Zcrtdll -lwrap
-#RM = del /n
-#SEP = &&
-# Remove "emxbind -s mm" for a debug executable:
-#POST = emxbind mm $(SEP) $(RM) mm $(SEP) emxbind -s mm
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------

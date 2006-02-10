@@ -13,12 +13,12 @@ include version
 OPTS = -O2 -fno-exceptions -fno-rtti -fconserve-space -Wno-deprecated
 
 #--------------------------------------------------------------
-# MinGW, with GCC 3.x, and PDCurses 2.7:
+# MinGW, with GCC 3.x, and PDCurses:
 
-CURS_INC = \\\"e:/home/pdcurs27/curses.h\\\"
-CURS_DIR = e:/home/pdcurs27 -DPDC_STATIC_BUILD
+CURS_INC = \\\"/pdcurses/curses.h\\\"
+CURS_DIR = /pdcurses -DPDC_STATIC_BUILD
 CURS_LIB = .
-LIBS = e:/home/pdcurs27/win32/pdcurses.a
+LIBS = /pdcurses/win32/pdcurses.a
 RM = del
 SEP = &&
 POST = strip mm.exe
