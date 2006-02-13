@@ -65,9 +65,6 @@ Interface::~Interface()
 	leaveok(stdscr, FALSE);
 	echo();
 	endwin();
-#ifdef XCURSES
-	XCursesExit();
-#endif
 #ifdef PDCURSKLUDGE
 	PDC_set_cursor_mode(curs_start, curs_end);
 #endif
