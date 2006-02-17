@@ -6,9 +6,9 @@
 
 #--------------------------------------------------------------
 
-CURS_INC = \\\"/pdcurses/curses.h\\\"
+CURS_DIR = \pdcurses
 LIBS = \pdcurses\win32\pdcurses.lib user32.lib
-COMPILER = "$(CC) -nologo -c -O2 -D__WIN32__ -DPDC_STATIC_BUILD"
+COMPILER = "$(CC) -nologo -c -O2 -D__WIN32__"
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------
@@ -24,7 +24,7 @@ mm-main:
 intrfc:
 	cd interfac
 	$(MAKE) -f Makefile.bcc COMPILER=$(COMPILER) MM_MAJOR=$(MM_MAJOR) \
-		MM_MINOR=$(MM_MINOR) CURS_INC="$(CURS_INC)" intrfc
+		MM_MINOR=$(MM_MINOR) CURS_DIR="$(CURS_DIR)" intrfc
 	cd ..
 
 mm:	mm-main intrfc

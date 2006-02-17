@@ -7,7 +7,7 @@
 #--------------------------------------------------------------
 # Turbo C++ 3.0:
 
-CURS_INC = \\"/pdcurses/curses.h\\"
+CURS_DIR = \pdcurses
 LIBS = spawnl.lib \pdcurses\dos\pdcurses.lib
 LIST = tclist
 COMPILER = "$(CC) -c -P"
@@ -26,7 +26,7 @@ mm-main:
 intrfc:
 	cd interfac
 	$(MAKE) -fMakefile.bcc -DCOMPILER=$(COMPILER) -DMM_MAJOR=$(MM_MAJOR) \
-		-DMM_MINOR=$(MM_MINOR) -DCURS_INC="$(CURS_INC)" intrfc
+		-DMM_MINOR=$(MM_MINOR) -DCURS_DIR="$(CURS_DIR)" intrfc
 	cd ..
 
 mm:	mm-main intrfc

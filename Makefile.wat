@@ -8,7 +8,6 @@
 # For Win32:
 
 CURS_DIR = /pdcurses
-CURS_INC = \"$(CURS_DIR)/curses.h\"
 
 LIBS = $(CURS_DIR)/win32/pdcurses.lib
 COMPILER = "wpp386 -zq -bt=nt -D__WIN32__ -DWIN32"
@@ -49,7 +48,7 @@ mm-main
 intrfc
 	cd interfac
 	$(MAKE) -f Makefile.wat COMPILER=$(COMPILER) MM_MAJOR=$(MM_MAJOR) &
-	MM_MINOR=$(MM_MINOR) OPTS="-I$(CURS_DIR)" CURS_INC="$(CURS_INC)" intrfc
+	MM_MINOR=$(MM_MINOR) CURS_DIR="$(CURS_DIR)" intrfc
 	cd ..
 
 mm.exe:	mm-main intrfc

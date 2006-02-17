@@ -33,13 +33,8 @@ POST =
 #--------------------------------------------------------------
 # Defaults are for the standard curses setup:
 
-# CURS_INC specifies the location of your curses header file. Broken
-# brackets (<, >) should be preceded by backslashes. Quotes (") should
-# be preceded by *three* backslashes:
-
-CURS_INC = \<curses.h\>
-
-# CURS_DIR may also be necessary in some cases:
+# CURS_DIR specifies the directory with your curses header file, if it's 
+# not /usr/include/curses.h:
 
 CURS_DIR = .
 
@@ -56,7 +51,6 @@ LIBS = -lcurses
 # With ncurses installed beside the original curses, rather than
 # replacing it -- for older Linux distros, etc.:
 
-#CURS_INC = \<ncurses/curses.h\>
 #CURS_DIR = /usr/include/ncurses
 #CURS_LIB = /usr/local/lib
 #LIBS = -lncurses
@@ -70,7 +64,6 @@ LIBS = -lcurses
 # With ncurses installed in the user's home directory:
 
 # Example with quotes (relative pathnames start from ./interfac):
-#CURS_INC = \\\"../../ncurses-5.2/include/curses.h\\\"
 #CURS_DIR = ../../ncurses-5.2/include
 #CURS_LIB = ../ncurses-5.2/lib
 #LIBS = -lncurses
@@ -78,7 +71,6 @@ LIBS = -lcurses
 #--------------------------------------------------------------
 # With XCurses (PDCurses 2.8) in my home directory:
 
-CURS_INC = \\\"/home/wmcbrine/PDCurses-2.8/curses.h\\\"
 # Sneak some extra defines in through the back door:
 CURS_DIR = /home/wmcbrine/PDCurses-2.8 -DXCURSES -DHAVE_PROTO
 CURS_LIB = /home/wmcbrine/PDCurses-2.8/pdcurses
@@ -99,15 +91,15 @@ mm-main:
 
 intrfc:
 	cd interfac $(SEP) $(MAKE) MM_MAJOR="$(MM_MAJOR)" \
-		MM_MINOR="$(MM_MINOR)" OPTS="$(OPTS) -I$(CURS_DIR)" \
-		CURS_INC="$(CURS_INC)" intrfc $(SEP) cd ..
+		MM_MINOR="$(MM_MINOR)" OPTS="$(OPTS)" \
+		CURS_DIR="$(CURS_DIR)" intrfc $(SEP) cd ..
 
 mm:	mm-main intrfc
 	$(CXX) -o mm mmail/*.o interfac/*.o -L$(CURS_LIB) $(LIBS)
 	$(POST)
 
 dep:
-	cd interfac $(SEP) $(MAKE) CURS_INC="$(CURS_INC)" dep $(SEP) cd ..
+	cd interfac $(SEP) $(MAKE) CURS_DIR="$(CURS_DIR)" dep $(SEP) cd ..
 	cd mmail $(SEP) $(MAKE) dep $(SEP) cd ..
 
 clean:
