@@ -280,14 +280,5 @@ void ColorClass::Init()
 		if (parseConfig(configname))
 			newConfig(configname);
 
-#ifdef __PDCURSES__
-
-// Here is the implementation of monochrome mode for PDCurses.
-	if (!usecol)
-		for (int x = 0; x < numColors; x++)
-			allcolors[x] = (allcolors[x] & (~A_COLOR)) | 
-				COL(COLOR_WHITE, COLOR_BLACK);
-#endif
-	
 	ColorArray = allcolors;
 }

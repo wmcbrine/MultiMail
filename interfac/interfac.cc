@@ -103,10 +103,10 @@ void Interface::alive()
 #endif
 	initscr();
 	refresh();
-#ifndef __PDCURSES__
+
 	if (mm.resourceObject->getInt(UseColors))
-#endif
 		start_color();
+
 #ifdef NCURSES_VERSION
 	use_default_colors();
 #endif
