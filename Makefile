@@ -72,7 +72,7 @@ LIBS = -lcurses
 # With XCurses (PDCurses 2.8) in my home directory:
 
 # Sneak some extra defines in through the back door:
-CURS_DIR = /home/wmcbrine/PDCurses-2.8 -DXCURSES -DHAVE_PROTO
+CURS_DIR = /home/wmcbrine/PDCurses-2.8
 CURS_LIB = /home/wmcbrine/PDCurses-2.8/pdcurses
 LIBS = -L/usr/X11R6/lib \
 /home/wmcbrine/PDCurses-2.8/pdcurses/libXCurses.a \
