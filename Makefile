@@ -7,10 +7,10 @@ include version
 # General options (passed to mmail/Makefile and interfac/Makefile):
 
 # With debug:
-#OPTS = -g -Wall -pedantic -Wno-deprecated -Wno-char-subscripts
+#OPTS = -g -Wall -Wextra -pedantic -Wno-deprecated -Wno-char-subscripts
 
 # Optimized, no debug:
-OPTS = -O2 -Wall -Wextra -pedantic -Wno-deprecated -Wno-char-subscripts
+OPTS = -O2 -Wall -pedantic -Wno-deprecated -Wno-char-subscripts
 
 # PREFIX is the base directory under which to install the binary and man 
 # page; generally either /usr/local or /usr (or perhaps /opt...):
@@ -69,14 +69,19 @@ LIBS = -lcurses
 #LIBS = -lncurses
 
 #--------------------------------------------------------------
-# With XCurses (PDCurses 2.8) in my home directory:
+# With XCurses (PDCurses) installed globally:
 
-# Sneak some extra defines in through the back door:
-CURS_DIR = /home/wmcbrine/PDCurses-2.8
-CURS_LIB = /home/wmcbrine/PDCurses-2.8/pdcurses
-LIBS = -L/usr/X11R6/lib \
-/home/wmcbrine/PDCurses-2.8/pdcurses/libXCurses.a \
--lXaw -lXmu -lXt -lX11 -lSM -lICE -lXext
+CURS_DIR = /usr/local/include/xcurses
+LIBS = -lXCurses
+
+#--------------------------------------------------------------
+# With XCurses in my home directory:
+
+#CURS_DIR = /home/wmcbrine/PDCurses-2.8
+#CURS_LIB = /home/wmcbrine/PDCurses-2.8/pdcurses
+#LIBS = -L/usr/X11R6/lib \
+#/home/wmcbrine/PDCurses-2.8/pdcurses/libXCurses.a \
+#-lXaw -lXmu -lXt -lX11 -lSM -lICE -lXext
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------
