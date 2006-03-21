@@ -92,8 +92,8 @@ void mm_mouse_get()
 	request_mouse_pos();
 	mouse_event.x = Mouse_status.x;
 	mouse_event.y = Mouse_status.y;
-	mouse_event.bstate = (Mouse_status.button[0] ? BUTTON1_CLICKED : 0) |
-		(Mouse_status.button[2] ? BUTTON3_CLICKED : 0);
+	mouse_event.bstate = BUTTON_CHANGED(3) ? BUTTON3_CLICKED :
+		BUTTON_CHANGED(1) ? BUTTON1_CLICKED : 0;
 # endif
 }
 #endif
