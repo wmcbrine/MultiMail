@@ -115,7 +115,7 @@ clean:
 modclean:
 	cd mmail $(SEP) $(MAKE) RM="$(RM)" modclean $(SEP) cd ..
 
-install:
+install::
 	install -c -s mm $(PREFIX)/bin
 	install -c -m 644 mm.1 $(HELPDIR)
 	$(RM) $(HELPDIR)/mmail.1
