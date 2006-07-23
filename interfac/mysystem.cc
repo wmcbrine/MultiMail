@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * some low-level routines common to both sides
 
- Copyright (c) 2005 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2006 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -103,13 +103,8 @@ char *myfgets(char *s, size_t size, FILE *stream)
 
 int mysystem(const char *cmd)
 {
-	if (ui && !isendwin()) {
-			endwin();
-#ifdef PDCURSKLUDGE
-			// Restore original cursor
-			PDC_set_cursor_mode(curs_start, curs_end);
-#endif
-	}
+	if (ui && !isendwin())
+		endwin();
 
 #ifdef USE_SPAWNO
 	int result = mm.resourceObject->getInt(swapOut) ?

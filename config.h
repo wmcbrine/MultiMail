@@ -64,12 +64,6 @@
 */
 # define ALLCHARSOK
 
-/* For the ugly cursor-toggling routines */
-
-# ifndef __WIN32__
-#  define PDCURSKLUDGE
-# endif
-
 #else
 
 /* Not a DOS-like system -- enable "Transparency" keyword and home

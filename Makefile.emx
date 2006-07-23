@@ -17,11 +17,11 @@ OPTS = -O2 -Wall -pedantic -fno-exceptions -fno-rtti -fconserve-space \
 -Wno-deprecated -D__OS2__
 
 #--------------------------------------------------------------
-# EMX (OS/2), with GNU make, GCC 3.x, and PDCurses 2.8:
+# EMX (OS/2), with GNU make, GCC 3.x, and PDCurses 3.0:
 
-CURS_DIR = c:/emx/PDCurses-2.8
+CURS_DIR = c:/emx/PDCurses-3.0
 CURS_LIB = .
-LIBS = c:/emx/PDCurses-2.8/os2/pdcurses.a -Zcrtdll -lwrap -static-libgcc
+LIBS = c:/emx/PDCurses-3.0/os2/pdcurses.a -Zcrtdll -lwrap -static-libgcc
 RM = del /n
 SEP = &&
 # Remove "emxbind -s mm" for a debug executable:

@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2005 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2006 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -187,11 +187,7 @@ void Win::wscroll(int i)
 void Win::cursor_on()
 {
 	leaveok(win, FALSE);
-#ifdef PDCURSKLUDGE
-	PDC_set_cursor_mode(curs_start, curs_end);
-#else
 	curs_set(1);
-#endif
 }
 
 void Win::cursor_off()

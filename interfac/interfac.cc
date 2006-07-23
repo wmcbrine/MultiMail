@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2005 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2006 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -65,9 +65,6 @@ Interface::~Interface()
 	leaveok(stdscr, FALSE);
 	echo();
 	endwin();
-#ifdef PDCURSKLUDGE
-	PDC_set_cursor_mode(curs_start, curs_end);
-#endif
 }
 
 void Interface::init_colors()
@@ -94,13 +91,6 @@ void Interface::init_colors()
 
 void Interface::alive()
 {
-#ifdef PDCURSKLUDGE
-	// Preserve the startup cursor mode:
-
-	int curs_mode = PDC_get_cursor_mode();
-	curs_start = (curs_mode & 0xff00) >> 8;
-	curs_end = curs_mode & 0xff;
-#endif
 	initscr();
 	refresh();
 

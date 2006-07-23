@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2005 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2006 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -19,8 +19,8 @@ extern "C" {
 #include <signal.h>
 }
 
-#if defined(__PDCURSES__) && (PDC_BUILD < 2801)
-# error Please upgrade to PDCurses 2.8 or later
+#if defined(__PDCURSES__) && (PDC_BUILD < 2810)
+# error Please upgrade to PDCurses 3.0 or later
 #endif
 
 #if defined(NCURSES_MOUSE_VERSION) && (NCURSES_MOUSE_VERSION == 1)
@@ -754,14 +754,6 @@ typedef struct {
 extern MEVENT mouse_event;
 
 void mm_mouse_get();
-#endif
-
-#ifdef PDCURSKLUDGE
-extern "C" {
-int PDC_get_cursor_mode();
-int PDC_set_cursor_mode(int, int);
-}
-extern int curs_start, curs_end;
 #endif
 
 #endif
