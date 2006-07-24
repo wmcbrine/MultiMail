@@ -11,7 +11,7 @@ include version
 
 # Optimized, no debug:
 OPTS = -O2 -Wall -pedantic -Wno-deprecated -Wno-char-subscripts \
--DUNICODE -DMM_WIDE
+-DPDC_WIDE -DMM_WIDE
 
 # PREFIX is the base directory under which to install the binary and man 
 # page; generally either /usr/local or /usr (or perhaps /opt...):
@@ -78,11 +78,11 @@ LIBS = -lXCurses
 #--------------------------------------------------------------
 # With XCurses in my home directory:
 
-CURS_DIR = /home/wmcbrine/PDCurses-3.0
-CURS_LIB = /home/wmcbrine/PDCurses-3.0/x11
-LIBS = -L/usr/X11R6/lib \
-/home/wmcbrine/PDCurses-3.0/x11/libXCurses.a \
--lXaw -lXmu -lXt -lX11 -lSM -lICE -lXext
+#CURS_DIR = /home/wmcbrine/PDCurses-3.0
+#CURS_LIB = /home/wmcbrine/PDCurses-3.0/x11
+#LIBS = -L/usr/X11R6/lib \
+#/home/wmcbrine/PDCurses-3.0/x11/libXCurses.a \
+#-lXaw -lXmu -lXt -lX11 -lSM -lICE -lXext
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------

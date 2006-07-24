@@ -3,7 +3,7 @@
  * miscellaneous routines (global)
 
  Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 2001 William McBrine <wmcbrine@users.sourceforge.net>,
+ Copyright (c) 2006 William McBrine <wmcbrine@users.sourceforge.net>,
                     Peter Karlsson <peter@softwolves.pp.se>
 
  Distributed under the GNU General Public License.
@@ -227,23 +227,19 @@ const char *searchstr(const char *source, const char *item, int slen)
 {
 	const char *s;
 	char first[3], oldc = '\0';
-#ifdef BOGUS_WARNING
-	char *end = 0;
-#else
-	char *end;
-#endif
+	char *end = (-1 != slen) ? ((char *) source + slen) : 0;
+
 	int ilen = strlen(item) - 1;
 	bool found = false;
 
-	if (-1 != slen) {
-		end = (char *) source + slen;
+	first[0] = tolower(*item);
+	first[1] = toupper(*item);
+	first[2] = oldc;
+
+	if (end) {
 		oldc = *end;
 		*end = '\0';
 	}
-
-	first[0] = tolower(*item);
-	first[1] = toupper(*item);
-	first[2] = '\0';
 
 	item++;
 
@@ -255,7 +251,7 @@ const char *searchstr(const char *source, const char *item, int slen)
 		}
 	} while (s && !found && *source);
 
-	if (-1 != slen)
+	if (end)
 		*end = oldc;
 
 	return found ? s : 0;
@@ -265,11 +261,6 @@ const char *searchstr(const char *source, const char *item, int slen)
 const char *fromAddr(const char *source)
 {
 	static char tmp[100];
-#ifdef BOGUS_WARNING
-	const char *end = 0;
-#else
-	const char *end;
-#endif
 	const char *index = source;
 
 	while (*index) {
@@ -284,13 +275,10 @@ const char *fromAddr(const char *source)
 			index++;
 	}
 
-	if (*index == '<') {
-		index++;
-		end = strchr(index, '>');
-	} else {
-		end = index - (*index == '(');
-		index = source;
-	}
+	bool bracket = (*index == '<');
+	const char *end = bracket ? strchr(index, '>') :
+		index - (*index == '(');
+	index = bracket ? (index + 1) : source;
 
 	if (end) {
 		int len = end - index;
