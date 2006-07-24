@@ -741,11 +741,8 @@ void Interface::searchNext()
 		// We should only continue if the search was started in an
 		// appropriate state with respect to the current state.
 
-#ifdef BOGUS_WARNING
-		bool stateok = false;
-#else
 		bool stateok;
-#endif
+
 		switch (state) {
 		case letter:
 		case letterlist:
@@ -757,11 +754,8 @@ void Interface::searchNext()
 		}
 
 		if (stateok) {
-#ifdef BOGUS_WARNING
-			searchret result = False;
-#else
 			searchret result;
-#endif
+
 			dontSetAsRead = true;
 
 			bool restorepos = (s_oldpos == -1);

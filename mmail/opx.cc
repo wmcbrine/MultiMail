@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * OPX
 
- Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2006 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -89,11 +89,8 @@ void opxpack::buildIndices()
 	while ((hasFdx ? (numMsgs < totMsgs) :
 	    fread(&mhead, MSG_HEAD_SIZE, 1, infile))) {
 
-#ifdef BOGUS_WARNING
-		bool pers = false;
-#else
 		bool pers;
-#endif
+
 		if (hasFdx) {
 			counter = getlong(frec.offset) + MSG_HEAD_SIZE;
 			x = getXNum(getshort(frec.confnum));
