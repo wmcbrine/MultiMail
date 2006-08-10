@@ -123,7 +123,7 @@ int mysystem(const char *cmd)
 #endif
 
 	if (ui) {
-#ifdef __PDCURSES__
+#ifdef PDCURSES
 # ifdef __WIN32__
 		// Force scroll bars off in Windows 2000, XP
 		resize_term(LINES, COLS);

@@ -211,7 +211,7 @@ int Win::inkey()
 {
 	// Wait until key pressed, SIGWINCH received, or 5 seconds
 
-#ifdef __PDCURSES__
+#ifdef PDCURSES
 	nodelay(win, TRUE);
 #else
 # ifndef NCURSES_VERSION
@@ -281,7 +281,7 @@ ShadowedWin::ShadowedWin(int height, int width, int topline, coltype backg,
 	int i, j;
 	chtype *right, *lower;
 # ifndef NCURSES_VERSION
-#  ifdef __PDCURSES__
+#  ifdef PDCURSES
 	WINDOW *&newscr = curscr;
 #  else
 	WINDOW *&newscr = stdscr;

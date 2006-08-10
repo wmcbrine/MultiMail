@@ -140,7 +140,7 @@ void Interface::screen_init()
 
 	// Border and title:
 
-#if (defined(__PDCURSES__) && defined(__WIN32__)) || defined(XCURSES)
+#if (defined(PDCURSES) && defined(__WIN32__)) || defined(XCURSES)
 	PDC_set_title(MM_NAME);
 #endif
 	sprintf(tmp, MM_TOPHEADER, sysname());

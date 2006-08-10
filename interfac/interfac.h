@@ -19,14 +19,14 @@ extern "C" {
 #include <signal.h>
 }
 
-#if defined(__PDCURSES__) && (PDC_BUILD < 2810)
+#if defined(PDCURSES) && (PDC_BUILD < 2810)
 # error Please upgrade to PDCurses 3.0 or later
 #endif
 
 #if defined(NCURSES_MOUSE_VERSION) && (NCURSES_MOUSE_VERSION == 1)
 # define USE_MOUSE
 #else
-# if (defined(__PDCURSES__) && defined(__WIN32__)) || defined(XCURSES)
+# if (defined(PDCURSES) && defined(__WIN32__)) || defined(XCURSES)
 #  define USE_MOUSE
 # endif
 #endif
@@ -75,7 +75,7 @@ extern "C" void sigwinchHandler(int);
 
 /* Include Keypad keys for PDCurses */
 
-#ifdef __PDCURSES__
+#ifdef PDCURSES
 # define MM_PLUS	'+': case PADPLUS
 # define MM_MINUS	'-': case PADMINUS
 # define MM_ENTER	'\r': case '\n': case PADENTER
