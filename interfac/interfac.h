@@ -26,7 +26,7 @@ extern "C" {
 #if defined(NCURSES_MOUSE_VERSION) && (NCURSES_MOUSE_VERSION == 1)
 # define USE_MOUSE
 #else
-# if (defined(PDCURSES) && defined(__WIN32__)) || defined(XCURSES)
+# ifdef PDCURSES
 #  define USE_MOUSE
 # endif
 #endif
