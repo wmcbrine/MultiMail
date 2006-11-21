@@ -1,6 +1,60 @@
 Revision History
 ================
 
+0.47 - 2005/12/31:
+
+New features:
+
+- Added support for Microsoft Visual C++, MinGW, and Open Watcom. I highly
+  recommend Watcom, and I'm now using it for the OS/2 port. I'd use it for
+  the Win32 port, but sadly the directory scan (used in the packet list)
+  is using the slow POSIX-emulation method rather the fast native method,
+  and I haven't got that sorted out yet. MinGW is also very nice, and I'd
+  use that, except that it needs MSVCRT.DLL, which doesn't come with old
+  Windows 95. So -- rather than continuing with the 5-year-old Borland 5.5
+  (although it still works) -- I'm delivering an MSVC-built version. This
+  version doesn't support set_new_handler(), but no one is likely to
+  notice (famous last words). Also, I've finally dropped the pretense of
+  supporting RSX/NT.
+
+- The starting directory and home directory are now added to the PATH
+  searched for archivers and editors, so you can include them in the same
+  directory with mm.exe. I'm taking advantage of this to bundle InfoZip's
+  zip and unzip, hugely bloating the Windows zip, but hopefully stopping
+  the complaints I get from people who can't figure out how to set up
+  archiving themselves.
+
+- Support for the "GreekQWK" variant, which uses 0x0C instead of 0xE3 as
+  the line delimiter. Reported by Dimitris Mandalidis. Note that there's
+  still no particular support for the Greek _character set_, but you can
+  probably make it work by disabling character set conversion.
+
+- A mouse click in the lower half of the screen, in the ANSI viewer, now
+  counts as if the spacebar had been pressed, instead of PgDn. Also, when
+  the screen is at the start, even clicking in the top half counts as a
+  space. This makes for easier mouse-only navigation with the new welcome
+  screen display.
+
+- Included Makefile.wid for wide-character ncurses. This doesn't really do
+  anything yet, except give you the proper background character instead of
+  the octothorpe, and work semi-decently in a UTF-8 Linux VT. For now,I
+  don't recommend using it, nor distributing binaries based on it.
+
+- Various documentation updates.
+
+Bug fixes and such:
+
+- Revisions for newest version of PDCurses -- fewer ifdefs needed. Note
+  that MultiMail now must be compiled with PDCurses 2.7 or later.
+
+- Changed some compiler options to work better with recent gcc.
+  Unfortunately it bloats the executable.
+
+- Removed the distinction between Bulletins and New file lists, so there's
+  only one prompt to bother you with now.
+
+- Minor code cleanup.
+
 0.46 - 2003/12/31:
 
 New features:
@@ -160,7 +214,7 @@ Bug fixes and such:
   any rate, the new code is simpler and cleaner. Reported by Jimmy Day et
   al.
 
-- Pressing the "END" key in string input fields now works corrrectly, taking
+- Pressing the "END" key in string input fields now works correctly, taking
   the cursor to the end of the field instead of ending the edit. Reported by
   Touko Rajala.
 

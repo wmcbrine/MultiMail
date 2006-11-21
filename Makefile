@@ -10,8 +10,8 @@ include version
 #OPTS = -g -Wall -Wextra -pedantic -Wno-deprecated -Wno-char-subscripts
 
 # Optimized, no debug:
-OPTS = -O2 -Wall -pedantic -Wno-deprecated -Wno-char-subscripts \
--DPDC_WIDE -DMM_WIDE
+OPTS = -O2 -Wall -pedantic -Wno-deprecated -Wno-char-subscripts -DPDC_WIDE
+#-DPDC_WIDE -DMM_WIDE
 
 # PREFIX is the base directory under which to install the binary and man 
 # page; generally either /usr/local or /usr (or perhaps /opt...):
@@ -72,8 +72,8 @@ LIBS = -lcurses
 #--------------------------------------------------------------
 # With XCurses (PDCurses) installed globally:
 
-CURS_DIR = /usr/local/include/xcurses
-LIBS = -lXCurses
+#CURS_DIR = /usr/local/include/xcurses
+#LIBS = -lXCurses
 
 #--------------------------------------------------------------
 # With XCurses in my home directory:

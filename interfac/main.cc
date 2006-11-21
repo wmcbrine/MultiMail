@@ -14,9 +14,8 @@
 #ifdef USE_NEWHANDLER
 # include <new.h>
 #endif
-#ifdef MM_WIDE
-# include <locale.h>
-#endif
+
+#include <locale.h>
 
 Interface *ui = 0;
 const chtype *ColorArray = 0;
@@ -99,9 +98,7 @@ int main(int argc, char **argv)
 	char **ARGV = argv;
 	int ARGC = argc;
 
-#ifdef MM_WIDE
 	setlocale(LC_ALL, "");
-#endif
 
 	while ((ARGC > 2) && ('-' == ARGV[1][0])) {
 		char *resName = ARGV[1] + 1;
