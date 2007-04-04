@@ -7,7 +7,7 @@
 #--------------------------------------------------------------
 
 CURS_DIR = \pdcurses
-LIBS = \pdcurses\win32\pdcurses.lib user32.lib
+LIBS = \pdcurses\win32\pdcurses.lib user32.lib advapi32.lib
 COMPILER = "$(CC) -nologo -c -O2 -D__WIN32__"
 
 #--------------------------------------------------------------
