@@ -3,7 +3,7 @@
  * main, error
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright (c) 2006 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -84,11 +84,7 @@ void mm_mouse_get()
 # ifdef NCURSES_MOUSE_VERSION
 	getmouse(&mouse_event);
 # else
-	request_mouse_pos();
-	mouse_event.x = Mouse_status.x;
-	mouse_event.y = Mouse_status.y;
-	mouse_event.bstate = BUTTON_CHANGED(3) ? BUTTON3_CLICKED :
-		BUTTON_CHANGED(1) ? BUTTON1_CLICKED : 0;
+	nc_getmouse(&mouse_event);
 # endif
 }
 #endif

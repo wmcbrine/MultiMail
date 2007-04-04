@@ -23,12 +23,8 @@ extern "C" {
 # error Please upgrade to PDCurses 3.0 or later
 #endif
 
-#if defined(NCURSES_MOUSE_VERSION) && (NCURSES_MOUSE_VERSION == 1)
+#if defined(NCURSES_MOUSE_VERSION) || defined(PDCURSES)
 # define USE_MOUSE
-#else
-# ifdef PDCURSES
-#  define USE_MOUSE
-# endif
 #endif
 
 /* The following assumes that Ncurses' internal SIGWINCH handler is enabled

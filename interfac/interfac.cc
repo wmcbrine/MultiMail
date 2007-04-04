@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2006 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -107,14 +107,8 @@ void Interface::alive()
 	//raw();
 
 #ifdef USE_MOUSE
-# ifndef NCURSES_MOUSE_VERSION
-	mouse_set(BUTTON1_RELEASED | BUTTON1_CLICKED |
-		BUTTON3_RELEASED | BUTTON3_CLICKED |
-		BUTTON1_DOUBLE_CLICKED | BUTTON3_DOUBLE_CLICKED);
-# else
 	mousemask(BUTTON1_CLICKED | BUTTON1_DOUBLE_CLICKED |
 		BUTTON3_CLICKED, 0);
-# endif
 #endif
 }
 

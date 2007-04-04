@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2006 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -247,24 +247,12 @@ void Win::clreol(int y, int x)
 #ifdef USE_MOUSE
 int Win::xstart()
 {
-# ifndef NCURSES_MOUSE_VERSION
 	return getbegx(win);
-# else
-	int x, y;
-	getbegyx(win, y, x);
-	return x;
-# endif
 }
 
 int Win::ystart()
 {
-# ifndef NCURSES_MOUSE_VERSION
 	return getbegy(win);
-# else
-	int x, y;
-	getbegyx(win, y, x);
-	return y;
-# endif
 }
 #endif
 
