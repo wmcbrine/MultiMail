@@ -10,8 +10,7 @@ include version
 #OPTS = -g -Wall -Wextra -pedantic -Wno-deprecated -Wno-char-subscripts
 
 # Optimized, no debug:
-OPTS = -O2 -Wall -pedantic -Wno-deprecated -Wno-char-subscripts -DPDC_WIDE
-#-DPDC_WIDE -DMM_WIDE
+OPTS = -O2 -Wall -pedantic -Wno-deprecated -Wno-char-subscripts
 
 # PREFIX is the base directory under which to install the binary and man 
 # page; generally either /usr/local or /usr (or perhaps /opt...):
@@ -49,40 +48,10 @@ CURS_LIB = .
 LIBS = -lcurses
 
 #--------------------------------------------------------------
-# With ncurses installed beside the original curses, rather than
-# replacing it -- for older Linux distros, etc.:
+# With PDCurses for X11:
 
-#CURS_DIR = /usr/include/ncurses
-#CURS_LIB = /usr/local/lib
-#LIBS = -lncurses
-
-# For static linking (examples):
-
-#LIBS = /usr/lib/libncurses.a
-#LIBS = /opt/sfw/lib/libncurses.a
-
-#--------------------------------------------------------------
-# With ncurses installed in the user's home directory:
-
-# Example with quotes (relative pathnames start from ./interfac):
-#CURS_DIR = ../../ncurses-5.2/include
-#CURS_LIB = ../ncurses-5.2/lib
-#LIBS = -lncurses
-
-#--------------------------------------------------------------
-# With XCurses (PDCurses) installed globally:
-
-CURS_DIR = /usr/local/include/xcurses
-LIBS = -lXCurses
-
-#--------------------------------------------------------------
-# With XCurses in my home directory:
-
-#CURS_DIR = /home/wmcbrine/PDCurses-3.0
-#CURS_LIB = /home/wmcbrine/PDCurses-3.0/x11
-#LIBS = -L/usr/X11R6/lib \
-#/home/wmcbrine/PDCurses-3.0/x11/libXCurses.a \
-#-lXaw -lXmu -lXt -lX11 -lSM -lICE -lXext
+#CURS_DIR = /usr/local/include/xcurses
+#LIBS = -lXCurses
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------
