@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * some low-level routines common to both sides
 
- Copyright (c) 2006 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
