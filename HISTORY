@@ -1,6 +1,20 @@
 Revision History
 ================
 
+0.48 - 2007/04/04:
+
+- This version now builds with PDCurses 3.0, and if using PDCurses, will
+  no longer build with an earlier version. This gives us mouse support
+  for DOS and OS/2, and better idling in the XT version, among other
+  improvements.
+
+- The FAQ and TODO files were outdated, and not very useful.
+
+- Removed the makefiles for EMX and Borland C++ for Windows. These
+  compilers are basically dead. I also removed Makefile.wid -- full-
+  fledged wide-character support will be coming in the future, but for
+  now, this file was just more clutter.
+
 0.47 - 2005/12/31:
 
 New features:
@@ -37,7 +51,7 @@ New features:
 
 - Included Makefile.wid for wide-character ncurses. This doesn't really do
   anything yet, except give you the proper background character instead of
-  the octothorpe, and work semi-decently in a UTF-8 Linux VT. For now,I
+  the octothorpe, and work semi-decently in a UTF-8 Linux VT. For now, I
   don't recommend using it, nor distributing binaries based on it.
 
 - Various documentation updates.

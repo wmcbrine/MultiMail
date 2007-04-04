@@ -32,7 +32,7 @@ precompiled binaries, see the README files that accompany them instead.
     InfoZip.) Also, bear in mind that MultiMail needs the C++ standard 
     libraries, not just C.
 
-    If using PDCurses, MultiMail now requires version 2.7 or later.
+    If using PDCurses, MultiMail now requires version 3.0 or later.
 
     The 16-bit MS-DOS port also uses Ralf Brown's SPAWNO library:
 
@@ -91,8 +91,6 @@ Compile notes: Win32, MS-DOS, and OS/2
 In the MultiMail source, separate makefiles are provided for these ports.
 
 Makefile.dj -  DJGPP (32-bit MS-DOS)
-Makefile.emx - EMX (32-bit OS/2)
-Makefile.bcc - Borland C++ (Win32)
 Makefile.tcc - Turbo C++ (16-bit MS-DOS)
 Makefile.mng - MinGW (Win32)
 Makefile.wat - Watcom (All platforms -- Win32 by default)
@@ -104,54 +102,3 @@ and compile with, e.g.:
  make -f Makefile.mng
 
 (Use "wmake" instead of "make" for Watcom; "nmake" for MSVC.)
-
-The RSX/NT port is now deprecated. I haven't tried to build it in years.
-
-
-Compile notes: Warnings to ignore
-=================================
-
-In some environments, certain warnings may occur which you can safely
-ignore. Any others should probably be reported to me.
-
-With many versions of curses, warnings similar to this:
-
-  /usr/include/curses.h:80: warning: abstract declarator used as declaration
-
-will appear for each file in the interfac/ section. These result from a
-conflict between the C++ definition of "bool" and the definition in
-curses.h. However, the operation of the compiled program is unaffected.
-More recent versions of curses avoid this by ifdef'ing the bool defintion.
-
-This one looks more serious:
-
-  In file included from /opt/local/lib/g++-include/new:5,
-                   from main.cc:14:
-  /opt/local/lib/g++-include/std/new.h:26: warning: declaration of
-  `operator delete(void *)' throws different exceptions
-  <internal>:26: warning: previous declaration here
-  /opt/local/lib/g++-include/std/new.h:27: warning: declaration of
-  `operator delete [](void *)' throws different exceptions
-  <internal>:27: warning: previous declaration here
-
-But as far as I can tell, it too is harmless. Apparently it arises on
-systems with mismatched header files.
-
-Using PDCurses with recent versions of gcc, I saw several like this:
-
-  basic.cc: In member function `void Win::init(int, int, int)':
-  basic.cc:38: warning: right-hand operand of comma has no effect
-
-This arises from macros defined as "(action, OK)", where "OK" is defined
-as "1". Earlier versions of gcc didn't complain, but in any case, it's
-harmless.
-
-Finally, some versions of the system header files (notably, those included
-with Red Hat 6.0) define toupper() and tolower() as multi-statement
-macros, resulting in warnings like:
-
-  misc.cc: In function `const char * findBaseName(const char *)':
-  misc.cc:98: warning: ANSI C++ forbids braced-groups within expressions
-
-for every place where one of them is used. (What this means is that it
-_does_ work with gcc, but doesn't conform to strict ANSI.)

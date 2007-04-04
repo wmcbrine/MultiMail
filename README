@@ -1,16 +1,11 @@
-MultiMail version 0.47
+MultiMail version 0.48
 ======================
 
-What's New in version 0.47?
+What's New in version 0.48?
 ---------------------------
 
- * Added support for Microsoft Visual C++, MinGW, and Open Watcom
- * OS/2 port now built with Watcom
- * Win32 port now built with MSVC
- * Starting and MMAIL directories now searched for archivers and editors
- * Bundled zip and unzip with Win32 port
- * Support for "GreekQWK"
- * Other minor stuff
+ * Updated for PDCurses 3.0
+ * Documentation, makefile cleanup
 
 See the HISTORY file for other changes. See INSTALL for the installation
 procedure, and the man page (mm.1) for information on usage.
