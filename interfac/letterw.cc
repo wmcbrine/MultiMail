@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2004 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -985,32 +985,32 @@ void LetterWindow::KeyHandle(int key)
 		break;
 #ifdef USE_MOUSE
 	case MM_MOUSE:
-		if (0 == mouse_event.y)
+		if (0 == mm_mouse_event.y)
 		    Move(KEY_UP);
 		else
-		    if ((LINES - 1) == mouse_event.y)
+		    if ((LINES - 1) == mm_mouse_event.y)
 			Move(KEY_DOWN);
 		    else
-			if (mouse_event.y > 5) {
-			    if (mouse_event.y > (LINES >> 1))
+			if (mm_mouse_event.y > 5) {
+			    if (mm_mouse_event.y > (LINES >> 1))
 				NextDown();
 			    else
 				Move(KEY_PPAGE);
 			} else
-			    if (3 == mouse_event.y) {
-			      if (mouse_event.x >= (COLS - 8))
+			    if (3 == mm_mouse_event.y) {
+			      if (mm_mouse_event.x >= (COLS - 8))
 				KeyHandle('S');
 			      else
-				if (mouse_event.x >= (COLS - 13))
+				if (mm_mouse_event.x >= (COLS - 13))
 				  KeyHandle('M');
 				else
-				  if (mouse_event.x >= (COLS - 18))
+				  if (mm_mouse_event.x >= (COLS - 18))
 				    KeyHandle('R');
 				  else
-				    if (mouse_event.x >= (COLS - 23))
+				    if (mm_mouse_event.x >= (COLS - 23))
 				      KeyHandle('U');
 				    else
-				      if (mouse_event.x >= (COLS - 27))
+				      if (mm_mouse_event.x >= (COLS - 27))
 					KeyHandle('N');
 			    }
 		break;

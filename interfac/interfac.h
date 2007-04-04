@@ -738,7 +738,7 @@ extern Interface *ui;
 extern time_t starttime;
 
 #ifdef USE_MOUSE
-extern MEVENT mouse_event;
+extern MEVENT mm_mouse_event;
 
 void mm_mouse_get();
 #endif

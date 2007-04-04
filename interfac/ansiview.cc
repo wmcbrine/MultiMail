@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * ANSI image/text viewer
 
- Copyright (c) 2005 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -1180,13 +1180,13 @@ void AnsiWindow::KeyHandle(int key)
 	switch (key) {
 #ifdef USE_MOUSE
 	case MM_MOUSE:
-		if (0 == mouse_event.y)
+		if (0 == mm_mouse_event.y)
 			KeyHandle(KEY_UP);
 		else
-			if ((LINES - 1) == mouse_event.y)
+			if ((LINES - 1) == mm_mouse_event.y)
 				KeyHandle(KEY_DOWN);
 			else
-				if ((mouse_event.y > (LINES >> 1)) ||
+				if ((mm_mouse_event.y > (LINES >> 1)) ||
 				    (0 == position))
 					KeyHandle(' ');
 				else

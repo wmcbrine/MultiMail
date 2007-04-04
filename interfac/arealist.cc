@@ -3,7 +3,7 @@
  * area list
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright (c) 2004 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -420,8 +420,8 @@ bool AreaListWindow::extrakeys(int key)
 		{
 			int begx = list->xstart(), begy = list->ystart();
 
-			if ( (mouse_event.y != begy) ||
-			    ((mouse_event.x < (begx + 13)) || (mouse_event.x >
+			if ( (mm_mouse_event.y != begy) ||
+			    ((mm_mouse_event.x < (begx + 13)) || (mm_mouse_event.x >
 			    (begx + 40))) )
 				break;
 		}

@@ -323,8 +323,8 @@ bool PacketListWindow::extrakeys(int key)
 		{
 			int begx = list->xstart(), begy = list->ystart();
 
-			if ( (mouse_event.y != begy) ||
-			    ((mouse_event.x < (begx + 3)) || (mouse_event.x >
+			if ( (mm_mouse_event.y != begy) ||
+			    ((mm_mouse_event.x < (begx + 3)) || (mm_mouse_event.x >
 			    (begx + list_max_x))) )
 				break;
 		}

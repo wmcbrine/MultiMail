@@ -432,7 +432,7 @@ int ShadowedWin::getstring(int y, int x, char *string, int maxlen,
 #ifdef USE_MOUSE
 		case MM_MOUSE:
 			mm_mouse_get();
-			if (mouse_event.bstate & BUTTON3_CLICKED)
+			if (mm_mouse_event.bstate & BUTTON3_CLICKED)
 				end = 1;
 			else
 				end = 2;
@@ -737,32 +737,32 @@ bool ListWindow::KeyHandle(int key)
 		{
 		    int begx = list->xstartinfo(), begy = list->ystartinfo();
 
-		    if ( ((mouse_event.x < begx) || (mouse_event.x >
-			(begx + list_max_x))) || ((mouse_event.y <
-			(begy - 1)) || (mouse_event.y >
+		    if ( ((mm_mouse_event.x < begx) || (mm_mouse_event.x >
+			(begx + list_max_x))) || ((mm_mouse_event.y <
+			(begy - 1)) || (mm_mouse_event.y >
 			(begy + list_max_y))) ) {
 			    draw = false;
 			    end = extrakeys(key);
 		    } else {
-			mouse_event.y -= begy;
-			if (-1 == mouse_event.y)
+			mm_mouse_event.y -= begy;
+			if (-1 == mm_mouse_event.y)
 			    Move(KEY_UP);
 			else
-			    if (list_max_y == mouse_event.y)
+			    if (list_max_y == mm_mouse_event.y)
 				Move(KEY_DOWN);
 			    else
 				if ((begx + list_max_x) ==
-				    mouse_event.x) {
-					if (mouse_event.y > oldHigh)
+				    mm_mouse_event.x) {
+					if (mm_mouse_event.y > oldHigh)
 					    Move(KEY_NPAGE);
 					else
-					    if (mouse_event.y < oldHigh)
+					    if (mm_mouse_event.y < oldHigh)
 						Move(KEY_PPAGE);
 				} else {
-					bool select = (mouse_event.bstate &
+					bool select = (mm_mouse_event.bstate &
 					    BUTTON1_DOUBLE_CLICKED) || (active
-					    == (position + mouse_event.y));
-					active = position + mouse_event.y;
+					    == (position + mm_mouse_event.y));
+					active = position + mm_mouse_event.y;
 					if (select) {
 						draw = false;
 						end = ui->select();

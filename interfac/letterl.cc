@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -236,13 +236,13 @@ bool LetterListWindow::extrakeys(int key)
 		{
 			int begx = list->xstart(), begy = list->ystart();
 
-			if (mouse_event.y == begy) {
-				if ((mouse_event.x > (begx + 12)) &&
-				    (mouse_event.x < (begx + 27)))
+			if (mm_mouse_event.y == begy) {
+				if ((mm_mouse_event.x > (begx + 12)) &&
+				    (mm_mouse_event.x < (begx + 27)))
 					extrakeys('L');
 				else
-				    if ((mouse_event.x > (begx + 27)) &&
-					(mouse_event.x < (begx + list_max_x)))
+				    if ((mm_mouse_event.x > (begx + 27)) &&
+					(mm_mouse_event.x < (begx + list_max_x)))
 					    extrakeys('$');
 			}
 		}

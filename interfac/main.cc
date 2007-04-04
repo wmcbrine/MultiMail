@@ -24,7 +24,7 @@ ErrorType error;
 mmail mm;
 
 #ifdef USE_MOUSE
-MEVENT mouse_event;
+MEVENT mm_mouse_event;
 #endif
 
 #ifdef USE_NEWHANDLER
@@ -82,9 +82,9 @@ void memError()
 void mm_mouse_get()
 {
 # ifdef NCURSES_MOUSE_VERSION
-	getmouse(&mouse_event);
+	getmouse(&mm_mouse_event);
 # else
-	nc_getmouse(&mouse_event);
+	nc_getmouse(&mm_mouse_event);
 # endif
 }
 #endif

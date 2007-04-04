@@ -235,7 +235,7 @@ int Interface::WarningWindow(const char *warning, const char **selectors,
 #ifdef USE_MOUSE
 			case MM_MOUSE:
 				mm_mouse_get();
-				if ((LINES >> 1) == mouse_event.y)
+				if ((LINES >> 1) == mm_mouse_event.y)
 				    for (p = selectors, curitem = 0;
 					(curitem < items) && !result;
 					curitem++, p++) {
@@ -243,8 +243,8 @@ int Interface::WarningWindow(const char *warning, const char **selectors,
 					    x = curitem * itemlen +
 						((itemlen - z + 5) >> 1) +
 						((COLS - width) / 2);
-					    if ((x <= mouse_event.x) &&
-					     (mouse_event.x <= (x + z))) {
+					    if ((x <= mm_mouse_event.x) &&
+					     (mm_mouse_event.x <= (x + z))) {
 						def_val = curitem;
 						result = true;
 					    }
@@ -996,7 +996,7 @@ void Interface::KeyHandle()		// Main loop
 #ifdef USE_MOUSE
 			case MM_MOUSE:
 				mm_mouse_get();
-				if (mouse_event.bstate & BUTTON3_CLICKED) {
+				if (mm_mouse_event.bstate & BUTTON3_CLICKED) {
 					end = back();
 					break;
 				}
