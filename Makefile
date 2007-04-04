@@ -72,8 +72,8 @@ LIBS = -lcurses
 #--------------------------------------------------------------
 # With XCurses (PDCurses) installed globally:
 
-#CURS_DIR = /usr/local/include/xcurses
-#LIBS = -lXCurses
+CURS_DIR = /usr/local/include/xcurses
+LIBS = -lXCurses
 
 #--------------------------------------------------------------
 # With XCurses in my home directory:

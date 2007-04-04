@@ -30,9 +30,9 @@ LINKER = wlink system nt
 #--------------------------------------------------------------
 # For 16-bit DOS:
 
-LIBS = $(CURS_DIR)/dos/pdcurses.lib
-COMPILER = "wpp -zq -bt=dos -ml -D__MSDOS__"
-LINKER = wlink system dos
+#LIBS = $(CURS_DIR)/dos/pdcurses.lib
+#COMPILER = "wpp -zq -bt=dos -ml -D__MSDOS__"
+#LINKER = wlink system dos
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------

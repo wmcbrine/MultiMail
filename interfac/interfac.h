@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2006 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -19,7 +19,7 @@ extern "C" {
 #include <signal.h>
 }
 
-#if defined(PDCURSES) && (PDC_BUILD < 2810)
+#if defined(PDCURSES) && (PDC_BUILD < 3001)
 # error Please upgrade to PDCurses 3.0 or later
 #endif
 
@@ -742,15 +742,6 @@ extern Interface *ui;
 extern time_t starttime;
 
 #ifdef USE_MOUSE
-# ifndef NCURSES_MOUSE_VERSION
-
-typedef struct {
-	int x, y;
-	unsigned long bstate;
-} MEVENT;
-
-# endif
-
 extern MEVENT mouse_event;
 
 void mm_mouse_get();
