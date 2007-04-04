@@ -3,7 +3,7 @@
  * resource class
 
  Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 2003 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -30,7 +30,7 @@ enum {
 	PacketSort = noOfStrings, AreaMode, LetterSort, LetterMode,
 	Charset, UseTaglines, AutoSaveReplies, StripSoftCR, BeepOnPers,
 	UseLynxNav, ReOnReplies, QuoteWrapCols, MaxLines, UseQPMailHead,
-	UseQPNewsHead, UseQPMail, UseQPNews, ExpertMode, IgnoreNDX,
+	UseQPNewsHead, UseQPMail, UseQPNews, ExpertMode, IgnoreNDX, Mouse,
 #ifdef USE_SPAWNO
 	swapOut,
 #endif

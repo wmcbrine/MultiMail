@@ -3,7 +3,7 @@
  * resource class
 
  Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 2005 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -159,7 +159,7 @@ void baseconfig::processOneByName(const char *resName, const char *resValue)
 // ==============
 
 const int startUpLen =
- 49
+ 50
 #ifdef USE_SPAWNO
  + 1
 #endif
@@ -188,7 +188,7 @@ const char *resource::rc_names[startUpLen] =
 	"AutoSaveReplies", "StripSoftCR", "BeepOnPers", "UseLynxNav",
 	"ReOnReplies", "QuoteWrapCols", "MaxLines", "outCharset",
 	"UseQPMailHead", "UseQPNewsHead", "UseQPMail", "UseQPNews",
-	"ExpertMode", "IgnoreNDX"
+	"ExpertMode", "IgnoreNDX", "Mouse"
 #ifdef USE_SPAWNO
 	, "swapOut"
 #endif
@@ -251,7 +251,8 @@ const char *resource::rc_comments[startUpLen] = {
  "Quoted-printable options for outgoing messages (see docs)",
 	0, 0, 0,
  "Supress help messages (use more of the screen for content)",
- "For QWK only: Generate indexes from MESSAGES.DAT instead of *.NDX"
+ "For QWK only: Generate indexes from MESSAGES.DAT instead of *.NDX",
+ "Allow use of the mouse?"
 #ifdef USE_SPAWNO
  , "Attempt to swap MultiMail out of conventional memory when shelling"
 #endif
@@ -274,7 +275,7 @@ const int resource::startUp[startUpLen] =
 	PacketSort, AreaMode, LetterSort, LetterMode, ClockMode, Charset,
 	UseTaglines, AutoSaveReplies, StripSoftCR, BeepOnPers, UseLynxNav,
 	ReOnReplies, QuoteWrapCols, MaxLines, outCharset, UseQPMailHead,
-	UseQPNewsHead, UseQPMail, UseQPNews, ExpertMode, IgnoreNDX
+	UseQPNewsHead, UseQPMail, UseQPNews, ExpertMode, IgnoreNDX, Mouse
 #ifdef USE_SPAWNO
 	, swapOut
 #endif
@@ -305,6 +306,7 @@ const int resource::defInt[] =
 	0,	// UseQPNews == No
 	0,	// ExpertMode == No
 	0,	// IgnoreNDX = No
+	1,	// Mouse = Yes
 #ifdef USE_SPAWNO
 	1,	// swapOut == Yes
 #endif

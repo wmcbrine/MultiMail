@@ -8,6 +8,13 @@ Revision History
   for DOS and OS/2, and better idling in the XT version, among other
   improvements.
 
+- New keyword: "Mouse". Setting it to "No" turns off support for mouse
+  input. Mainly this is to allow disabling of the mouse cursor; it also
+  means you can select without holding shift in X11.
+
+- Use setlocale(), to give a correct display in environments such as the 
+  console under Ubuntu.
+
 - The FAQ and TODO files were outdated, and not very useful.
 
 - Removed the makefiles for EMX and Borland C++ for Windows. These
