@@ -61,7 +61,7 @@ extern "C" {
 # include <io.h>
 #endif
 
-#ifdef __WATCOMC__
+#if defined(__WATCOMC__) || defined(TURBO16)
 # include <dos.h>
 #endif
 

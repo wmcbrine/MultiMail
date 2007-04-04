@@ -107,8 +107,9 @@ void Interface::alive()
 	//raw();
 
 #ifdef USE_MOUSE
-	mousemask(BUTTON1_CLICKED | BUTTON1_DOUBLE_CLICKED |
-		BUTTON3_CLICKED, 0);
+	if (mm.resourceObject->getInt(Mouse))
+		mousemask(BUTTON1_CLICKED | BUTTON1_DOUBLE_CLICKED |
+			BUTTON3_CLICKED, 0);
 #endif
 }
 
