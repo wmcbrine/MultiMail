@@ -22,6 +22,9 @@ Revision History
   fledged wide-character support will be coming in the future, but for
   now, this file was just more clutter.
 
+- Changed "install" to a double-colon rule in Makefile to avoid conflict 
+  with INSTALL on non-case-sensitive filesystems, like Mac OS X's HFS+.
+
 0.47 - 2005/12/31:
 
 New features:
