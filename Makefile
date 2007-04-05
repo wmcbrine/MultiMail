@@ -50,8 +50,8 @@ LIBS = -lcurses
 #--------------------------------------------------------------
 # With PDCurses for X11:
 
-CURS_DIR = /usr/local/include/xcurses
-LIBS = -lXCurses
+#CURS_DIR = /usr/local/include/xcurses
+#LIBS = -lXCurses
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------
