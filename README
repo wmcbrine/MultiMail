@@ -5,6 +5,8 @@ What's New in version 0.48?
 ---------------------------
 
  * Updated for PDCurses 3.0
+ * New keyword "Mouse", to toggle mouse support
+ * Better display in UTF-8 terminals
  * Documentation, makefile cleanup
 
 See the HISTORY file for other changes. See INSTALL for the installation
