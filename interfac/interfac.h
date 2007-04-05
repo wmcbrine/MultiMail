@@ -19,7 +19,7 @@ extern "C" {
 #include <signal.h>
 }
 
-#if defined(PDCURSES) && (PDC_BUILD < 3001)
+#if defined(PDCURSES) && (PDC_BUILD < 3002)
 # error Please upgrade to PDCurses 3.0 or later
 #endif
 
