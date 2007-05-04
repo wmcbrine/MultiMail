@@ -19,8 +19,8 @@ extern "C" {
 #include <signal.h>
 }
 
-#if defined(PDCURSES) && (PDC_BUILD < 3002)
-# error Please upgrade to PDCurses 3.0 or later
+#if defined(PDCURSES) && (PDC_BUILD < 3100)
+# error Please upgrade to PDCurses 3.1 or later
 #endif
 
 #if defined(NCURSES_MOUSE_VERSION) || defined(PDCURSES)
