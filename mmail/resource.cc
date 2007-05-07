@@ -138,7 +138,7 @@ void baseconfig::newConfig(const char *configname)
 		}
 		fclose(fd);
 	} else
-		fatalError("Error writing config file");
+		pauseError("Error writing config file");
 }
 
 void baseconfig::processOneByName(const char *resName, const char *resValue)

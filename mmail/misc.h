@@ -48,5 +48,6 @@ long qpdecode(FILE *, FILE *);
 void qpencode(FILE *, FILE *);
 
 void fatalError(const char *);	// actually in ../interfac/main.cc!
+void pauseError(const char *);	// actually in ../interfac/main.cc!
 
 #endif

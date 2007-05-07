@@ -28,10 +28,11 @@ MEVENT mm_mouse_event;
 #endif
 
 #ifdef USE_NEWHANDLER
-void memError();
+void memError()
+{
+	fatalError("Out of memory");
+}
 #endif
-
-void fatalError(const char *description);
 
 ErrorType::ErrorType()
 {
@@ -71,12 +72,11 @@ void fatalError(const char *description)
 	exit(EXIT_FAILURE);
 }
 
-#ifdef USE_NEWHANDLER
-void memError()
+void pauseError(const char *description)
 {
-	fatalError("Out of memory");
+	fprintf(stderr, "\n\n%s\n\n", description);
+	napms(2000);
 }
-#endif
 
 #ifdef USE_MOUSE
 void mm_mouse_get()
