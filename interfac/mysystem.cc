@@ -116,11 +116,9 @@ int mysystem(const char *cmd)
 	int result = system(cmd);
 #endif
 
-#ifdef HAS_SLEEP
 	// Non-zero result = error; pause so it can (maybe) be read
 	if (result)
-		sleep(2);
-#endif
+		napms(2000);
 
 	if (ui) {
 #if (defined(PDCURSES) && defined(__WIN32__)) || defined(XCURSES)
