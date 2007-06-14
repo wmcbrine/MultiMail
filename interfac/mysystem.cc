@@ -121,7 +121,7 @@ int mysystem(const char *cmd)
 		napms(2000);
 
 	if (ui) {
-#if (defined(PDCURSES) && defined(__WIN32__)) || defined(XCURSES)
+#ifdef PDCURSES
 		PDC_set_title(MM_NAME);
 #endif
 		keypad(stdscr, TRUE);

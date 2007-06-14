@@ -63,7 +63,7 @@ enum lineattr {Hidden, Origin, Tearline, Tagline, Sigline, Quoted,
 
 enum {s_fulltext = 1, s_headers, s_arealist, s_pktlist};
 
-#if defined(SIGWINCH) && !defined(XCURSES) && !defined(NCURSES_SIGWINCH)
+#if defined(SIGWINCH) && !defined(PDCURSES) && !defined(NCURSES_SIGWINCH)
 extern "C" void sigwinchHandler(int);
 #endif
 

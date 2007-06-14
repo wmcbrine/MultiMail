@@ -20,7 +20,7 @@ Interface::Interface()
 	goodbye = 0;
 #ifdef SIGWINCH
 	resized = false;
-# if !defined(XCURSES) && !defined(NCURSES_SIGWINCH)
+# if !defined(PDCURSES) && !defined(NCURSES_SIGWINCH)
 	signal(SIGWINCH, sigwinchHandler);
 # endif
 #endif
@@ -135,7 +135,7 @@ void Interface::screen_init()
 
 	// Border and title:
 
-#if (defined(PDCURSES) && defined(__WIN32__)) || defined(XCURSES)
+#if defined(PDCURSES)
 	PDC_set_title(MM_NAME);
 #endif
 	sprintf(tmp, MM_TOPHEADER, sysname());
@@ -571,7 +571,7 @@ void Interface::sigwinch()
 	oldstate(state);
 
 	delete screen;
-# ifdef XCURSES
+# ifdef PDCURSES
 	resize_term(0, 0);
 # else
 #  ifndef NCURSES_SIGWINCH
@@ -892,11 +892,7 @@ void Interface::KeyHandle()		// Main loop
 		doupdate();
 		Key = screen->inkey();
 #ifdef SIGWINCH
-# ifdef XCURSES
-		resized = is_termresized();
-# else
 		resized = (KEY_RESIZE == Key);
-# endif
 #endif
 		if (((state == letter_help) || (state == ansi_help))
 #ifdef SIGWINCH
