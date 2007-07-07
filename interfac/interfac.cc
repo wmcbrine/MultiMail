@@ -97,7 +97,7 @@ void Interface::alive()
 	if (mm.resourceObject->getInt(UseColors))
 		start_color();
 
-#ifdef NCURSES_VERSION
+#if defined(NCURSES_VERSION) || defined(PDCURSES)
 	use_default_colors();
 #endif
 	init_colors();
