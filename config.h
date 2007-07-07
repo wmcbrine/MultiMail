@@ -66,11 +66,9 @@
 
 #else
 
-/* Not a DOS-like system -- enable "Transparency" keyword and home
-   directory elision.
+/* Not a DOS-like system -- enable home directory elision.
 */
 
-# define HAS_TRANS
 # define HAS_HOME
 
 #endif

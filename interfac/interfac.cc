@@ -69,14 +69,14 @@ Interface::~Interface()
 
 void Interface::init_colors()
 {
-#if defined(NCURSES_VERSION) && defined(HAS_TRANS)
+#if defined(NCURSES_VERSION) || defined(PDCURSES)
 	bool trans = mm.resourceObject->getInt(Transparency);
 	int bkcol = PAIR_NUMBER(ColorArray[C_SBACK]) & 7;
 #endif
 	for (int back = COLOR_BLACK; back <= (COLOR_WHITE); back++)
 		for (int fore = COLOR_BLACK; fore <= (COLOR_WHITE); fore++)
 			init_pair((fore << 3) + back, fore,
-#if defined(NCURSES_VERSION) && defined(HAS_TRANS)
+#if defined(NCURSES_VERSION) || defined(PDCURSES)
 				(trans && (back == bkcol)) ? -1 :
 #endif
 				back);

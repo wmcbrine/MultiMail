@@ -159,11 +159,8 @@ void baseconfig::processOneByName(const char *resName, const char *resValue)
 // ==============
 
 const int startUpLen =
- 50
+ 51
 #ifdef USE_SPAWNO
- + 1
-#endif
-#ifdef HAS_TRANS
  + 1
 #endif
  ;
@@ -173,11 +170,7 @@ const char *resource::rc_names[startUpLen] =
 	"UserName", "InetAddr", "QuoteHead", "InetQuote",
 	"mmHomeDir", "TempDir", "signature", "editor",
 	"PacketDir", "ReplyDir", "SaveDir", "AddressBook", "TaglineFile",
-	"ColorFile", "UseColors",
-#ifdef HAS_TRANS
-	"Transparency",
-#endif
-	"BackFill",
+	"ColorFile", "UseColors", "Transparency", "BackFill",
 	"arjUncompressCommand", "zipUncompressCommand",
 	"lhaUncompressCommand", "rarUncompressCommand",
 	"tarUncompressCommand", "unknownUncompressCommand",
@@ -224,9 +217,7 @@ const char *resource::rc_comments[startUpLen] = {
  "Full paths to the address book, tagline and color specification files",
 	0, 0,
  "Color or monochrome? (Mono mode uses the default colors)",
-#ifdef HAS_TRANS
- "Make black backgrounds transparent? (Only works with ncurses)",
-#endif
+ "Make backgrounds transparent? (Only works on some platforms)",
  "Fill background with checkerboard pattern (ACS_BOARD)?",
  "Decompression commands (must include an option to junk/discard paths!)",
 	0, 0, 0, 0, 0,
@@ -262,14 +253,9 @@ const int resource::startUp[startUpLen] =
 {
 	UserName, InetAddr, QuoteHead, InetQuote, mmHomeDir, TempDir,
 	sigFile, editor, PacketDir, ReplyDir, SaveDir, AddressFile,
-	TaglineFile, ColorFile, UseColors,
-#ifdef HAS_TRANS
-	Transparency,
-#endif
-	BackFill,
-	arjUncompressCommand,
-	zipUncompressCommand, lhaUncompressCommand, rarUncompressCommand,
-	tarUncompressCommand, unknownUncompressCommand,
+	TaglineFile, ColorFile, UseColors, Transparency, BackFill,
+	arjUncompressCommand, zipUncompressCommand, lhaUncompressCommand,
+	rarUncompressCommand, tarUncompressCommand, unknownUncompressCommand,
 	arjCompressCommand, zipCompressCommand, lhaCompressCommand,
 	rarCompressCommand, tarCompressCommand, unknownCompressCommand,
 	PacketSort, AreaMode, LetterSort, LetterMode, ClockMode, Charset,
@@ -311,9 +297,7 @@ const int resource::defInt[] =
 	1,	// swapOut == Yes
 #endif
 	1,	// UseColors == Yes
-#ifdef HAS_TRANS
 	0,	// Transparency == No
-#endif
 	1,	// BackFill == Yes
 	1	// ClockMode == Time
 };

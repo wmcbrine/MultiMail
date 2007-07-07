@@ -34,11 +34,7 @@ enum {
 #ifdef USE_SPAWNO
 	swapOut,
 #endif
-	UseColors,
-#ifdef HAS_TRANS
-	Transparency,
-#endif
-	BackFill, ClockMode, noOfResources
+	UseColors, Transparency, BackFill, ClockMode, noOfResources
 };
 
 class baseconfig
