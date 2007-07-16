@@ -30,7 +30,7 @@ MEVENT mm_mouse_event;
 #ifdef USE_NEWHANDLER
 void memError()
 {
-	fatalError("Out of memory");
+	fatalError("Memory allocation error");
 }
 #endif
 
