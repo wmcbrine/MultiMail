@@ -18,9 +18,9 @@ Interface::Interface()
 	lynxNav = mm.resourceObject->getInt(UseLynxNav);
 	searchItem = 0;
 	goodbye = 0;
-#ifdef SIGWINCH
+#ifdef KEY_RESIZE
 	resized = false;
-# if !defined(PDCURSES) && !defined(NCURSES_SIGWINCH)
+# if defined(SIGWINCH) && !defined(PDCURSES) && !defined(NCURSES_SIGWINCH)
 	signal(SIGWINCH, sigwinchHandler);
 # endif
 #endif
@@ -565,7 +565,7 @@ bool Interface::back()
 	return false;
 }
 
-#ifdef SIGWINCH
+#ifdef KEY_RESIZE
 void Interface::sigwinch()
 {
 	oldstate(state);
@@ -574,7 +574,7 @@ void Interface::sigwinch()
 # ifdef PDCURSES
 	resize_term(0, 0);
 # else
-#  ifndef NCURSES_SIGWINCH
+#  if defined(SIGWINCH) && !defined(NCURSES_SIGWINCH)
 	endwin();
 	initscr();
 	refresh();
@@ -885,17 +885,17 @@ void Interface::KeyHandle()		// Main loop
 	bool end = false;
 
 	while (!(end || abortNow)) {
-#ifdef SIGWINCH
+#ifdef KEY_RESIZE
 		if (resized)
 			sigwinch();
 #endif
 		doupdate();
 		Key = screen->inkey();
-#ifdef SIGWINCH
+#ifdef KEY_RESIZE
 		resized = (KEY_RESIZE == Key);
 #endif
 		if (((state == letter_help) || (state == ansi_help))
-#ifdef SIGWINCH
+#ifdef KEY_RESIZE
 			&& !resized
 #endif
 			) {

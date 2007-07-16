@@ -677,7 +677,7 @@ class Interface
 	int Key, searchmode, s_oldpos, width_min, height_min;
 	bool unsaved_reply, any_read, addrparm, commandline, abortNow,
 		dontSetAsRead, lynxNav;
-#ifdef SIGWINCH
+#ifdef KEY_RESIZE
 	bool resized;
 
 	void sigwinch();

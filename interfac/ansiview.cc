@@ -748,6 +748,7 @@ void AnsiWindow::update(unsigned char c)
 			animtext->put(cpy, cpx++, ouch);
 			animtext->attrib(C_ANSIBACK);
 			animtext->update();
+			napms(12);
 			ansiAbort |= (animtext->keypressed() != ERR);
 		} else {
 			checkpos();
