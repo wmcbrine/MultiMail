@@ -1,6 +1,33 @@
 Revision History
 ================
 
+0.49 - 2007/07/16:
+
+- Built against PDCurses 3.3 (and 3.1 is now the minimum version that
+  will work); removed XCURSES references, for the sake of PDCurses 3.2+.
+  This is faster, and allows me to finally chuck the resize_term()
+  kludge introduced in 0.42 (for the problem where the window scrolled
+  up on return from shelling out in Win32).
+
+- You can now use the "Transparency" keyword with PDCurses -- with the
+  SDL port, you can achieve the same effects as in, e.g., Gnome Terminal
+  with ncurses.
+
+- I'm distributing the Win32 binary with pdcurses.dll dynamically
+  linked, purely so that you can swap it out with the SDL version if you
+  like (see http://pdcurses.sf.net/). It's fun to play with. :-)
+
+- In "animate" mode, the ANSI viewer now pauses after each character.
+  This feature was omitted for a long time because the animation was
+  slow enough on older machines, and the shortest possible delay was
+  still too long. But animated mode is useless nowadays without it.
+
+- If the config files can't be written (updated), MultiMail no longer
+  aborts with an error; instead, a message is displayed, with a pause,
+  and it continues.
+
+- Updated to GPL version 3.
+
 0.48 - 2007/04/04:
 
 - This version now builds with PDCurses 3.0, and if using PDCurses, will

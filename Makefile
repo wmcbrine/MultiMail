@@ -50,8 +50,15 @@ LIBS = -lcurses
 #--------------------------------------------------------------
 # With PDCurses for X11:
 
-CURS_DIR = /usr/local/include/xcurses
-LIBS = -lXCurses
+#CURS_DIR = /usr/local/include/xcurses
+#LIBS = -lXCurses
+
+#--------------------------------------------------------------
+# With PDCurses for SDL:
+
+#CURS_DIR = /home/wmcbrine/pdcurs33
+#CURS_LIB = /home/wmcbrine/pdcurs33/sdl1
+#LIBS = -lpdcurses `sdl-config --libs`
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------

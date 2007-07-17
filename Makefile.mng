@@ -10,8 +10,7 @@ include version
 #OPTS = -g -Wall -pedantic
 
 # Optimized for recent versions of gcc:
-OPTS = -O2 -fno-exceptions -fno-rtti -fconserve-space -Wno-deprecated \
--DPDC_WIDE
+OPTS = -O2 -fno-exceptions -fno-rtti -fconserve-space -Wno-deprecated
 
 #--------------------------------------------------------------
 # MinGW, with GCC 3.x, and PDCurses:

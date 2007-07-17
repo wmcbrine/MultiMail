@@ -1,7 +1,7 @@
 # Spec file originally by Greg Wildman <greg@techno.co.za>
 
 %define	name	mmail
-%define	version	0.48
+%define	version	0.49
 %define	release	1
 %define	prefix	/usr
 

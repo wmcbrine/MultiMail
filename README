@@ -1,13 +1,10 @@
-MultiMail version 0.48
+MultiMail version 0.49
 ======================
 
-What's New in version 0.48?
+What's New in version 0.49?
 ---------------------------
 
- * Updated for PDCurses 3.0
- * New keyword "Mouse", to toggle mouse support
- * Better display in UTF-8 terminals
- * Documentation, makefile cleanup
+ * Updated for PDCurses 3.3
 
 See the HISTORY file for other changes. See INSTALL for the installation
 procedure, and the man page (mm.1) for information on usage.
