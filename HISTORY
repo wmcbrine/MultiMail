@@ -1,7 +1,7 @@
 Revision History
 ================
 
-0.49 - 2007/07/16:
+0.49 - 2007/07/19:
 
 - Built against PDCurses 3.3 (and 3.1 is now the minimum version that
   will work); removed XCURSES references, for the sake of PDCurses 3.2+.
