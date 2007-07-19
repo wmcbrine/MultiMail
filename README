@@ -5,6 +5,8 @@ What's New in version 0.49?
 ---------------------------
 
  * Updated for PDCurses 3.3
+ * Transparency with PDCurses for SDL
+ * Pause in ANSI animation
 
 See the HISTORY file for other changes. See INSTALL for the installation
 procedure, and the man page (mm.1) for information on usage.
