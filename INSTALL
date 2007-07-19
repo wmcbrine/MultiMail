@@ -32,7 +32,7 @@ precompiled binaries, see the README files that accompany them instead.
     InfoZip.) Also, bear in mind that MultiMail needs the C++ standard 
     libraries, not just C.
 
-    If using PDCurses, MultiMail now requires version 3.0 or later.
+    If using PDCurses, MultiMail now requires version 3.1 or later.
 
     The 16-bit MS-DOS port also uses Ralf Brown's SPAWNO library:
 
