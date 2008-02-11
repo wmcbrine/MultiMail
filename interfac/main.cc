@@ -3,17 +3,13 @@
  * main, error
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2008 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
 
 #include "error.h"
 #include "interfac.h"
-
-#ifdef USE_NEWHANDLER
-# include <new.h>
-#endif
 
 #include <locale.h>
 
@@ -27,21 +23,11 @@ mmail mm;
 MEVENT mm_mouse_event;
 #endif
 
-#ifdef USE_NEWHANDLER
-void memError()
-{
-	fatalError("Memory allocation error");
-}
-#endif
-
 ErrorType::ErrorType()
 {
 	starttime = time(0);
 	srand((unsigned) starttime);
 
-#ifdef USE_NEWHANDLER
-	set_new_handler(memError);
-#endif
 	origdir = mygetcwd();
 }
 

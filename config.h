@@ -139,13 +139,6 @@
 # define USE_SETFTIME
 #endif
 
-/* MSVC seems to have a nonstandard version of set_new_handler(). It's 
-   not that useful anyway.
-*/
-#ifndef _MSC_VER
-# define USE_NEWHANDLER
-#endif
-
 /* Turbo C++ 3.0 lacks the "bool" and "off_t" types.*/
 
 #ifndef TURBO16
