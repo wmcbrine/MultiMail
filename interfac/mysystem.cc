@@ -217,13 +217,13 @@ void myrmdir(const char *pathname)
 
 char *mygetcwd()
 {
-    char pathname[256];
+    char pathname[256], *result;
 #ifdef __EMX__
-    _getcwd2(pathname, 255);
+    result = _getcwd2(pathname, 255);
 #else
-    getcwd(pathname, 255);
+    result = getcwd(pathname, 255);
 #endif
-    return strdupplus(pathname);
+    return strdupplus(result ? pathname : ".");
 }
 
 // system name -- results of uname()
