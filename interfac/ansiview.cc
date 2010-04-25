@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * ANSI image/text viewer
 
- Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2010 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */

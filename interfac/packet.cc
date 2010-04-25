@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@vma.bme.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2008 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2010 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -19,7 +19,7 @@ void Welcome::MakeActive()
     window->attrib(C_WELCOME1);
     window->put(1, 7, "Welcome to " MM_NAME " Offline Reader!");
     window->attrib(C_WELCOME2);
-    window->put(3, 2, "Copyright (c) 2008 William McBrine, Kolossvary"); 
+    window->put(3, 2, "Copyright (c) 2010 William McBrine, Kolossvary"); 
     window->put(4, 7, "Tamas, Toth Istvan, John Zero, et al.");
     window->touch();
 }
