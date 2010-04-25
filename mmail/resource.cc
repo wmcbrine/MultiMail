@@ -303,14 +303,6 @@ const int resource::defInt[] =
 
 resource::resource()
 {
-    const char *greeting =
-        "\nWelcome to " MM_NAME " v" MM_VERNUM "!\n\n"
-        "A new or updated " RCNAME " has been written. "
-        "If you continue now, " MM_NAME " will\nuse the default "
-        "values for any new keywords. (Existing keywords have been "
-        "\npreserved.) If you wish to edit your " RCNAME " first, "
-        "say 'Y' at the prompt.\n\nEdit " RCNAME " now? (y/n) ";
-
     names = rc_names;
     intro = rc_intro;
     comments = rc_comments;
@@ -333,7 +325,12 @@ resource::resource()
 
     if (parseConfig(configFileName)) {
         newConfig(configFileName);
-        printf(greeting);
+        printf("\nWelcome to " MM_NAME " v" MM_VERNUM "!\n\n"
+               "A new or updated " RCNAME " has been written. "
+               "If you continue now, " MM_NAME " will\nuse the default "
+               "values for any new keywords. (Existing keywords have been "
+               "\npreserved.) If you wish to edit your " RCNAME " first, "
+               "say 'Y' at the prompt.\n\nEdit " RCNAME " now? (y/n) ");
         char inp = fgetc(stdin);
 
         if (toupper(inp) == 'Y') {
