@@ -13,8 +13,7 @@
 
 #include "mmail.h"
 
-pktstatus uncompressFile(resource *, const char *, const char *,
-	bool = false);
+pktstatus uncompressFile(resource *, const char *, const char *, bool = false);
 int compressAddFile(resource *, const char *, const char *, const char *);
 const char *defExtent();
 

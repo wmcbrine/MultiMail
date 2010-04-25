@@ -9,14 +9,14 @@
 
 class ErrorType
 {
-	char *origdir;
+    char *origdir;
 #ifdef __DJGPP__
-	char *newtmp;
+    char *newtmp;
 #endif
  public:
-	ErrorType();
-	~ErrorType();
-	const char *getOrigDir();
+    ErrorType();
+    ~ErrorType();
+    const char *getOrigDir();
 };
 
 extern ErrorType error;

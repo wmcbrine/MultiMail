@@ -50,48 +50,48 @@ const char *homify(const char *);
 #ifdef USE_SHELL
 class Shell
 {
-	char *prompt;
+    char *prompt;
  public:
-	Shell();
-	~Shell();
-	void out();
+    Shell();
+    ~Shell();
+    void out();
 };
 #endif
 
 #ifdef EXTRAPATH
 class ExtraPath
 {
-	char *newpath;
+    char *newpath;
  public:
-	ExtraPath();
-	~ExtraPath();
+    ExtraPath();
+    ~ExtraPath();
 };
 #endif
 
 class mystat
 {
-	int mode;
-	off_t size;
-	time_t date;
+    int mode;
+    off_t size;
+    time_t date;
  public:
-	mystat(const char *);
-	mystat();
+    mystat(const char *);
+    mystat();
 
-	bool init(const char *);
+    bool init(const char *);
 #ifdef USE_FINDFIRST
 # ifdef USE_IOH
-	void init(long, time_t, unsigned);
+    void init(long, time_t, unsigned);
 # else
-	void init(long, long, char);
+    void init(long, long, char);
 # endif
 #endif
-	void init();
-	bool isdir();
-	bool readable();
-	bool writeable();
-	off_t fsize();
-	time_t fdate();
-	void reset_date(const char *);
+    void init();
+    bool isdir();
+    bool readable();
+    bool writeable();
+    off_t fsize();
+    time_t fdate();
+    void reset_date(const char *);
 };
 
 #ifdef USE_STRICMP

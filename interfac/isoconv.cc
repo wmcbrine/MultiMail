@@ -36,46 +36,46 @@ const char *iso2dostab =
 
 char *charconv(char *buf, cdirtype cdir)
 {
-	const char *ct = (cdir == CC_ISOTO437) ? iso2dostab : dos2isotab;
+    const char *ct = (cdir == CC_ISOTO437) ? iso2dostab : dos2isotab;
 
-	for (char *p = buf; *p; p++) {
-		unsigned char c = *p;
-		if (c & 0x80)
-			*p = ct[c & 0x7f];
-	}
-	return buf;
+    for (char *p = buf; *p; p++) {
+        unsigned char c = *p;
+        if (c & 0x80)
+            *p = ct[c & 0x7f];
+    }
+    return buf;
 }
 
 char *charconv_in(char *buf)
 {
-	return (isoConsole ? charconv(buf, CC_437TOISO) : buf);
+    return (isoConsole ? charconv(buf, CC_437TOISO) : buf);
 }
 
 char *charconv_out(char *buf)
 {
-	return (isoConsole ? charconv(buf, CC_ISOTO437) : buf);
+    return (isoConsole ? charconv(buf, CC_ISOTO437) : buf);
 }
 
 char *letterconv_in(char *buf)
 {
-	return (mm.letterList->isLatin() ^ isoConsole) ?
-		charconv(buf, isoConsole ? CC_437TOISO : CC_ISOTO437) : buf;
+    return (mm.letterList->isLatin() ^ isoConsole) ?
+           charconv(buf, isoConsole ? CC_437TOISO : CC_ISOTO437) : buf;
 }
 
 char *letterconv_out(char *buf)
 {
-	return (mm.letterList->isLatin() ^ isoConsole) ?
-		charconv(buf, isoConsole ? CC_ISOTO437 : CC_437TOISO) : buf;
+    return (mm.letterList->isLatin() ^ isoConsole) ?
+           charconv(buf, isoConsole ? CC_ISOTO437 : CC_437TOISO) : buf;
 }
 
 char *areaconv_in(char *buf)
 {
-	return (mm.areaList->isLatin() ^ isoConsole) ?
-		charconv(buf, isoConsole ? CC_437TOISO : CC_ISOTO437) : buf;
+    return (mm.areaList->isLatin() ^ isoConsole) ?
+           charconv(buf, isoConsole ? CC_437TOISO : CC_ISOTO437) : buf;
 }
 
 char *areaconv_out(char *buf)
 {
-	return (mm.areaList->isLatin() ^ isoConsole) ?
-		charconv(buf, isoConsole ? CC_ISOTO437 : CC_437TOISO) : buf;
+    return (mm.areaList->isLatin() ^ isoConsole) ?
+           charconv(buf, isoConsole ? CC_ISOTO437 : CC_437TOISO) : buf;
 }
