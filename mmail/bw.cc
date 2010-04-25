@@ -741,13 +741,13 @@ void bwreply::enterLetter(letter_header &newLetter,
         newList->uplRec.network_type = INF_NET_INTERNET;
 
     const char *msgid = newLetter.getMsgID();
-    if (msgid)
+    if (msgid) {
         if (!(internet || usenet))
             sprintf((char *) newList->uplRec.net_dest, "REPLY: %.92s", msgid);
         else
             if (usenet)
                 newList->msgid = strdupplus(msgid);
-
+    }
     if (usenet) {
         newList->newsgrps = strdupplus(newLetter.getNewsgrps());
         if (strlen(newLetter.getSubject()) > 71)
@@ -1013,7 +1013,7 @@ bool bwreply::makeOffConfig()
         mm->areaList->gotoArea(x);
         unsigned long attrib = mm->areaList->getType();
         if (!(attrib & COLLECTION) && (((attrib & ACTIVE)
-            && !(attrib & DROPPED)) || (attrib & ADDED)))
+            && !(attrib & DROPPED)) || (attrib & ADDED))) {
 
             if (oldstyle) {
                 PDQ_REC p;
@@ -1024,6 +1024,7 @@ bool bwreply::makeOffConfig()
                 fprintf(olc, "[%s]\r\nScan = %s\r\n\r\n",
                         mm->areaList->getName(), (attrib & PERSONLY) ?
                         "PERSONLY" : ((attrib & PERSALL) ? "PERSALL" : "ALL"));
+        }
     }
     mm->areaList->gotoArea(oldarea);
     fclose(olc);

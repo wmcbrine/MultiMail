@@ -90,7 +90,7 @@ void AnsiWindow::AnsiLine::pack(chtype *tmp, int newlen)
 
 void AnsiWindow::AnsiLine::show(Win *win, int i)
 {
-    if (length)
+    if (length) {
         if (isasc) {
             win->attrib(att);
             win->put(i, 0, (char *) atext, length);
@@ -98,7 +98,7 @@ void AnsiWindow::AnsiLine::show(Win *win, int i)
             win->attrib(0);
             win->put(i, 0, text, length);
         }
-
+    }
     win->attrib(C_ANSIBACK);
     win->clreol(i, length);
 }
@@ -388,7 +388,7 @@ void AnsiWindow::athandle()
                     result = ('@' == c[0]);
                 }
                 if (1 == result) {
-                    if (1 == atparse)
+                    if (1 == atparse) {
                         if (!fg && !bg) {
                             oldccf = ccf;
                             oldccb = ccb;
@@ -414,6 +414,7 @@ void AnsiWindow::athandle()
                                 attrib = colorcore();
                             }
                         }
+                    }
                 } else {
                     update('@');
                     update(bgc[0]);

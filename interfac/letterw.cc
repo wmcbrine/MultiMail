@@ -1112,13 +1112,14 @@ void LetterWindow::KeyHandle(int key)
                 if (t_area != -1) {
                     mm.areaList->gotoArea(t_area);
 
-                    if ((5 == key) || mm.areaList->isEmail())
+                    if ((5 == key) || mm.areaList->isEmail()) {
                         if ((5 == key) || ('E' == key))
                             ui->addressbook();
                         else {
                             net_address nm = PickNetAddr();
                             set_Letter_Params(nm, 0);
                         }
+                    }
                     EnterLetter(t_area, (5 == key) ? 'E' : key);
                 }
                 break;

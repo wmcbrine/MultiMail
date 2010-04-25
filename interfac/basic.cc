@@ -132,11 +132,12 @@ int Win::put(int y, int x, const char *z, int len)
             while (i--)
                 buffer[counter++] = z2 | curratt;
         }
-        if ((z2 < ' ') || ((z2 > 126) && (z2 < 160)))
+        if ((z2 < ' ') || ((z2 > 126) && (z2 < 160))) {
             if (isoConsole)
                 z2 = '?';
             else
                 z2 |= A_ALTCHARSET;
+        }
         buffer[counter++] = z2 | curratt;
     }
     mvwaddchnstr(win, y, x, buffer, counter);

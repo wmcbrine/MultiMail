@@ -415,14 +415,14 @@ void Interface::newpacket()
     static const char *keepers[] = {"Save", "Kill"};
     unsaved_reply = any_read = false;
 
-    if (mm.checkForReplies())
+    if (mm.checkForReplies()) {
         if (!WarningWindow("Existing replies found:", keepers))
             mm.deleteReplies();
         else {
             redraw();
             ReportWindow("Opening replies...");
         }
-
+    }
     mm.openReply();
 
     mm.areaList = new area_list(&mm);

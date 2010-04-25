@@ -253,13 +253,13 @@ bool qwkpack::externalIndex()
             fname[strlen(p) - 4] = '\0';
             x = atoi(fname);
 
-            if (!x)
+            if (!x) {
                 if (!strcasecmp(fname, "personal"))
                     x = -1;
                 else
                     if (strcmp(fname, "000"))
                         x = -2;      // fname is not a num
-
+            }
             if (x != -2) {
                 x = getXNum(x);
                 if (-1 == x)         // fname is a num but not a

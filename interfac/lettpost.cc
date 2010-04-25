@@ -114,9 +114,9 @@ void LetterWindow::QuoteText(FILE *reply)
             (!curr->length && (i < (NumOfLines - 1)) &&
             (Sigline == linelist[i + 1]->attr) ))) {
 
-            fprintf(reply, curr->length ? ((Quoted == curr->attr) ?
-                    (inet ? ">" : ((curr->text[0] == ' ') ? "" : " ")) :
-                    TMP) : (inet ? ">" : ""));
+            fputs(curr->length ? ((Quoted == curr->attr) ?
+                  (inet ? ">" : ((curr->text[0] == ' ') ? "" : " ")) :
+                  TMP) : (inet ? ">" : ""), reply);
 
             curr->out(reply);
         }

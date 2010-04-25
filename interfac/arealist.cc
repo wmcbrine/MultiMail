@@ -209,12 +209,12 @@ void AreaListWindow::oneLine(int i)
     else
         p += sprintf(p, "     .  ");
 
-    if (hasPers)
+    if (hasPers) {
         if (mm.areaList->getNoOfPersonal())
             sprintf(p, "%6d  ", mm.areaList->getNoOfPersonal());
         else
             sprintf(p, "     .  ");
-
+    }
     coltype ch = ((attrib & (REPLYAREA | ADDED | DROPPED)) ||
                  ((attrib & HASREPLY) && !(attrib & ACTIVE))) ?
                  C_ALREPLINE : C_ALPACKETLINE;
