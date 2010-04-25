@@ -45,7 +45,8 @@ bool sheader::init(FILE *msg)
             return false;
 
         // Get first 999 bytes of header line
-        fgets(buffer, sizeof buffer, msg);
+        if (!fgets(buffer, sizeof buffer, msg))
+            return false;
         end = buffer + strlen(buffer) - 1;
 
         // If there's more, rewind to last space; remainder

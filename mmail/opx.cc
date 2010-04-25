@@ -69,15 +69,19 @@ void opxpack::buildIndices()
     if (hasFdx) {
         fdxFile = mm->workList->ftryopen("mail.fdx");
         if (fdxFile) {
-            fread(&fhead, FDX_HEAD_SIZE, 1, fdxFile);
-            if (getshort(fhead.PageCount) != 1) {
+            if (fread(&fhead, FDX_HEAD_SIZE, 1, fdxFile) &&
+                getshort(fhead.PageCount) == 1) {
+
+                totMsgs = getshort(fhead.RowsInPage);
+                fseek(fdxFile, 4, SEEK_CUR);
+                if (!fread(&frec, FDX_REC_SIZE, 1, fdxFile)) {
+                    hasFdx = false;
+                    fclose(fdxFile);
+                }
+            } else {
                 // Skip it, we don't understand it
                 hasFdx = false;
                 fclose(fdxFile);
-            } else {
-                totMsgs = getshort(fhead.RowsInPage);
-                fseek(fdxFile, 4, SEEK_CUR);
-                fread(&frec, FDX_REC_SIZE, 1, fdxFile);
             }
         } else
             hasFdx = false;
@@ -97,7 +101,8 @@ void opxpack::buildIndices()
 
             bool fdxAvail = (numMsgs < (totMsgs - 1));
             if (fdxAvail)
-                fread(&frec, FDX_REC_SIZE, 1, fdxFile);
+                if (!fread(&frec, FDX_REC_SIZE, 1, fdxFile))
+                    fatalError("Error reading .FDX file");
             length = (fdxAvail ? getlong(frec.offset) : mdatlen) - counter;
         } else {
             counter = ftell(infile);
@@ -257,8 +262,12 @@ void opxpack::readBrdinfoDat()
 
     ocfgFile = mm->workList->ftryopen("dusrcfg.dat");
     if (ocfgFile) {
-        fread(&confhead, OCFG_HEAD_SIZE, 1, ocfgFile);
-        hasOffConfig = OFFCONFIG;
+        if (fread(&confhead, OCFG_HEAD_SIZE, 1, ocfgFile))
+            hasOffConfig = OFFCONFIG;
+        else {
+            hasOffConfig = 0;
+            fclose(ocfgFile);
+        }
     } else
         hasOffConfig = 0;
 
@@ -293,7 +302,8 @@ void opxpack::readBrdinfoDat()
     for (c = 0; c < header.readerfiles; c++) {
         pstring(readerf,12);
 
-        fread(&readerf, 13, 1, brdinfoFile);
+        if (!fread(&readerf, 13, 1, brdinfoFile))
+            fatalError("Error reading BRDINFO.DAT");
         strncpy(bulletins + c * 13, (char *) readerf + 1, *readerf);
         bulletins[c * 13 + *readerf] = '\0';
     }
@@ -327,7 +337,8 @@ void opxpack::readBrdinfoDat()
             if (!brdinfoFile)
                 fatalError("Could not open EXTAREAS.DAT");
         }
-        fread(&boardrec, BRD_REC_SIZE, 1, brdinfoFile);
+        if (!fread(&boardrec, BRD_REC_SIZE, 1, brdinfoFile))
+            fatalError("Error reading BRDINFO.DAT");
 
         areas[c].num = getshort(boardrec.confnum);
         sprintf(areas[c].numA, "%d", areas[c].num);
@@ -336,8 +347,9 @@ void opxpack::readBrdinfoDat()
 
         bool selected = !(!boardrec.scanned);
         if (hasOffConfig) {
-            fread(&offrec, OCFG_REC_SIZE, 1, ocfgFile);
-            if (getshort(offrec.confnum) == (unsigned) areas[c].num)
+            if (fread(&offrec, OCFG_REC_SIZE, 1, ocfgFile) &&
+                getshort(offrec.confnum) == (unsigned) areas[c].num)
+
                 selected = !(!offrec.scanned);
         }
 
@@ -381,8 +393,9 @@ bool opxpack::readOldFlags()
     if (!fdxFile)
         return false;
 
-    fread(&fhead, FDX_HEAD_SIZE, 1, fdxFile);
-    if (getshort(fhead.PageCount) != 1) {
+    if (!fread(&fhead, FDX_HEAD_SIZE, 1, fdxFile) ||
+        getshort(fhead.PageCount) != 1) {
+
         fclose(fdxFile);
         return false;
     }
@@ -393,7 +406,8 @@ bool opxpack::readOldFlags()
     area_list *al = mm->areaList;
 
     for (int x = 0; x < totmsgs; x++) {
-        fread(&frec, FDX_REC_SIZE, 1, fdxFile);
+        if (!fread(&frec, FDX_REC_SIZE, 1, fdxFile))
+            fatalError("Error reading .FDX file");
 
         lastarea = area;
         area = getshort(frec.confnum);
@@ -548,7 +562,8 @@ bool opxreply::getRep1(const char *orgname, upl_opx *l)
     orgfile = fopen(orgname, "rb");
     if (orgfile) {
 
-        fread(&l->rhead, FIDO_HEAD_SIZE, 1, orgfile);
+        if (!fread(&l->rhead, FIDO_HEAD_SIZE, 1, orgfile))
+            fatalError("Error reading reply file");
         l->area = getArea(orgname);
 
         net_address na;
@@ -581,7 +596,8 @@ bool opxreply::getRep1(const char *orgname, upl_opx *l)
                     if (isReply || isPoint || isInet) {
                         char *tmp = new char[x];
                         fseek(orgfile, x * -1, SEEK_CUR);
-                        fread(tmp, 1, x, orgfile);
+                        if (!fread(tmp, 1, x, orgfile))
+                            fatalError("Error reading reply file");
                         strtok(tmp, "\r");
 
                         if (isReply)
@@ -846,11 +862,13 @@ bool opxreply::getOffConfig()
         ocfgRec offrec;
         int areaOPX, areaNo;
 
-        fread(&offhead, OCFG_HEAD_SIZE, 1, olc);
+        if (!fread(&offhead, OCFG_HEAD_SIZE, 1, olc))
+            fatalError("Error reading RUSRCFG.DAT");
         int totareas = getshort(offhead.numofareas);
 
         for (int i = 0; i < totareas; i++) {
-            fread(&offrec, OCFG_REC_SIZE, 1, olc);
+            if (!fread(&offrec, OCFG_REC_SIZE, 1, olc))
+                fatalError("Error reading RUSRCFG.DAT");
             areaOPX = getshort(offrec.confnum);
 
             areaNo = ((opxpack *) baseClass)->getXNum(areaOPX) + 1;

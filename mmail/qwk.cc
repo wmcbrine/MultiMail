@@ -273,13 +273,16 @@ bool qwkpack::externalIndex()
                     cMsgNum = mm->workList->getSize() / ndxRecLen;
                     body[x] = new bodytype[cMsgNum];
                     for (int y = 0; y < cMsgNum; y++) {
-                        fread(&ndx_rec, ndxRecLen, 1, idxFile);
-                        unsigned long temp = MSBINtolong(ndx_rec.MSB) << 7;
+                        // If any .NDX entries appear corrupted, we're
+                        // better off aborting this and using the new
+                        // (purely .DAT-based) indexing method (in
+                        // readIndices()).
 
-                        // If any .NDX entries appear corrupted,
-                        // we're better off aborting this and
-                        // using the new (purely .DAT-based)
-                        // indexing method (in readIndices()).
+                        if (!fread(&ndx_rec, ndxRecLen, 1, idxFile)) {
+                            hasNdx = false;
+                            break;
+                        }
+                        unsigned long temp = MSBINtolong(ndx_rec.MSB) << 7;
 				    
                         if ((temp < 256) || (temp > endpoint)) {
                             hasNdx = false;    // use other method
@@ -701,7 +704,8 @@ bool qwkreply::getRep1(FILE *rep, upl_qwk *l)
     char linebreak = greekqwk ? ((char) 12) : ((char) 227);
 
     for (count = 0; count < chunks; count++) {
-        fread(blk, 1, 128, rep);
+        if (!fread(blk, 1, 128, rep))
+            fatalError("Error reading reply file");
 
         for (p = blk; p < (blk + 128); p++)
             if (*p == linebreak)

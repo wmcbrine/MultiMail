@@ -260,14 +260,16 @@ void omen::readSystemBBS()
             char name[41];
         } b;
 
-        fread(&b, 1, 41, infile);
+        if (!fread(&b, 1, 41, infile))
+            fatalError("Error reading system file");
         b.name[b.len] = '\0';
         BBSName = strdupplus(b.name);
 
         areas = new AREAs[maxConf];
         areatmp = new ATMP[maxConf - 1];
 
-        fread(areatmp, sizeof(ATMP), maxConf - 1, infile);
+        if (!fread(areatmp, sizeof(ATMP), maxConf - 1, infile))
+            fatalError("Error reading system file");
         fclose(infile);
 
         areas[0].num = -1;
@@ -334,7 +336,7 @@ bool omenrep::upl_omen::init(FILE *rep)
     if (fread(&omen_rec, sizeof omen_rec, 1, rep) != 1)
         return false;
 
-    refnum = getshort(omen_rec.msghighnumber) << 16 +
+    refnum = (getshort(omen_rec.msghighnumber) << 16) +
              getshort(omen_rec.msgnumber);
     privat = !(!(omen_rec.command & OMR_PRIVATE));
 

@@ -128,7 +128,7 @@ letter_header *bluewave::getNextLetter()
     fseek(ftiFile, getlong(mixRecord[mixID[areaID]].msghptr) +
           (long) letterID * ftiStructLen, SEEK_SET);
 
-    if (!(fread(&ftiRec, ORIGINAL_FTI_STRUCT_LEN, 1, ftiFile)))
+    if (!fread(&ftiRec, ORIGINAL_FTI_STRUCT_LEN, 1, ftiFile))
         fatalError("Error reading .FTI file");
 
     long msglength = getlong(ftiRec.msglength);
@@ -369,7 +369,8 @@ void bluewave::initMixID()
     noOfMixRecs = (int) (mm->workList->getSize() / mixStructLen);
     mixRecord = new MIX_REC[noOfMixRecs];
 
-    fread(mixRecord, mixStructLen, noOfMixRecs, mixFile);
+    if (!fread(mixRecord, mixStructLen, noOfMixRecs, mixFile))
+        fatalError("Error reading .MIX file");
     fclose(mixFile);
 
     // Match records
@@ -405,7 +406,7 @@ void bluewave::initMixID()
                     fseek(ftiFile, getlong(mixRecord[mixID[c]].msghptr) +
                           (long) d * ftiStructLen, SEEK_SET);
 
-                    if (!(fread(&ftiRec, ORIGINAL_FTI_STRUCT_LEN, 1, ftiFile)))
+                    if (!fread(&ftiRec, ORIGINAL_FTI_STRUCT_LEN, 1, ftiFile))
                         fatalError("Error reading .FTI file");
 
                     cropesp((char *) ftiRec.to);
@@ -469,7 +470,8 @@ bool bluewave::readOldFlags()
                 XTI_REC xtiRec;
                 int stat;
 
-                fread(&xtiRec, sizeof xtiRec, 1, xtiFile);
+                if (!fread(&xtiRec, sizeof xtiRec, 1, xtiFile))
+                    fatalError("Error reading .XTI file");
 
                 stat = ((xtiRec.flags & XTI_HAS_READ) ? MS_READ : 0) |
                        ((xtiRec.flags & XTI_HAS_REPLIED) ? MS_REPLIED : 0) |
@@ -603,7 +605,8 @@ bool bwreply::getRep1(FILE *uplFile, upl_bw *l, int recnum)
                     if (isRef || isNews || isSubj) {
                         char *tmp = new char[x];
                         fseek(orgfile, x * -1, SEEK_CUR);
-                        fread(tmp, 1, x, orgfile);
+                        if (!fread(tmp, 1, x, orgfile))
+                            fatalError("Error reading reply file");
                         strtok(tmp, "\r");
                         if (isRef)
                             l->msgid = tmp;
@@ -921,7 +924,8 @@ bool bwreply::getOffConfig()
     if (olc) {
         if (oldstyle) {
             fseek(olc, sizeof(PDQ_HEADER), SEEK_SET);
-            fread(&pdqrec, 1, PDQ_REC_SIZE, olc);
+            if (!fread(&pdqrec, 1, PDQ_REC_SIZE, olc))
+                fatalError("Error reading .PDQ file");
         } else {
             nextLine(olc);
             do
@@ -949,9 +953,10 @@ bool bwreply::getOffConfig()
                     mm->areaList->Drop();
             }
 
-            if (oldstyle)
-                fread(&pdqrec, 1, PDQ_REC_SIZE, olc);
-            else {
+            if (oldstyle) {
+                if (!fread(&pdqrec, 1, PDQ_REC_SIZE, olc))
+                    fatalError("Error reading .PDQ file");
+            } else {
                 nextLine(olc);
                 nextLine(olc);
                 line = nextLine(olc);
