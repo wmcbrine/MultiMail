@@ -7,10 +7,10 @@ include version
 # General options (passed to mmail/Makefile and interfac/Makefile):
 
 # With debug:
-#OPTS = -g -Wall -Wextra -pedantic -Wno-deprecated -Wno-char-subscripts
+#OPTS = -g -Wall -Wextra -pedantic -Wno-char-subscripts
 
 # Optimized, no debug:
-OPTS = -O2 -Wall -pedantic -Wno-deprecated -Wno-char-subscripts
+OPTS = -O2 -Wall -pedantic -Wno-char-subscripts
 
 # PREFIX is the base directory under which to install the binary and man 
 # page; generally either /usr/local or /usr (or perhaps /opt...):

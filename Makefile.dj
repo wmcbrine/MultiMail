@@ -10,7 +10,7 @@ include version
 #OPTS = -g -Wall -pedantic
 
 # Optimized for recent versions of gcc:
-OPTS = -O2 -fno-exceptions -fno-rtti -fconserve-space -Wno-deprecated
+OPTS = -O2 -fno-exceptions -fno-rtti -fconserve-space
 
 #--------------------------------------------------------------
 # DJGPP (MSDOS), with PDCurses:
