@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2007 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2010 William McBrine <wmcbrine@users.sf.net>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -151,8 +151,8 @@ class Win
 #endif
     void put(int, int, const chtype *, int = 0);
     int put(int, int, const char *, int = -1);
-    void attrib(chtype);
-    void attrib(coltype);
+    int attrib(chtype);
+    int attrib(coltype);
     void horizline(int);
     void update();
     void delay_update();

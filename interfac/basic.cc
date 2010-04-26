@@ -145,15 +145,15 @@ int Win::put(int y, int x, const char *z, int len)
     return counter;
 }
 
-void Win::attrib(chtype z)
+int Win::attrib(chtype z)
 {
     curratt = z;
-    wattrset(win, z);
+    return wattrset(win, z);
 }
 
-void Win::attrib(coltype z)
+int Win::attrib(coltype z)
 {
-    attrib(ColorArray[z]);
+    return attrib(ColorArray[z]);
 }
 
 void Win::horizline(int y)
