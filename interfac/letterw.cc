@@ -656,7 +656,7 @@ void LetterWindow::TimeUpdate()
         }
         headbar->put(0, COLS - 6, tmp);
         headbar->delay_update();
-        lasttime = now - (now % 60) + (2 == mode) ? (starttime % 60) : 0;
+        lasttime = now - (now % 60) + ((2 == mode) ? (starttime % 60) : 0);
     }
 }
 
