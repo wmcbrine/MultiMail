@@ -232,7 +232,8 @@ void AnsiWindow::Init()
 {
 #ifdef NCURSES_VERSION
     // Is the "PC" character set available?
-    char *result = tigetstr("smpch");
+    char smpch[] = "smpch";
+    char *result = tigetstr(smpch);
     useAltCharset = (result && (result != ((char *) -1)));
 #endif
     atparse = 1;
