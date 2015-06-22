@@ -4,7 +4,7 @@
 
  Copyright (c) 1996 Peter Karlsson <peter@softwolves.pp.se>,
                     Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 1999 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 1999 William McBrine <wmcbrine@gmail.com>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */

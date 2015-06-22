@@ -3,7 +3,7 @@
  * color pairs #define'd here
 
  Copyright (c) 1996 John Zero <john@graphisoft.hu>
- Copyright (c) 2005 William McBrine <wmcbrine@users.sourceforge.net>
+ Copyright (c) 2005 William McBrine <wmcbrine@gmail.com>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */

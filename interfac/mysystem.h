@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * protos for mysystem.cc
 
- Copyright (c) 2005 William McBrine <wmcbrine@users.sf.net>
+ Copyright (c) 2005 William McBrine <wmcbrine@gmail.com>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */

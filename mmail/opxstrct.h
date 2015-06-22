@@ -1,5 +1,5 @@
 /* OPX packet structures, in C
-   Reverse engineered by William McBrine <wmcbrine@users.sourceforge.net>
+   Reverse engineered by William McBrine <wmcbrine@gmail.com>
    Placed in the Public Domain
 
    Version 1.2 of this document, Dec. 28, 2000

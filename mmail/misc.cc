@@ -3,7 +3,7 @@
  * miscellaneous routines (global)
 
  Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 2006 William McBrine <wmcbrine@users.sourceforge.net>,
+ Copyright (c) 2006 William McBrine <wmcbrine@gmail.com>,
                     Peter Karlsson <peter@softwolves.pp.se>
 
  Distributed under the GNU General Public License.
