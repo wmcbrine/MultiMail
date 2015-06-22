@@ -33,7 +33,7 @@ class bluewave : public pktbase
     long personal;
 
     int *mixID;
-    int noOfInfRecs, noOfMixRecs;
+    int noOfMixRecs;
     int from_to_len;
     int subject_len;
     unsigned infoHeaderLen, infoAreainfoLen, mixStructLen, ftiStructLen;
