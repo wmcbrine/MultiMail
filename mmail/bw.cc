@@ -995,11 +995,15 @@ bool bwreply::makeOffConfig()
 
     if (oldstyle) {
         PDQ_HEADER pdqhead;
+        int i;
 
         memcpy(pdqhead.keywords, infoHeader.keywords,
                sizeof infoHeader.keywords);
         memcpy(pdqhead.filters, infoHeader.filters, sizeof infoHeader.filters);
-        memcpy(pdqhead.macros, infoHeader.macros, sizeof infoHeader.macros);
+        for (i = 0; i < 3; i++) {
+            strncpy(pdqhead.macros[i], infoHeader.macros[i], 77);
+            pdqhead.macros[i][77] = '\0';
+        }
         memcpy(pdqhead.password, infoHeader.password,
                sizeof infoHeader.password);
         pdqhead.passtype = infoHeader.passtype;
