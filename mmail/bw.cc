@@ -996,11 +996,13 @@ bool bwreply::makeOffConfig()
     if (oldstyle) {
         PDQ_HEADER pdqhead;
 
-        memset(&pdqhead, 0, sizeof pdqhead);
-        memcpy(&pdqhead, infoHeader.keywords, sizeof infoHeader.keywords +
-               sizeof infoHeader.filters + sizeof infoHeader.macros);
+        memcpy(pdqhead.keywords, infoHeader.keywords,
+               sizeof infoHeader.keywords);
+        memcpy(pdqhead.filters, infoHeader.filters, sizeof infoHeader.filters);
+        memcpy(pdqhead.macros, infoHeader.macros, sizeof infoHeader.macros);
         memcpy(pdqhead.password, infoHeader.password,
-               sizeof infoHeader.password + sizeof infoHeader.passtype);
+               sizeof infoHeader.password);
+        pdqhead.passtype = infoHeader.passtype;
 
         int oflags = getshort(infoHeader.uflags);
         oflags |= PDQ_AREA_CHANGES;
