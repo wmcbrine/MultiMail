@@ -1001,7 +1001,8 @@ bool bwreply::makeOffConfig()
                sizeof infoHeader.keywords);
         memcpy(pdqhead.filters, infoHeader.filters, sizeof infoHeader.filters);
         for (i = 0; i < 3; i++) {
-            strncpy(pdqhead.macros[i], infoHeader.macros[i], 77);
+            strncpy((char *) pdqhead.macros[i],
+                    (const char *) infoHeader.macros[i], 77);
             pdqhead.macros[i][77] = '\0';
         }
         memcpy(pdqhead.password, infoHeader.password,
