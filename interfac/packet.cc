@@ -19,7 +19,7 @@ void Welcome::MakeActive()
     window->attrib(C_WELCOME1);
     window->put(1, 7, "Welcome to " MM_NAME " Offline Reader!");
     window->attrib(C_WELCOME2);
-    window->put(3, 2, "Copyright (c) 2010 William McBrine, Kolossvary"); 
+    window->put(3, 2, "Copyright (c) 2015 William McBrine, Kolossvary"); 
     window->put(4, 7, "Tamas, Toth Istvan, John Zero, et al.");
     window->touch();
 }
