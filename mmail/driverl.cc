@@ -2,9 +2,9 @@
  * MultiMail offline mail reader
  * driver_list
 
- Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 2003 William McBrine <wmcbrine@gmail.com>,
-                    Robert Vukovic <vrobert@uns.ns.ac.yu>
+ Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
+ Copyright 1998-2015 William McBrine <wmcbrine@gmail.com>,
+                     Robert Vukovic <vrobert@uns.ns.ac.yu>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */

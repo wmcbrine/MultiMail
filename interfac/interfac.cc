@@ -2,9 +2,9 @@
  * MultiMail offline mail reader
  * Interface, ShadowedWin, ListWindow
 
- Copyright (c) 1996 Kolossvary Tamas <thomas@tvnet.hu>
- Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 2010 William McBrine <wmcbrine@gmail.com>
+ Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
+ Copyright 1997 John Zero <john@graphisoft.hu>
+ Copyright 1997-2015 William McBrine <wmcbrine@gmail.com>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */

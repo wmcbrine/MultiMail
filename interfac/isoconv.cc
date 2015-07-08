@@ -2,9 +2,9 @@
  * MultiMail offline mail reader
  * conversion tables ISO 8859-1 <-> IBM codepage 437
 
- Copyright (c) 1996 Peter Karlsson <peter@softwolves.pp.se>,
-                    Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 1999 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997 Peter Karlsson <peter@softwolves.pp.se>,
+                Toth Istvan <stoty@vma.bme.hu>
+ Copyright 1998-2015 William McBrine <wmcbrine@gmail.com>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */

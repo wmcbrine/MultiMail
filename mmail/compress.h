@@ -2,8 +2,8 @@
  * MultiMail offline mail reader
  * compress and decompress packets
 
- Copyright (c) 1997 John Zero <john@graphisoft.hu>
- Copyright (c) 1999 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997 John Zero <john@graphisoft.hu>
+ Copyright 1998-2015 William McBrine <wmcbrine@gmail.com>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */

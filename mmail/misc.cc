@@ -2,9 +2,9 @@
  * MultiMail offline mail reader
  * miscellaneous routines (global)
 
- Copyright (c) 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright (c) 2006 William McBrine <wmcbrine@gmail.com>,
-                    Peter Karlsson <peter@softwolves.pp.se>
+ Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
+ Copyright 1997-2015 William McBrine <wmcbrine@gmail.com>,
+                     Peter Karlsson <peter@softwolves.pp.se>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
@@ -346,7 +346,7 @@ bool quoteIt(const char *s)
 // MIME decoding for header lines (=?iso-8859-1?Q? and =?iso-8859-1?B?)
 void headdec(const char *source, const char *cset, char *dest)
 {
-    // (c) Copyright 1999 Peter Karlsson
+    // Copyright 1999 Peter Karlsson
     // Modified by William McBrine
     // May be used in any way as long as this copyright is included
     // in the derived work.

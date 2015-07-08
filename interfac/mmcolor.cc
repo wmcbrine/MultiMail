@@ -2,8 +2,8 @@
  * MultiMail offline mail reader
  * color handling, and default colors
 
- Copyright (c) 2006 William McBrine <wmcbrine@gmail.com>,
-                    Ingo Brueckl <ib@wupperonline.de>
+ Copyright 1998-2015 William McBrine <wmcbrine@gmail.com>,
+                     Ingo Brueckl <ib@wupperonline.de>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */

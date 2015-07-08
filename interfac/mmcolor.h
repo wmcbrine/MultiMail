@@ -2,8 +2,8 @@
  * MultiMail offline mail reader
  * color pairs #define'd here
 
- Copyright (c) 1996 John Zero <john@graphisoft.hu>
- Copyright (c) 2005 William McBrine <wmcbrine@gmail.com>
+ Copyright 1996-1997 John Zero <john@graphisoft.hu>
+ Copyright 1997-2015 William McBrine <wmcbrine@gmail.com>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */

@@ -2,8 +2,8 @@
  * MultiMail offline mail reader
  * help windows
 
- Copyright (c) 1996 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright (c) 2003 William McBrine <wmcbrine@gmail.com>
+ Copyright 1996-1997 Kolossvary Tamas <thomas@vma.bme.hu>
+ Copyright 1997-2015 William McBrine <wmcbrine@gmail.com>
 
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
