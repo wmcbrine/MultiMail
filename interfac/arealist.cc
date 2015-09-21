@@ -336,7 +336,7 @@ void AreaListWindow::MakeActive()
 
     if (bp && *bp)
         list->put(list_max_y + 4 + hasSys, middle, "   BBS:");
-	
+
     sprintf(tpad, "%%.%ds", (middle < 87) ? middle - 8 : 79);
     middle += 8;
 

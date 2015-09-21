@@ -58,7 +58,7 @@ typedef unsigned char pbyte;
    "repHead" struct used in earlier versions of this document, and changes
    the "msgHead" struct.
 
-   Based on Fido packet specifications, this struct uses null-terminated 
+   Based on Fido packet specifications, this struct uses null-terminated
    (C-style) strings instead of the BP strings used elsewhere.
 */
 
@@ -120,7 +120,7 @@ typedef struct {
 
 /* The Header */
 
-/* To ensure correct operation where alignment padding is used, when 
+/* To ensure correct operation where alignment padding is used, when
    reading from or writing to disk, use the _SIZE defines given here
    rather than "sizeof":
 */
@@ -192,8 +192,8 @@ typedef struct {
 
 /* ### EXTAREAS.DAT ### */
 
-/* Some packets have extra area data in the file EXTAREAS.DAT. This file 
-   consists entirely of brdRec records, as in BRDINFO.DAT. The procedure 
+/* Some packets have extra area data in the file EXTAREAS.DAT. This file
+   consists entirely of brdRec records, as in BRDINFO.DAT. The procedure
    for handing area data when this file is present should be as follows:
 
      X = brdHeader.numofareas
@@ -205,8 +205,8 @@ typedef struct {
 
 /* ### MAIL.DAT structures ### */
 
-/* Each message consists of the header, in a fixed format shown below, 
-   followed by the message text, whose length is specified in the header. 
+/* Each message consists of the header, in a fixed format shown below,
+   followed by the message text, whose length is specified in the header.
    Messages for all areas are concatenated.
 
    The first 14 bytes of the header are specific to OPX; the remainder is
@@ -214,9 +214,9 @@ typedef struct {
    length of the entire message, including the classic Fido header, but
    NOT including the OPX-specific part of the header (those first 14 bytes).
 
-   Since the header size is fixed (AFAIK), a more useful interpretation of 
-   the length field might be the length of the text plus 0xBE bytes. Also, 
-   because the field is only a 16-bit integer, it will be invalid if a 
+   Since the header size is fixed (AFAIK), a more useful interpretation of
+   the length field might be the length of the text plus 0xBE bytes. Also,
+   because the field is only a 16-bit integer, it will be invalid if a
    message longer than 64k is packed.
 */
 
@@ -257,7 +257,7 @@ typedef struct {
     pshort RowsInPage;      /* Normally the total number of messages */
     pshort ColsInPage;      /* Always 1, in MAIL.FDX */
     pshort PagesDown;
-    pshort PagesAcross; 
+    pshort PagesAcross;
     pshort ElSize;          /* Size of element; i.e., sizeof(fdxRec) */
     pshort PageSize;        /* RowsInPage * ColsInPage * ElSize */
     pshort PageCount;       /* Normally 1, but see below */
@@ -299,7 +299,7 @@ typedef struct {
 
 /* Although these records contain the conference and message numbers
    themselves, they should be stored in the same order as the messages in
-   MAIL.DAT. Message lengths can be calculated by subtracting the offset 
+   MAIL.DAT. Message lengths can be calculated by subtracting the offset
    field of an fdxRec from that of the next one.
 */
 
@@ -322,7 +322,7 @@ typedef struct {
 /* ### DUSRCFG.DAT structures ### */
 
 /* Only some packets have this. It indicates which areas are subscribed
-   to, and enables offline config. There's one header record, followed by 
+   to, and enables offline config. There's one header record, followed by
    one record for each area.
 */
 
@@ -436,7 +436,7 @@ typedef struct {
    intended for security/validation purposes, mainly indicating the
    registration status of the reader.
 
-   Line 1: A textual representation of a boolean, either "TRUE" or 
+   Line 1: A textual representation of a boolean, either "TRUE" or
            "FALSE". It's "TRUE" only if the packet comes from a registered
            reader AND the user name matches the registered user.
    Line 2: Blank, in replies where line 1 is "FALSE"; otherwise, a

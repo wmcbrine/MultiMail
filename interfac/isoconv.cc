@@ -9,7 +9,7 @@
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
 
-/* Original tables by Peter Karlsson, modified by William McBrine after 
+/* Original tables by Peter Karlsson, modified by William McBrine after
    DOSEmu's video/terminal.h, by Mark D. Rejhon. */
 
 #include "interfac.h"

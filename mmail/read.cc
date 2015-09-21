@@ -85,7 +85,7 @@ void main_read_class::init()
         readFile = readFileN ? wl->ftryopen(readFileN) : 0;
 
         if (readFile) {
-            // Don't init personal area, unless using QWK personal.ndx 
+            // Don't init personal area, unless using QWK personal.ndx
             // (this is for backwards compatibility):
 
             int skip = hasPersArea && !hasPersNdx;
@@ -174,7 +174,7 @@ bool main_read_class::saveAll()
     }
 
     // add the .red file to the packet
-    return !compressAddFile(ro, ro->get(PacketDir), ro->get(PacketName), 
+    return !compressAddFile(ro, ro->get(PacketDir), ro->get(PacketName),
                             oldFileN ? oldFileN : readFileN);
 }
 

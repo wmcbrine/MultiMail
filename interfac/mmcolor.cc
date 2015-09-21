@@ -59,7 +59,7 @@ chtype ColorClass::allcolors[numColors] = {
     COL(COLOR_YELLOW, COLOR_BLUE) | A_BOLD,      //Add. backgnd
     COL(COLOR_GREEN, COLOR_BLUE) | A_BOLD,       //Add. headers
     COL(COLOR_CYAN, COLOR_BLUE) | A_BOLD,        //Address book/text
-	
+
     COL(COLOR_WHITE, COLOR_RED) | A_BOLD,        //Warn/text
     COL(COLOR_YELLOW, COLOR_RED) | A_BOLD,       //Warn/hilight
 
@@ -94,7 +94,7 @@ chtype ColorClass::allcolors[numColors] = {
     COL(COLOR_GREEN, COLOR_BLUE) | A_BOLD,       //border text
     COL(COLOR_YELLOW, COLOR_BLUE) | A_BOLD,      //border
     COL(COLOR_GREEN, COLOR_BLUE) | A_BOLD,       //header text
-	
+
     COL(COLOR_WHITE, COLOR_BLUE) | A_BOLD,       //Letter text
     COL(COLOR_CYAN, COLOR_BLUE),                 //Letter/enter get1
     COL(COLOR_GREEN, COLOR_BLUE) | A_BOLD,       //get2
@@ -122,22 +122,22 @@ chtype ColorClass::allcolors[numColors] = {
 
 const char *ColorClass::col_names[numColors] = {
 
-    "Main_Back", "Main_Border", "Main_BottSeparator", 
-    "BottHelp_Descrip", "BottHelp_Keys", "Help_Border", "Help_Text", 
-    "Welcome_Border", "Welcome_Header", "Welcome_Text", 
-    "Address_Border", "Address_Descrip", "Address_List", "Warn_Text", 
-    "Warn_Keys", "Letter_Text", "Letter_Quoted", "Letter_Tagline", 
-    "Letter_Tearline", "Letter_Hidden", "Letter_Origin", 
-    "Letter_Border", "LH_Text", "LH_Msgnum", "LH_From", "LH_To", 
-    "LH_Subject", "LH_Date", "LH_FlagsHigh", "LH_Flags", 
-    "Packet_Border", "Packet_Header", "Packet_List", 
-    "LittleArea_Header", "LittleArea_List", "Area_Reply", "Area_List", 
-    "Area_InfoDescrip", "Area_InfoText", "Area_TopText", "Area_Border", 
-    "Area_Header", "HeadEdit_Text", "HeadEdit_Input1", 
-    "HeadEdit_Input2", "Save_Border", "Save_Header", "Save_Input", 
-    "LettList_Text", "LettList_Personal", "LettList_Border", 
-    "LettList_TopText", "LettList_Area", "LettList_Header", 
-    "Tag_Border", "Tag_Text", "Tag_Keys", "Tag_Input1", "Tag_Input2", 
+    "Main_Back", "Main_Border", "Main_BottSeparator",
+    "BottHelp_Descrip", "BottHelp_Keys", "Help_Border", "Help_Text",
+    "Welcome_Border", "Welcome_Header", "Welcome_Text",
+    "Address_Border", "Address_Descrip", "Address_List", "Warn_Text",
+    "Warn_Keys", "Letter_Text", "Letter_Quoted", "Letter_Tagline",
+    "Letter_Tearline", "Letter_Hidden", "Letter_Origin",
+    "Letter_Border", "LH_Text", "LH_Msgnum", "LH_From", "LH_To",
+    "LH_Subject", "LH_Date", "LH_FlagsHigh", "LH_Flags",
+    "Packet_Border", "Packet_Header", "Packet_List",
+    "LittleArea_Header", "LittleArea_List", "Area_Reply", "Area_List",
+    "Area_InfoDescrip", "Area_InfoText", "Area_TopText", "Area_Border",
+    "Area_Header", "HeadEdit_Text", "HeadEdit_Input1",
+    "HeadEdit_Input2", "Save_Border", "Save_Header", "Save_Input",
+    "LettList_Text", "LettList_Personal", "LettList_Border",
+    "LettList_TopText", "LettList_Area", "LettList_Header",
+    "Tag_Border", "Tag_Text", "Tag_Keys", "Tag_Input1", "Tag_Input2",
     "Tag_List", "Shadow"
 };
 

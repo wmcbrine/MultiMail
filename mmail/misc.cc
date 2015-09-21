@@ -189,7 +189,7 @@ char *fixPath(const char *path)
 
     if ((d == '/') || (d == '\\')) {
         tmp = new char[len + 2];
-        sprintf(tmp, "%s.", path); 
+        sprintf(tmp, "%s.", path);
     } else
         tmp = strdupplus(path);
 

@@ -56,7 +56,7 @@ class resource : public baseconfig
 {
     static const char *rc_names[], *rc_intro[], *rc_comments[];
     static const int startUp[], defInt[];
- 
+
     char *resourceData[noOfStrings];
     int resourceInt[noOfResources - noOfStrings];
 
@@ -78,5 +78,5 @@ class resource : public baseconfig
     void set_noalloc(int, char *);
     void set(int, int);
 };
-	  
+
 #endif

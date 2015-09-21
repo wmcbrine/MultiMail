@@ -178,7 +178,7 @@ letter_header *opxpack::getNextLetter()
 
     currentLetter++;
 
-    return new letter_header(mm, mhead.f.subject, mhead.f.to, 
+    return new letter_header(mm, mhead.f.subject, mhead.f.to,
         mhead.f.from, date, 0, getshort(mhead.f.reply), letterID,
         getshort(mhead.msgnum), areaID, privat,
         getshort(mhead.length), this, na,

@@ -188,7 +188,7 @@ class InfoWin : public ShadowedWin
  public:
     char *lineBuf;
 
-    InfoWin(int, int, int, coltype, const char * = 0, coltype = C_SBACK, 
+    InfoWin(int, int, int, coltype, const char * = 0, coltype = C_SBACK,
             int = 3, int = 2);
     ~InfoWin();
     void irefresh();
@@ -216,7 +216,7 @@ class ListWindow
     InfoWin *list;
     int list_max_y, list_max_x, top_offset;
     int position;   //the first element in the window
-    int active;     //this is the highlited	
+    int active;     //this is the highlited
 
     coltype borderCol;
 
@@ -615,7 +615,7 @@ class AnsiWindow
     chtype *chtmp, attrib;  //current attribute
     bool isLatin, avtparse, bsvparse, isbsv;
     int atparse;
-	
+
     void oneLine(int);
     void lineCount();
     void DrawBody();

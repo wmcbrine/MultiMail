@@ -160,7 +160,7 @@ void LetterListWindow::MakeActiveCore()
 
     char *title = new char[COLS + 1];
 
-    char *end = title + sprintf(title, "%.*s | %s in %.*s", pnlen, pn, 
+    char *end = title + sprintf(title, "%.*s | %s in %.*s", pnlen, pn,
         modestr, nwidth, mm.areaList->getDescription());
 
     char *newend = end + sprintf(end, ", by %s", sortstr);
@@ -247,7 +247,7 @@ bool LetterListWindow::extrakeys(int key)
         break;
 #endif
     case 'U':
-    case 'M':	// Toggle read/unread and marked from letterlist
+    case 'M':  // Toggle read/unread and marked from letterlist
         mm.letterList->setStatus(mm.letterList->getStatus() ^
                                  ((key == 'U') ? MS_READ : MS_MARKED));
         ui->setAnyRead();

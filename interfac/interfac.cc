@@ -235,7 +235,7 @@ int Interface::WarningWindow(const char *warning, const char **selectors,
             case MM_MOUSE:
                 mm_mouse_get();
                 if ((LINES >> 1) == mm_mouse_event.y)
-                    for (p = selectors, curitem = 0; (curitem < items) 
+                    for (p = selectors, curitem = 0; (curitem < items)
                          && !result; curitem++, p++) {
 
                         z = strlen(*p);

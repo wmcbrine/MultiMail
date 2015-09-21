@@ -336,7 +336,7 @@ bool soup::parseFrom(const char *s)
                 else
                     if ((' ' == x[-11]) &&
                         (('+' == x[-10]) || ('-' == x[-10])))
- 
+
                        ti = -11;
         } else
             if (' ' == x[-4]) {             // Or three-letter time zone?
@@ -348,8 +348,8 @@ bool soup::parseFrom(const char *s)
                         ti = -11;
                 }
 
-        if (ti && !((':' == x[ti - 3]) && (' ' == x[ti -= ((':' == x[ti 
-            - 6]) ? 9 : 6)]) && (' ' == x[ti - 3]) && (' ' == x[ti - 7]) 
+        if (ti && !((':' == x[ti - 3]) && (' ' == x[ti -= ((':' == x[ti
+            - 6]) ? 9 : 6)]) && (' ' == x[ti - 3]) && (' ' == x[ti - 7])
             && (' ' == x[ti - 11])))
 
             ti = 0;
@@ -678,9 +678,9 @@ void soup::readAreas()
 
                     tmparea->mode = *rawattr;
 
-                    tmparea->attr = ACTIVE | LATINCHAR | INTERNET | 
-                        (((rawattr[2] == 'n') || ((rawattr[2] != 'm') && 
-                        ((*rawattr == 'B') || (*rawattr == 'u')))) ? 
+                    tmparea->attr = ACTIVE | LATINCHAR | INTERNET |
+                        (((rawattr[2] == 'n') || ((rawattr[2] != 'm') &&
+                        ((*rawattr == 'B') || (*rawattr == 'u')))) ?
                         PUBLIC : (NETMAIL | PRIVATE));
 
                     sprintf(tmparea->numA, "%5d", maxConf++);

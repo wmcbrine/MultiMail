@@ -8,7 +8,7 @@
  Distributed under the GNU General Public License.
  For details, see the file COPYING in the parent directory. */
 
-#ifndef MMAIL_H 
+#ifndef MMAIL_H
 #define MMAIL_H
 
 #include "../config.h"
@@ -43,7 +43,7 @@ extern "C" {
 #define LATINCHAR   0x100L
 #define ECHOAREA    0x200L
 #define PERSONLY    0x400L
-#define PERSALL	    0x800L
+#define PERSALL     0x800L
 #define SUBKNOWN    0x1000L
 #define ADDED       0x2000L
 #define DROPPED     0x4000L
@@ -103,7 +103,7 @@ class mmail
     letter_list *letterList;
     specific_driver *packet;
     reply_driver *reply;
-	
+
     mmail();
     ~mmail();
     pktstatus selectPacket(const char *);
@@ -114,7 +114,7 @@ class mmail
     void deleteReplies();
     void openReply();
     bool getOffConfig();
-};	
+};
 
 class file_header
 {
@@ -363,7 +363,7 @@ class letter_header
 };
 
 class letter_list
-{ 
+{
     mmail *mm;
     driver_list *dl;
     specific_driver *driver;
@@ -527,7 +527,7 @@ class specific_driver
 
 class reply_driver : public specific_driver
 {
- public:	
+ public:
     virtual ~reply_driver();
     virtual bool checkForReplies() = 0;
     virtual void init() = 0;

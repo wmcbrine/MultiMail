@@ -380,7 +380,7 @@ void file_list::setFilter(const char *newfilter)
     if (filter && !(noOfDirs + noOfFiles)) {
         delete[] filter;
         filter = 0;
-		
+
         cleanup();
         relist();
     }

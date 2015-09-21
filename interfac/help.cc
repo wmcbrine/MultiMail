@@ -79,7 +79,7 @@ void HelpWindow::h_packetlist()
         "B", "Space, F", "^X",
         "T", "|, ^"
     }, *func[] = {
-        "Quit", "select packet", "change Sort type", 
+        "Quit", "select packet", "change Sort type",
         "Kill packet", "search / next", "Go to directory",
          "Update list", "Rename packet",
 
@@ -129,7 +129,7 @@ void HelpWindow::h_letterlist()
 
         "A", "^T", "F2, !"
     }, *repfunc[] = {
-        "Kill letter", "read letter", "change sort type", 
+        "Kill letter", "read letter", "change sort type",
         "Edit letter", "Forward letter", "Save (all/marked)",
         0, "Break into parts",
 

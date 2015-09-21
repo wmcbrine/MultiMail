@@ -15,11 +15,11 @@
 // -----------------------------------------------------------------
 
 area_header::area_header(mmail *mmA, int numA, const char *shortNameA,
-    const char *nameA, const char *descriptionA, const char *areaTypeA, 
-    unsigned long typeA, int noOfLettersA, int noOfPersonalA, int 
-    maxtolenA, int maxsublenA) : mm(mmA), shortName(shortNameA), 
-    name(nameA), description(descriptionA), areaType(areaTypeA), 
-    type(typeA), noOfLetters(noOfLettersA), noOfPersonal(noOfPersonalA), 
+    const char *nameA, const char *descriptionA, const char *areaTypeA,
+    unsigned long typeA, int noOfLettersA, int noOfPersonalA,
+    int maxtolenA, int maxsublenA) : mm(mmA), shortName(shortNameA),
+    name(nameA), description(descriptionA), areaType(areaTypeA),
+    type(typeA), noOfLetters(noOfLettersA), noOfPersonal(noOfPersonalA),
     maxtolen(maxtolenA), maxsublen(maxsublenA)
 {
     noOfReplies = 0;
@@ -215,7 +215,7 @@ area_list::area_list(mmail *mmA) : mm(mmA)
     almode = mm->resourceObject->getInt(AreaMode) - 1;
     relist();
 
-    // 1. Find out what types of areas we have (i.e. qwk, usenet... ) 
+    // 1. Find out what types of areas we have (i.e. qwk, usenet... )
     // 2. Create the appropriate driver objects
     // 3. Find out the number of areas for each type
     // 4. Allocate the memory for the area_header descriptions
@@ -242,7 +242,7 @@ bool area_list::relist()
 
     // Check if Active/Subscribed distincion makes sense -- checks
     // the last area, instead of making a global per-packet check;
-    // bogus, but it works, because this value is always the same for 
+    // bogus, but it works, because this value is always the same for
     // each area in a packet:
 
     if ((almode == 1) && !(areaHeader[no - 1]->getType() & SUBKNOWN))

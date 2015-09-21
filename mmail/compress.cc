@@ -74,7 +74,7 @@ pktstatus uncompressFile(resource *ro, const char *fname,
     return mysystem2(ro->get(uncstr[at]), fname) ? UNCOMP_FAIL : PKT_OK;
 }
 
-int compressAddFile(resource *ro, const char *arcdir, const char *arcfile, 
+int compressAddFile(resource *ro, const char *arcdir, const char *arcfile,
                     const char *addfname)
 {
     static const int cmpstr[] = {
@@ -85,7 +85,7 @@ int compressAddFile(resource *ro, const char *arcdir, const char *arcfile,
     int result;
 
     char *filepath = fullpath(arcdir, arcfile);
-	
+
     mystat st(filepath);
 
 #ifdef TAR_KLUDGE
@@ -106,7 +106,7 @@ int compressAddFile(resource *ro, const char *arcdir, const char *arcfile,
         result = mysystem(cmdline);
 
         st.reset_date(filepath);
-		
+
         if (lastAType == A_LHA) {    // then the fixup
             strcpy(filepath, arcfile);
             strtok(filepath, ".");

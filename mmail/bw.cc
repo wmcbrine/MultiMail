@@ -336,7 +336,7 @@ void bluewave::initInf()
     LoginName = strdupplus((char *) infoHeader.loginname);
     AliasName = strdupplus((char *) infoHeader.aliasname);
     SysOpName = strdupplus((char *) infoHeader.sysop);
-    BBSName = strdupplus((char *) infoHeader.systemname); 
+    BBSName = strdupplus((char *) infoHeader.systemname);
 
     // Areas
 
@@ -411,7 +411,7 @@ void bluewave::initMixID()
 
                     cropesp((char *) ftiRec.to);
                     if ((!strcasecmp((char *) ftiRec.to, LoginName) ||
-			 !strcasecmp((char *) ftiRec.to, AliasName)) &&
+                         !strcasecmp((char *) ftiRec.to, AliasName)) &&
                         (personal < maxpers)) {
 
                         persNdx[personal].area = c;

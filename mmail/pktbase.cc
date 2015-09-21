@@ -476,7 +476,7 @@ pktreply::upl_base::upl_base(const char *name)
 {
     if (name)
         fname = strdupplus(name);
-    else 
+    else
         fname = mytmpnam();
 
     nextRecord = 0;
@@ -812,8 +812,8 @@ bool pktreply::makeReply()
     deleteReplies();
 
     // pack the files
-    int result = compressAddFile(mm->resourceObject, 
-                 mm->resourceObject->get(ReplyDir), replyPacketName, 
+    int result = compressAddFile(mm->resourceObject,
+                 mm->resourceObject->get(ReplyDir), replyPacketName,
                  repTemplate(offres));
 
     // clean up the work area

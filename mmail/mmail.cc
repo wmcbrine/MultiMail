@@ -204,7 +204,7 @@ void mmail::deleteReplies()
     reply->deleteReplies();
 
     // to reset the "replyExists" flag (inelegant, I know):
-    checkForReplies();	
+    checkForReplies();
 }
 
 void mmail::openReply()

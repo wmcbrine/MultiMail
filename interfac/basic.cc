@@ -204,7 +204,7 @@ int Win::keypressed()
     nocbreak();  // Clear any halfdelay() set
     cbreak();    // Back to normal -- is there a better way?
     nodelay(win, TRUE);
-	
+
     return wgetch(win);
 }
 
@@ -411,7 +411,7 @@ int ShadowedWin::getstring(int y, int x, char *string, int maxlen,
                 i++;
             break;
         case 127:
-        case MM_DEL:    // Delete key 
+        case MM_DEL:    // Delete key
             strncpy(&tmp[i], &tmp[i + 1], maxlen - i);
             tmp[maxlen] = '\0';
             break;
@@ -756,7 +756,7 @@ bool ListWindow::KeyHandle(int key)
                                     Move(KEY_PPAGE);
                         } else {
                             bool select = (mm_mouse_event.bstate &
-                                           BUTTON1_DOUBLE_CLICKED) 
+                                           BUTTON1_DOUBLE_CLICKED)
                                 || (active == (position + mm_mouse_event.y));
                             active = position + mm_mouse_event.y;
                             if (select) {

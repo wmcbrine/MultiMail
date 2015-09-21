@@ -19,7 +19,7 @@ void Welcome::MakeActive()
     window->attrib(C_WELCOME1);
     window->put(1, 7, "Welcome to " MM_NAME " Offline Reader!");
     window->attrib(C_WELCOME2);
-    window->put(3, 2, "Copyright (c) 2015 William McBrine, Kolossvary"); 
+    window->put(3, 2, "Copyright (c) 2015 William McBrine, Kolossvary");
     window->put(4, 7, "Tamas, Toth Istvan, John Zero, et al.");
     window->touch();
 }
@@ -186,7 +186,7 @@ int PacketListWindow::NumOfItems()
 
 void PacketListWindow::Delete()
 {
-    delete list;	
+    delete list;
 #ifdef VANITY_PLATE
     welcome.Delete();
 #endif
@@ -315,7 +315,7 @@ bool PacketListWindow::extrakeys(int key)
         int begx = list->xstart(), begy = list->ystart();
 
         if ( (mm_mouse_event.y != begy) ||
-	    ((mm_mouse_event.x < (begx + 3)) ||
+            ((mm_mouse_event.x < (begx + 3)) ||
              (mm_mouse_event.x > (begx + list_max_x))) )
 
             break;
@@ -461,7 +461,7 @@ pktstatus PacketListWindow::OpenPacket()
     Select();
     if (active < noDirs) {
 
-        if (newDir(0)) 
+        if (newDir(0))
             ui->redraw();
         else
             ui->nonFatalError("Could not change to directory");

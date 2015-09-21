@@ -19,7 +19,7 @@
 enum coltype {
     C_SBACK,        //Start screen/backgnd
     C_SBORDER,      //Start/bdr
-    C_SSEPBOTT,     //Start screen/bottom 
+    C_SSEPBOTT,     //Start screen/bottom
     C_HELP1,        //Help desc.
     C_HELP2,        //Help keys
     C_HELP3,        //Help 2 bdr
@@ -40,17 +40,17 @@ enum coltype {
     C_LORIGIN,      //Letter/origin
     C_LBOTTSTAT,    //Letter/bottom statline
     C_LHEADTEXT,    //Letter/header text
-    C_LHMSGNUM,     //msgnum 
+    C_LHMSGNUM,     //msgnum
     C_LHFROM,       //from
     C_LHTO,         //to
     C_LHSUBJ,       //subject
     C_LHDATE,       //date
     C_LHFLAGSHI,    //flags high
     C_LHFLAGS,      //flags
-    C_PBBACK,       //Packet/header 
+    C_PBBACK,       //Packet/header
     C_PHEADTEXT,    //line text
     C_PLINES,       //Packet/lines
-    C_LALBTEXT,     //Little area 
+    C_LALBTEXT,     //Little area
     C_LALLINES,     //line text
     C_ALREPLINE,    //Area list/reply area
     C_ALPACKETLINE, //Area list/normal

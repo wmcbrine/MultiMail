@@ -266,7 +266,7 @@ int AddressBook::Edit(Person &p)
     add_edit.update();
 
     do {
-        result = HeaderLine(add_edit, current ? NETADD : NAME, 99, 
+        result = HeaderLine(add_edit, current ? NETADD : NAME, 99,
                             current + 1, current ? C_LEGET2 : C_LEGET1);
 
         switch (result) {
@@ -407,7 +407,7 @@ void AddressBook::MakeChain()
         while (curr) {
             if (!curr->killed) {
                 people[c++] = curr;
-                if (!filter || (searchstr(curr->name, filter) 
+                if (!filter || (searchstr(curr->name, filter)
                     || searchstr(curr->netmail_addr, filter)))
                     living[NumOfActive++] = curr;
             }

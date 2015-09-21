@@ -253,7 +253,7 @@ int AnsiWindow::getparm()
     char *parm;
     int value;
 
-    if (escparm[0]) { 
+    if (escparm[0]) {
         for (parm = escparm; (*parm != ';') && *parm; parm++);
 
         if (*parm == ';') {             // more params after
@@ -281,7 +281,7 @@ void AnsiWindow::cls()
         if (baseline < (NumOfLines - 1))
             baseline = NumOfLines - 1;
     }
-    posreset();	
+    posreset();
 }
 
 void AnsiWindow::colreset()
@@ -890,7 +890,7 @@ void AnsiWindow::statupdate(const char *intro)
     char *tmp = new char[COLS + 1];
     const char *pn = mm.resourceObject->get(PacketName);
     bool expert = mm.resourceObject->getInt(ExpertMode);
-	
+
     int pnlen = strlen(pn);
     if (pnlen > 20)
         pnlen = 20;

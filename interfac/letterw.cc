@@ -144,7 +144,7 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
         char *src,
 #endif
             *dest, *begin;
-		
+
         int len, maxcol;
         lineattr tmpattr;
 
@@ -302,7 +302,7 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
 
                 // Start a new line on a word boundary (if needed):
 
-                if ((len >= maxcol) && begin && ((src - begin) < maxcol) 
+                if ((len >= maxcol) && begin && ((src - begin) < maxcol)
                     && !(rejoin && (Quoted == tmpattr))) {
 
                     x = src - begin;
@@ -508,7 +508,7 @@ void LetterWindow::UpdateHeader()
     } else
         sprintf(tmp, "%.*s", maxToFromWidth,
                 (const char *) mm.letterList->getNetAddr());
-		
+
     letterconv_in(tmp);
     header->put(2, 8, tmp);
 
@@ -623,7 +623,7 @@ void LetterWindow::DrawStat()
         sprintf(format, " %%.*s | %%-*.*s%%s");
 
     const char *s = mm.letterList->getNewsgrps();
-    sprintf(tmp, format, pnlen, pn, maxw, maxw, s ? s : 
+    sprintf(tmp, format, pnlen, pn, maxw, maxw, s ? s :
             mm.areaList->getDescription(), expert ? "" : helpmsg);
     areaconv_in(tmp);
 

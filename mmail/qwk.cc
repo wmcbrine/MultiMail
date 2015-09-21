@@ -162,7 +162,7 @@ void qheader::set_length(FILE *repFile, long headerpos, long curpos)
 qwkpack::qwkpack(mmail *mmA) : pktbase(mmA)
 {
     qwke = !(!mm->workList->exists("toreader.ext"));
-	
+
     readControlDat();
     readDoorId();
     if (qwke)
@@ -193,11 +193,11 @@ area_header *qwkpack::getNextArea()
     int cMsgNum = areas[ID].nummsgs;
     bool x = (areas[ID].num == -1);
 
-    area_header *tmp = new area_header(mm, ID + 1, areas[ID].numA, 
-        areas[ID].name, (x ? "Letters addressed to you" : areas[ID].name), 
-        (greekqwk ? (x ? "GreekQWK personal" : "GreekQWK") : (qwke ? (x 
-        ? "QWKE personal" : "QWKE") : (x ? "QWK personal" : "QWK"))), 
-        areas[ID].attr | hasOffConfig | (cMsgNum ? ACTIVE : 0), cMsgNum, 
+    area_header *tmp = new area_header(mm, ID + 1, areas[ID].numA,
+        areas[ID].name, (x ? "Letters addressed to you" : areas[ID].name),
+        (greekqwk ? (x ? "GreekQWK personal" : "GreekQWK") : (qwke ? (x
+        ? "QWKE personal" : "QWKE") : (x ? "QWK personal" : "QWK"))),
+        areas[ID].attr | hasOffConfig | (cMsgNum ? ACTIVE : 0), cMsgNum,
         0, 25, qwke ? 72 : 25);
 
     ID++;
@@ -283,7 +283,7 @@ bool qwkpack::externalIndex()
                             break;
                         }
                         unsigned long temp = MSBINtolong(ndx_rec.MSB) << 7;
-				    
+
                         if ((temp < 256) || (temp > endpoint)) {
                             hasNdx = false;    // use other method
                             break;
@@ -400,13 +400,13 @@ letter_header *qwkpack::getNextLetter()
         return new letter_header(mm, "MESSAGES.DAT", "READING", "ERROR",
                                  "ERROR", 0, 0, 0, 0, 0, false, 0, this,
                                  nullNet, false);
-	
+
     body[areaID][letterID].msgLength = q.msglen;
 
     currentLetter++;
 
-    return new letter_header(mm, q.subject, q.to, q.from, q.date, 0, 
-        q.refnum, letterID, q.msgnum, areaID, q.privat, q.msglen, this, 
+    return new letter_header(mm, q.subject, q.to, q.from, q.date, 0,
+        q.refnum, letterID, q.msgnum, areaID, q.privat, q.msglen, this,
         nullNet, !(!(areas[areaID].attr & LATINCHAR)));
 }
 
@@ -421,7 +421,7 @@ void qwkpack::getblk(int, long &offset, long blklen,
         if (!kar)
             kar = ' ';
 
-        *p++ = (kar == linebreak) ? '\n' : kar;	
+        *p++ = (kar == linebreak) ? '\n' : kar;
 
         if (kar == linebreak) {
             begin = p;
@@ -641,7 +641,7 @@ void qwkpack::readToReader()
                     if (strchr(s, 'R'))
                         attr |= READONLY;
 
-                    /* Set character set to Latin-1 for Internet or 
+                    /* Set character set to Latin-1 for Internet or
                        Usenet areas -- but is this the right thing here? */
 
                     if (strchr(s, 'U') || strchr(s, 'I'))
@@ -771,10 +771,10 @@ letter_header *qwkreply::getNextLetter()
     int area = ((qwkpack *) baseClass)->
         getXNum((int) current->qHead.msgnum) + 1;
 
-    letter_header *newLetter = new letter_header(mm, 
-        current->qHead.subject, current->qHead.to, current->qHead.from, 
-        current->qHead.date, 0, current->qHead.refnum, currentLetter, 
-        currentLetter, area, current->qHead.privat, 
+    letter_header *newLetter = new letter_header(mm,
+        current->qHead.subject, current->qHead.to, current->qHead.from,
+        current->qHead.date, 0, current->qHead.refnum, currentLetter,
+        currentLetter, area, current->qHead.privat,
         current->qHead.msglen, this, nullNet, mm->areaList->isLatin(area));
 
     currentLetter++;
@@ -818,7 +818,7 @@ void qwkreply::addRep1(FILE *rep, upl_base *node, int)
     l->qHead.output(rep);
 
     if (strlen(l->qHead.subject) > 25)
-        fprintf(rep, "Subject: %s%c%c", l->qHead.subject, linebreak, 
+        fprintf(rep, "Subject: %s%c%c", l->qHead.subject, linebreak,
                 linebreak);
 
     replyFile = fopen(l->fname, "rt");
@@ -939,13 +939,13 @@ bool qwkreply::makeOffConfig()
 
         if (attrib & (ADDED | DROPPED)) {
             if (qwke)
-                fprintf(todoor, "AREA %s %c\r\n", 
-                        mm->areaList->getShortName(), (attrib & ADDED) ? 
-                        ((attrib & PERSONLY) ? 'p' : ((attrib & PERSALL) 
+                fprintf(todoor, "AREA %s %c\r\n",
+                        mm->areaList->getShortName(), (attrib & ADDED) ?
+                        ((attrib & PERSONLY) ? 'p' : ((attrib & PERSALL)
                         ? 'g' : 'a')) : 'D');
             else {
                 ctrlMsg = new letter_header(mm, (attrib & ADDED) ?
-                          "ADD" : "DROP", ctrlName, myname, "", 0, 0, 0, 
+                          "ADD" : "DROP", ctrlName, myname, "", 0, 0, 0,
                           0, areaNo, false, 0, this, bogus, false);
 
                 enterLetter(*ctrlMsg, "", 0);

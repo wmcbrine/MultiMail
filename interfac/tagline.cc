@@ -13,7 +13,7 @@
 extern "C" int tnamecmp(const void *a, const void *b)
 {
     int d;
-	
+
     const char *p = (*((tagline **) a))->text;
     const char *q = (*((tagline **) b))->text;
 
@@ -183,7 +183,7 @@ void TaglineWindow::EnterTagline(const char *tag)
 
     strcpy(newtagline, tag ? tag : "");
 
-    if (list->getstring(nodraw ? 2 : y, 1, newtagline, TAGLINE_LENGTH, 
+    if (list->getstring(nodraw ? 2 : y, 1, newtagline, TAGLINE_LENGTH,
         C_TENTER, C_TENTERGET)) {
 
         cropesp(newtagline);
@@ -228,7 +228,7 @@ void TaglineWindow::EditTagline()
     char newtagline[TAGLINE_LENGTH + 1];
 
     strcpy(newtagline, getCurrent());
-    if (list->getstring(active - position + 1, 1, newtagline, 
+    if (list->getstring(active - position + 1, 1, newtagline,
         TAGLINE_LENGTH, C_TENTER, C_TENTERGET)) {
 
         cropesp(newtagline);

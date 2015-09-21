@@ -31,7 +31,7 @@ void LetterWindow::QuoteText(FILE *reply)
     width -= inet ? 2 : 6;
 
     char c;
-    const char *s, *quotestr = mm.resourceObject->get(inet ? InetQuote : 
+    const char *s, *quotestr = mm.resourceObject->get(inet ? InetQuote :
                                                       QuoteHead);
 
     // Format header:
@@ -388,7 +388,7 @@ void LetterWindow::EnterLetter(int replyto_area, char key)
 
     char *reply_filename = mytmpnam();
 
-    // Quote the old text 
+    // Quote the old text
 
     if (key != 'E') {
         reply = fopen(reply_filename, "wt");
@@ -697,7 +697,7 @@ bool LetterWindow::SplitLetter(int lines)
     int padsize = 1;
     while (x /= 10)
         padsize++;
-	
+
     bool privat = mm.letterList->getPrivate();
 
     int clines = 0;

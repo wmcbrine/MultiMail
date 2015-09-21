@@ -152,11 +152,11 @@ char *mytmpdir(const char *home)
 
     if (mychdir(home))
         fatalError("Could not change to temp dir");
-	
+
     do
         sprintf(name, "work%04x", (rand() & 0xffff));
     while (st.init(name));
-	
+
     return canonize(fullpath(home, name));
 }
 
@@ -393,7 +393,7 @@ long maxfreemem()
     return
 # ifdef __WATCOMC__
         (long) _memmax();
-# else	// Turbo C++
+# else  // Turbo C++
         (long) coreleft();
 # endif
 }
@@ -497,8 +497,8 @@ void Shell::out()
 
 #ifdef EXTRAPATH
 
-/* Add the starting directory and the MMAIL directory to the PATH, 
-   mainly for the benefit of Windows, where InfoZip is not standard. 
+/* Add the starting directory and the MMAIL directory to the PATH,
+   mainly for the benefit of Windows, where InfoZip is not standard.
    (But currently this is enabled for all the DOSish ports.)
 */
 ExtraPath::ExtraPath()
