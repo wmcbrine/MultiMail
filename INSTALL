@@ -9,11 +9,7 @@ precompiled binaries, see the README files that accompany them instead.
     or PKZIP (and/or LHA, ARJ, etc.) to uncompress the packets and
     compress the replies. InfoZip is available from:
 
-    http://www.info-zip.org/
-
-    PKZIP is at:
-
-    http://www.pkware.com/
+    http://info-zip.org/
 
     (PKZIP is the default for DOS; InfoZip is the default for other
     platforms.) The programs should be installed somewhere in the PATH;
@@ -22,11 +18,11 @@ precompiled binaries, see the README files that accompany them instead.
     To compile MultiMail, you'll need curses -- either ncurses, SysV
     curses (e.g., Solaris curses), or PDCurses. You can get ncurses from:
 
-    http://dickey.his.com/ncurses/
+    http://invisible-island.net/ncurses/
 
     PDCurses is available at:
 
-    http://pdcurses.sf.net/
+    http://pdcurses.org/
 
     (If you're using Linux, odds are that you already have ncurses and
     InfoZip.) Also, bear in mind that MultiMail needs the C++ standard 

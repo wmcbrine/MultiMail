@@ -11,7 +11,7 @@ Version:	%{version}
 Release:	%{release}
 Copyright:	GPL
 Group:		Applications/Mail
-URL:		http://multimail.sourceforge.net
+URL:		http://wmcbrine.com/mmail/
 Source:		%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
