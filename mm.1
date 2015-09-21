@@ -360,7 +360,7 @@ The default directory for saving messages.
 The config file (see above) is a plain text file with a series of values,
 one per line, in the form "KeyWord: Value". The case of the keywords is
 not signifigant. Additional, comment lines may be present, starting with
-'#'; you can remove these or add your own. (But note that the comments are
+\&'#'; you can remove these or add your own. (But note that the comments are
 replaced by the defaults when you upgrade to a new version.) If any of the
 keywords are missing, default values will be used.
 
@@ -686,7 +686,7 @@ in the default directories; previously they were "~/mmail/bwdown", etc.
 .SH NOTES
 Unlike the other archive types, tar/gzip recompresses the entire packet
 when updating the .red flags, so it can be a bit slow. Also, the supplied
-command lines assume GNU tar, which has gzip built-in. Seperated
+command lines assume GNU tar, which has gzip built-in. Separated
 gunzip/tar and tar/gzip command lines are possible, but would require a
 (simple) external script. MultiMail only checks for the gzip signature,
 and does not actually verify that the gzipped file is a tar file.
@@ -716,7 +716,7 @@ specified along with the path.
 
 If you're using the XCurses (PDCurses) version, and your editor isn't an X
 app, it will work better if you set MultiMail's "editor" keyword to
-"xterm -e filename" (instead of just "filename"). I decided not to do
+"xterm \-e filename" (instead of just "filename"). I decided not to do
 this automatically because someone might actually use it with an X editor.
 
 Editing and deletion of old replies are available through the REPLY area,
