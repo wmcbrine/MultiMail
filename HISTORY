@@ -283,7 +283,7 @@ Bug fixes and such:
 - Narrowed the width of some windows as a workaround for display bugs in
   xterm.
 
-- Added "-inul" to the default command lines for RAR to supress the output.
+- Added "-inul" to the default command lines for RAR to suppress the output.
 
 - Minor internal changes to allow compilation and remove warnings under
   Sun's SUNWspro C++ compiler. This also entailed the elimination of the
@@ -487,7 +487,7 @@ Bug fixes and such:
   standard practice in the alt.binaries.* newsgroups.
 
 - Added the undocumented option "-#" to the default command lines for PKZip
-  and PKUnzip. This supresses output, equivalent to the "-q" option used in
+  and PKUnzip. This suppresses output, equivalent to the "-q" option used in
   the default InfoZip command lines. Suggested by K.H. (Note that if you're
   upgrading, you'll have to put it in manually, if you want it; as always,
   MultiMail won't alter values that are already specified in its config
@@ -619,7 +619,7 @@ New features:
   current time. I needed this because I actually depend on the timestamps
   being updated sometimes.
 
-- New "ExpertMode" option supresses the help text, for those who are
+- New "ExpertMode" option suppresses the help text, for those who are
   familiar with the commands and would rather use more of the screen for
   text. Four lines are gained in the packet, area and letter lists, among
   other gains.
@@ -1419,7 +1419,7 @@ Bug fixes and such:
   (and the header window) during the reply process have been cleared up.
 
 - The "This will overwrite any existing reply packet" warning from the F2
-  function is now supressed if there is no packet.
+  function is now suppressed if there is no packet.
 
 - MultiMail will now display a warning if the reply packet is not created,
   or if the last read markers could not be saved. Also, it will pause for
@@ -1431,7 +1431,7 @@ Bug fixes and such:
   couldn't reproduce): calls to clearDirectory() now pass the name of the
   working directory explicitly, rather than ".".
 
-- Added "-e" to the default add command for ARJ to supress pathname
+- Added "-e" to the default add command for ARJ to suppress pathname
   inclusion. Suggested by Ken Whiton.
 
 - The separate colors for the Search window have been eliminated, as the
@@ -1477,7 +1477,7 @@ New features:
   area or message. The default character set is CP437 (as before), except
   for Internet or Usenet areas (as marked by Blue Wave or QWKE flags), which
   are Latin-1. The character set in individual Fidonet messages can be
-  overriden by the "CHRS:" or "CHARSET:" kludges. Replies are set according
+  overridden by the "CHRS:" or "CHARSET:" kludges. Replies are set according
   to the default for the destination area.
 
 - The console character set and the default sort types for the packet and
@@ -2448,7 +2448,7 @@ Bug fixes and such:
   during the same session could cause a segfault.
 
 - Terminal newlines stripped from replies. Conforms to the Blue Wave reader;
-  supresses gaps after the tagline with some doors.
+  suppresses gaps after the tagline with some doors.
 
 - QWK subject fields had been truncated at 24 characters. (The field is 25
   chars.)

@@ -195,7 +195,7 @@ const char *resource::rc_intro[] = {
  "(shown here) will be used.",
  "",
  "If you change either of the base directories, all the subsequent paths",
- "will be changed, unless they're overriden in the individual settings.",
+ "will be changed, unless they're overridden in the individual settings.",
  "",
  "Please see the man page for a more thorough explanation of these options.",
  0
@@ -240,7 +240,7 @@ const char *resource::rc_comments[startUpLen] = {
  "8-bit character set for SOUP packets (see docs)",
  "Quoted-printable options for outgoing messages (see docs)",
     0, 0, 0,
- "Supress help messages (use more of the screen for content)",
+ "Suppress help messages (use more of the screen for content)",
  "For QWK only: Generate indexes from MESSAGES.DAT instead of *.NDX",
  "Allow use of the mouse?"
 #ifdef USE_SPAWNO

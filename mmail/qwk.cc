@@ -785,7 +785,7 @@ letter_header *qwkreply::getNextLetter()
 void qwkreply::enterLetter(letter_header &newLetter,
                            const char *newLetterFileName, long length)
 {
-    // Specify the format separately from strftime() to supress
+    // Specify the format separately from strftime() to suppress
     // GCC's Y2K warning:
     const char *datefmt_qwk = "%m-%d-%y %H:%M";
 

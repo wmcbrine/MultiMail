@@ -46,7 +46,7 @@ area_header *opxpack::getNextArea()
 
 void opxpack::buildIndices()
 {
-    FILE *fdxFile = 0;    // warning supression
+    FILE *fdxFile = 0;    // warning suppression
     msgHead mhead;
     fdxHeader fhead;
     fdxRec frec;
@@ -685,7 +685,7 @@ letter_header *opxreply::getNextLetter()
 void opxreply::enterLetter(letter_header &newLetter,
                            const char *newLetterFileName, long length)
 {
-    // Specify the format separately from strftime() to supress
+    // Specify the format separately from strftime() to suppress
     // GGC's Y2K warning:
     const char *datefmt_opx = "%d %b %y  %H:%M:%S";
 
