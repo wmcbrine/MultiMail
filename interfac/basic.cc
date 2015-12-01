@@ -242,7 +242,7 @@ void Win::boxtitle(coltype backg, const char *title, chtype titleAttrib)
 void Win::clreol(int y, int x)
 {
     for (int i = x; i < COLS; i++)
-        put(y, i, (chtype) ' ' | curratt);
+        put(y, i, (chtype) (' ' | curratt));
 }
 
 #ifdef USE_MOUSE
@@ -453,7 +453,7 @@ int ShadowedWin::getstring(int y, int x, char *string, int maxlen,
             offset++;
 
         for (j = offset; j < dwidth + offset; j++)
-            put(y, x + j - offset, (tmp[j] ? (unsigned char) tmp[j] :
+            put(y, x + j - offset, (chtype) (tmp[j] ? (unsigned char) tmp[j] :
                 ACS_BOARD));
         wmove(win, y, x + i - offset);
         update();
