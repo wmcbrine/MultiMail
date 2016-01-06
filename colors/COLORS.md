@@ -6,8 +6,8 @@ terminals). When you run MultiMail for the first time, the file "colors"
 will be automatically generated in the "mmail" directory, listing the
 default colors.
 
-The format for each line is "ItemName: <foreground>, <background>,
-<attribute>", where foreground and background are one of Black, Blue,
+The format for each line is "ItemName: \<foreground\>, \<background\>,
+\<attribute\>", where foreground and background are one of Black, Blue,
 Green, Cyan, Red, Magenta, Yellow, or White, and the attribute may be Bold
 or Reverse. Only the first three letters are actually checked, and case
 is not signifigant.
@@ -43,30 +43,30 @@ You can switch between color schemes by changing the "ColorFile" keyword
 in your .mmailrc to point to a new file. The example color files included
 here are:
 
-  aqua.col    -  This is the first color scheme I've made for myself, and
+- aqua.col    -  This is the first color scheme I've made for myself, and
                  it's the one I'm using now. It's based on blue and cyan,
                  with white backgrounds for black text, and just a hint of
                  red. :-)
 
-  gilmore.col -  Donated by Gary Gilmore.
+- gilmore.col -  Donated by Gary Gilmore.
 
-  holger2.col -  Donated by Holger Granholm.
+- holger2.col -  Donated by Holger Granholm.
 
-  ingo.col    -  Approximately the color scheme used by Ingo Brueckl in
+- ingo.col    -  Approximately the color scheme used by Ingo Brueckl in
                  his own version of MultiMail. It resembles the version
                  0.1 color scheme.
 
-  tonys.col   -  Donated by Tony Summerfelt.
+- tonys.col   -  Donated by Tony Summerfelt.
 
-  toutant.col -  Donated by David Toutant.
+- toutant.col -  Donated by David Toutant.
 
-  tradit.col  -  The standard color scheme used in versions 0.2 through
+- tradit.col  -  The standard color scheme used in versions 0.2 through
                  0.37, based on the version 0.1 scheme, with signifigant
 		 alterations by John Zero.
 
-  tuukka.col  -  A monochrome scheme, donated by Tuukka Lehtinen.
+- tuukka.col  -  A monochrome scheme, donated by Tuukka Lehtinen.
 
-  ver01.col   -  Approximately, the original color scheme found in the
+- ver01.col   -  Approximately, the original color scheme found in the
                  version 0.1 series, as devised by Kolossvary Tamas. (Some
                  things don't quite translate, due to differences in the
                  screen layout.)

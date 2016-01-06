@@ -8,8 +8,9 @@ What's New in version 0.49?
  * Transparency with PDCurses for SDL
  * Pause in ANSI animation
 
-See the HISTORY file for other changes. See INSTALL for the installation
-procedure, and the man page (mm.1) for information on usage.
+See the [HISTORY](HISTORY.md) file for other changes. See
+[INSTALL](INSTALL.md) for the installation procedure, and the man page
+(mm.1) for information on usage.
 
 
 What is MultiMail?
@@ -37,4 +38,4 @@ since version 0.7, the maintainer is William McBrine <wmcbrine@gmail.com>.
 Additional code has been contributed by Peter Karlsson, Mark D. Rejhon,
 Ingo Brueckl, and Robert Vukovic.
 
-Bug reports and suggestions are noted in the HISTORY file.
+Bug reports and suggestions are noted in the [HISTORY](HISTORY.md) file.
