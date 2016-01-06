@@ -1,7 +1,7 @@
 Revision History
 ================
 
-0.49 - 2007/07/19:
+## 0.49 - 2007/07/19:
 
 - Built against PDCurses 3.3 (and 3.1 is now the minimum version that
   will work); removed XCURSES references, for the sake of PDCurses 3.2+.
@@ -28,7 +28,7 @@ Revision History
 
 - Updated to GPL version 3.
 
-0.48 - 2007/04/04:
+## 0.48 - 2007/04/04:
 
 - This version now builds with PDCurses 3.0, and if using PDCurses, will
   no longer build with an earlier version. This gives us mouse support
@@ -52,9 +52,9 @@ Revision History
 - Changed "install" to a double-colon rule in Makefile to avoid conflict 
   with INSTALL on non-case-sensitive filesystems, like Mac OS X's HFS+.
 
-0.47 - 2005/12/31:
+## 0.47 - 2005/12/31:
 
-New features:
+### New features:
 
 - Added support for Microsoft Visual C++, MinGW, and Open Watcom. I highly
   recommend Watcom, and I'm now using it for the OS/2 port. I'd use it for
@@ -93,7 +93,7 @@ New features:
 
 - Various documentation updates.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Revisions for newest version of PDCurses -- fewer ifdefs needed. Note
   that MultiMail now must be compiled with PDCurses 2.7 or later.
@@ -106,9 +106,9 @@ Bug fixes and such:
 
 - Minor code cleanup.
 
-0.46 - 2003/12/31:
+## 0.46 - 2003/12/31:
 
-New features:
+### New features:
 
 - First, an apology: This version probably should've come out in July, when
   most of these changes were done... though there was a bug in one of the
@@ -133,7 +133,7 @@ New features:
   doors seem to use the field for BBS version instead. Neither of the new
   fields is available in Blue Wave mode.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - With this version, I've added MIPS and AMD64 to my list of tested systems
   (no mods needed). However, I'm not including those binaries, because a)
@@ -161,9 +161,9 @@ Bug fixes and such:
 
 - Some code simplification.
 
-0.45 - 2003/06/08:
+## 0.45 - 2003/06/08:
 
-New features:
+### New features:
 
 - New temporary directory and file system: Instead of using tmpnam() --
   which frankly never worked properly outside of Unix, and is sometimes
@@ -209,7 +209,7 @@ New features:
   i.e., the same as would appear in a QWK reply tearline -- instead of
   "MultiMail offline reader vX.X". Shorter, yet more informative. :-)
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Doing a ^X during a bulletin would cause a segfault.
 
@@ -248,16 +248,16 @@ Bug fixes and such:
 
 - Optimizations, comments, etc.
 
-0.44 - 2003/05/07:
+## 0.44 - 2003/05/07:
 
-New features:
+### New features:
 
 - Added the pipe character, '|', as an alternative to '^' for invoking the
   filter function. It turns out that '^' is a poor choice for many non-U.S.
   keyboards; sorry. The pipe character is also somewhat more consistent with
   other programs with similar functions. Problem reported by Peter Karlsson.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Changed the way that the length of QWK replies is calculated. This is a
   speculative fix for a reported problem with corrupt replies that I
@@ -292,9 +292,9 @@ Bug fixes and such:
 
 - Miscellaneous small changes for efficiency.
 
-0.43 - 2002/03/09:
+## 0.43 - 2002/03/09:
 
-New features:
+### New features:
 
 - A big one: Filter feature in all list windows, invoked by pressing '^'
   (shift-6). See the "FILTERING" section of the man page for details. This
@@ -332,7 +332,7 @@ New features:
   opening a packet. (This operation can be slow, so it's good to have a hint
   that MultiMail got the message.)
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - The type 'm' (Unix mailbox) parser in the SOUP module was missing some
   valid "From " separators, so I incorporated code based on the VALID macro
@@ -377,9 +377,9 @@ Bug fixes and such:
 
 - Minor speedups.
 
-0.42 - 2001/12/08:
+## 0.42 - 2001/12/08:
 
-New features:
+### New features:
 
 - CTRL-E instead of 'E' now forces invocation of the addressbook when
   entering a message in a non-netmail, non-email area. This only gets you
@@ -392,7 +392,7 @@ New features:
   of the addressbook on messages where an address is present. (Changing that
   would be more involved.) Suggested by Greg Sears.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - In the Win32 version, under Windows XP and perhaps 2000 (?), the window
   was scrolled up on returning from a shell (unarchiving, etc.), unless the
@@ -420,9 +420,9 @@ Bug fixes and such:
 
 - Other, minor updates to the documentation.
 
-0.41 - 2001/10/16:
+## 0.41 - 2001/10/16:
 
-New features:
+### New features:
 
 - Options can now be specified on the command line. Any .mmailrc option may
   be used, though not all will actually work (some of them are used in
@@ -435,7 +435,7 @@ New features:
   uses only MESSAGES.DAT. Turn this on if you get bogus *.NDX files from
   your BBS (as seems all too common).
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Big bug: Reply splitting in QWK on DOSish systems (DOS, Win32, OS/2)
   generated a corrupt reply packet (always). It's been this way a long time;
@@ -511,13 +511,13 @@ Bug fixes and such:
   it was a missing pair of parentheses. <sigh> Or to look at it another way,
   a misunderstanding of operator precedence.
 
-0.40 - 2001/04/15:
+## 0.40 - 2001/04/15:
 
-New features:
+### New features:
 
 - Nothing new this time.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Undid one part of the BSOC, which (perversely enough, since this is exactly
   what it was intended to cut down on) was causing crashes in the Win32, XT,
@@ -529,9 +529,9 @@ Bug fixes and such:
   actually support the mouse on these platforms eventually. First, mouse
   support has to be added to their respective ports of PDCurses.)
 
-0.39 - 2001/04/13:
+## 0.39 - 2001/04/13:
 
-New features:
+### New features:
 
 - Mouse functionality. Currently, this is only supported under X (with
   either ncurses or PDCurses), in the Linux console with gpm, and in the
@@ -553,7 +553,7 @@ New features:
   This allows the use of transparency with light backgrounds, etc. (See the
   screenshots web page.)
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - A longstanding bug: It was impossible to rename packets after opening
   them. Finally fixed, as part of a big string-operation cleanup.
@@ -592,9 +592,9 @@ Bug fixes and such:
 
 - The minimum screen size is now 60x17. I'm shooting for 40 columns. ;-)
 
-0.38 - 2001/02/03:
+## 0.38 - 2001/02/03:
 
-New features:
+### New features:
 
 - First new version in over seven months! See, it's not dead after all.
 
@@ -630,7 +630,7 @@ New features:
 
 - OPX secretly restored. ;-)
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Removed several older keywords to simplify the .mmailrc: BuildPersArea
   (even on my XT, it didn't really take much longer), MakeOldFlags,
@@ -677,9 +677,9 @@ Bug fixes and such:
   '-' in this instance to go back to the last non-empty group instead of the
   last group (more consistent with '+').
 
-0.37 - 2000/06/28:
+## 0.37 - 2000/06/28:
 
-New features:
+### New features:
 
 - Moved web site and email from ClarkNet to SourceForge. Among other
   benefits, this means that old versions of the MultiMail source code are
@@ -694,7 +694,7 @@ New features:
   external script. MultiMail only checks for the gzip signature. Requested
   by Peter Karlsson for compatibility with GNUS.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - The packet list could crash on directory names longer than 32 characters.
   Reported by Tuukka Lehtinen.
@@ -732,9 +732,9 @@ Bug fixes and such:
 - The backslashes that had briefly appeared in the DOSish versions' packet
   windows had reverted to forward slashes again in 0.36. :-)
 
-0.36 - 2000/04/28:
+## 0.36 - 2000/04/28:
 
-New features:
+### New features:
 
 - The area list has a new mode, "Active", to accompany the existing "All"
   and "Subscribed" views. The Active mode lists only those areas that
@@ -775,7 +775,7 @@ New features:
 
 - New BeOS binary.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Makefile.tcc and Makefile.bcc are now sensible -- no more renaming or
   moving kludges. :-) Also, the "UNUSED_PARAMS" nonsense is gone, and
@@ -839,22 +839,22 @@ Bug fixes and such:
   reduce clutter. Now if I can just figure out how to combine some of the
   documentation files in a sensible way...
 
-0.35 - 2000/03/29:
+## 0.35 - 2000/03/29:
 
-New features:
+### New features:
 
 - None.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Oops! Due to the changes in the way LetterWindow::MakeChain() works, quote
   wrapping was broken. (Lines after wrapped lines would not be wrapped
   upwards, nor marked with quote marks.) A five-second fix, but alas, I
   didn't notice the bug until now.
 
-0.34 - 2000/03/29:
+## 0.34 - 2000/03/29:
 
-New features:
+### New features:
 
 - Two new ports officially supported: An alternate Win32 port, via Borland
   C++ 5.5 (available free at the Borland web site); and, more interestingly,
@@ -867,7 +867,7 @@ New features:
   prevents the replies being misdirected on re-edit. Such areas are also now
   flagged with an 'R' in the main area list.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - The "References:" line disappeared from SOUP replies if they were
   re-edited before posting. Reported by J.B. Moreno.
@@ -901,9 +901,9 @@ Bug fixes and such:
 
 - Various code cleanup. Now 16-bit clean, among other things. :-)
 
-0.33 - 2000/02/21:
+## 0.33 - 2000/02/21:
 
-New features:
+### New features:
 
 - Support for encoding and decoding Quoted-Printable headers and bodies,
   primarily in SOUP packets. Decoding is always performed; encoding is
@@ -947,7 +947,7 @@ New features:
 
 - Offline config in OPX mode. Thanks to Armando Ramos for the format.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - "To:" and "From:" kludge lines in text are now checked only in QWKE
   packets, instead of all QWK packets. This should help with some systems
@@ -1007,9 +1007,9 @@ Bug fixes and such:
   to become unreadable. This is fixable by using MAIL.FDX to index the
   messages, which MultiMail now does. Reported by Armando Ramos.
 
-0.32 - 1999/10/30:
+## 0.32 - 1999/10/30:
 
-New features:
+### New features:
 
 - Support for the OPX packet format. This was reverse-engineered, and has
   really only been tested with the WINS door. See mmail/opxstrct.h in the
@@ -1031,7 +1031,7 @@ New features:
   "mail.fdx".) In reading, .red no longer takes precedence over .xti; if
   both files are present, the one with the later date is used.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Character set translation now works correctly on Linux text consoles that
   use Unicode-mapped fonts. Problem reported by Peter Karlsson. Also, OMEN
@@ -1069,15 +1069,15 @@ Bug fixes and such:
 
 - The User-Agent line in SOUP mode now includes "SOUP" in the comment. :-)
 
-0.31 - 1999/10/07:
+## 0.31 - 1999/10/07:
 
-New features:
+### New features:
 
 - When a new version is run for the first time, instead of prompting whether
   to continue or quit, it prompts whether to edit the .mmailrc file or just
   continue. Should save a step. ;-)
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Text files (e.g., MMAIL.RC, or the DOOR.ID or CONTROL.DAT from a QWK
   packet) which did not end in a line feed character would cause MultiMail
@@ -1092,9 +1092,9 @@ Bug fixes and such:
 - In SOUP packets, extra spaces between header keywords and values are now
   ignored.
 
-0.30 - 1999/09/30:
+## 0.30 - 1999/09/30:
 
-New features:
+### New features:
 
 - Support for SOUP packets. Note that type 'M' areas and index files are not
   supported yet; only 'm', 'b' and 'B'.
@@ -1118,7 +1118,7 @@ New features:
 
 - The "Lines:" indicator now includes a percentage.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Long lines in text files would sometimes cause the remainder of the file
   to be read incorrectly. Mainly, this could show up with the tagline file.
@@ -1200,9 +1200,9 @@ Bug fixes and such:
 
 - Overdue documentation of the .mmailrc file in the man page.
 
-0.29 - 1999/08/29:
+## 0.29 - 1999/08/29:
 
-New features:
+### New features:
 
 - List windows now have a "scroll bar" when the number of items in the list
   exceeds the number that will fit onscreen. This feature is selectable via
@@ -1221,7 +1221,7 @@ New features:
 
 - The Delete key will work as an alias for 'K' in all cases.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Major bug: In certain cases, the little area list would not set the
   correct area, and the reply would be misdirected. Reported by Jerel D.
@@ -1260,9 +1260,9 @@ Bug fixes and such:
   ".mmailrc" was interpreted as a control code and disappeared from the
   formatted man page. Reported by Geoffrey Wilson.
 
-0.28 - 1999/07/28:
+## 0.28 - 1999/07/28:
 
-New features:
+### New features:
 
 - Offline config! (Add/Drop only, at the moment.) For Blue Wave, QWKE, and
   QWK (with DOOR.ID indicating Add/Drop support). See the man page for
@@ -1299,7 +1299,7 @@ New features:
 
 - Optional beep in letter window when opening personal messages.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - The "Yes/No" prompt to keep old reply packets has been replaced by
   "Save/Kill", to reduce the chances of deleting a packet by mistake (as can
@@ -1333,14 +1333,14 @@ Bug fixes and such:
   part of interfac.cc was split off into basic.cc; and some stupid #define
   and const int lists were replaced with enums.
 
-0.27 - 1999/06/27:
+## 0.27 - 1999/06/27:
 
-New features:
+### New features:
 
 - The little area list now has short-list capability, like the main area
   list. Press 'L' to toggle it.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - In QWK reply packets, the binary conference number was not being included.
   This made them incompatible with some doors (at least some versions of
@@ -1371,9 +1371,9 @@ Bug fixes and such:
 
 - Some internal reorganization.
 
-0.26 - 1999/05/26:
+## 0.26 - 1999/05/26:
 
-New features:
+### New features:
 
 - Automatic saving of replies is now available via the "AutoSaveReplies"
   keyword in .mmailrc. When this is enabled, MultiMail automatically
@@ -1410,7 +1410,7 @@ New features:
 - The tagline window can now be completely disabled via the "UseTaglines"
   keyword in .mmailrc. Requested by Jack Pfisterer.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Re-editing replies from the reply area no longer forces a return to the
   letter list. Instead, the re-edited letter is displayed.
@@ -1465,9 +1465,9 @@ Bug fixes and such:
 
 - As usual, lots of internal reorganization.
 
-0.25 - 1999/03/19:
+## 0.25 - 1999/03/19:
 
-New features:
+### New features:
 
 - Support for Internet and Usenet messages in Blue Wave mode. (Note: AFAIK,
   this is only supported by the Blue Wave version 4 door for PCBoard.) Also,
@@ -1503,7 +1503,7 @@ New features:
 
 - New color scheme by Gary Gilmore.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - The alternate QWK private message flag, '+', was not being recognized.
   Reported by Tom Rutherford.
@@ -1559,9 +1559,9 @@ Bug fixes and such:
 - In the EMX ports, in the letter sort by subject, the secondary sort by
   message number was still broken. Reported by J.H.
 
-0.24 - 1999/02/12:
+## 0.24 - 1999/02/12:
 
-New features:
+### New features:
 
 - "Save" function in ANSI mode. This differs from the letter window save in
   that no wrapping is performed, and no header is prepended. This is also
@@ -1610,7 +1610,7 @@ New features:
 
 - Some new color schemes.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - The help window now survives a screen resize, instead of being closed.
 
@@ -1667,9 +1667,9 @@ Bug fixes and such:
   underscores, though only the second time through (when the name was pulled
   up as the default). Reported by J.H.
 
-0.23 - 1999/01/22:
+## 0.23 - 1999/01/22:
 
-New features:
+### New features:
 
 - QWKE and PCBoard-style "Subject:", "To:", and "From:" line kludges are now
   supported in QWK mode, along with "Title:", which is used on WWIV. The
@@ -1679,7 +1679,7 @@ New features:
   so the fields as shown in the letter list will at first be the short
   forms.
 
-- Reply forwarding -- press <CTRL>-'F' while in the reply area (either the
+- Reply forwarding -- press \<CTRL\>-'F' while in the reply area (either the
   letter list or letter window) to forward a reply. (Forwarding of regular
   messages is not available yet.)
 
@@ -1691,7 +1691,7 @@ New features:
 - REPLY and PERSONAL areas now show the original area (as well as the
   collection area) in the letter window. Suggested by J.H.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - New behavior in the ANSI viewer: Instead of resetting everything when a
   screen-clearing code (<ESC>[2J) is encountered, it sets the last-drawn
@@ -1741,9 +1741,9 @@ Bug fixes and such:
   this, it gave an "Extension is not .lha. Continue? [Y/N]" prompt when
   archiving replies.
 
-0.22 - 1999/01/01:
+## 0.22 - 1999/01/01:
 
-New features:
+### New features:
 
 - The long-awaited support for new file lists and bulletins! They're
   displayed automatically on opening the packet. Currently, this is a bit of
@@ -1754,7 +1754,7 @@ New features:
 
 - Added a line counter to the ANSI window, as in the letter window.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - If a tagline was displayed on screen, it would replace the tagline
   selected for a reply via the tagline editor. This bug dates to 0.20.
@@ -1773,16 +1773,16 @@ Bug fixes and such:
 - The SIGWINCH (resize) handler now works acceptably even when a SIGWINCH
   occurs while in a WarningWindow() or getstring() call.
 
-0.21 - 1998/12/15:
+## 0.21 - 1998/12/15:
 
-New features:
+### New features:
 
 - Not new, but newly documented: When run under Windows 95, the MSDOS
   version supports long filenames! Apparently this is a feature of the DJGPP
   standard library, though I didn't realize it before. (I don't know about
   Win 98 or NT -- anybody else?)
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - The code to generate the default tagline file was broken in 0.20, which
   meant that all first-time users got a segfault. Argh! Also, since I was
@@ -1798,9 +1798,9 @@ Bug fixes and such:
 
 - "/" and "." added to pop-up help window.
 
-0.20 - 1998/12/06:
+## 0.20 - 1998/12/06:
 
-New features:
+### New features:
 
 - Search function. Case-insensitve searching is available everywhere. It's
   still a bit limited, in that it only works within the current list (or
@@ -1842,7 +1842,7 @@ New features:
 - "Home" and "End" keys are now available in text entry fields (i.e.,
   ShadowedWin::getstring()). After I.B.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - The FMPT kludge line is now supported, which means that in Blue Wave mode,
   the netmail addresses of points will be recognized.
@@ -1913,9 +1913,9 @@ Bug fixes and such:
 
 - And of course, various internal changes.
 
-0.19 - 1998/10/25:
+## 0.19 - 1998/10/25:
 
-New features:
+### New features:
 
 - The .mmailrc has been redesigned. New versions of MultiMail will update it
   automatically; comments will be lost, but old data will be preseved. Note:
@@ -1945,7 +1945,7 @@ New features:
   regenerated with each use; otherwise, the manual name is kept until you
   exit MultiMail.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Segfaults in saving All, in some cases.
 
@@ -1971,9 +1971,9 @@ Bug fixes and such:
 
 - Various internal changes, and added comments.
 
-0.18 - 1998/08/14:
+## 0.18 - 1998/08/14:
 
-New features:
+### New features:
 
 - MultiMail can now read QWK packets without .NDX files. Partly inspired by
   Simon Callan. Note: It's still preferable to include them, since it takes
@@ -1987,7 +1987,7 @@ New features:
   newsreader now. ;-) Use the 'L' key to toggle between the long and short
   lists (as in the area list).
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Removed a lot of redundant code from the interface section, and
   reorganized it... There are many new features that need implementing, but
@@ -2025,9 +2025,9 @@ Bug fixes and such:
 - The addressbook was crashing, when empty (0 items). Reported by Marc D.
   Williams.
 
-0.17 - 1998/07/06:
+## 0.17 - 1998/07/06:
 
-New features:
+### New features:
 
 - Netmail addresses, when present in Blue Wave packets (or reply packets),
   are displayed in the From: or To: fields in the letter window, as
@@ -2062,7 +2062,7 @@ New features:
   letter window, ANSI viewer, and all ListWindows. It's now MUCH faster on
   slow machines and slow terminals.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - MASSIVE rewrite... Almost everything that was crufty in previous versions
   is now done the right way. :-) General fixes include: plugging memory
@@ -2133,9 +2133,9 @@ Bug fixes and such:
 - The currently selected address is preserved between calls to the
   AddressBook.
 
-0.16 - 1998/05/28:
+## 0.16 - 1998/05/28:
 
-New features:
+### New features:
 
 - This version compiles for OS/2, with EMX. This entailed substantial
   changes to the Makefile (q.v.), as well as some code.
@@ -2155,7 +2155,7 @@ New features:
   viewer, and it will form the basis of new file list and bulletin
   viewers.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Another big bug in the DOS version (argh!): Last read markers were not
   being saved. This bug was the result of an error in the bug fix in 0.15.
@@ -2172,15 +2172,15 @@ Bug fixes and such:
 
 - Some code reorganization.
 
-0.15 - 1998/05/12:
+## 0.15 - 1998/05/12:
 
-New feature:
+### New feature:
 
 - If you back out from a packet, to the packet list, you can now reselect
   the same packet without it being decompressed again. Thanks to Robert
   Vukovic for convincing me of the need for something like this.
 
-Bug fix:
+### Bug fix:
 
 - In DOS, the default editor (edit.com) didn't actually work, because it
   didn't understand paths with slashes instead of backslashes. I missed this
@@ -2188,25 +2188,25 @@ Bug fix:
   pathnames passed to external editors and archivers (in DOS only). Thanks
   to kifox@geocities.com for reporting the problem.
 
-0.14 - 1998/04/25:
+## 0.14 - 1998/04/25:
 
-Bug fix:
+### Bug fix:
 
 - A more subtle line-ending bug... under MSDOS, extra characters were
   sometimes added to the end of a reply. (Unix versions were not
   affected.)
 
-0.13 - 1998/04/24:
+## 0.13 - 1998/04/24:
 
-Bug fix:
+### Bug fix:
 
 - While making changes to accomodate MSDOS line endings, I made a small
   oversight that caused replies to be truncated at one character if they
   were re-edited.
 
-0.12 - 1998/04/23:
+## 0.12 - 1998/04/23:
 
-New features:
+### New features:
 
 - Compatible with MSDOS. All source code files have been changed to
   single-case, 8.3 form, and #ifdef's are used on filenames internally where
@@ -2220,7 +2220,7 @@ New features:
   you can comment out or remove to get rid of the shadows
   altogether.)
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - After the reorganization of resource.C in version 0.11 (if not before),
   any change to the value of mmHomeDir in .mmailrc would leave the
@@ -2236,9 +2236,9 @@ Bug fixes and such:
   available from it (which should still be enough, unless you write a whole
   lot of replies).
 
-0.11 - 1998/03/21:
+## 0.11 - 1998/03/21:
 
-New features:
+### New features:
 
 - Area and system descriptions added to saved messages.
 
@@ -2250,7 +2250,7 @@ New features:
   bars in the letter window, and made a few other changes to make it more
   monochrome-friendly.)
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - resource.C and resource.h rewritten and simplified to allow compilation
   with gcc 2.8.1. (It's not yet clear to me why the old version didn't work,
@@ -2283,9 +2283,9 @@ Bug fixes and such:
 - Fixed a bug with my website -- the new-style URL (/~wmcbrine/) messed up
   some relative pathnames. :-)
 
-0.10 - 1998/03/07:
+## 0.10 - 1998/03/07:
 
-New features:
+### New features:
 
 - Shadowed windows! Tell me if you like them.
 
@@ -2293,7 +2293,7 @@ New features:
   xterm) while MultiMail is running, and it will adapt to the new
   size.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Under Solaris, the help menu area was not being cleared when changing from
   one menu to another.
@@ -2311,9 +2311,9 @@ Bug fixes and such:
 
   Due to the seriousness of this bug, I'm releasing v0.10 early.
 
-0.9 - 1998/02/26:
+## 0.9 - 1998/02/26:
 
-New features:
+### New features:
 
 - Added alias, "!", for F2. Added Tab as an alias for right arrow (next
   unread) in letter list.
@@ -2340,7 +2340,7 @@ New features:
 
 - system() calls to rm and sed have been eliminated.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Strip spaces from Blue Wave subject lines; fixes sorting in some cases.
 
@@ -2389,9 +2389,9 @@ Bug fixes and such:
 
 - Miscellaneous minor internal fixes and optimizations.
 
-0.8 - 1998/02/10:
+## 0.8 - 1998/02/10:
 
-New features:
+### New features:
 
 - "Re: " is stripped from subject lines, for sorting and display purposes,
   and added automatically on replies (unless doing so would truncate the
@@ -2442,7 +2442,7 @@ New features:
 
 - You can now Kill packets from the packet list.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - If all preexisting replies were deleted, attempting to create a new reply
   during the same session could cause a segfault.
@@ -2486,9 +2486,9 @@ Bug fixes and such:
 - When creating Blue Wave replies, MultiMail now makes the proper choice
   between "real name" and "alias", depending on the area flags.
 
-0.7 - 1997/12/07:
+## 0.7 - 1997/12/07:
 
-New features:
+### New features:
 
 - Right and left arrow keys now select next/previous unread message in an
   area, similarly to the way they function in the area list (jumping to
@@ -2526,7 +2526,7 @@ New features:
 - Changed bluewave.h to version 3. (No related feature changes yet.) I now
   use it in unmodified form; "-fpack-struct" is sufficient.
 
-Bug fixes and such:
+### Bug fixes and such:
 
 - Suppression of "hidden" text lines added for Blue Wave (already present
   for QWK).
@@ -2607,7 +2607,7 @@ Bug fixes and such:
 
 - Many, many more. :-) These are just the user-visible ones.
 
-Bugs unfixed:
+### Bugs unfixed:
 
 - The lockup-on-exit bug, described below as having appeared in 0.3 and
   disappeared in 0.4, has resurfaced. I too am unable to trace it. It can
@@ -2615,7 +2615,7 @@ Bugs unfixed:
 
 -- William McBrine
 
-0.6a - 1997/03/25:
+## 0.6a - 1997/03/25:
 
 - Oops! The signature was in the wrong place. Right order is: signature,
   tagline, tearline ;-)
@@ -2630,7 +2630,7 @@ Bugs unfixed:
 
 - ISO conversion doesn't do the from/to/subj yet
 
-0.5a - 1997/03/22:
+## 0.5a - 1997/03/22:
 
 - Fixed another date bug (when reloading QWK replies, the date would be
   mangled).
@@ -2646,7 +2646,7 @@ Bugs unfixed:
 - The annoying bug, which occurred when quitting, has disappeared!
   ;-o
 
-0.4a - 1997/03/12:
+## 0.4a - 1997/03/12:
 
 - Fixed the date handling with QWK packets. Should do it well. That part
   wasn't even implemented before.
@@ -2657,7 +2657,7 @@ Bugs unfixed:
   sometimes you have to kill it! Sorry, couldn't trace this bug yet. Maybe
   you can help.
 
-0.3alpha - 1997/02/16:
+## 0.3alpha - 1997/02/16:
 
 - Took out many more bugs. This version now is almost usable ;)
 
@@ -2667,32 +2667,32 @@ Bugs unfixed:
 
 - Added message Marking, Read/Unread toggle.
 
-0.2alpha - 1997/02/12:
+## 0.2alpha - 1997/02/12:
 
 - Debugged the program, fixed lots'a bugs, added QWK support. Only a
   preview! Don't use it, that's my advice! ;)
 
 -- John Zero
 
-0.1c.staticbin - 1996/??/??:
+## 0.1c.staticbin - 1996/??/??:
 
 - statically linked elf executable of 0.1c. Problems were reported with gcc
   2.7.2 and libc 5.2.?.
 
-0.1c - 1996/03/19:
+## 0.1c - 1996/03/19:
 
 - bugfix, now uses "todos", instead of "/usr/bin/todos", only elf binary
   included
 
-0.1b - 1996/02/05:
+## 0.1b - 1996/02/05:
 
 - Compiles on RedHat 2.1 + dynamic elf binary included
 
-0.1a - 1996/02/03:
+## 0.1a - 1996/02/03:
 
 - INSTALL file created (cut from readme)
 
-0.1 - 1996/01/27:
+## 0.1 - 1996/01/27:
 
 - initial release
 

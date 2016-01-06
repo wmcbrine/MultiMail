@@ -41,17 +41,17 @@ precompiled binaries, see the README files that accompany them instead.
     search path, specify the directory in CURS_LIB.
 
 3. Compile MultiMail --
-    At the base directory, type: make
+    At the base directory, type: `make`
 
 4. Run it --
-    Type: ./mm
+    Type: `./mm`
     (For DOS, OS/2 or Win32, set the MMAIL or HOME variable, then run mm.)
 
 5. (Optional:) Configure it (for end user) --
     Edit the ~/.mmailrc file. (For DOS, OS/2 or Win32, mmail.rc.)
 
 6. (Optional:) Install it system-wide --
-    Type: make install
+    Type: `make install`
     to install the manual and binary under /usr/local
     (requires root access). (This doesn't work in DOS, OS/2 or Win32.)
 
@@ -64,15 +64,15 @@ alter the "ColorFile" keyword in .mmailrc to point to it.)
 
 
 Support for XCurses (PDCurses)
-==============================
+------------------------------
 
 When MultiMail is compiled with XCurses, you can use the X resource
 database to set certain startup options. Here are some example resources:
 
-XCurses*normalFont:	9x15
-XCurses*boldFont:	9x15bold
-XCurses*lines:		30
-XCurses*cols:		80
+    XCurses*normalFont: 9x15
+    XCurses*boldFont:   9x15bold
+    XCurses*lines:      30
+    XCurses*cols:       80
 
 For details, see the PDCurses documentation.
 
@@ -82,19 +82,19 @@ $EDITOR" instead of just "$EDITOR" (the default).
 
 
 Compile notes: Win32, MS-DOS, and OS/2
-======================================
+--------------------------------------
 
 In the MultiMail source, separate makefiles are provided for these ports.
 
-Makefile.dj -  DJGPP (32-bit MS-DOS)
-Makefile.tcc - Turbo C++ (16-bit MS-DOS)
-Makefile.mng - MinGW (Win32)
-Makefile.wat - Watcom (All platforms -- Win32 by default)
-Makefile.msv - Microsoft Visual C++ (Win32)
+    Makefile.dj -  DJGPP (32-bit MS-DOS)
+    Makefile.tcc - Turbo C++ (16-bit MS-DOS)
+    Makefile.mng - MinGW (Win32)
+    Makefile.wat - Watcom (All platforms -- Win32 by default)
+    Makefile.msv - Microsoft Visual C++ (Win32)
 
 Edit the appropriate makefile to point to your installation of PDCurses,
 and compile with, e.g.:
 
- make -f Makefile.mng
+    make -f Makefile.mng
 
 (Use "wmake" instead of "make" for Watcom; "nmake" for MSVC.)
