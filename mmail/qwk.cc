@@ -85,7 +85,8 @@ bool qheader::init(FILE *datFile)
 bool qheader::init_short(FILE *datFile)
 {
     qwkmsg_header qh;
-    char buf[9];
+    char buf[9], *err;
+    long rawlen;
 
     if (!fread(&qh, 1, sizeof qh, datFile))
         return false;
@@ -95,7 +96,13 @@ bool qheader::init_short(FILE *datFile)
     cropesp(to);
 
     getQfield(buf, qh.chunks, 6);
-    msglen = (atol(buf) - 1) << 7;
+    rawlen = strtol(buf, &err, 10);
+    if ((*err && *err != ' ') || (rawlen < 2)) {
+        netblock = true;    // bad header, keep scanning
+        return true;
+    }
+
+    msglen = (rawlen - 1) << 7;
 
     // Is this a block of net-status flags?
     netblock = !qh.status || (qh.status == '\xff');
