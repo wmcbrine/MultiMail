@@ -36,6 +36,6 @@ Toth Istvan. John Zero was the maintainer for versions 0.2 through 0.6;
 since version 0.7, the maintainer is William McBrine <wmcbrine@gmail.com>.
 
 Additional code has been contributed by Peter Karlsson, Mark D. Rejhon,
-Ingo Brueckl, and Robert Vukovic.
+Ingo Brueckl, Robert Vukovic, and Frederic Cambus.
 
 Bug reports and suggestions are noted in the [HISTORY](HISTORY.md) file.
