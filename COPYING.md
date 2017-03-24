@@ -27,7 +27,6 @@ The file bluewave.h is under a different license:
         Readers from Cutting Edge Computing.  (Think of it as the "litmus
         test" for Blue Wave compatibility.)
 
-
         Finally, "Blue  Wave" is  a  trademarked  term  of  Cutting  Edge
         Computing, and  cannot be  used by authors in the titles of their
         applications.   This does  not, however,  restrict the ability to
