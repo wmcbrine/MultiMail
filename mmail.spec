@@ -40,6 +40,6 @@ ln -s %{_mandir}/man1/mm.1.gz %{_mandir}/man1/mmail.1.gz
 
 %files
 %defattr(-, root, root)
-%doc README.md COPYING HISTORY.md INSTALL.md colors/*
+%doc README.md COPYING.md HISTORY.md INSTALL.md colors/*
 %{_bindir}/mm
 %{_mandir}/man1/*
