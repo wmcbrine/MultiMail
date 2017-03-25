@@ -2,11 +2,9 @@
  * MultiMail offline mail reader
  * color handling, and default colors
 
- Copyright 1998-2015 William McBrine <wmcbrine@gmail.com>,
+ Copyright 1998-2017 William McBrine <wmcbrine@gmail.com>,
                      Ingo Brueckl <ib@wupperonline.de>
-
- Distributed under the GNU General Public License.
- For details, see the file COPYING in the parent directory. */
+ Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
 

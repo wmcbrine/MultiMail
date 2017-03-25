@@ -3,10 +3,8 @@
  * color pairs #define'd here
 
  Copyright 1996-1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2015 William McBrine <wmcbrine@gmail.com>
-
- Distributed under the GNU General Public License.
- For details, see the file COPYING in the parent directory. */
+ Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef MMCOLOR_H
 #define MMCOLOR_H

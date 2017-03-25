@@ -2,10 +2,8 @@
  * MultiMail offline mail reader
  * SOUP
 
- Copyright 1999-2015 William McBrine <wmcbrine@gmail.com>
-
- Distributed under the GNU General Public License.
- For details, see the file COPYING in the parent directory. */
+ Copyright 1999-2017 William McBrine <wmcbrine@gmail.com>
+ Distributed under the GNU General Public License, version 3 or later. */
 
 #include "soup.h"
 #include "compress.h"

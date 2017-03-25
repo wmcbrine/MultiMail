@@ -3,10 +3,8 @@
  * address book
 
  Copyright 1996 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright 1997-2015 William McBrine <wmcbrine@gmail.com>
-
- Distributed under the GNU General Public License.
- For details, see the file COPYING in the parent directory. */
+ Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
 

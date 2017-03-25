@@ -3,10 +3,8 @@
  * mmail class
 
  Copyright 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1998-2015 William McBrine <wmcbrine@gmail.com>
-
- Distributed under the GNU General Public License.
- For details, see the file COPYING in the parent directory. */
+ Copyright 1998-2017 William McBrine <wmcbrine@gmail.com>
+ Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef MMAIL_H
 #define MMAIL_H
