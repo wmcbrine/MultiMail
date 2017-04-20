@@ -255,7 +255,7 @@ Revision History
 - Added the pipe character, '|', as an alternative to '^' for invoking the
   filter function. It turns out that '^' is a poor choice for many non-U.S.
   keyboards; sorry. The pipe character is also somewhat more consistent with
-  other programs with similar functions. Problem reported by Peter Karlsson.
+  other programs with similar functions. Problem reported by Peter Krefting.
 
 ### Bug fixes and such:
 
@@ -653,7 +653,7 @@ Revision History
   "Newsgroups:" line by pressing 'X' for full headers.)
 
 - SOUP (and BW v4?): Broken "References:" lines which contained no proper
-  message ID's were causing segfaults. Reported by Peter Karlsson. BTW,
+  message ID's were causing segfaults. Reported by Peter Krefting. BTW,
   would the perpetrators of these broken messages please fix them?
 
 - SOUP: In 'm' mode, checking for "From "-line dividers is a little more
@@ -692,7 +692,7 @@ Revision History
   the supplied command lines assume GNU tar, which has gzip built-in.
   Separated gunzip/tar and tar/gzip command lines would require a (simple)
   external script. MultiMail only checks for the gzip signature. Requested
-  by Peter Karlsson for compatibility with GNUS.
+  by Peter Krefting for compatibility with GNUS.
 
 ### Bug fixes and such:
 
@@ -702,7 +702,7 @@ Revision History
 - Zero-length messages caused a segfault. Reported by T.L.
 
 - In SOUP packets with index files, the .idx file would be opened instead of
-  the corresponding .msg file. Reported (indirectly) by Peter Karlsson.
+  the corresponding .msg file. Reported (indirectly) by Peter Krefting.
 
 - GNUS apparently uses a bogus identifier 'n' in the first position of the
   attribute fields of the AREA files in the SOUP packets it generates,
@@ -909,7 +909,7 @@ Revision History
   primarily in SOUP packets. Decoding is always performed; encoding is
   performed subject to the new .mmailrc keywords "outCharSet", "UseQPHead",
   "UseQPMailHead", "UseQPNewsHead", "UseQPMail" and "UseQPNews". Thanks to
-  Peter Karlsson for some of the code.
+  Peter Krefting for some of the code.
 
 - Support for the OPX format has been removed. I hope this will be only
   temporary. The reason is not technical. If you're affected by this, and
@@ -1034,7 +1034,7 @@ Revision History
 ### Bug fixes and such:
 
 - Character set translation now works correctly on Linux text consoles that
-  use Unicode-mapped fonts. Problem reported by Peter Karlsson. Also, OMEN
+  use Unicode-mapped fonts. Problem reported by Peter Krefting. Also, OMEN
   replies to Latin-1 packets were not recognized as being Latin-1 on
   rereading; initial printing of translated fields in the header editor was
   incorrect; and the ANSI viewer always assumed CP437.

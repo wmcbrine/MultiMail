@@ -4,7 +4,7 @@
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
  Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>,
-                     Peter Karlsson <peter@softwolves.pp.se>
+                     Peter Krefting <peter@softwolves.pp.se>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "mmail.h"
@@ -344,7 +344,7 @@ bool quoteIt(const char *s)
 // MIME decoding for header lines (=?iso-8859-1?Q? and =?iso-8859-1?B?)
 void headdec(const char *source, const char *cset, char *dest)
 {
-    // Copyright 1999 Peter Karlsson
+    // Copyright 1999 Peter Krefting
     // Modified by William McBrine
     // May be used in any way as long as this copyright is included
     // in the derived work.
