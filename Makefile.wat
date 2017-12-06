@@ -7,7 +7,7 @@
 #--------------------------------------------------------------
 # For Win32:
 
-CURS_DIR = /pdsrc/PDCurses
+CURS_DIR = /pdcurses
 
 LIBS = $(CURS_DIR)/win32/pdcurses.lib
 COMPILER = "wpp386 -zq -bt=nt -D__WIN32__ -DWIN32"
