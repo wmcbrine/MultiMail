@@ -573,7 +573,7 @@ class AnsiWindow
             chtype *text;
             unsigned char *atext;
         };
-        unsigned length;
+        size_t length;
         chtype att;
         bool isasc;
      public:
@@ -582,8 +582,8 @@ class AnsiWindow
 
         AnsiLine(AnsiLine * = 0);
         ~AnsiLine();
-        int unpack(chtype *);
-        void pack(chtype *, int);
+        size_t unpack(chtype *);
+        void pack(chtype *, size_t);
         void show(Win *, int);
         void unpacktext(char *);
         void remapzero(chtype newatt);

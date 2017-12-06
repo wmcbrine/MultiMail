@@ -40,12 +40,12 @@ AnsiWindow::AnsiLine *AnsiWindow::AnsiLine::getprev()
     return prev;
 }
 
-int AnsiWindow::AnsiLine::unpack(chtype *tmp)
+size_t AnsiWindow::AnsiLine::unpack(chtype *tmp)
 {
-    int i;
+    size_t i;
 
     if (isasc)
-        for (i = 0; i < (int) length; i++)
+        for (i = 0; i < length; i++)
             tmp[i] = att | atext[i];
     else
         if (length)
@@ -57,9 +57,9 @@ int AnsiWindow::AnsiLine::unpack(chtype *tmp)
     return length;
 }
 
-void AnsiWindow::AnsiLine::pack(chtype *tmp, int newlen)
+void AnsiWindow::AnsiLine::pack(chtype *tmp, size_t newlen)
 {
-    int i;
+    size_t i;
 
     if (isasc)
         delete[] atext;
