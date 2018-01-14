@@ -25,7 +25,7 @@ precompiled binaries, see the README files that accompany them instead.
     http://pdcurses.org/
 
     (If you're using Linux, odds are that you already have ncurses and
-    InfoZip.) Also, bear in mind that MultiMail needs the C++ standard 
+    InfoZip.) Also, bear in mind that MultiMail needs the C++ standard
     libraries, not just C.
 
     If using PDCurses, MultiMail now requires version 3.1 or later.

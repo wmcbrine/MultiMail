@@ -39,7 +39,7 @@ Revision History
   input. Mainly this is to allow disabling of the mouse cursor; it also
   means you can select without holding shift in X11.
 
-- Use setlocale(), to give a correct display in environments such as the 
+- Use setlocale(), to give a correct display in environments such as the
   console under Ubuntu.
 
 - The FAQ and TODO files were outdated, and not very useful.
@@ -49,7 +49,7 @@ Revision History
   fledged wide-character support will be coming in the future, but for
   now, this file was just more clutter.
 
-- Changed "install" to a double-colon rule in Makefile to avoid conflict 
+- Changed "install" to a double-colon rule in Makefile to avoid conflict
   with INSTALL on non-case-sensitive filesystems, like Mac OS X's HFS+.
 
 ## 0.47 - 2005/12/31:

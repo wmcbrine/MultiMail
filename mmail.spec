@@ -21,7 +21,7 @@ Windows, Mac OS X, and other systems, using a curses-based interface. It
 supports the Blue Wave, QWK, OMEN, SOUP and OPX formats.
 
 %prep
-%setup -q 
+%setup -q
 
 %build
 make

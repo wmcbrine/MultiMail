@@ -10,7 +10,7 @@
 
 /* With the default tar/gz compress command, leave this on. It causes the
    entire file to be rearchived when using that format, instead of just
-   the .red file. If you replace the tar/gz command with something 
+   the .red file. If you replace the tar/gz command with something
    smarter (e.g., via a script), you can disable the kludge.
 */
 #define TAR_KLUDGE

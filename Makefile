@@ -12,7 +12,7 @@ include version
 # Optimized, no debug:
 OPTS = -O2 -Wall -pedantic -Wno-char-subscripts
 
-# PREFIX is the base directory under which to install the binary and man 
+# PREFIX is the base directory under which to install the binary and man
 # page; generally either /usr/local or /usr (or perhaps /opt...):
 
 PREFIX = /usr/local
@@ -33,7 +33,7 @@ POST =
 #--------------------------------------------------------------
 # Defaults are for the standard curses setup:
 
-# CURS_DIR specifies the directory with your curses header file, if it's 
+# CURS_DIR specifies the directory with your curses header file, if it's
 # not /usr/include/curses.h:
 
 CURS_DIR = .
