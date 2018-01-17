@@ -57,8 +57,8 @@ LIBS = -lcurses
 # With PDCurses for SDL:
 
 #CURS_DIR = /Users/wmcbrine/pdsrc/PDCurses
-#CURS_LIB = /Users/wmcbrine/pdsrc/PDCurses/sdl1
-#LIBS = -lpdcurses `sdl-config --libs`
+#CURS_LIB = /Users/wmcbrine/pdsrc/PDCurses/sdl2
+#LIBS = -lpdcurses `sdl2-config --libs`
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------
