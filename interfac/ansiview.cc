@@ -1040,6 +1040,9 @@ void AnsiWindow::MakeActive()
             for (i = 0; i < NumOfLines; i++)
                 linelist[i]->remapzero(COL(oldcolorx, oldcolory));
     }
+#ifdef PDCURSES
+    PDC_set_blink(TRUE);
+#endif
 
     DrawBody();
     text->delay_update();
@@ -1051,6 +1054,9 @@ void AnsiWindow::Delete()
 {
     ansiAbort = true;
 
+#ifdef PDCURSES
+    PDC_set_blink(FALSE);
+#endif
     // Restore remapped color pairs:
 
     if (oldcolorx + oldcolory)
