@@ -9,7 +9,7 @@
 
 CURS_DIR = /pdcurses
 
-LIBS = $(CURS_DIR)/win32/pdcurses.lib
+LIBS = $(CURS_DIR)/wincon/pdcurses.lib
 COMPILER = "wpp386 -zq -bt=nt -D__WIN32__ -DWIN32"
 LINKER = wlink system nt
 
