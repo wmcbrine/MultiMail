@@ -17,7 +17,7 @@ OPTS = -O2 -fno-exceptions -fno-rtti -fconserve-space
 
 CURS_DIR = /pdcurses
 CURS_LIB = .
-LIBS = /pdcurses/win32/pdcurses.a
+LIBS = /pdcurses/wincon/pdcurses.a
 RM = del
 SEP = &&
 POST = strip mm.exe
