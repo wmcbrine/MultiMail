@@ -6,11 +6,11 @@ include version
 
 # General options (passed to mmail/Makefile and interfac/Makefile):
 
-# With debug:
-#OPTS = -g -Wall -pedantic
-
-# Optimized for recent versions of gcc:
-OPTS = -O2 -fno-exceptions -fno-rtti -fconserve-space
+ifeq ($(DEBUG),Y)
+        OPTS = -g -Wall -Wextra -pedantic -Wno-char-subscripts
+else
+        OPTS = -O2 -Wall -pedantic -Wno-char-subscripts
+endif
 
 #--------------------------------------------------------------
 # MinGW, with GCC 3.x, and PDCurses:

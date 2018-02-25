@@ -6,11 +6,11 @@ include version
 
 # General options (passed to mmail/Makefile and interfac/Makefile):
 
-# With debug:
-#OPTS = -g -Wall -Wextra -pedantic -Wno-char-subscripts
-
-# Optimized, no debug:
-OPTS = -O2 -Wall -pedantic -Wno-char-subscripts
+ifeq ($(DEBUG),Y)
+	OPTS = -g -Wall -Wextra -pedantic -Wno-char-subscripts
+else
+	OPTS = -O2 -Wall -pedantic -Wno-char-subscripts
+endif
 
 # PREFIX is the base directory under which to install the binary and man
 # page; generally either /usr/local or /usr (or perhaps /opt...):
@@ -50,15 +50,19 @@ LIBS = -lcurses
 #--------------------------------------------------------------
 # With PDCurses for X11:
 
-#CURS_DIR = /usr/local/include/xcurses
-#LIBS = -lXCurses
+ifeq ($(X11),Y)
+	CURS_DIR = /usr/local/include/xcurses
+	LIBS = -lXCurses
+endif
 
 #--------------------------------------------------------------
 # With PDCurses for SDL:
 
-#CURS_DIR = /Users/wmcbrine/pdsrc/PDCurses
-#CURS_LIB = /Users/wmcbrine/pdsrc/PDCurses/sdl2
-#LIBS = -lpdcurses `sdl2-config --libs`
+ifeq ($(SDL),Y)
+	CURS_DIR = /Users/wmcbrine/pdsrc/PDCurses
+	CURS_LIB = /Users/wmcbrine/pdsrc/PDCurses/sdl2
+	LIBS = -lpdcurses `sdl2-config --libs`
+endif
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------
