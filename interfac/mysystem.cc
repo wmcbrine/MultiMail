@@ -236,10 +236,10 @@ const char *sysname()
     return buf.sysname;
 #else
 # ifdef __OS2__
-    return "OS/2";
+    return "OS2";
 # else
 #  ifdef __WIN32__
-    return "Win32";
+    return "Win";
 #  else
 #   ifdef __MSDOS__
 #    ifdef SIXTEENBIT

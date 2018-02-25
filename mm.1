@@ -99,15 +99,15 @@ specified multiple packets on the command line, this is the only way to
 terminate the sequence prematurely.
 
 You can obtain a temporary command shell anywhere by pressing CTRL-Z. In
-the DOSish ports (MS-DOS, OS/2, Win32), it spawns a command shell, and you
-return to MultiMail via the "exit" command. In Unix, it relies on the
+the DOSish ports (MS-DOS, OS/2, Windows), it spawns a command shell, and
+you return to MultiMail via the "exit" command. In Unix, it relies on the
 shell to put MultiMail in the background; you return with "fg". (This
 has always been available in the Unix versions; however, it won't work if
 MultiMail wasn't launched from an interactive shell, or if the shell
 doesn't support it.)
 .SH MOUSING
 MultiMail is mousable on certain platforms: X, the Linux console (with
-gpm), and Win32. (You can still use selection with X and gpm, too; to
+gpm), and Windows. (You can still use selection with X and gpm, too; to
 select or paste, hold down the shift key.)
 
 In each list window, button 1 highlights a line, or selects it (the same
@@ -254,7 +254,7 @@ indicate their character set in the INFOxy.BBS file. MultiMail translates
 when displaying messages and creating replies.
 
 The Unix versions of MultiMail assume that the console uses Latin-1, while
-the DOSish versions (DOS, OS/2, and Win32) assume the IBM PC set. You can
+the DOSish versions (DOS, OS/2, and Windows) assume the IBM PC set. You can
 override this via the .mmailrc option "Charset", or on a temporary basis
 by pressing 'c'.
 
@@ -326,7 +326,7 @@ for this variable is of the form "EST5EDT" (that one's for the east
 coast of the U.S.A.).
 .SH FILES
 The only hardwired file is the configuration file:
-.B .mmailrc (mmail.rc in DOS, OS/2 or Win32).
+.B .mmailrc (mmail.rc in DOS, OS/2 or Windows).
 It's used to specify the pathnames to MultiMail's other files, and the
 command lines for external programs (the editor and the archivers).
 
@@ -341,7 +341,7 @@ To store the tagline file, netmail addressbook, etc.
 .B taglines
 A plain text file, one tagline per line.
 .TP
-.B addressbook (address.bk in DOS, OS/2 or Win32)
+.B addressbook (address.bk in DOS, OS/2 or Windows)
 A list of names and corresponding Fido netmail or Internet email
 addresses. Note that Internet addresses are prefaced with an 'I'.
 .TP
