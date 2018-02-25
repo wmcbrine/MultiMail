@@ -231,7 +231,12 @@ const char *sysname()
     static struct utsname buf;
 
     if (!buf.sysname[0])
+    {
         uname(&buf);
+
+        if (!strcmp(buf.sysname, "Darwin"))
+            strcpy(buf.sysname, "Mac");
+    }
 
     return buf.sysname;
 #else
