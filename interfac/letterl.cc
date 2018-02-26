@@ -73,8 +73,8 @@ void LetterListWindow::oneLine(int i)
         const char *origArea = mm.letterList->getNewsgrps();
         if (!origArea)
             origArea = mm.areaList->getDescription(mm.letterList->getAreaID());
-            if (origArea)
-                sprintf(p - 15, " %-13.13s ", origArea);
+        if (origArea)
+            sprintf(p - 15, " %-13.13s ", origArea);
     }
 
     coltype linecol = mm.letterList->isPersonal() ? C_LLPERSONAL : C_LISTWIN;

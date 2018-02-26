@@ -51,7 +51,7 @@ size_t AnsiWindow::AnsiLine::unpack(chtype *tmp)
         if (length)
             memcpy(tmp, text, length * sizeof(chtype));
 
-    for (i = length; i < COLS; i++)
+    for (i = length; i < (size_t)COLS; i++)
         tmp[i] = ' ' | (C_ANSIBACK);
 
     return length;

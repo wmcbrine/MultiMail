@@ -93,14 +93,15 @@ bool sheader::init(FILE *msg)
                             lastc = c;
                             break;
                         }
-                        if (c == items) {
-                            lastc = -1;
-                            *sp = ' ';
-                            if (!strcasecmp(buffer,
-                                "content-transfer-encoding: quoted-printable"))
 
-                                qpenc = true;
-                        }
+                    if (c == items) {
+                        lastc = -1;
+                        *sp = ' ';
+                        if (!strcasecmp(buffer,
+                            "content-transfer-encoding: quoted-printable"))
+
+                            qpenc = true;
+                    }
                 }
         }
     } while (buffer != end);    // End of header == blank line

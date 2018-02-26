@@ -617,9 +617,9 @@ void LetterWindow::EditLetter(bool forwarding)
                 }
             }
 
-            fwrite(body, msgBody->getLength() - offset, 1, reply);
+        fwrite(body, msgBody->getLength() - offset, 1, reply);
 
-            msgBody = msgBody->next;
+        msgBody = msgBody->next;
     }
     fclose(reply);
 
