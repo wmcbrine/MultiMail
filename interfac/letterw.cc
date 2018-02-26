@@ -649,7 +649,7 @@ void LetterWindow::TimeUpdate()
         if (1 == mode)
             strftime(tmp, 6, "%H:%M", localtime(&now));
         else {
-            long elapsed = (now - starttime) / 60;
+            unsigned long elapsed = (now - starttime) / 60;
             sprintf(tmp, "%02ld:%02ld", (elapsed / 60) % 100, elapsed % 60);
         }
         headbar->put(0, COLS - 6, tmp);
