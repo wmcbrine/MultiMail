@@ -62,11 +62,6 @@ extern "C" {
 #if defined(__WATCOMC__) || defined(TURBO16)
 # include <dos.h>
 #endif
-
-#ifdef __EMX__
-int _chdir2(const char *);
-char *_getcwd2(char *, int);
-#endif
 }
 
 #ifndef S_IREAD
@@ -191,12 +186,7 @@ int mychdir(const char *pathname)
     if (':' == pathname[1])
         setdisk(toupper(pathname[0]) - 'A');
 #endif
-    return
-#ifdef __EMX__
-        _chdir2(pathname);
-#else
-        chdir(pathname);
-#endif
+    return chdir(pathname);
 }
 
 int mymkdir(const char *pathname)
@@ -216,11 +206,7 @@ void myrmdir(const char *pathname)
 char *mygetcwd()
 {
     char pathname[256], *result;
-#ifdef __EMX__
-    result = _getcwd2(pathname, 255);
-#else
     result = getcwd(pathname, 255);
-#endif
     return strdupplus(result ? pathname : ".");
 }
 
