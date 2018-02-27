@@ -7,9 +7,10 @@ include version
 # General options (passed to mmail/Makefile and interfac/Makefile):
 
 ifeq ($(DEBUG),Y)
-        OPTS = -g -Wall -Wextra -pedantic -Wno-char-subscripts
+	OPTS = -g -Wall -Wextra -pedantic -Wno-char-subscripts
 else
-        OPTS = -O2 -Wall -pedantic -Wno-char-subscripts
+	OPTS = -O2 -Wall -pedantic -Wno-char-subscripts
+	POST = strip mm.exe
 endif
 
 #--------------------------------------------------------------
@@ -20,7 +21,6 @@ CURS_LIB = .
 LIBS = /pdcurses/wincon/pdcurses.a
 RM = del
 SEP = &&
-POST = strip mm.exe
 
 #--------------------------------------------------------------
 #--------------------------------------------------------------
