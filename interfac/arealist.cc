@@ -3,7 +3,7 @@
  * area list
 
  Copyright 1996-1997 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -260,7 +260,7 @@ void AreaListWindow::ResetActive()
 void AreaListWindow::MakeActive()
 {
     static const char *almodes[] = {"All", "Subscribed", "Active"};
-    int padding, middle;
+    unsigned int padding, middle;
     char tmp[80], tpad[7];
 
     hasPers = mm.packet->hasPersonal();

@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -663,7 +663,7 @@ bool LetterWindow::SplitLetter(int lines)
 
             return false;
     }
-    int maxlines = lines ? lines : eachmax;
+    unsigned int maxlines = lines ? lines : eachmax;
 
     if (maxlines < 20) {
         ui->nonFatalError("Split at less than 20 lines not allowed");
@@ -671,8 +671,8 @@ bool LetterWindow::SplitLetter(int lines)
     }
 
     MakeChain(80);
-    int orglines = NumOfLines;
-    int parts = (orglines - 1) / maxlines + 1;
+    unsigned int orglines = NumOfLines;
+    unsigned int parts = (orglines - 1) / maxlines + 1;
 
     if (parts == 1)
         return false;
@@ -691,28 +691,28 @@ bool LetterWindow::SplitLetter(int lines)
 
     sprintf(ORGSUBJ, "%.510s", mm.letterList->getSubject());
 
-    int x = parts;
-    int padsize = 1;
+    unsigned int x = parts;
+    unsigned int padsize = 1;
     while (x /= 10)
         padsize++;
 
     bool privat = mm.letterList->getPrivate();
 
-    int clines = 0;
+    unsigned int clines = 0;
 
     mm.areaList->killLetter(replyto_area, mm.letterList->getMsgNum());
 
-    for (int partno = 1; partno <= parts; partno++) {
+    for (unsigned int partno = 1; partno <= parts; partno++) {
         FILE *reply;
         char SUBJ[514];
 
         char *reply_filename = mytmpnam();
 
-        int endline = (orglines > maxlines) ? maxlines: orglines;
+        unsigned int endline = (orglines > maxlines) ? maxlines: orglines;
 
         unsigned long replen = 0;
         reply = fopen(reply_filename, "wt");
-        for (int i = clines; i < (clines + endline); i++) {
+        for (unsigned int i = clines; i < (clines + endline); i++) {
             linelist[i]->out(reply);
             replen += linelist[i]->length + 1;
         }

@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -104,7 +104,7 @@ searchret LetterListWindow::oneSearch(int x, const char *item, int mode)
 void LetterListWindow::setFormat()
 {
     char topformat[50];
-    int tot, maxFromLen, maxToLen, maxSubjLen;
+    unsigned int tot, maxFromLen, maxToLen, maxSubjLen;
 
     tot = COLS - 19;
     maxSubjLen = tot / 2;
