@@ -104,7 +104,7 @@ searchret LetterListWindow::oneSearch(int x, const char *item, int mode)
 void LetterListWindow::setFormat()
 {
     char topformat[50];
-    unsigned int tot, maxFromLen, maxToLen, maxSubjLen;
+    unsigned char tot, maxFromLen, maxToLen, maxSubjLen;
 
     tot = COLS - 19;
     maxSubjLen = tot / 2;
