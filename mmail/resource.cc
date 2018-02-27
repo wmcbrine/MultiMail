@@ -3,7 +3,7 @@
  * resource class
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "mmail.h"
@@ -390,7 +390,7 @@ void resource::processOne(int c, const char *resValue)
     if (*resValue) {
         c = startUp[c];
         if (c < noOfStrings) {
-            // Canonized for the benefit of the Win32 version:
+            // Canonized for the benefit of the Windows version:
             set_noalloc(c, (c >= noOfRaw) ? canonize(fixPath(resValue)) :
                         strdupplus(resValue));
             if (mmHomeDir == c)

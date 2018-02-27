@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * some low-level routines common to both sides
 
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 /* Most non-ANSI, non-curses stuff is here. */
@@ -273,7 +273,7 @@ bool myopendir(const char *dirname)
 const char *myreaddir(mystat &st)
 {
 #ifdef USE_FINDFIRST
-# ifdef USE_IOH                         // Win32
+# ifdef USE_IOH                         // Windows
     static long handle = -1;
     static bool first = true;
     static struct _finddata_t blk;
@@ -540,7 +540,7 @@ mystat::mystat()
 bool mystat::init(const char *fname)
 {
 #ifdef USE_FINDFIRST
-# ifdef USE_IOH                         // Win32
+# ifdef USE_IOH                         // Windows
     struct _finddata_t blk;
     long result = _findfirst((char *) fname, &blk);
     bool retval = (-1 != result);

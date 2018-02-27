@@ -5,7 +5,7 @@
 !include version
 
 #--------------------------------------------------------------
-# For Win32:
+# For Windows:
 
 CURS_DIR = /pdcurses
 

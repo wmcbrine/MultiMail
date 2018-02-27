@@ -35,15 +35,11 @@
 
 /* ----- Platform-specific defines ----- */
 
-/* This could be improved on. Currently, it's only written to deal with
-   GCC, DJGPP, EMX, RSX/NT, BCC 5.5, Turbo C++ 3.0, MinGW and Watcom.
-*/
-
 /* HAS_UNAME determines whether the "System" part of the tearline is taken
    from the uname() function, or is hardwired. Turbo/Borland C++ and
-   Watcom don't have it, and it's broken in RSX/NT.
+   Watcom don't have it.
 */
-#if !defined(__RSXNT__) && !defined(__TURBOC__) && !defined(__MINGW32__) && !defined(__WATCOMC__) && !defined(_MSC_VER)
+#if !defined(__TURBOC__) && !defined(__MINGW32__) && !defined(__WATCOMC__) && !defined(_MSC_VER)
 # define HAS_UNAME
 #endif
 
@@ -80,7 +76,7 @@
 /* I use strcasecmp() and strncasecmp() throughout, but some systems call
    these functions stricmp() and strincmp().
 */
-#if defined(__EMX__) || defined(__TURBOC__) || defined(__WATCOMC__) || defined(_MSC_VER)
+#if defined(__TURBOC__) || defined(__WATCOMC__) || defined(_MSC_VER)
 # define USE_STRICMP
 #endif
 
@@ -113,10 +109,10 @@
 # define USE_SETDISK
 #endif
 
-/* In Borland/Turbo C++ and in DJGPP, using findfirst()/findnext() is
-   faster than using readdir()/stat().
+/* In Borland/Turbo C++, using findfirst()/findnext() is faster than
+   using readdir()/stat().
 */
-#if defined(__DJGPP__) || defined(__TURBOC__)
+#ifdef __TURBOC__
 # define USE_DIRH
 # define USE_FINDFIRST
 #endif

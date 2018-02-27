@@ -30,7 +30,8 @@ precompiled binaries, see the README files that accompany them instead.
 
     If using PDCurses, MultiMail now requires version 3.1 or later.
 
-    The 16-bit MS-DOS port also uses Ralf Brown's SPAWNO library:
+    The 16-bit MS-DOS Turbo C++ port also uses Ralf Brown's SPAWNO
+    library:
 
     http://www.cs.cmu.edu/afs/cs.cmu.edu/user/ralf/pub/WWW/files.html
 
@@ -45,15 +46,15 @@ precompiled binaries, see the README files that accompany them instead.
 
 4. Run it --
     Type: `./mm`
-    (For DOS, OS/2 or Win32, set the MMAIL or HOME variable, then run mm.)
+    (For DOS, OS/2 or Windows, set the MMAIL or HOME variable, then run mm.)
 
 5. (Optional:) Configure it (for end user) --
-    Edit the ~/.mmailrc file. (For DOS, OS/2 or Win32, mmail.rc.)
+    Edit the ~/.mmailrc file. (For DOS, OS/2 or Windows, mmail.rc.)
 
 6. (Optional:) Install it system-wide --
     Type: `make install`
     to install the manual and binary under /usr/local
-    (requires root access). (This doesn't work in DOS, OS/2 or Win32.)
+    (requires root access). (This doesn't work in DOS, OS/2 or Windows.)
 
 See the man page (mmail.1) and README for more information.
 
@@ -81,16 +82,15 @@ it will work better if you set MultiMail's editor variable to "xterm -e
 $EDITOR" instead of just "$EDITOR" (the default).
 
 
-Compile notes: Win32, MS-DOS, and OS/2
---------------------------------------
+Compile notes: Windows, MS-DOS, and OS/2
+----------------------------------------
 
 In the MultiMail source, separate makefiles are provided for these ports.
 
-    Makefile.dj -  DJGPP (32-bit MS-DOS)
     Makefile.tcc - Turbo C++ (16-bit MS-DOS)
-    Makefile.mng - MinGW (Win32)
-    Makefile.wat - Watcom (All platforms -- Win32 by default)
-    Makefile.msv - Microsoft Visual C++ (Win32)
+    Makefile.mng - MinGW (Windows)
+    Makefile.wat - Watcom (All platforms -- Windows by default)
+    Makefile.msv - Microsoft Visual C++ (Windows)
 
 Edit the appropriate makefile to point to your installation of PDCurses,
 and compile with, e.g.:
