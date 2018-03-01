@@ -263,7 +263,7 @@ const char *myreaddir(mystat &st)
     static long handle = -1;
     static bool first = true;
     static struct _finddata_t blk;
-    intptr_t result;
+    long result;
 
     if (first) {
         result = _findfirst("*", &blk);
@@ -528,7 +528,7 @@ bool mystat::init(const char *fname)
 #ifdef USE_FINDFIRST
 # ifdef USE_IOH                         // Windows
     struct _finddata_t blk;
-    intptr_t result = _findfirst((char *) fname, &blk);
+    long result = _findfirst((char *) fname, &blk);
     bool retval = (-1 != result);
 
     if (retval) {
