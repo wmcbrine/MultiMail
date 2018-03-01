@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * SOUP
 
- Copyright 1999-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "soup.h"
@@ -553,7 +553,7 @@ letter_body *soup::getBody(letter_header &mhead)
                     kar = fgetc(infile);
                 } while (!(('\n' == kar) && ('\n' == lastkar)));
 
-                long count = ftell(infile) - offset;
+                count = ftell(infile) - offset;
 
                 fseek(infile, offset, SEEK_SET);
                 src = new unsigned char[count + 1];
@@ -594,7 +594,7 @@ letter_body *soup::getBody(letter_header &mhead)
             src[count] = '\0';
 
             if (mhead.isQP()) {
-                unsigned char *p = qpdecode(src);
+                p = qpdecode(src);
                 *p = '\0';
                 count = p - src;
             }

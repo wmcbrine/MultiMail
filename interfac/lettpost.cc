@@ -357,7 +357,7 @@ void LetterWindow::EnterLetter(int replyto_area, char key)
         SUBJ[0] = '\0';  //we don't have subject yet
     else {
         const char *s = stripre(mm.letterList->getSubject());
-        int len = strlen(s);
+        size_t len = strlen(s);
 
         bool useRe = (inet || mm.resourceObject->getInt(ReOnReplies))
                      && ((len + 4) <= mm.areaList->maxSubLen());

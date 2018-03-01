@@ -3,7 +3,7 @@
  * miscellaneous routines (global)
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>,
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>,
                      Peter Krefting <peter@softwolves.pp.se>
  Distributed under the GNU General Public License, version 3 or later. */
 
@@ -182,7 +182,7 @@ char *fixPath(const char *path)
 {
     char *tmp;
 
-    int len = strlen(path);
+    size_t len = strlen(path);
     char d = path[len - 1];
 
     if ((d == '/') || (d == '\\')) {
@@ -227,7 +227,7 @@ const char *searchstr(const char *source, const char *item, int slen)
     char first[3], oldc = '\0';
     char *end = (-1 != slen) ? ((char *) source + slen) : 0;
 
-    int ilen = strlen(item) - 1;
+    size_t ilen = strlen(item) - 1;
     bool found = false;
 
     first[0] = tolower(*item);
@@ -277,7 +277,7 @@ const char *fromAddr(const char *source)
     index = bracket ? (index + 1) : source;
 
     if (end) {
-        int len = end - index;
+        size_t len = end - index;
         if (len > 99)
             len = 99;
         strncpy(tmp, index, len);
@@ -316,7 +316,7 @@ const char *fromName(const char *source)
     }
 
     if (end) {
-        int len = end - fr;
+        size_t len = end - fr;
         if (len > 99)
             len = 99;
         strncpy(tmp, fr, len);
@@ -422,7 +422,7 @@ void headdec(const char *source, const char *cset, char *dest)
 
                 } else
                     if ('=' == c && '?' == source[1]) {
-                        int clen = strlen(cset);
+                        size_t clen = strlen(cset);
 
                         if (!strncasecmp(source + 2, cset, clen)) {
 

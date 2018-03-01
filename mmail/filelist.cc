@@ -3,7 +3,7 @@
  * file_header and file_list
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1998-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1998-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "mmail.h"
@@ -242,20 +242,16 @@ off_t file_list::getSize() const
 
 const char *file_list::getNext(const char *fname)
 {
-    int c, len;
-    const char *p, *q;
-    bool isExt;
-
     if (fname) {
-        isExt = (*fname == '.');
+        bool isExt = (*fname == '.');
 
-        for (c = activeFile + 1; c < (noOfFiles + noOfDirs); c++) {
-            q = base(c)->getName();
+        for (int c = activeFile + 1; c < (noOfFiles + noOfDirs); c++) {
+            const char *q = base(c)->getName();
 
             if (isExt) {
-                len = strlen(q);
+                size_t len = strlen(q);
                 if (len > 5) {
-                    p = q + len - 4;
+                    const char *p = q + len - 4;
                     if (!strcasecmp(p, fname)) {
                         activeFile = c;
                         return q;

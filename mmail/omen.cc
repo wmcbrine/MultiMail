@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * OMEN
 
- Copyright 1999-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "omen.h"
@@ -66,16 +66,15 @@ void omen::buildIndices()
 
     char junk[12];
     const char *p;
-    int nlen, personal = 0;
-    long counter;
+    int personal = 0;
     const char *name = mm->resourceObject->get(UserName);
-    nlen = name ? strlen(name) : 0;
+    size_t nlen = name ? strlen(name) : 0;
     bool checkpers = name && nlen;
 
     numMsgs = 0;
 
     while (!feof(infile)) {
-        counter = ftell(infile);
+        long counter = ftell(infile);
         p = nextLine();
 
         if (!feof(infile) && (*p++ == 1)) {

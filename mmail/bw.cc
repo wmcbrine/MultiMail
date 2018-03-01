@@ -3,7 +3,7 @@
  * Blue Wave class
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1998-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1998-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "bw.h"
@@ -287,7 +287,7 @@ void bluewave::endproc(letter_header &mhead)
 void bluewave::findInfBaseName()
 {
     const char *q = mm->workList->exists(".inf");
-    int len = strlen(q) - 4;
+    size_t len = strlen(q) - 4;
     if (len > 8)
         len = 8;
     strncpy(packetBaseName, q, len);

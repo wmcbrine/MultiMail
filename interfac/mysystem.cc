@@ -125,7 +125,7 @@ int mysystem(const char *cmd)
 
 int mysystem2(const char *cmd, const char *args)
 {
-    int lencmd = strlen(cmd);
+    size_t lencmd = strlen(cmd);
     char *qargs = canonize(quotespace(args));
     char *cmdline = new char[lencmd + strlen(qargs) + 2];
 
@@ -263,7 +263,7 @@ const char *myreaddir(mystat &st)
     static long handle = -1;
     static bool first = true;
     static struct _finddata_t blk;
-    long result;
+    intptr_t result;
 
     if (first) {
         result = _findfirst("*", &blk);
@@ -460,7 +460,7 @@ Shell::Shell()
     if (!oldprompt)
         oldprompt = "$p$g";
 
-    int len = strlen(oldprompt) + 13;
+    size_t len = strlen(oldprompt) + 13;
     prompt = new char[len];
 
     sprintf(prompt, "PROMPT=%s[MM] ", oldprompt);
@@ -499,7 +499,7 @@ ExtraPath::ExtraPath()
     const char *orig = error.getOrigDir();
     const char *home = mm.resourceObject->get(homeDir);
 
-    int len = strlen(oldpath) + strlen(orig) + strlen(home) + 8;
+    size_t len = strlen(oldpath) + strlen(orig) + strlen(home) + 8;
     newpath = new char[len];
 
     sprintf(newpath, "PATH=%s;%s;%s", oldpath, orig, home);
@@ -528,7 +528,7 @@ bool mystat::init(const char *fname)
 #ifdef USE_FINDFIRST
 # ifdef USE_IOH                         // Windows
     struct _finddata_t blk;
-    long result = _findfirst((char *) fname, &blk);
+    intptr_t result = _findfirst((char *) fname, &blk);
     bool retval = (-1 != result);
 
     if (retval) {

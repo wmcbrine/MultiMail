@@ -3,7 +3,7 @@
  * QWK
 
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "qwk.h"
@@ -11,7 +11,7 @@
 
 unsigned char *onecomp(unsigned char *p, char *dest, const char *comp)
 {
-    int len = strlen(comp);
+    size_t len = strlen(comp);
 
     if (!strncasecmp((char *) p, comp, len)) {
         p += len;
@@ -115,7 +115,7 @@ void qheader::output(FILE *repFile)
 {
     qwkmsg_header qh;
     char buf[10];
-    int sublen;
+    size_t sublen;
 
     sublen = strlen(subject);
     if (sublen > 25)
@@ -505,7 +505,7 @@ void qwkpack::readControlDat()
     nextLine();                                 // 3: phone#
 
     q = nextLine();                             // 4: sysop's name
-    int slen = strlen(q);
+    size_t slen = strlen(q);
     if (slen > 6) {
         p = q + slen - 5;
         if (!strcasecmp(p, "Sysop")) {

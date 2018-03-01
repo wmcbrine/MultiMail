@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -601,7 +601,7 @@ void LetterWindow::DrawStat()
     bool expert = mm.resourceObject->getInt(ExpertMode);
     const char *pn = mm.resourceObject->get(PacketName);
 
-    int pnlen = strlen(pn);
+    size_t pnlen = strlen(pn);
     if (pnlen > 20)
         pnlen = 20;
     int maxw = COLS - ((expert ? 4 : 20) + pnlen);
