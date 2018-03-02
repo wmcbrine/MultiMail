@@ -62,6 +62,10 @@ extern "C" {
 #if defined(__WATCOMC__) || defined(TURBO16)
 # include <dos.h>
 #endif
+
+#if defined(USE_FINDFIRST) && defined(USE_IOH)
+# include <stdint.h>
+#endif
 }
 
 #ifndef S_IREAD
@@ -260,14 +264,14 @@ const char *myreaddir(mystat &st)
 {
 #ifdef USE_FINDFIRST
 # ifdef USE_IOH                         // Windows
-    static long handle = -1;
+    static intptr_t handle;
     static bool first = true;
     static struct _finddata_t blk;
-    long result;
+    int result;
 
     if (first) {
-        result = _findfirst("*", &blk);
-        handle = result;
+        handle = _findfirst("*", &blk);
+        result = (handle == -1) ? -1 : 0;
         first = false;
     } else
         result = _findnext(handle, &blk);
