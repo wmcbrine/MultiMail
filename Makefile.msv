@@ -34,8 +34,3 @@ clean:
 	del interfac\*.obj
 	del mmail\*.obj
 	del mm.exe
-
-modclean:
-	cd mmail
-	$(MAKE) -f Makefile.bcc modclean
-	cd ..

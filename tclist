@@ -1,30 +1,30 @@
-interfac\mysystem.obj
-interfac\mmcolor.obj
-interfac\isoconv.obj
-interfac\basic.obj
-interfac\interfac.obj
-interfac\packet.obj
-interfac\arealist.obj
-interfac\letterl.obj
-interfac\letterw.obj
--Yo interfac\lettpost.obj
-interfac\ansiview.obj
-interfac\addrbook.obj
-interfac\tagline.obj
--Yo- interfac\help.obj
-interfac\main.obj
-mmail\misc.obj
-mmail\resource.obj
-mmail\mmail.obj
-mmail\filelist.obj
-mmail\area.obj
-mmail\letter.obj
-mmail\read.obj
-mmail\compress.obj
-mmail\driverl.obj
-mmail\pktbase.obj
--Yo mmail\bw.obj
-mmail\qwk.obj
-mmail\omen.obj
-mmail\soup.obj
-mmail\opx.obj
+mysystem.obj
+mmcolor.obj
+isoconv.obj
+basic.obj
+interfac.obj
+packet.obj
+arealist.obj
+letterl.obj
+letterw.obj
+-Yo lettpost.obj
+ansiview.obj
+addrbook.obj
+tagline.obj
+-Yo- help.obj
+main.obj
+misc.obj
+resource.obj
+mmail.obj
+filelist.obj
+area.obj
+letter.obj
+read.obj
+compress.obj
+driverl.obj
+pktbase.obj
+-Yo bw.obj
+qwk.obj
+omen.obj
+soup.obj
+opx.obj

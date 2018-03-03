@@ -49,17 +49,15 @@ LINKER = wlink system dos
 
 O = obj
 
-!include modules
-
-MODDEFS = $(USE_BW) $(USE_QWK) $(USE_OMEN) $(USE_SOUP) $(USE_OPX)
-CPPFLAGS = -I$(CURS_DIR) -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR) $(MODDEFS)
+CPPFLAGS = -I$(CURS_DIR) -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR)
 
 .cc:	mmail;interfac
 .cc.obj:	.autodepend
 	$(COMPILER) $(CPPFLAGS) $<
 
 MOBJS = misc.$(O) resource.$(O) mmail.$(O) driverl.$(O) filelist.$(O) &
-area.$(O) letter.$(O) read.$(O) compress.$(O) pktbase.$(O)
+area.$(O) letter.$(O) read.$(O) compress.$(O) pktbase.$(O) bw.$(O) &
+qwk.$(O) omen.$(O) soup.$(O) opx.$(O)
 
 IOBJS = mmcolor.$(O) mysystem.$(O) isoconv.$(O) basic.$(O) interfac.$(O) &
 packet.$(O) arealist.$(O) letterl.$(O) letterw.$(O) lettpost.$(O) &
@@ -67,7 +65,7 @@ ansiview.$(O) addrbook.$(O) tagline.$(O) help.$(O) main.$(O)
 
 all:	mm.exe
 
-mm.exe:	$(MOBJS) $(MODULES) $(IOBJS)
+mm.exe:	$(MOBJS) $(IOBJS)
 	$(LINKER) name mm.exe file *.obj libfile $(LIBS)
 
 clean

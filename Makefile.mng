@@ -48,6 +48,3 @@ clean:
 	cd interfac $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
 	cd mmail $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
 	$(RM) mm mm.exe
-
-modclean:
-	cd mmail $(SEP) $(MAKE) RM="$(RM)" modclean $(SEP) cd ..

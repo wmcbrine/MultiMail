@@ -7,7 +7,7 @@
 CURS_DIR = \pdcurses
 
 !ifdef DOS
-LIBS = spawnl.lib \pdcurses\wincon\pdcurses.lib
+LIBS = spawnl.lib \pdcurses\dos\pdcurses.lib
 !else
 LIBS = \pdcurses\wincon\pdcurses.lib
 CC = bcc32c -q -D__WIN32__
@@ -18,10 +18,7 @@ COMPILER = $(CC) -c -P
 
 O = obj
 
-!include modules
-
-MODDEFS = $(USE_BW) $(USE_QWK) $(USE_OMEN) $(USE_SOUP) $(USE_OPX)
-CPPFLAGS = -I$(CURS_DIR) -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR) $(MODDEFS)
+CPPFLAGS = -I$(CURS_DIR) -Immail -Iinterfac -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR)
 
 .SUFFIXES: .cc
 
@@ -33,11 +30,9 @@ CPPFLAGS = -I$(CURS_DIR) -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR) $(MODDEFS
 {interfac}.cc.obj:
 	$(COMPILER) $(CPPFLAGS) $<
 
-.cc.obj:
-	$(COMPILER) $(CPPFLAGS) $<
-
 MOBJS = misc.$(O) resource.$(O) mmail.$(O) driverl.$(O) filelist.$(O) \
-area.$(O) letter.$(O) read.$(O) compress.$(O) pktbase.$(O)
+area.$(O) letter.$(O) read.$(O) compress.$(O) pktbase.$(O) bw.$(O) \
+qwk.$(O) omen.$(O) soup.$(O) opx.$(O)
 
 IOBJS = mmcolor.$(O) mysystem.$(O) isoconv.$(O) basic.$(O) interfac.$(O) \
 packet.$(O) arealist.$(O) letterl.$(O) letterw.$(O) lettpost.$(O) \
@@ -45,7 +40,7 @@ ansiview.$(O) addrbook.$(O) tagline.$(O) help.$(O) main.$(O)
 
 all:	mm
 
-mm:	$(MOBJS) $(MODULES) $(IOBJS)
+mm:	$(MOBJS) $(IOBJS)
 	$(CC) -emm @$(LIST) $(LIBS)
 
 clean:

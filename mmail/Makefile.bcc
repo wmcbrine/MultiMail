@@ -1,9 +1,6 @@
 O = obj
 
-!include ../modules
-
-MODDEFS = $(USE_BW) $(USE_QWK) $(USE_OMEN) $(USE_SOUP) $(USE_OPX)
-CPPFLAGS = -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR) $(MODDEFS)
+CPPFLAGS = -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR)
 
 .SUFFIXES: .cc
 
@@ -11,11 +8,9 @@ CPPFLAGS = -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR) $(MODDEFS)
 	$(COMPILER) $(CPPFLAGS) $<
 
 OBJS = misc.$(O) resource.$(O) mmail.$(O) driverl.$(O) filelist.$(O) \
-area.$(O) letter.$(O) read.$(O) compress.$(O) pktbase.$(O)
+area.$(O) letter.$(O) read.$(O) compress.$(O) pktbase.$(O) bw.$(O) \
+qwk.$(O) omen.$(O) soup.$(O) opx.$(O)
 
 !include depend
 
-modclean:
-	del driverl.$(O) $(MODULES)
-
-mm-main: $(OBJS) $(MODULES)
+mm-main: $(OBJS)
