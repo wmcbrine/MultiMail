@@ -10,7 +10,7 @@
 CURS_DIR = /pdcurses
 
 LIBS = $(CURS_DIR)/wincon/pdcurses.lib
-COMPILER = "wpp386 -zq -bt=nt -D__WIN32__ -DWIN32"
+COMPILER = wpp386 -zq -bt=nt -D__WIN32__ -DWIN32
 LINKER = wlink system nt
 
 #--------------------------------------------------------------
@@ -18,7 +18,7 @@ LINKER = wlink system nt
 
 !ifeq OS2 Y
 LIBS = $(CURS_DIR)/os2/pdcurses.lib
-COMPILER = "wpp386 -zq -bt=os2v2 -D__OS2__"
+COMPILER = wpp386 -zq -bt=os2v2 -D__OS2__
 LINKER = wlink system os2v2
 !endif
 
@@ -27,7 +27,7 @@ LINKER = wlink system os2v2
 
 !ifeq DOS32 Y
 LIBS = $(CURS_DIR)/dos/pdcurses.lib
-COMPILER = "wpp386 -zq -bt=dos4g -mf -D__MSDOS__"
+COMPILER = wpp386 -zq -bt=dos4g -mf -D__MSDOS__
 LINKER = wlink system dos4g
 !endif
 
@@ -36,36 +36,40 @@ LINKER = wlink system dos4g
 
 !ifeq DOS16 Y
 LIBS = $(CURS_DIR)/dos/pdcurses.lib
-COMPILER = "wpp -zq -bt=dos -ml -D__MSDOS__"
+COMPILER = wpp -zq -bt=dos -ml -D__MSDOS__
 LINKER = wlink system dos
 !endif
 
-#--------------------------------------------------------------
-#--------------------------------------------------------------
+!ifdef __LOADDLL__
+! loaddll wlink  wlinkd
+! loaddll wlib   wlibd
+! loaddll wpp    wppdi86
+! loaddll wpp386 wppd386
+!endif
+
+O = obj
+
+!include modules
+
+MODDEFS = $(USE_BW) $(USE_QWK) $(USE_OMEN) $(USE_SOUP) $(USE_OPX)
+CPPFLAGS = -I$(CURS_DIR) -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR) $(MODDEFS)
+
+.cc:	mmail;interfac
+.cc.obj:	.autodepend
+	$(COMPILER) $(CPPFLAGS) $<
+
+MOBJS = misc.$(O) resource.$(O) mmail.$(O) driverl.$(O) filelist.$(O) &
+area.$(O) letter.$(O) read.$(O) compress.$(O) pktbase.$(O)
+
+IOBJS = mmcolor.$(O) mysystem.$(O) isoconv.$(O) basic.$(O) interfac.$(O) &
+packet.$(O) arealist.$(O) letterl.$(O) letterw.$(O) lettpost.$(O) &
+ansiview.$(O) addrbook.$(O) tagline.$(O) help.$(O) main.$(O)
 
 all:	mm.exe
 
-mm-main
-	cd mmail
-	$(MAKE) -f Makefile.wat COMPILER=$(COMPILER) MM_MAJOR=$(MM_MAJOR) &
-	MM_MINOR=$(MM_MINOR) mm-main
-	cd ..
-
-intrfc
-	cd interfac
-	$(MAKE) -f Makefile.wat COMPILER=$(COMPILER) MM_MAJOR=$(MM_MAJOR) &
-	MM_MINOR=$(MM_MINOR) CURS_DIR="$(CURS_DIR)" intrfc
-	cd ..
-
-mm.exe:	mm-main intrfc
-	$(LINKER) name mm.exe file mmail/*.obj,interfac/*.obj libfile $(LIBS)
+mm.exe:	$(MOBJS) $(MODULES) $(IOBJS)
+	$(LINKER) name mm.exe file *.obj libfile $(LIBS)
 
 clean
-	del mmail\*.obj
-	del interfac\*.obj
+	del *.obj
 	del mm.exe
-
-modclean
-	cd mmail
-	$(MAKE) -f Makefile.wat modclean
-	cd ..
