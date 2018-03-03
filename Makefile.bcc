@@ -1,0 +1,54 @@
+#-----------------------------------------------
+# MultiMail Makefile (top) for Borland/Turbo C++
+#-----------------------------------------------
+
+!include version
+
+CURS_DIR = \pdcurses
+
+!ifdef DOS
+LIBS = spawnl.lib \pdcurses\wincon\pdcurses.lib
+!else
+LIBS = \pdcurses\wincon\pdcurses.lib
+CC = bcc32c -q -D__WIN32__
+!endif
+
+LIST = tclist
+COMPILER = $(CC) -c -P
+
+O = obj
+
+!include modules
+
+MODDEFS = $(USE_BW) $(USE_QWK) $(USE_OMEN) $(USE_SOUP) $(USE_OPX)
+CPPFLAGS = -I$(CURS_DIR) -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR) $(MODDEFS)
+
+.SUFFIXES: .cc
+
+.autodepend
+
+{mmail}.cc.obj:
+	$(COMPILER) $(CPPFLAGS) $<
+
+{interfac}.cc.obj:
+	$(COMPILER) $(CPPFLAGS) $<
+
+.cc.obj:
+	$(COMPILER) $(CPPFLAGS) $<
+
+MOBJS = misc.$(O) resource.$(O) mmail.$(O) driverl.$(O) filelist.$(O) \
+area.$(O) letter.$(O) read.$(O) compress.$(O) pktbase.$(O)
+
+IOBJS = mmcolor.$(O) mysystem.$(O) isoconv.$(O) basic.$(O) interfac.$(O) \
+packet.$(O) arealist.$(O) letterl.$(O) letterw.$(O) lettpost.$(O) \
+ansiview.$(O) addrbook.$(O) tagline.$(O) help.$(O) main.$(O)
+
+all:	mm
+
+mm:	$(MOBJS) $(MODULES) $(IOBJS)
+	$(CC) -emm @$(LIST) $(LIBS)
+
+clean:
+	del *.obj
+	del mm.exe
+        del mm.tds
