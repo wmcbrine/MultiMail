@@ -2,8 +2,6 @@
 # MultiMail Makefile (top) for Microsoft Visual C++
 #--------------------------------------------------
 
-!include version
-
 CURS_DIR = \pdcurses
 LIBS = \pdcurses\wincon\pdcurses.lib user32.lib advapi32.lib
 COMPILER = $(CC) -nologo -c -O2 -D__WIN32__
@@ -12,7 +10,7 @@ all:	mm
 
 O = obj
 
-CPPFLAGS = -I$(CURS_DIR) -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR)
+CPPFLAGS = -I$(CURS_DIR)
 
 .SUFFIXES: .cc
 

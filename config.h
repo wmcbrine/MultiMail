@@ -1,6 +1,9 @@
 #define STRingize(x) #x
 #define STR(x) STRingize(x)
 
+#define MM_MAJOR 0
+#define MM_MINOR 50
+
 #define MM_NAME "MultiMail"
 #define MM_VERNUM STR(MM_MAJOR) "." STR(MM_MINOR)
 #define MM_TOPHEADER MM_NAME "/%.16s v" MM_VERNUM

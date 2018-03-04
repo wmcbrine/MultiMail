@@ -2,8 +2,6 @@
 # MultiMail Makefile (top) for Borland/Turbo C++
 #-----------------------------------------------
 
-!include version
-
 CURS_DIR = \pdcurses
 
 !ifdef DOS
@@ -18,7 +16,7 @@ COMPILER = $(CC) -c -P
 
 O = obj
 
-CPPFLAGS = -I$(CURS_DIR) -Immail -Iinterfac -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR)
+CPPFLAGS = -I$(CURS_DIR) -Immail -Iinterfac
 
 .SUFFIXES: .cc
 

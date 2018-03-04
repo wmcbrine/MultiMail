@@ -2,8 +2,6 @@
 # MultiMail Makefile (top)
 #--------------------------
 
-include version
-
 msrc = mmail
 isrc = interfac
 
@@ -69,7 +67,7 @@ endif
 #--------------------------------------------------------------
 
 HELPDIR = $(PREFIX)/man/man1
-CPPFLAGS = $(OPTS) -I$(CURS_DIR) -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR)
+CPPFLAGS = $(OPTS) -I$(CURS_DIR)
 O = o
 
 .SUFFIXES: .cc

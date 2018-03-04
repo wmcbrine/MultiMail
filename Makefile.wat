@@ -2,9 +2,6 @@
 # MultiMail Makefile (top) for Open Watcom C++
 #-----------------------------------------------
 
-!include version
-
-#--------------------------------------------------------------
 # For Windows:
 
 CURS_DIR = /pdcurses
@@ -49,7 +46,7 @@ LINKER = wlink system dos
 
 O = obj
 
-CPPFLAGS = -I$(CURS_DIR) -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR)
+CPPFLAGS = -I$(CURS_DIR)
 
 .cc:	mmail;interfac
 .cc.obj:	.autodepend
