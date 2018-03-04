@@ -1,0 +1,135 @@
+area.$(O): mmail/area.cc mmail/mmail.h mmail/../config.h \
+  mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h
+bw.$(O): mmail/bw.cc mmail/bw.h mmail/pktbase.h mmail/mmail.h \
+  mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h mmail/bluewave.h mmail/compress.h
+compress.$(O): mmail/compress.cc mmail/compress.h mmail/mmail.h \
+  mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h
+driverl.$(O): mmail/driverl.cc mmail/bw.h mmail/pktbase.h mmail/mmail.h \
+  mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h mmail/bluewave.h mmail/qwk.h mmail/omen.h \
+  mmail/soup.h mmail/opx.h mmail/opxstrct.h
+filelist.$(O): mmail/filelist.cc mmail/mmail.h mmail/../config.h \
+  mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h
+letter.$(O): mmail/letter.cc mmail/mmail.h mmail/../config.h \
+  mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h
+misc.$(O): mmail/misc.cc mmail/mmail.h mmail/../config.h \
+  mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h
+mmail.$(O): mmail/mmail.cc mmail/mmail.h mmail/../config.h \
+  mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h mmail/compress.h \
+  mmail/../interfac/error.h
+omen.$(O): mmail/omen.cc mmail/omen.h mmail/pktbase.h mmail/mmail.h \
+  mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h mmail/compress.h
+opx.$(O): mmail/opx.cc mmail/opx.h mmail/pktbase.h mmail/mmail.h \
+  mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h mmail/opxstrct.h mmail/compress.h
+pktbase.$(O): mmail/pktbase.cc mmail/compress.h mmail/mmail.h \
+  mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h mmail/pktbase.h
+qwk.$(O): mmail/qwk.cc mmail/qwk.h mmail/pktbase.h mmail/mmail.h \
+  mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h mmail/compress.h
+read.$(O): mmail/read.cc mmail/mmail.h mmail/../config.h \
+  mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h mmail/compress.h
+resource.$(O): mmail/resource.cc mmail/mmail.h mmail/../config.h \
+  mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h mmail/../interfac/error.h
+soup.$(O): mmail/soup.cc mmail/soup.h mmail/pktbase.h mmail/mmail.h \
+  mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h mmail/compress.h
+addrbook.$(O): interfac/addrbook.cc interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+ansiview.$(O): interfac/ansiview.cc interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+arealist.$(O): interfac/arealist.cc interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+basic.$(O): interfac/basic.cc interfac/interfac.h interfac/../mmail/mmail.h \
+  interfac/../mmail/../config.h interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+help.$(O): interfac/help.cc interfac/interfac.h interfac/../mmail/mmail.h \
+  interfac/../mmail/../config.h interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+interfac.$(O): interfac/interfac.cc interfac/error.h interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+isoconv.$(O): interfac/isoconv.cc interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+letterl.$(O): interfac/letterl.cc interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+letterw.$(O): interfac/letterw.cc interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+lettpost.$(O): interfac/lettpost.cc interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+main.$(O): interfac/main.cc interfac/error.h interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+mmcolor.$(O): interfac/mmcolor.cc interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+mysystem.$(O): interfac/mysystem.cc interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h interfac/error.h
+packet.$(O): interfac/packet.cc interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h
+tagline.$(O): interfac/tagline.cc interfac/interfac.h \
+  interfac/../mmail/mmail.h interfac/../mmail/../config.h \
+  interfac/../mmail/../mmail/misc.h \
+  interfac/../mmail/../mmail/resource.h \
+  interfac/../mmail/../interfac/mysystem.h interfac/mmcolor.h \
+  interfac/isoconv.h interfac/tagline.h

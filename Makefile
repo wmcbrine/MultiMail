@@ -4,6 +4,9 @@
 
 include version
 
+msrc = mmail
+isrc = interfac
+
 # General options (passed to mmail/Makefile and interfac/Makefile). POST 
 # is for any post-processing that needs doing.
 
@@ -66,29 +69,37 @@ endif
 #--------------------------------------------------------------
 
 HELPDIR = $(PREFIX)/man/man1
+CPPFLAGS = $(OPTS) -I$(CURS_DIR) -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR)
+O = o
+
+.SUFFIXES: .cc
+.PHONY: clean dep install
 
 all:	mm$(E)
 
-mm-main:
-	cd mmail $(SEP) $(MAKE) MM_MAJOR="$(MM_MAJOR)" \
-		MM_MINOR="$(MM_MINOR)" OPTS="$(OPTS)" mm-main $(SEP) cd ..
+MOBJS = misc.o resource.o mmail.o driverl.o filelist.o area.o letter.o \
+read.o compress.o pktbase.o bw.o qwk.o omen.o soup.o opx.o
 
-intrfc:
-	cd interfac $(SEP) $(MAKE) MM_MAJOR="$(MM_MAJOR)" \
-		MM_MINOR="$(MM_MINOR)" OPTS="$(OPTS)" \
-		CURS_DIR="$(CURS_DIR)" intrfc $(SEP) cd ..
+IOBJS = mmcolor.o mysystem.o isoconv.o basic.o interfac.o packet.o \
+arealist.o letterl.o letterw.o lettpost.o ansiview.o addrbook.o \
+tagline.o help.o main.o
 
-mm$(E):	mm-main intrfc
-	$(CXX) -o mm$(E) mmail/*.o interfac/*.o -L$(CURS_LIB) $(LIBS)
+$(MOBJS) : %.o: $(msrc)/%.cc
+	$(CXX) $(CPPFLAGS) -c $<
+
+$(IOBJS) : %.o: $(isrc)/%.cc
+	$(CXX) $(CPPFLAGS) -c $<
+
+mm$(E):	$(MOBJS) $(IOBJS)
+	$(CXX) -o mm$(E) $(MOBJS) $(IOBJS) -L$(CURS_LIB) $(LIBS)
 	$(POST)
 
 dep:
-	cd interfac $(SEP) $(MAKE) CURS_DIR="$(CURS_DIR)" dep $(SEP) cd ..
-	cd mmail $(SEP) $(MAKE) dep $(SEP) cd ..
+	$(CXX) -MM $(msrc)/*.cc | sed s/"\.o"/"\.\$$(O)"/ > depend
+	$(CXX) -I$(CURS_DIR) -MM $(isrc)/*.cc | sed s/"\.o"/"\.\$$(O)"/ >> depend
 
 clean:
-	cd interfac $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
-	cd mmail $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
+	$(RM) *.o
 	$(RM) mm$(E)
 
 install::
@@ -96,3 +107,5 @@ install::
 	install -c -m 644 mm.1 $(HELPDIR)
 	$(RM) $(HELPDIR)/mmail.1
 	ln $(HELPDIR)/mm.1 $(HELPDIR)/mmail.1
+
+include depend
