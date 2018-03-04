@@ -4,48 +4,47 @@
 
 include version
 
-# General options (passed to mmail/Makefile and interfac/Makefile):
+# General options (passed to mmail/Makefile and interfac/Makefile). POST 
+# is for any post-processing that needs doing.
 
 ifeq ($(DEBUG),Y)
 	OPTS = -g -Wall -Wextra -pedantic -Wno-char-subscripts
 else
 	OPTS = -O2 -Wall -pedantic -Wno-char-subscripts
+	POST = strip mm$(E)
 endif
 
-# PREFIX is the base directory under which to install the binary and man
-# page; generally either /usr/local or /usr (or perhaps /opt...):
+# PREFIX is the base directory under which to install the binary and man 
+# page; generally either /usr/local or /usr (or perhaps /opt...).
 
 PREFIX = /usr/local
-
-# Delete command ("rm" or "del", as appropriate):
-
-RM = rm -f
-
-# The separator for multi-statement lines... some systems require ";",
-# while others need "&&":
-
-SEP = ;
-
-# Any post-processing that needs doing:
-
-POST =
 
 #--------------------------------------------------------------
 # Defaults are for the standard curses setup:
 
-# CURS_DIR specifies the directory with your curses header file, if it's
-# not /usr/include/curses.h:
+# CURS_DIR specifies the directory with your curses header file, if it's 
+# not /usr/include/curses.h. CURS_LIB specifies the directory where the 
+# curses libraries can be found, if they're not in the standard search 
+# path. LIBS lists any "extra" libraries that need to be linked in. RM 
+# is the Delete command ("rm" or "del", as appropriate), and SEP is the 
+# separator for multi-statement lines... some systems require ";", while 
+# others need "&&".
 
-CURS_DIR = .
-
-# CURS_LIB specifies the directory where the curses libraries can be found,
-# if they're not in the standard search path:
-
-CURS_LIB = .
-
-# LIBS lists any "extra" libraries that need to be linked in:
-
-LIBS = -lcurses
+ifeq ($(OS),Windows_NT)
+	CURS_DIR = /pdcurses
+	CURS_LIB = .
+	LIBS = /pdcurses/wincon/pdcurses.a
+	RM = del
+	SEP = &&
+	E = .exe
+else
+	CURS_DIR = .
+	CURS_LIB = .
+	LIBS = -lcurses
+	RM = rm -f
+	SEP = ;
+	E =
+endif
 
 #--------------------------------------------------------------
 # With PDCurses for X11:
@@ -65,11 +64,10 @@ ifeq ($(SDL),Y)
 endif
 
 #--------------------------------------------------------------
-#--------------------------------------------------------------
 
 HELPDIR = $(PREFIX)/man/man1
 
-all:	mm
+all:	mm$(E)
 
 mm-main:
 	cd mmail $(SEP) $(MAKE) MM_MAJOR="$(MM_MAJOR)" \
@@ -80,8 +78,8 @@ intrfc:
 		MM_MINOR="$(MM_MINOR)" OPTS="$(OPTS)" \
 		CURS_DIR="$(CURS_DIR)" intrfc $(SEP) cd ..
 
-mm:	mm-main intrfc
-	$(CXX) -o mm mmail/*.o interfac/*.o -L$(CURS_LIB) $(LIBS)
+mm$(E):	mm-main intrfc
+	$(CXX) -o mm$(E) mmail/*.o interfac/*.o -L$(CURS_LIB) $(LIBS)
 	$(POST)
 
 dep:
@@ -91,7 +89,7 @@ dep:
 clean:
 	cd interfac $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
 	cd mmail $(SEP) $(MAKE) RM="$(RM)" clean $(SEP) cd ..
-	$(RM) mm
+	$(RM) mm$(E)
 
 install::
 	install -c -s mm $(PREFIX)/bin
