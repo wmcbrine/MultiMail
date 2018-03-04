@@ -6,7 +6,7 @@
 
 CURS_DIR = \pdcurses
 LIBS = \pdcurses\wincon\pdcurses.lib user32.lib advapi32.lib
-COMPILER = "$(CC) -nologo -c -O2 -D__WIN32__"
+COMPILER = $(CC) -nologo -c -O2 -D__WIN32__
 
 all:	mm
 
@@ -30,10 +30,11 @@ IOBJS = mmcolor.$(O) mysystem.$(O) isoconv.$(O) basic.$(O) interfac.$(O) \
 packet.$(O) arealist.$(O) letterl.$(O) letterw.$(O) lettpost.$(O) \
 ansiview.$(O) addrbook.$(O) tagline.$(O) help.$(O) main.$(O)
 
-
 mm:	$(MOBJS) $(IOBJS)
 	link -out:mm.exe *.obj $(LIBS)
 
 clean:
 	del *.obj
 	del mm.exe
+
+!include depend
