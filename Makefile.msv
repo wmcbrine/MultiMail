@@ -16,10 +16,10 @@ CPPFLAGS = -I$(CURS_DIR) -DMM_MAJOR=$(MM_MAJOR) -DMM_MINOR=$(MM_MINOR)
 
 .SUFFIXES: .cc
 
-{mmail}.cc.obj:
+{mmail}.cc.obj::
 	$(COMPILER) $(CPPFLAGS) $<
 
-{interfac}.cc.obj:
+{interfac}.cc.obj::
 	$(COMPILER) $(CPPFLAGS) $<
 
 MOBJS = misc.$(O) resource.$(O) mmail.$(O) driverl.$(O) filelist.$(O) \
