@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef INTERFACE_H
@@ -222,7 +222,7 @@ class ListWindow
     void DrawOne(int, chtype);
     void DrawOne(int, coltype);
     void DrawAll();
-    virtual int NumOfItems() = 0;
+    virtual size_t NumOfItems() = 0;
     virtual void oneLine(int) = 0;
     virtual searchret oneSearch(int, const char *, int) = 0;
     virtual bool extrakeys(int) = 0;
@@ -273,10 +273,10 @@ class AddressBook : public ListWindow
     Person head, *curr, *highlighted, **people, **living;
     const char *addfname;
     char *filter;
-    int NumOfPersons, NumOfActive;
+    size_t NumOfPersons, NumOfActive;
     bool NoEnter, inletter;
 
-    int NumOfItems();
+    size_t NumOfItems();
     void oneLine(int);
     searchret oneSearch(int, const char *, int);
     bool extrakeys(int);
@@ -317,7 +317,7 @@ class TaglineWindow : public ListWindow
     tagline head, *curr, *highlighted, **taglist, **tagactive;
     const char *tagname;
     char *filter;
-    int NumOfTaglines, NumOfActive;
+    size_t NumOfTaglines, NumOfActive;
     bool nodraw, sorted;
 
     void oneLine(int);
@@ -339,7 +339,7 @@ class TaglineWindow : public ListWindow
     void EnterTagline(const char * = 0);
     void EditTagline();
     void Init();
-    int NumOfItems();
+    size_t NumOfItems();
     const char *getCurrent();
 };
 
@@ -347,7 +347,7 @@ class LittleAreaListWindow : public ListWindow
 {
     int disp, areanum;
 
-    int NumOfItems();
+    size_t NumOfItems();
     void oneLine(int);
     searchret oneSearch(int, const char *, int);
     bool extrakeys(int);
@@ -385,7 +385,7 @@ class PacketListWindow : public ListWindow
     int noDirs, noFiles;
     bool sorttype;
 
-    int NumOfItems();
+    size_t NumOfItems();
     void oneLine(int);
     searchret oneSearch(int, const char *, int);
     bool extrakeys(int);
@@ -413,7 +413,7 @@ class AreaListWindow : public ListWindow
     char format[40];
     bool hasPers, hasSys;
 
-    int NumOfItems();
+    size_t NumOfItems();
     void oneLine(int);
     searchret oneSearch(int, const char *, int);
     bool extrakeys(int);
@@ -434,7 +434,7 @@ class LetterListWindow : public ListWindow
 {
     char format[50], *topline;
 
-    int NumOfItems();
+    size_t NumOfItems();
     void oneLine(int);
     searchret oneSearch(int, const char *, int);
     bool extrakeys(int);

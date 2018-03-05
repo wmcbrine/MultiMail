@@ -3,7 +3,7 @@
  * tagline selection, editing
 
  Copyright 1996-1997 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -64,7 +64,7 @@ void TaglineWindow::MakeActive()
     char *p = tmp + sprintf(tmp, "Taglines, %s", sorted ? "sorted" :
                             "unsorted");
     if (NumOfActive > list_max_y)
-        p += sprintf(p, " (%d)", NumOfActive);
+        p += sprintf(p, " (%lu)", NumOfActive);
     if (filter)
         sprintf(p, " | %.20s", filter);
 
@@ -356,7 +356,7 @@ searchret TaglineWindow::oneSearch(int x, const char *item, int)
     return searchstr(tagactive[x]->text, item) ? True : False;
 }
 
-int TaglineWindow::NumOfItems()
+size_t TaglineWindow::NumOfItems()
 {
     return NumOfActive;
 }

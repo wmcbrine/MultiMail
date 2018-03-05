@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -653,7 +653,7 @@ void ListWindow::DrawAll()
 
 void ListWindow::Move(int dir)
 {
-    int limit = NumOfItems();
+    size_t limit = NumOfItems();
 
     switch (dir) {
     case KEY_UP:
@@ -692,7 +692,7 @@ int ListWindow::getActive()
 
 searchret ListWindow::search(const char *item, int mode)
 {
-    int limit = NumOfItems();
+    size_t limit = NumOfItems();
     searchret found = False;
 
     statetype orgstate = ui->active();

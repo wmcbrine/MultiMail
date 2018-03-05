@@ -3,7 +3,7 @@
  * address book
 
  Copyright 1996 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -79,7 +79,7 @@ void AddressBook::MakeActive(bool NoEnterA)
     char tmp[60];
     char *p = tmp + sprintf(tmp, "Addresses");
     if (NumOfActive > list_max_y)
-        p += sprintf(p, " (%d)", NumOfActive);
+        p += sprintf(p, " (%lu)", NumOfActive);
     if (filter)
         sprintf(p, " | %.20s", filter);
 
@@ -342,7 +342,7 @@ searchret AddressBook::oneSearch(int x, const char *item, int)
     return s ? True : False;
 }
 
-int AddressBook::NumOfItems()
+size_t AddressBook::NumOfItems()
 {
     return NumOfActive;
 }
