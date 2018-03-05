@@ -65,6 +65,17 @@ ifeq ($(SDL),Y)
 endif
 
 #--------------------------------------------------------------
+# For DJGPP:
+
+ifeq ($(DOS),Y)
+	CURS_DIR = /pdcurses
+	CURS_LIB = .
+	LIBS = /pdcurses/dos/pdcurses.a
+	RM = del
+	SEP = ;
+	E = .exe
+	POST = strip mm.exe
+endif
 
 HELPDIR = $(PREFIX)/man/man1
 CPPFLAGS = $(OPTS) -I$(CURS_DIR)
