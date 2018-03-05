@@ -163,7 +163,7 @@ void LetterListWindow::MakeActiveCore()
 
     char *newend = end + sprintf(end, ", by %s", sortstr);
     if (too_many)
-        newend += sprintf(newend, " (%lu)", NumOfItems());
+        newend += sprintf(newend, " (%zu)", NumOfItems());
     if (flen)
         sprintf(newend, " | %.*s", flen - 3, filter);
 

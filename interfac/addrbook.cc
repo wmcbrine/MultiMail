@@ -79,7 +79,7 @@ void AddressBook::MakeActive(bool NoEnterA)
     char tmp[60];
     char *p = tmp + sprintf(tmp, "Addresses");
     if (NumOfActive > list_max_y)
-        p += sprintf(p, " (%lu)", NumOfActive);
+        p += sprintf(p, " (%zu)", NumOfActive);
     if (filter)
         sprintf(p, " | %.20s", filter);
 

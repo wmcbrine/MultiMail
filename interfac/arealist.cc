@@ -289,7 +289,7 @@ void AreaListWindow::MakeActive()
                             almodes[mm.areaList->getMode()]);
 
     if (NumOfItems() > list_max_y)
-        p += sprintf(p, " (%lu)", NumOfItems());
+        p += sprintf(p, " (%zu)", NumOfItems());
 
     if (filter)
         sprintf(p, " | %.20s", filter);
