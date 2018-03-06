@@ -359,7 +359,7 @@ void AnsiWindow::athandle()
     static int oldccf = -1, oldccb, oldcbr, oldcfl;
     unsigned fg = 0, bg = 0;
     int result;
-    char c[2], bgc[2], fgc[2];
+    unsigned char c[2], bgc[2], fgc[2];
 
     bool xmode = false;
 
@@ -374,12 +374,12 @@ void AnsiWindow::athandle()
     case '5': case '6': case '7': case '8': case '9':
         bgc[0] = c[0];
         bgc[1] = '\0';
-        result = sscanf(bgc, "%x", &bg);
+        result = sscanf((const char *)bgc, "%x", &bg);
 
         if (1 == result) {
             fgc[0] = source.nextchar();
             fgc[1] = '\0';
-            result = sscanf(fgc, "%x", &fg);
+            result = sscanf((const char *)fgc, "%x", &fg);
 
             if (1 == result) {
                 if (!xmode) {
@@ -480,7 +480,7 @@ void AnsiWindow::cpxlow()
 
 void AnsiWindow::escfig()
 {
-    char a[2];
+    unsigned char a[2];
 
     a[0] = source.nextchar();
     a[1] = '\0';
@@ -540,7 +540,7 @@ void AnsiWindow::escfig()
 
     case ';':                   // parameter separator
         {
-            strcat(escparm, a);
+            strcat(escparm, (const char *)a);
             escfig();
         }
     }

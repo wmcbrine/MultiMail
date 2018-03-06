@@ -601,7 +601,7 @@ class AnsiWindow
     int x, y;           //dimensions of the window
     int cpx, cpy, lpy;  //ANSI positions
     int spx, spy;       //stored ANSI positions
-    int tlen;           //maximum X reached
+    size_t tlen;        //maximum X reached
     int ccf, ccb, cfl, cbr, crv;  //colors and attributes
     int oldcolorx, oldcolory;
     int baseline;       //base for positions in non-anim mode

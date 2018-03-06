@@ -64,7 +64,7 @@ void TaglineWindow::MakeActive()
     char *p = tmp + sprintf(tmp, "Taglines, %s", sorted ? "sorted" :
                             "unsorted");
     if (NumOfActive > list_max_y)
-        p += sprintf(p, " (%lu)", NumOfActive);
+        p += sprintf(p, " (%zu)", NumOfActive);
     if (filter)
         sprintf(p, " | %.20s", filter);
 
@@ -292,7 +292,7 @@ void TaglineWindow::WriteFile(bool message)
 
     tagx = fopen(tagname, "wt");
     if (tagx) {
-        for (int x = 0; x < NumOfTaglines; x++) {
+        for (size_t x = 0; x < NumOfTaglines; x++) {
             fputs(taglist[x]->text, tagx);
             fputc('\n', tagx);
         }
