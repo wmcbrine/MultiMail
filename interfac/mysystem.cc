@@ -217,36 +217,27 @@ char *mygetcwd()
 // system name -- results of uname()
 const char *sysname()
 {
-#ifdef HAS_UNAME
+#if defined(__WIN32__)
+    return "Win";
+#elif defined(__APPLE__)
+    return "Mac";
+#elif defined(__MSDOS__)
+# ifdef SIXTEENBIT
+    return "XT";
+# else
+    return "DOS";
+# endif
+#elif defined(__OS2__)
+    return "OS2";
+#elif defined(HAS_UNAME)
     static struct utsname buf;
 
     if (!buf.sysname[0])
-    {
         uname(&buf);
-
-        if (!strcmp(buf.sysname, "Darwin"))
-            strcpy(buf.sysname, "Mac");
-    }
 
     return buf.sysname;
 #else
-# ifdef __OS2__
-    return "OS2";
-# else
-#  ifdef __WIN32__
-    return "Win";
-#  else
-#   ifdef __MSDOS__
-#    ifdef SIXTEENBIT
-    return "XT";
-#    else
-    return "DOS";
-#    endif
-#   else
     return "?";
-#   endif
-#  endif
-# endif
 #endif
 }
 
