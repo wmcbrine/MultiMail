@@ -87,14 +87,13 @@ Compile notes: Windows, MS-DOS, and OS/2
 
 In the MultiMail source, separate makefiles are provided for these ports.
 
-    Makefile.tcc - Turbo C++ (16-bit MS-DOS)
-    Makefile.mng - MinGW (Windows)
+    Makefile.bcc - Borland C++ (Windows, MS-DOS)
     Makefile.wat - Watcom (All platforms -- Windows by default)
     Makefile.msv - Microsoft Visual C++ (Windows)
 
 Edit the appropriate makefile to point to your installation of PDCurses,
 and compile with, e.g.:
 
-    make -f Makefile.mng
+    make -f Makefile.bcc
 
 (Use "wmake" instead of "make" for Watcom; "nmake" for MSVC.)
