@@ -1,12 +1,12 @@
-MultiMail version 0.49
+MultiMail version 0.51
 ======================
 
-What's New in version 0.49?
+What's New in version 0.51?
 ---------------------------
 
- * Updated for PDCurses 3.3
- * Transparency with PDCurses for SDL
- * Pause in ANSI animation
+ * Blinking in the ANSI viewer, with PDCurses
+ * Workaround for some corrupt QWK packets
+ * Fixes for compatibility with modern compilers
 
 See the [HISTORY](HISTORY.md) file for other changes. See
 [INSTALL](INSTALL.md) for the installation procedure, and the man page

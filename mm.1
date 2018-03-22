@@ -1,4 +1,4 @@
-.TH MultiMail 1 "July 19, 2007"
+.TH MultiMail 1 "April 1, 2018"
 .SH NAME
 mm - offline mail reader for Blue Wave, QWK, OMEN, SOUP and OPX packets
 .SH SYNOPSIS
@@ -12,10 +12,7 @@ SOUP is used for Internet email and Usenet. The other formats are
 primarily used with dialup (or telnet) BBSes, to save connect time and to
 provide a better interface to the message base.
 
-Not all packet formats may be available, depending on how the program was
-compiled.
-
-This manpage is for version 0.49.
+This manpage is for version 0.51.
 .SH USAGE
 On most screens, a summary of the available keystroke commands is
 displayed in the lower part of the screen. (You can disable this, and
@@ -106,9 +103,9 @@ has always been available in the Unix versions; however, it won't work if
 MultiMail wasn't launched from an interactive shell, or if the shell
 doesn't support it.)
 .SH MOUSING
-MultiMail is mousable on certain platforms: X, the Linux console (with
-gpm), and Windows. (You can still use selection with X and gpm, too; to
-select or paste, hold down the shift key.)
+MultiMail is mousable on many platforms: X, SDL, the Linux console (with
+gpm), Windows, DOS and OS/2. (You can still use selection with X and
+gpm, too; to select or paste, hold down the shift key.)
 
 In each list window, button 1 highlights a line, or selects it (the same
 as pressing Enter) if it's already highlighted. Double-click to select
@@ -469,26 +466,27 @@ characters.
 Path and filename of the colors file. See COLORS.md.
 .TP
 .B UseColors
-Yes/No. This governs whether color is used, or monochrome. When colors are
-disabled, the terminal's default foreground and background colors are
-used. It's also a crude way to implement transparency (the only way, if
-you're not using ncurses) -- the entire background will be transparent
-when using an appropriate terminal.
+Yes/No. This governs whether color is used, or monochrome. When colors
+are disabled, the terminal's default foreground and background colors
+are used. It's also a crude way to implement transparency (the only way,
+if you're not using ncurses or PDCurses/SDL) -- the entire background
+will be transparent when using an appropriate terminal.
 .TP
 .B Transparency
-Yes/No. Only available in ncurses. (The option will appear, but not work,
-in non-ncurses, non-PDCurses platforms.) When this is set to Yes, all
-areas where the background color is the same as the background color set
-in the "Main_Back" line, in the colors file, are instead set to the default
-background color, and thus become transparent areas in those terminal
-programs, like Eterm and Gnome Terminal, that support this.
+Yes/No. Only available in ncurses or PDCurses for SDL. (The option will
+appear, but not work, in non-ncurses, non-PDCurses platforms.) When this
+is set to Yes, all areas where the background color is the same as the
+background color set in the "Main_Back" line, in the colors file, are
+instead set to the default background color, and thus become transparent
+areas in those terminal programs, like Eterm and Gnome Terminal, that
+support this.
 .TP
 .B BackFill
 Yes/No. Normally the background area is filled with a checkerboard pattern
 (ACS_BOARD characters, in curses terms). You can disable that here,
 leaving those areas as flat background color. This option is intended
 mostly to make transparency more effective, but it might help with any
-color scheme. (Unlike the previous two, it's available in PDCurses.)
+color scheme.
 .TP
 .B *UncompressCommand, *CompressCommand
 Command lines (program name, options, and optionally the path) for the

@@ -1,6 +1,71 @@
 Revision History
 ================
 
+## 0.51 - 2018/04/01:
+
+It is risen. No fooling.
+
+- Enable blinking in PDCurses for the ANSI viewer, wherever possible.
+  (Binaries of this version were built with PDCurses 3.6, which adds
+  software blinking for most platforms.)
+
+- Workaround for corrupt messages.dat when using the fallback (non-.ndx)
+  QWK scan -- keep looking for next valid header. Based on bug report by
+  "XBessa".
+
+- Blue Wave issue: macros string fields are different lengths in
+  INF_HEADER vs. PDQ_HEADER. Reported by Frederic Cambus.
+
+- A 64-bit version built with MSVC would crash on startup (other 64-bit
+  builds not affected) -- fixed.
+
+- NetBSD fixes by Frederic Cambus.
+
+- Mac build now reports itself as "MultiMail/Mac" instead of
+  "MultiMail/Darwin"; also, "/DOS" vs. "/MS-DOS", "/OS2" vs. "/OS/2",
+  "/Win" vs. "/Win32".
+
+- Makefiles reorganized and reduced -- elminiated the per-directory
+  build process; all objects are built in the top-level directory now.
+  DJGPP and MinGW are merged into the main Makefile; DEBUG, SDL and X11
+  are command-line options. MSVC does an all-at-once build (similar to
+  PDCurses). Borland for Windows is restored, and building with old Turbo
+  C++ is combined into Makefile.bcc via a command-line option. And
+  Watcom now allows building for any platform via an option (instead of
+  editing the Makefile).
+
+- Removed separate "modules" file (now builds all) and "version" file
+  (now defined in config.h).
+
+- Dropped the mmail.spec file -- I think this is better left to distro
+  maintainers.
+
+- Dropped support for EMX; cleaned up some lingering references to
+  RSX/NT.
+
+- Various compile warnings and errors with more modern compilers, undone.
+
+- New source code formatting -- four-space indentation, no tabs.
+
+- Documentation "converted" to Markdown format (mainly just by renaming
+  files); removed trailing spaces.
+
+- Most references to "Win32" changed to "Windows", per Microsoft
+  recommendations.
+
+- Spelling and other doc fixes by Robert James Clay.
+
+- Updated web and email addresses.
+
+- The Artist Formerly Known as Peter Karlsson is now "Peter Krefting".
+
+## 0.50 - N/A
+
+There was never a formal 0.50 release, but over the years, people have
+distributed versions of "0.50", based on the source code repository. So,
+in an attempt to reduce confusion, I'm skipping "0.50" for the next
+release.
+
 ## 0.49 - 2007/07/19:
 
 - Built against PDCurses 3.3 (and 3.1 is now the minimum version that
