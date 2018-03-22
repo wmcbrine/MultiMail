@@ -9,7 +9,7 @@ precompiled binaries, see the README files that accompany them instead.
     or PKZIP (and/or LHA, ARJ, etc.) to uncompress the packets and
     compress the replies. InfoZip is available from:
 
-    http://info-zip.org/
+    http://infozip.sf.net/
 
     (PKZIP is the default for DOS; InfoZip is the default for other
     platforms.) The programs should be installed somewhere in the PATH;
