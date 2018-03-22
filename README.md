@@ -17,7 +17,7 @@ What is MultiMail?
 ------------------
 
 MultiMail is an offline mail packet reader for Unix/Linux, MS-DOS, OS/2,
-Windows, Mac OS X, and other systems, using a curses-based interface. It
+Windows, macOS, and other systems, using a curses-based interface. It
 supports the Blue Wave, QWK, OMEN, SOUP and OPX formats.
 
 MultiMail is free, open source software, distributed under the GNU
