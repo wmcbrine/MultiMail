@@ -50,7 +50,7 @@ endif
 #--------------------------------------------------------------
 # With PDCurses for X11:
 
-ifeq ($(X11),Y)
+ifeq ($(SYS),X11)
 	CURS_DIR = /usr/local/include/xcurses
 	LIBS = -lXCurses
 endif
@@ -58,7 +58,7 @@ endif
 #--------------------------------------------------------------
 # With PDCurses for SDL:
 
-ifeq ($(SDL),Y)
+ifeq ($(SYS),SDL)
 	CURS_DIR = /Users/wmcbrine/pdsrc/PDCurses
 	CURS_LIB = /Users/wmcbrine/pdsrc/PDCurses/sdl2
 	LIBS = -lpdcurses `sdl2-config --libs`
@@ -67,14 +67,13 @@ endif
 #--------------------------------------------------------------
 # For DJGPP:
 
-ifeq ($(DOS),Y)
+ifeq ($(SYS),DOS)
 	CURS_DIR = /pdcurses
 	CURS_LIB = .
 	LIBS = /pdcurses/dos/pdcurses.a
 	RM = del
 	SEP = ;
 	E = .exe
-	POST = strip mm.exe
 endif
 
 HELPDIR = $(PREFIX)/man/man1

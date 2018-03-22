@@ -13,7 +13,7 @@ LINKER = wlink system nt
 #--------------------------------------------------------------
 # For 32-bit OS/2:
 
-!ifeq OS2 Y
+!ifeq SYS OS2
 LIBS = $(CURS_DIR)/os2/pdcurses.lib
 COMPILER = wpp386 -zq -bt=os2v2 -D__OS2__
 LINKER = wlink system os2v2
@@ -22,7 +22,7 @@ LINKER = wlink system os2v2
 #--------------------------------------------------------------
 # For 32-bit DOS:
 
-!ifeq DOS32 Y
+!ifeq SYS DOS32
 LIBS = $(CURS_DIR)/dos/pdcurses.lib
 COMPILER = wpp386 -zq -bt=dos4g -mf -D__MSDOS__
 LINKER = wlink system dos4g
@@ -31,7 +31,7 @@ LINKER = wlink system dos4g
 #--------------------------------------------------------------
 # For 16-bit DOS:
 
-!ifeq DOS16 Y
+!ifeq SYS DOS16
 LIBS = $(CURS_DIR)/dos/pdcurses.lib
 COMPILER = wpp -zq -bt=dos -ml -D__MSDOS__
 LINKER = wlink system dos
