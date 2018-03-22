@@ -2,7 +2,7 @@
 #define STR(x) STRingize(x)
 
 #define MM_MAJOR 0
-#define MM_MINOR 50
+#define MM_MINOR 51
 
 #define MM_NAME "MultiMail"
 #define MM_VERNUM STR(MM_MAJOR) "." STR(MM_MINOR)
