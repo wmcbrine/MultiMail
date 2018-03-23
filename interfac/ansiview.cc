@@ -108,7 +108,7 @@ void AnsiWindow::AnsiLine::unpacktext(char *tmp)
             memcpy((unsigned char *) tmp, atext, length);
         tmp += length;
     } else
-        for (unsigned i = 0; i < length; i++)
+        for (int i = 0; i < length; i++)
             *tmp++ = (text[i] & (A_CHARTEXT));
     *tmp = '\0';
 }
@@ -121,7 +121,7 @@ void AnsiWindow::AnsiLine::remapzero(chtype newatt)
             att |= newatt;
         }
     } else
-        for (unsigned i = 0; i < length; i++)
+        for (int i = 0; i < length; i++)
             if (!PAIR_NUMBER(text[i] & (A_COLOR))) {
                 text[i] &= ~(A_COLOR);
                 text[i] |= newatt;
