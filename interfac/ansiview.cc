@@ -40,9 +40,9 @@ AnsiWindow::AnsiLine *AnsiWindow::AnsiLine::getprev()
     return prev;
 }
 
-size_t AnsiWindow::AnsiLine::unpack(chtype *tmp)
+int AnsiWindow::AnsiLine::unpack(chtype *tmp)
 {
-    size_t i;
+    int i;
 
     if (isasc)
         for (i = 0; i < length; i++)
@@ -51,15 +51,15 @@ size_t AnsiWindow::AnsiLine::unpack(chtype *tmp)
         if (length)
             memcpy(tmp, text, length * sizeof(chtype));
 
-    for (i = length; i < (size_t)COLS; i++)
+    for (i = length; i < COLS; i++)
         tmp[i] = ' ' | (C_ANSIBACK);
 
     return length;
 }
 
-void AnsiWindow::AnsiLine::pack(chtype *tmp, size_t newlen)
+void AnsiWindow::AnsiLine::pack(chtype *tmp, int newlen)
 {
-    size_t i;
+    int i;
 
     if (isasc)
         delete[] atext;

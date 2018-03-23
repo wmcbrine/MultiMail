@@ -653,7 +653,7 @@ void ListWindow::DrawAll()
 
 void ListWindow::Move(int dir)
 {
-    size_t limit = NumOfItems();
+    int limit = NumOfItems();
 
     switch (dir) {
     case KEY_UP:
@@ -692,7 +692,7 @@ int ListWindow::getActive()
 
 searchret ListWindow::search(const char *item, int mode)
 {
-    size_t limit = NumOfItems();
+    int limit = NumOfItems();
     searchret found = False;
 
     statetype orgstate = ui->active();

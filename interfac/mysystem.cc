@@ -82,7 +82,7 @@ static DIR *Dir;
 
 void fatalError(const char *description);
 
-char *myfgets(char *s, size_t size, FILE *stream)
+char *myfgets(char *s, int size, FILE *stream)
 {
     char *end = 0;
 

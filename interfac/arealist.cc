@@ -64,7 +64,7 @@ int LittleAreaListWindow::getArea()
     return areanum;
 }
 
-size_t LittleAreaListWindow::NumOfItems()
+int LittleAreaListWindow::NumOfItems()
 {
     return mm.areaList->noOfActive() - disp;
 }
@@ -123,7 +123,7 @@ void LittleAreaListWindow::setFilter(const char *item)
 
 void AreaListWindow::FirstUnread()
 {
-    size_t i;
+    int i;
 
     mm.areaList->updatePers();
 
@@ -147,7 +147,7 @@ void AreaListWindow::FirstUnread()
     }
 }
 
-size_t AreaListWindow::NumOfItems()
+int AreaListWindow::NumOfItems()
 {
     return mm.areaList->noOfActive();
 }
@@ -289,7 +289,7 @@ void AreaListWindow::MakeActive()
                             almodes[mm.areaList->getMode()]);
 
     if (NumOfItems() > list_max_y)
-        p += sprintf(p, " (%zu)", NumOfItems());
+        p += sprintf(p, " (%d)", NumOfItems());
 
     if (filter)
         sprintf(p, " | %.20s", filter);

@@ -51,7 +51,7 @@ void LetterListWindow::Prev()
     } while (mm.letterList->getRead() && (active > 0));
 }
 
-size_t LetterListWindow::NumOfItems()
+int LetterListWindow::NumOfItems()
 {
     return mm.letterList->noOfActive();
 }
@@ -163,7 +163,7 @@ void LetterListWindow::MakeActiveCore()
 
     char *newend = end + sprintf(end, ", by %s", sortstr);
     if (too_many)
-        newend += sprintf(newend, " (%zu)", NumOfItems());
+        newend += sprintf(newend, " (%d)", NumOfItems());
     if (flen)
         sprintf(newend, " | %.*s", flen - 3, filter);
 

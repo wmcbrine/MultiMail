@@ -102,7 +102,7 @@ void PacketListWindow::MakeActiveCore()
                  (mm.resourceObject->getInt(ExpertMode) ? 5 : 9));
 
     bool usenum = false;
-    size_t items = NumOfItems();
+    int items = NumOfItems();
 
     if (list_max_y > items)
         list_max_y = items ? items : 1;
@@ -179,7 +179,7 @@ void PacketListWindow::MakeActive()
     MakeActiveCore();
 }
 
-size_t PacketListWindow::NumOfItems()
+int PacketListWindow::NumOfItems()
 {
     return noDirs + noFiles;
 }

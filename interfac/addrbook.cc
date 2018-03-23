@@ -79,7 +79,7 @@ void AddressBook::MakeActive(bool NoEnterA)
     char tmp[60];
     char *p = tmp + sprintf(tmp, "Addresses");
     if (NumOfActive > list_max_y)
-        p += sprintf(p, " (%zu)", NumOfActive);
+        p += sprintf(p, " (%d)", NumOfActive);
     if (filter)
         sprintf(p, " | %.20s", filter);
 
@@ -342,7 +342,7 @@ searchret AddressBook::oneSearch(int x, const char *item, int)
     return s ? True : False;
 }
 
-size_t AddressBook::NumOfItems()
+int AddressBook::NumOfItems()
 {
     return NumOfActive;
 }

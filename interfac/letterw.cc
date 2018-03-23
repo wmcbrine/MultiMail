@@ -601,7 +601,7 @@ void LetterWindow::DrawStat()
     bool expert = mm.resourceObject->getInt(ExpertMode);
     const char *pn = mm.resourceObject->get(PacketName);
 
-    size_t pnlen = strlen(pn);
+    int pnlen = strlen(pn);
     if (pnlen > 20)
         pnlen = 20;
     int maxw = COLS - ((expert ? 4 : 20) + pnlen);

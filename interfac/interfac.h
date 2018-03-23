@@ -222,7 +222,7 @@ class ListWindow
     void DrawOne(int, chtype);
     void DrawOne(int, coltype);
     void DrawAll();
-    virtual size_t NumOfItems() = 0;
+    virtual int NumOfItems() = 0;
     virtual void oneLine(int) = 0;
     virtual searchret oneSearch(int, const char *, int) = 0;
     virtual bool extrakeys(int) = 0;
@@ -273,10 +273,10 @@ class AddressBook : public ListWindow
     Person head, *curr, *highlighted, **people, **living;
     const char *addfname;
     char *filter;
-    size_t NumOfPersons, NumOfActive;
+    int NumOfPersons, NumOfActive;
     bool NoEnter, inletter;
 
-    size_t NumOfItems();
+    int NumOfItems();
     void oneLine(int);
     searchret oneSearch(int, const char *, int);
     bool extrakeys(int);
@@ -317,7 +317,7 @@ class TaglineWindow : public ListWindow
     tagline head, *curr, *highlighted, **taglist, **tagactive;
     const char *tagname;
     char *filter;
-    size_t NumOfTaglines, NumOfActive;
+    int NumOfTaglines, NumOfActive;
     bool nodraw, sorted;
 
     void oneLine(int);
@@ -339,7 +339,7 @@ class TaglineWindow : public ListWindow
     void EnterTagline(const char * = 0);
     void EditTagline();
     void Init();
-    size_t NumOfItems();
+    int NumOfItems();
     const char *getCurrent();
 };
 
@@ -347,7 +347,7 @@ class LittleAreaListWindow : public ListWindow
 {
     int disp, areanum;
 
-    size_t NumOfItems();
+    int NumOfItems();
     void oneLine(int);
     searchret oneSearch(int, const char *, int);
     bool extrakeys(int);
@@ -385,7 +385,7 @@ class PacketListWindow : public ListWindow
     int noDirs, noFiles;
     bool sorttype;
 
-    size_t NumOfItems();
+    int NumOfItems();
     void oneLine(int);
     searchret oneSearch(int, const char *, int);
     bool extrakeys(int);
@@ -413,7 +413,7 @@ class AreaListWindow : public ListWindow
     char format[40];
     bool hasPers, hasSys;
 
-    size_t NumOfItems();
+    int NumOfItems();
     void oneLine(int);
     searchret oneSearch(int, const char *, int);
     bool extrakeys(int);
@@ -434,7 +434,7 @@ class LetterListWindow : public ListWindow
 {
     char format[50], *topline;
 
-    size_t NumOfItems();
+    int NumOfItems();
     void oneLine(int);
     searchret oneSearch(int, const char *, int);
     bool extrakeys(int);
@@ -573,7 +573,7 @@ class AnsiWindow
             chtype *text;
             unsigned char *atext;
         };
-        size_t length;
+        int length;
         chtype att;
         bool isasc;
      public:
@@ -582,8 +582,8 @@ class AnsiWindow
 
         AnsiLine(AnsiLine * = 0);
         ~AnsiLine();
-        size_t unpack(chtype *);
-        void pack(chtype *, size_t);
+        int unpack(chtype *);
+        void pack(chtype *, int);
         void show(Win *, int);
         void unpacktext(char *);
         void remapzero(chtype newatt);
@@ -601,7 +601,7 @@ class AnsiWindow
     int x, y;           //dimensions of the window
     int cpx, cpy, lpy;  //ANSI positions
     int spx, spy;       //stored ANSI positions
-    size_t tlen;        //maximum X reached
+    int tlen;        //maximum X reached
     int ccf, ccb, cfl, cbr, crv;  //colors and attributes
     int oldcolorx, oldcolory;
     int baseline;       //base for positions in non-anim mode
