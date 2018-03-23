@@ -74,6 +74,8 @@ ifeq ($(SYS),DOS)
 	RM = del
 	SEP = ;
 	E = .exe
+	POST = strip mm.exe; exe2coff mm.exe; copy /b \
+		c:\djgpp\bin\cwsdstub.exe+mm mm.exe; del mm
 endif
 
 HELPDIR = $(PREFIX)/man/man1
