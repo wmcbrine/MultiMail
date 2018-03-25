@@ -9,6 +9,9 @@ It is risen. No fooling.
   (Binaries of this version were built with PDCurses 3.6, which adds
   software blinking for most platforms.)
 
+- The Windows build now allows resizing under Windows 10, or with ConEmu
+  in some earlier versions.
+
 - Workaround for corrupt messages.dat when using the fallback (non-.ndx)
   QWK scan -- keep looking for next valid header. Based on bug report by
   "XBessa".
@@ -21,7 +24,7 @@ It is risen. No fooling.
 
 - NetBSD fixes by Frederic Cambus.
 
-- Mac build now reports itself as "MultiMail/Mac" instead of
+- The Mac build now reports itself as "MultiMail/Mac" instead of
   "MultiMail/Darwin"; also, "/DOS" vs. "/MS-DOS", "/OS2" vs. "/OS/2",
   "/Win" vs. "/Win32".
 

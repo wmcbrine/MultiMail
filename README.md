@@ -5,6 +5,7 @@ What's New in version 0.51?
 ---------------------------
 
  * Blinking in the ANSI viewer, with PDCurses
+ * Resizable under Windows
  * Workaround for some corrupt QWK packets
  * Fixes for compatibility with modern compilers
 
