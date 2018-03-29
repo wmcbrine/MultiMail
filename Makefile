@@ -5,7 +5,7 @@
 msrc = mmail
 isrc = interfac
 
-# General options (passed to mmail/Makefile and interfac/Makefile). POST 
+# General options (passed to mmail/Makefile and interfac/Makefile). POST
 # is for any post-processing that needs doing.
 
 ifeq ($(DEBUG),Y)
@@ -15,7 +15,7 @@ else
 	POST = strip mm$(E)
 endif
 
-# PREFIX is the base directory under which to install the binary and man 
+# PREFIX is the base directory under which to install the binary and man
 # page; generally either /usr/local or /usr (or perhaps /opt...).
 
 PREFIX = /usr/local
@@ -23,12 +23,12 @@ PREFIX = /usr/local
 #--------------------------------------------------------------
 # Defaults are for the standard curses setup:
 
-# CURS_DIR specifies the directory with your curses header file, if it's 
-# not /usr/include/curses.h. CURS_LIB specifies the directory where the 
-# curses libraries can be found, if they're not in the standard search 
-# path. LIBS lists any "extra" libraries that need to be linked in. RM 
-# is the Delete command ("rm" or "del", as appropriate), and SEP is the 
-# separator for multi-statement lines... some systems require ";", while 
+# CURS_DIR specifies the directory with your curses header file, if it's
+# not /usr/include/curses.h. CURS_LIB specifies the directory where the
+# curses libraries can be found, if they're not in the standard search
+# path. LIBS lists any "extra" libraries that need to be linked in. RM
+# is the Delete command ("rm" or "del", as appropriate), and SEP is the
+# separator for multi-statement lines... some systems require ";", while
 # others need "&&".
 
 ifeq ($(OS),Windows_NT)
