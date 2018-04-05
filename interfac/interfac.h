@@ -583,7 +583,7 @@ class AnsiWindow
         AnsiLine(AnsiLine * = 0);
         ~AnsiLine();
         int unpack(chtype *);
-        void pack(chtype *, int);
+        void pack(chtype *, size_t);
         void show(Win *, int);
         void unpacktext(char *);
         void remapzero(chtype newatt);

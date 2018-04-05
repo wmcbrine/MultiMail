@@ -57,9 +57,9 @@ int AnsiWindow::AnsiLine::unpack(chtype *tmp)
     return length;
 }
 
-void AnsiWindow::AnsiLine::pack(chtype *tmp, int newlen)
+void AnsiWindow::AnsiLine::pack(chtype *tmp, size_t newlen)
 {
-    int i;
+    size_t i;
 
     if (isasc)
         delete[] atext;
