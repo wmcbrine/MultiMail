@@ -261,7 +261,8 @@ const char *myreaddir(mystat &st)
     int result;
 
     if (first) {
-        handle = _findfirst("*", &blk);
+        char wildcard[] = "*";
+        handle = _findfirst(wildcard, &blk);
         result = (handle == -1) ? -1 : 0;
         first = false;
     } else
