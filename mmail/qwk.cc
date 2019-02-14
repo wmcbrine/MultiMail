@@ -211,7 +211,7 @@ area_header *qwkpack::getNextArea()
         (greekqwk ? (x ? "GreekQWK personal" : "GreekQWK") : (qwke ? (x
         ? "QWKE personal" : "QWKE") : (x ? "QWK personal" : "QWK"))),
         areas[ID].attr | hasOffConfig | (cMsgNum ? ACTIVE : 0), cMsgNum,
-        0, qwke ? 72 : 25, qwke ? 72 : 25);
+        0, qwke ? 71 : 25, qwke ? 71 : 25);
 
     ID++;
     return tmp;
@@ -806,7 +806,7 @@ area_header *qwkreply::getNextArea()
         "Letters written by you", (greekqwk ? "GreekQWK replies" :
         (qwke ? "QWKE replies" : "QWK replies")),
         (COLLECTION | REPLYAREA | ACTIVE | PUBLIC | PRIVATE),
-        noOfLetters, 0, qwke ? 72 : 25, qwke ? 72 : 25);
+        noOfLetters, 0, qwke ? 71 : 25, qwke ? 71 : 25);
 }
 
 letter_header *qwkreply::getNextLetter()
@@ -837,9 +837,9 @@ void qwkreply::enterLetter(letter_header &newLetter,
 
     upl_qwk *newList = new upl_qwk(newLetterFileName);
 
-    strncpy(newList->qHead.subject, newLetter.getSubject(), 71);
-    strncpy(newList->qHead.from, newLetter.getFrom(), 71);
-    strncpy(newList->qHead.to, newLetter.getTo(), 71);
+    strncpy(newList->qHead.subject, newLetter.getSubject(), sizeof(newList->qHead.subject) - 1);
+    strncpy(newList->qHead.from, newLetter.getFrom(), sizeof(newList->qHead.from) - 1);
+    strncpy(newList->qHead.to, newLetter.getTo(), sizeof(newList->qHead.to) - 1);
 
     newList->qHead.msgnum = atol(mm->areaList->getShortName());
     newList->qHead.privat = newLetter.getPrivate();
