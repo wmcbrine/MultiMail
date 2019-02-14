@@ -203,7 +203,7 @@ area_header *qwkpack::getNextArea()
         (greekqwk ? (x ? "GreekQWK personal" : "GreekQWK") : (qwke ? (x
         ? "QWKE personal" : "QWKE") : (x ? "QWK personal" : "QWK"))),
         areas[ID].attr | hasOffConfig | (cMsgNum ? ACTIVE : 0), cMsgNum,
-        0, 25, qwke ? 72 : 25);
+        0, qwke ? 71 : 25, qwke ? 71 : 25);
 
     ID++;
     return tmp;
@@ -716,10 +716,14 @@ bool qwkreply::getRep1(FILE *rep, upl_qwk *l)
             if (*p == linebreak)
                 *p = '\n';         // PI-softcr
 
-        // Get extended (QWKE-type) subject line, if available:
+        // Get extended (QWKE-type) 'subject' and 'to' kludge lines, if available:
 
         p = blk;
-        if (!count) {
+        if (!count) {	// TODO: these are order dependent ("to:" must appear before "subject:")
+            q = (char *) onecomp((unsigned char *) p, l->qHead.to,
+                                 "to:");
+            if (q)
+                p = q;
             q = (char *) onecomp((unsigned char *) p, l->qHead.subject,
                                  "subject:");
             if (q)
@@ -765,7 +769,7 @@ area_header *qwkreply::getNextArea()
         "Letters written by you", (greekqwk ? "GreekQWK replies" :
         (qwke ? "QWKE replies" : "QWK replies")),
         (COLLECTION | REPLYAREA | ACTIVE | PUBLIC | PRIVATE),
-        noOfLetters, 0, 25, qwke ? 72 : 25);
+        noOfLetters, 0, qwke ? 71 : 25, qwke ? 71 : 25);
 }
 
 letter_header *qwkreply::getNextLetter()
@@ -796,9 +800,9 @@ void qwkreply::enterLetter(letter_header &newLetter,
 
     upl_qwk *newList = new upl_qwk(newLetterFileName);
 
-    strncpy(newList->qHead.subject, newLetter.getSubject(), 71);
-    strncpy(newList->qHead.from, newLetter.getFrom(), 25);
-    strncpy(newList->qHead.to, newLetter.getTo(), 25);
+    strncpy(newList->qHead.subject, newLetter.getSubject(), sizeof(newList->qHead.subject) - 1);
+    strncpy(newList->qHead.from, newLetter.getFrom(), sizeof(newList->qHead.from) - 1);
+    strncpy(newList->qHead.to, newLetter.getTo(), sizeof(newList->qHead.to) - 1);
 
     newList->qHead.msgnum = atol(mm->areaList->getShortName());
     newList->qHead.privat = newLetter.getPrivate();
@@ -822,9 +826,14 @@ void qwkreply::addRep1(FILE *rep, upl_base *node, int)
     long headerpos = ftell(rep);
     l->qHead.output(rep);
 
+    // 'To' first (to match the examples in QWKE.TXT)
+    if (strlen(l->qHead.to) > 25)
+	fprintf(rep, "To: %s %c", l->qHead.to, linebreak);
     if (strlen(l->qHead.subject) > 25)
-        fprintf(rep, "Subject: %s%c%c", l->qHead.subject, linebreak,
-                linebreak);
+        fprintf(rep, "Subject: %s%c", l->qHead.subject, linebreak);
+    // Add the kludge-separator (blank line) only when necessary
+    if (ftell(rep) != (headerpos + 128))
+        fputc(linebreak, rep);
 
     replyFile = fopen(l->fname, "rt");
     if (replyFile) {

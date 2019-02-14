@@ -37,7 +37,7 @@ class qheader {
     };
 
  public:
-    char from[26], to[26], subject[72], date[15];
+    char from[72], to[72], subject[72], date[15];
     long msglen;
     int origArea;
     long msgnum, refnum;
