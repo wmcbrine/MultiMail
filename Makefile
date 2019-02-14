@@ -60,8 +60,8 @@ endif
 
 ifeq ($(SYS),SDL)
 	CURS_DIR = /Users/wmcbrine/pdsrc/PDCurses
-	CURS_LIB = /Users/wmcbrine/pdsrc/PDCurses/sdl2
-	LIBS = -lpdcurses `sdl2-config --libs`
+	LIBS = /Users/wmcbrine/pdsrc/PDCurses/sdl2/pdcurses.a \
+		`sdl2-config --libs`
 endif
 
 #--------------------------------------------------------------
