@@ -2,12 +2,14 @@
 # MultiMail Makefile (top) for Borland/Turbo C++
 #-----------------------------------------------
 
+!ifndef CURS_DIR
 CURS_DIR = \pdcurses
+!endif
 
 !ifdef DOS
-LIBS = spawnl.lib \pdcurses\dos\pdcurses.lib
+LIBS = spawnl.lib $(CURS_DIR)\dos\pdcurses.lib
 !else
-LIBS = \pdcurses\wincon\pdcurses.lib
+LIBS = $(CURS_DIR)\wincon\pdcurses.lib
 CC = bcc32c -q -D__WIN32__
 !endif
 
