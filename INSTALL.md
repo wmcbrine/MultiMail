@@ -28,7 +28,7 @@ precompiled binaries, see the README files that accompany them instead.
     InfoZip.) Also, bear in mind that MultiMail needs the C++ standard
     libraries, not just C.
 
-    If using PDCurses, MultiMail now requires version 3.1 or later.
+    If using PDCurses, MultiMail now requires version 3.6 or later.
 
     The 16-bit MS-DOS Turbo C++ port also uses Ralf Brown's SPAWNO
     library:
@@ -87,9 +87,10 @@ Compile notes: Windows, MS-DOS, and OS/2
 
 In the MultiMail source, separate makefiles are provided for these ports.
 
+    Makefile     - GCC (including DJGPP and MinGW)
     Makefile.bcc - Borland C++ (Windows, MS-DOS)
-    Makefile.wat - Watcom (All platforms -- Windows by default)
-    Makefile.msv - Microsoft Visual C++ (Windows)
+    Makefile.vc  - Microsoft Visual C++ (Windows)
+    Makefile.wcc - Watcom (All platforms -- Windows by default)
 
 Edit the appropriate makefile to point to your installation of PDCurses,
 and compile with, e.g.:
