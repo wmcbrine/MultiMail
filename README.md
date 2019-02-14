@@ -9,9 +9,8 @@ What's New in version 0.51?
  * Workaround for some corrupt QWK packets
  * Fixes for compatibility with modern compilers
 
-See the [HISTORY](HISTORY.md) file for other changes. See
-[INSTALL](INSTALL.md) for the installation procedure, and the man page
-(mm.1) for information on usage.
+See the [HISTORY] file for other changes. See [INSTALL] for the
+installation procedure, and the [man page] for information on usage.
 
 
 What is MultiMail?
@@ -39,4 +38,8 @@ since version 0.7, the maintainer is William McBrine <wmcbrine@gmail.com>.
 Additional code has been contributed by Peter Krefting, Mark D. Rejhon,
 Ingo Brueckl, Robert Vukovic, and Frederic Cambus.
 
-Bug reports and suggestions are noted in the [HISTORY](HISTORY.md) file.
+Bug reports and suggestions are noted in the [HISTORY] file.
+
+[HISTORY]: HISTORY.md
+[INSTALL]: INSTALL.md
+[man page]: mm.1

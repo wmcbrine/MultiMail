@@ -115,11 +115,19 @@ void qheader::output(FILE *repFile)
 {
     qwkmsg_header qh;
     char buf[10];
-    size_t sublen;
+    size_t sublen, tolen, fromlen;
 
     sublen = strlen(subject);
     if (sublen > 25)
         sublen = 25;
+
+    tolen = strlen(to);
+    if (tolen > 25)
+        tolen = 25;
+
+    fromlen = strlen(from);
+    if (fromlen > 25)
+        fromlen = 25;
 
     memset(&qh, ' ', sizeof qh);
 
@@ -132,8 +140,8 @@ void qheader::output(FILE *repFile)
         sprintf(buf, " %-7ld", refnum);
         strncpy(qh.refnum, buf, 8);
     }
-    strncpy(qh.to, to, strlen(to));
-    strncpy(qh.from, from, strlen(from));
+    strncpy(qh.to, to, tolen);
+    strncpy(qh.from, from, fromlen);
     strncpy(qh.subject, subject, sublen);
 
     qh.alive = (char) 0xE1;
@@ -696,7 +704,7 @@ qwkreply::~qwkreply()
 bool qwkreply::getRep1(FILE *rep, upl_qwk *l)
 {
     FILE *replyFile;
-    char *p, *q, blk[128];
+    char *p, *q, blk[1280];
 
     if (!l->qHead.init(rep))
         return false;
@@ -708,30 +716,59 @@ bool qwkreply::getRep1(FILE *rep, upl_qwk *l)
     long count, length = 0, chunks = l->qHead.msglen >> 7;
     char linebreak = greekqwk ? ((char) 12) : ((char) 227);
 
-    for (count = 0; count < chunks; count++) {
-        if (!fread(blk, 1, 128, rep))
+    bool firstblk = true;
+    while (chunks) {
+        count = (chunks > 10) ? 10 : chunks;
+        chunks -= count;
+        count <<= 7;
+
+        if (!fread(blk, 1, count, rep))
             fatalError("Error reading reply file");
 
-        for (p = blk; p < (blk + 128); p++)
+        for (p = blk; p < (blk + count); p++)
             if (*p == linebreak)
                 *p = '\n';         // PI-softcr
 
-        // Get extended (QWKE-type) 'subject' and 'to' kludge lines, if available:
-
         p = blk;
-        if (!count) {	// TODO: these are order dependent ("to:" must appear before "subject:")
-            q = (char *) onecomp((unsigned char *) p, l->qHead.to,
-                                 "to:");
-            if (q)
-                p = q;
-            q = (char *) onecomp((unsigned char *) p, l->qHead.subject,
-                                 "subject:");
-            if (q)
-                p = q;
+
+        // Get extended (QWKE-type) info, if available:
+
+        if (firstblk) {
+            firstblk = false;
+
+            bool anyfound;
+
+            do {
+                anyfound = false;
+
+                q = (char *) onecomp((unsigned char *) p,
+                                    l->qHead.subject, "subject:");
+                if (q) {
+                    p = q;
+                    anyfound = true;
+                }
+
+                if (qwke) {
+                    q = (char *) onecomp((unsigned char *) p,
+                                        l->qHead.to, "to:");
+                    if (q) {
+                        p = q;
+                        anyfound = true;
+                    }
+
+                    q = (char *) onecomp((unsigned char *) p,
+                                        l->qHead.from, "from:");
+                    if (q) {
+                        p = q;
+                        anyfound = true;
+                    }
+                }
+
+            } while (anyfound);
         }
 
-        q = blk + 127;
-        if (count == (chunks - 1))
+        q = blk + count - 1;
+        if (!chunks)
             for (; ((*q == ' ') || (*q == '\n')) && (q > blk); q--);
 
         length += (long) fwrite(p, 1, q - p + 1, replyFile);
@@ -826,14 +863,18 @@ void qwkreply::addRep1(FILE *rep, upl_base *node, int)
     long headerpos = ftell(rep);
     l->qHead.output(rep);
 
-    // 'To' first (to match the examples in QWKE.TXT)
-    if (strlen(l->qHead.to) > 25)
-	fprintf(rep, "To: %s %c", l->qHead.to, linebreak);
-    if (strlen(l->qHead.subject) > 25)
+    bool longfrom = strlen(l->qHead.from) > 25;
+    bool longto = strlen(l->qHead.to) > 25;
+    bool longsubj = strlen(l->qHead.subject) > 25;
+
+    if (longfrom)
+        fprintf(rep, "From: %s%c", l->qHead.from, linebreak);
+    if (longto)
+        fprintf(rep, "To: %s%c", l->qHead.to, linebreak);
+    if (longsubj)
         fprintf(rep, "Subject: %s%c", l->qHead.subject, linebreak);
-    // Add the kludge-separator (blank line) only when necessary
-    if (ftell(rep) != (headerpos + 128))
-        fputc(linebreak, rep);
+    if (longfrom || longto || longsubj)
+        fprintf(rep, "%c", linebreak);
 
     replyFile = fopen(l->fname, "rt");
     if (replyFile) {
