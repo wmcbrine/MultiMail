@@ -3,7 +3,7 @@
 #--------------------------------------------------
 
 CURS_DIR = \pdcurses
-LIBS = \pdcurses\wincon\pdcurses.lib user32.lib advapi32.lib
+LIBS = $(CURS_DIR)\wincon\pdcurses.lib user32.lib advapi32.lib
 COMPILER = $(CC) -nologo -c -O2 -D__WIN32__
 
 all:	mm
