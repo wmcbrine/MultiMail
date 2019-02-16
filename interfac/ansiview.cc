@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * ANSI image/text viewer
 
- Copyright 1998-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1998-2019 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -939,7 +939,7 @@ void AnsiWindow::oneLine(int i)
 
 void AnsiWindow::lineCount()
 {
-    char tmp[26];
+    char tmp[44];
     int percent = ((long) position + y) * 100 / NumOfLines;
     if (percent > 100)
         percent = 100;

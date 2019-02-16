@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2019 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -718,7 +718,7 @@ bool LetterWindow::SplitLetter(int lines)
         }
         fclose(reply);
 
-        sprintf(SUBJ, "%s (%0*d/%d)", ORGSUBJ, padsize, partno, parts);
+        sprintf(SUBJ, "%.499s (%0*d/%d)", ORGSUBJ, padsize, partno, parts);
 
         mm.areaList->enterLetter(replyto_area, from, to, SUBJ, msgid,
             newsgrps, replyto_num, privat, NM, reply_filename, (long) replen);
