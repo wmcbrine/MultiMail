@@ -408,17 +408,15 @@ int ShadowedWin::getstring(int y, int x, char *string, int maxlen,
             if ((i < maxlen) && tmp[i])
                 i++;
             break;
+        case MM_BACKSP:
+            if (!i)
+                break;
+            i--;
         case 127:
         case MM_DEL:    // Delete key
-            strncpy(&tmp[i], &tmp[i + 1], maxlen - i);
+            for (j = i; j < maxlen; j++)
+                tmp[j] = tmp[j + 1];
             tmp[maxlen] = '\0';
-            break;
-        case MM_BACKSP:
-            if (i > 0) {
-                strncpy(&tmp[i - 1], &tmp[i], maxlen + 1 - i);
-                tmp[maxlen] = '\0';
-                i--;
-            }
             break;
         case MM_HOME:
             i = 0;
