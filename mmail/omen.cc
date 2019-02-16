@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * OMEN
 
- Copyright 1999-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2019 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "omen.h"
@@ -372,9 +372,9 @@ void omenrep::upl_omen::output(FILE *rep)
         putshort(omen_rec.destnode, na.node);
     }
     omen_rec.sublen = strlen(subject);
-    strncpy(omen_rec.subject, subject, omen_rec.sublen);
+    memcpy(omen_rec.subject, subject, omen_rec.sublen);
     omen_rec.tolen = strlen(to);
-    strncpy(omen_rec.to, to, omen_rec.tolen);
+    memcpy(omen_rec.to, to, omen_rec.tolen);
 
     putshort(&omen_rec.curboard, origArea);
 

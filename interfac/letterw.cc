@@ -626,7 +626,7 @@ void LetterWindow::DrawStat()
     areaconv_in(tmp);
 
     if (s && ((int) strlen(s) > maxw))
-        strncpy(tmp + maxw + pnlen + 1, "...", 3);
+        memcpy(tmp + maxw + pnlen + 1, "...", 3);
 
     if (collflag)
         ui->areas.Select();

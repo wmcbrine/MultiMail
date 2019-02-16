@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * OPX
 
- Copyright 1999-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2019 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "opx.h"
@@ -462,7 +462,7 @@ bool opxpack::saveOldFlags()
     putshort(fhead.PageCount, 1);
     putlong(fhead.NextAvail, (long) numMsgs * FDX_REC_SIZE +
             FDX_HEAD_SIZE + 4);
-    strncpy(fhead.ID, "\006VARRAY", 7);
+    memcpy(fhead.ID, "\006VARRAY", 7);
 
     fwrite(&fhead, FDX_HEAD_SIZE, 1, fdxFile);
 

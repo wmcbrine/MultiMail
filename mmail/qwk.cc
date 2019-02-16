@@ -132,22 +132,22 @@ void qheader::output(FILE *repFile)
     memset(&qh, ' ', sizeof qh);
 
     sprintf(buf, " %-6ld", msgnum);
-    strncpy(qh.msgnum, buf, 7);
+    memcpy(qh.msgnum, buf, 7);
 
     putshort(&qh.confLSB, msgnum);
 
     if (refnum) {
         sprintf(buf, " %-7ld", refnum);
-        strncpy(qh.refnum, buf, 8);
+        memcpy(qh.refnum, buf, 8);
     }
-    strncpy(qh.to, to, tolen);
-    strncpy(qh.from, from, fromlen);
-    strncpy(qh.subject, subject, sublen);
+    memcpy(qh.to, to, tolen);
+    memcpy(qh.from, from, fromlen);
+    memcpy(qh.subject, subject, sublen);
 
     qh.alive = (char) 0xE1;
 
-    strncpy(qh.date, date, 8);
-    strncpy(qh.time, &date[9], 5);
+    memcpy(qh.date, date, 8);
+    memcpy(qh.time, &date[9], 5);
 
     if (privat)
         qh.status = '*';
@@ -262,7 +262,7 @@ bool qwkpack::externalIndex()
         while (p) {
             int x, cMsgNum = 0;
 
-            strncpy(fname, p, strlen(p) - 4);
+            memcpy(fname, p, strlen(p) - 4);
             fname[strlen(p) - 4] = '\0';
             x = atoi(fname);
 
