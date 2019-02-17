@@ -24,8 +24,10 @@ extern "C" int tnamecmp(const void *a, const void *b)
 
 tagline::tagline(const char *tag)
 {
-    if (tag)
+    if (tag) {
         strncpy(text, tag, TAGLINE_LENGTH);
+        text[TAGLINE_LENGTH] = '\0';
+    }
     killed = false;
     next = 0;
 }

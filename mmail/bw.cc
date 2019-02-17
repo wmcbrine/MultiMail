@@ -840,8 +840,8 @@ void bwreply::addHeader(FILE *uplFile)
 
     int tearlen = sprintf((char *) newUplHeader.reader_name, MM_NAME
                           "/%s", sysname());
-    strncpy((char *) newUplHeader.reader_tear, ((tearlen < 17) ?
-            (char *) newUplHeader.reader_name : MM_NAME), 16);
+    strcpy((char *) newUplHeader.reader_tear, ((tearlen < 16) ?
+           (char *) newUplHeader.reader_name : MM_NAME));
 
     strcpy((char *) newUplHeader.loginname, baseClass->getLoginName());
     strcpy((char *) newUplHeader.aliasname, baseClass->getAliasName());
