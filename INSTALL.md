@@ -37,8 +37,9 @@ precompiled binaries, see the README files that accompany them instead.
 
 2. Configure it (for compilation) --
     Check the options and paths in the Makefile. If your curses header
-    file is not in /usr/include/curses.h, change CURS_DIR as
-    appropriate.
+    file isn't in the include path, change CURS_DIR as appropriate. You
+    may also need to change LIBS. These can be set on the command line,
+    e.g. "make CURS_DIR=/pdcurses".
 
 3. Compile MultiMail --
     At the base directory, type: `make`
