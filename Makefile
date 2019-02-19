@@ -24,23 +24,20 @@ PREFIX = /usr/local
 # Defaults are for the standard curses setup:
 
 # CURS_DIR specifies the directory with your curses header file, if it's
-# not /usr/include/curses.h. CURS_LIB specifies the directory where the
-# curses libraries can be found, if they're not in the standard search
-# path. LIBS lists any "extra" libraries that need to be linked in. RM
-# is the Delete command ("rm" or "del", as appropriate), and SEP is the
-# separator for multi-statement lines... some systems require ";", while
-# others need "&&".
+# not /usr/include/curses.h. LIBS lists any "extra" libraries that need
+# to be linked in, including the curses library. RM is the Delete
+# command ("rm" or "del", as appropriate), and SEP is the separator for
+# multi-statement lines... some systems require ";", while others need
+# "&&".
 
 ifeq ($(OS),Windows_NT)
 	CURS_DIR = /pdcurses
-	CURS_LIB = .
-	LIBS = /pdcurses/wincon/pdcurses.a
+	LIBS = $(CURS_DIR)/wincon/pdcurses.a
 	RM = del
 	SEP = &&
 	E = .exe
 else
 	CURS_DIR = .
-	CURS_LIB = .
 	LIBS = -lcurses
 	RM = rm -f
 	SEP = ;
@@ -60,8 +57,7 @@ endif
 
 ifeq ($(SYS),SDL)
 	CURS_DIR = /Users/wmcbrine/pdsrc/PDCurses
-	LIBS = /Users/wmcbrine/pdsrc/PDCurses/sdl2/pdcurses.a \
-		`sdl2-config --libs`
+	LIBS = $(CURS_DIR)/sdl2/pdcurses.a `sdl2-config --libs`
 endif
 
 #--------------------------------------------------------------
@@ -69,8 +65,7 @@ endif
 
 ifeq ($(SYS),DOS)
 	CURS_DIR = /pdcurses
-	CURS_LIB = .
-	LIBS = /pdcurses/dos/pdcurses.a
+	LIBS = $(CURS_DIR)/dos/pdcurses.a
 	RM = del
 	SEP = ;
 	E = .exe
@@ -101,7 +96,7 @@ $(IOBJS) : %.o: $(isrc)/%.cc
 	$(CXX) $(CPPFLAGS) -c $<
 
 mm$(E):	$(MOBJS) $(IOBJS)
-	$(CXX) -o mm$(E) $(MOBJS) $(IOBJS) -L$(CURS_LIB) $(LIBS)
+	$(CXX) -o mm$(E) $(MOBJS) $(IOBJS) $(LIBS)
 	$(POST)
 
 dep:
