@@ -48,8 +48,8 @@ endif
 # With PDCurses for X11:
 
 ifeq ($(SYS),X11)
-	CURS_DIR = /usr/local/include/xcurses
-	LIBS = -lXCurses
+	CURS_DIR = $(shell xcurses-config --cflags | cut -c 3-)
+	LIBS = $(shell xcurses-config --libs)
 endif
 
 #--------------------------------------------------------------
@@ -57,7 +57,7 @@ endif
 
 ifeq ($(SYS),SDL)
 	CURS_DIR = /Users/wmcbrine/pdsrc/PDCurses
-	LIBS = $(CURS_DIR)/sdl2/pdcurses.a `sdl2-config --libs`
+	LIBS = $(CURS_DIR)/sdl2/pdcurses.a $(shell sdl2-config --libs)
 endif
 
 #--------------------------------------------------------------
