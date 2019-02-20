@@ -6,7 +6,7 @@
 CURS_DIR = \pdcurses
 !endif
 
-!ifdef DOS
+!if $(SYS) == DOS
 LIBS = spawnl.lib $(CURS_DIR)\dos\pdcurses.lib
 !else
 LIBS = $(CURS_DIR)\wincon\pdcurses.lib
