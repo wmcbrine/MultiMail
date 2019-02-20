@@ -24,9 +24,8 @@ precompiled binaries, see the README files that accompany them instead.
 
     http://pdcurses.org/
 
-    (If you're using Linux, odds are that you already have ncurses and
-    InfoZip.) Also, bear in mind that MultiMail needs the C++ standard
-    libraries, not just C.
+    (If you're using Linux, you probably already have ncurses and
+    InfoZip.)
 
     If using PDCurses, MultiMail now requires version 3.6 or later.
 
@@ -36,10 +35,10 @@ precompiled binaries, see the README files that accompany them instead.
     http://www.cs.cmu.edu/afs/cs.cmu.edu/user/ralf/pub/WWW/files.html
 
 2. Configure it (for compilation) --
-    Check the options and paths in the Makefile. If your curses header
-    file isn't in the include path, change CURS_DIR as appropriate. You
-    may also need to change LIBS. These can be set on the command line,
-    e.g. "make CURS_DIR=/pdcurses".
+    Check the options and paths in the Makefile. If curses.h isn't in
+    the include path, change CURS_DIR as appropriate. You may also need
+    to change LIBS. These can be set on the command line, e.g. "make
+    CURS_DIR=/pdcurses".
 
 3. Compile MultiMail --
     At the base directory, type: `make`
@@ -59,9 +58,7 @@ precompiled binaries, see the README files that accompany them instead.
 See the man page (mmail.1) and README for more information.
 
 This package includes some example color schemes, in the "colors"
-directory. How or whether you install these is up to you. (If you want to
-use them, I suggest putting them in your "mmail" directory. To select one,
-alter the "ColorFile" keyword in .mmailrc to point to it.)
+directory. To select one, use the "ColorFile" keyword in .mmailrc .
 
 
 Support for XCurses (PDCurses)
@@ -92,9 +89,8 @@ In the MultiMail source, separate makefiles are provided for these ports.
     Makefile.vc  - Microsoft Visual C++ (Windows)
     Makefile.wcc - Watcom (All platforms -- Windows by default)
 
-Edit the appropriate makefile to point to your installation of PDCurses,
-and compile with, e.g.:
+Point to your installation of PDCurses and compile with, e.g.:
 
-    make -f Makefile.bcc
+    make -f Makefile.bcc CURS_DIR=/pdcurs38 SYS=DOS
 
 (Use "wmake" instead of "make" for Watcom; "nmake" for MSVC.)
