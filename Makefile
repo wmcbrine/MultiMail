@@ -23,12 +23,11 @@ PREFIX = /usr/local
 #--------------------------------------------------------------
 # Defaults are for the standard curses setup:
 
-# CURS_DIR specifies the directory with your curses header file, if it's
-# not /usr/include/curses.h. LIBS lists any "extra" libraries that need
-# to be linked in, including the curses library. RM is the Delete
-# command ("rm" or "del", as appropriate), and SEP is the separator for
-# multi-statement lines... some systems require ";", while others need
-# "&&".
+# CURS_DIR specifies the directory with curses.h, if it's not in the
+# include path. LIBS lists any "extra" libraries that need to be linked
+# in, including the curses library. RM is the Delete command ("rm" or
+# "del", as appropriate), and SEP is the separator for multi-statement
+# lines... some systems require ";", while others need "&&".
 
 ifeq ($(OS),Windows_NT)
 	CURS_DIR = /pdcurses
@@ -74,7 +73,6 @@ ifeq ($(SYS),DOS)
 endif
 
 HELPDIR = $(PREFIX)/man/man1
-CPPFLAGS = $(OPTS) -I$(CURS_DIR)
 O = o
 
 .SUFFIXES: .cc
@@ -90,10 +88,10 @@ arealist.o letterl.o letterw.o lettpost.o ansiview.o addrbook.o \
 tagline.o help.o main.o
 
 $(MOBJS) : %.o: $(msrc)/%.cc
-	$(CXX) $(CPPFLAGS) -c $<
+	$(CXX) $(OPTS) -c $<
 
 $(IOBJS) : %.o: $(isrc)/%.cc
-	$(CXX) $(CPPFLAGS) -c $<
+	$(CXX) $(OPTS) -I$(CURS_DIR) -c $<
 
 mm$(E):	$(MOBJS) $(IOBJS)
 	$(CXX) -o mm$(E) $(MOBJS) $(IOBJS) $(LIBS)
