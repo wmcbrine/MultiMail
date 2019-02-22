@@ -9,9 +9,9 @@ isrc = interfac
 # is for any post-processing that needs doing.
 
 ifeq ($(DEBUG),Y)
-	OPTS = -g -Wall -Wextra -pedantic -Wno-char-subscripts
+	OPTS = -g -Wall -pedantic
 else
-	OPTS = -O2 -Wall -pedantic -Wno-char-subscripts
+	OPTS = -O2 -Wall -pedantic
 	POST = strip mm$(E)
 endif
 
