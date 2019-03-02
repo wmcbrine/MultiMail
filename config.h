@@ -5,6 +5,7 @@
 #define MM_MINOR 51
 
 #define MM_NAME "MultiMail"
+#define MM_SNAME "MMail"
 #define MM_VERNUM STR(MM_MAJOR) "." STR(MM_MINOR)
 #define MM_TOPHEADER MM_NAME "/%.16s v" MM_VERNUM
 

@@ -838,10 +838,21 @@ void bwreply::addHeader(FILE *uplFile)
     strncpy((char *) newUplHeader.vernum, MM_VERNUM, 20);
     for (int c = 0; newUplHeader.vernum[c]; newUplHeader.vernum[c++] -= 10);
 
-    int tearlen = sprintf((char *) newUplHeader.reader_name, MM_NAME
-                          "/%s", sysname());
-    strcpy((char *) newUplHeader.reader_tear, ((tearlen < 16) ?
-           (char *) newUplHeader.reader_name : MM_NAME));
+    const char *name = sysname();
+    size_t len = strlen(name);
+
+    if (len < 80 - sizeof(MM_NAME))
+        sprintf((char *) newUplHeader.reader_name, MM_NAME "/%s", name);
+    else
+        strcpy((char *) newUplHeader.reader_name, MM_NAME);
+
+    if (len < 16 - sizeof(MM_NAME))
+        strcpy((char *) newUplHeader.reader_tear,
+               (char *) newUplHeader.reader_name);
+    else if (len < 16 - sizeof(MM_SNAME))
+        sprintf((char *) newUplHeader.reader_tear, MM_SNAME "/%s", name);
+    else
+        strcpy((char *) newUplHeader.reader_tear, MM_NAME);
 
     strcpy((char *) newUplHeader.loginname, baseClass->getLoginName());
     strcpy((char *) newUplHeader.aliasname, baseClass->getAliasName());
