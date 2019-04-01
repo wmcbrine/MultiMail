@@ -1,6 +1,34 @@
 Revision History
 ================
 
+## 0.52 - 2019/04/01:
+
+- Support extended length (71 character) To: and From: fields in QWKE
+  replies. Reported by "g00r00" et al.
+
+- For system names between 6 and 10 characters, use "MMail/name" instead
+  of "MultiMail" for the Blue Wave tear line.
+
+- Fixes for various warnings when building with current compilers; less
+  cluttered build output.
+
+- Use CURS_DIR to specify the default library location on the command
+  line when building; removed references to CURS_LIB and CURS_INC.
+  Partly due to Rob Swindell.
+
+- Use "SYS=DOS" with Makefile.bcc, as with others, instead of "DOS=Y".
+
+- Makefiles renamed PDCurses-style, for a simpler build process.
+
+- Binaries built against PDCurses current git (post-3.8); Makefiles
+  modified accordingly.
+
+- Cleaned up documentation; also, the man page and README no longer
+  include the version number, which is now only specified in config.h
+  (and here).
+
+See the git log for more details.
+
 ## 0.51 - 2018/04/01:
 
 It is risen. No fooling.
