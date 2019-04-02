@@ -35,12 +35,14 @@ ifeq ($(OS),Windows_NT)
 	RM = del
 	SEP = &&
 	E = .exe
+	BUILD = $(CXX) -static
 else
 	CURS_DIR = .
 	LIBS = -lcurses
 	RM = rm -f
 	SEP = ;
 	E =
+	BUILD = $(CXX)
 endif
 
 #--------------------------------------------------------------
@@ -94,7 +96,7 @@ $(IOBJS) : %.o: $(isrc)/%.cc
 	$(CXX) $(OPTS) -I$(CURS_DIR) -c $<
 
 mm$(E):	$(MOBJS) $(IOBJS)
-	$(CXX) -o mm$(E) $(MOBJS) $(IOBJS) $(LIBS)
+	$(BUILD) -o mm$(E) $(MOBJS) $(IOBJS) $(LIBS)
 	$(POST)
 
 dep:
