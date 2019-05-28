@@ -367,7 +367,7 @@ void bluewave::initMixID()
     noOfMixRecs = (int) (mm->workList->getSize() / mixStructLen);
     mixRecord = new MIX_REC[noOfMixRecs];
 
-    if (!fread(mixRecord, mixStructLen, noOfMixRecs, mixFile))
+    if (noOfMixRecs && !fread(mixRecord, mixStructLen, noOfMixRecs, mixFile))
         fatalError("Error reading .MIX file");
     fclose(mixFile);
 
