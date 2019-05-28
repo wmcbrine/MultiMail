@@ -924,27 +924,16 @@ void bwreply::getOffArea(const char *name, int &areaNo, int maxareas)
 
 void bwreply::getOLC(FILE *olc, int &areaNo, int maxareas)
 {
-#ifdef BOGUS_WARNING
-    char *line = 0;
-#else
-    char *line;
-#endif
-
     nextLine(olc);
-    do
-        line = nextLine(olc);
-    while (line[0] != '[');
+    while (!feof(olc)) {
+        char *line = nextLine(olc);
 
-    do {
-        line++;
-        line[strlen(line) - 1] = '\0';
-
-        getOffArea(line, areaNo, maxareas);
-
-        nextLine(olc);
-        nextLine(olc);
-        line = nextLine(olc);
-    } while (!feof(olc));
+        if (line[0] == '[') {
+            line++;
+            line[strlen(line) - 1] = '\0';
+            getOffArea(line, areaNo, maxareas);
+        }
+    }
 }
 
 void bwreply::getPDQ(FILE *olc, int &areaNo, int maxareas)
