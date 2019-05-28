@@ -909,69 +909,72 @@ char *bwreply::nextLine(FILE *olc)
     return line;
 }
 
-bool bwreply::getOffConfig()
+void bwreply::getOffArea(const char *name, int &areaNo, int maxareas)
 {
-    PDQ_REC pdqrec;
-    FILE *olc;
+    for (int c = areaNo + 1; c < maxareas; c++) {
+        mm->areaList->gotoArea(c);
+        if (!strcmp(mm->areaList->getName(), name)) {
+            mm->areaList->Add();
+            areaNo = c;
+            break;
+        } else
+            mm->areaList->Drop();
+    }
+}
+
+void bwreply::getOLC(FILE *olc, int &areaNo, int maxareas)
+{
 #ifdef BOGUS_WARNING
     char *line = 0;
 #else
     char *line;
 #endif
-    bool status, oldstyle;
+
+    nextLine(olc);
+    do
+        line = nextLine(olc);
+    while (line[0] != '[');
+
+    do {
+        line++;
+        line[strlen(line) - 1] = '\0';
+
+        getOffArea(line, areaNo, maxareas);
+
+        nextLine(olc);
+        nextLine(olc);
+        line = nextLine(olc);
+    } while (!feof(olc));
+}
+
+void bwreply::getPDQ(FILE *olc, int &areaNo, int maxareas)
+{
+    PDQ_REC pdqrec;
+
+    fseek(olc, sizeof(PDQ_HEADER), SEEK_SET);
+
+    while (fread(&pdqrec, 1, PDQ_REC_SIZE, olc))
+        getOffArea((char *) pdqrec.echotag, areaNo, maxareas);
+}
+
+bool bwreply::getOffConfig()
+{
+    FILE *olc;
+    int areaNo = -1;
+    int maxareas = mm->areaList->noOfAreas();
 
     upWorkList = new file_list(mm->resourceObject->get(UpWorkDir));
 
     olc = upWorkList->ftryopen(".pdq");
     if (olc)
-        oldstyle = true;
+        getPDQ(olc, areaNo, maxareas);
     else {
         olc = upWorkList->ftryopen(".olc");
-        oldstyle = false;
+        if (olc)
+            getOLC(olc, areaNo, maxareas);
     }
 
     if (olc) {
-        if (oldstyle) {
-            fseek(olc, sizeof(PDQ_HEADER), SEEK_SET);
-            if (!fread(&pdqrec, 1, PDQ_REC_SIZE, olc))
-                fatalError("Error reading .PDQ file");
-        } else {
-            nextLine(olc);
-            do
-                line = nextLine(olc);
-            while (line[0] != '[');
-        }
-
-        int areaNo = -1;
-        int maxareas = mm->areaList->noOfAreas();
-
-        do {
-            if (oldstyle)
-                line = (char *) pdqrec.echotag;
-            else {
-                line++;
-                line[strlen(line) - 1] = '\0';
-            }
-            for (int c = areaNo + 1; c < maxareas; c++) {
-                mm->areaList->gotoArea(c);
-                if (!strcmp(mm->areaList->getName(), line)) {
-                    mm->areaList->Add();
-                    areaNo = c;
-                    break;
-                } else
-                    mm->areaList->Drop();
-            }
-
-            if (oldstyle) {
-                if (!fread(&pdqrec, 1, PDQ_REC_SIZE, olc))
-                    fatalError("Error reading .PDQ file");
-            } else {
-                nextLine(olc);
-                nextLine(olc);
-                line = nextLine(olc);
-            }
-        } while (!feof(olc));
-
         fclose(olc);
         upWorkList->kill();
 
@@ -979,12 +982,10 @@ bool bwreply::getOffConfig()
             mm->areaList->gotoArea(areaNo);
             mm->areaList->Drop();
         }
-        status = true;
-    } else
-        status = false;
+    }
 
     delete upWorkList;
-    return status;
+    return olc ? true : false;
 }
 
 bool bwreply::makeOffConfig()

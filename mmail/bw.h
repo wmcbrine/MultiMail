@@ -79,6 +79,9 @@ class bwreply : public pktreply
     void repFileName();
     const char *repTemplate(bool);
     char *nextLine(FILE *);
+    void getOffArea(const char *, int &, int);
+    void getOLC(FILE *, int &, int);
+    void getPDQ(FILE *, int &, int);
  public:
     bwreply(mmail *, specific_driver *);
     ~bwreply();
