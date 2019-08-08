@@ -259,13 +259,11 @@ void TaglineWindow::kill()
 bool TaglineWindow::ReadFile()
 {
     FILE *fd;
-    char newtag[TAGLINE_LENGTH + 1];
-    bool flag;
-
     fd = fopen(tagname, "rt");
-    flag = !(!fd);
+    bool flag = (fd != NULL);
 
     if (flag) {
+        char newtag[TAGLINE_LENGTH + 1];
         char *end;
 
         curr = &head;
