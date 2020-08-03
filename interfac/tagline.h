@@ -19,7 +19,7 @@ static const char *defaultTags[] = {
  "Heisenberg may have slept here.",
  "Internal Error: The system has been taken over by sheep at line 19960",
  "So easy, a child could do it. Child sold separately.",
- "The number you have dailed...Nine-one-one...has been changed.",
+ "The number you have dialed...Nine-one-one...has been changed.",
  "What is mind? No matter! What is matter? Never mind! - Homer S.",
  0
 };
