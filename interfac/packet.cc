@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@vma.bme.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2020 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -17,8 +17,7 @@ void Welcome::MakeActive()
     window->attrib(C_WELCOME1);
     window->put(1, 7, "Welcome to " MM_NAME " Offline Reader!");
     window->attrib(C_WELCOME2);
-    window->put(3, 2, "Copyright (c) ");
-    window->put(3, 16, __DATE__ + 7);
+    window->put(3, 2, "Copyright (c) " MM_YEAR);
     window->put(3, 21, "William McBrine, Kolossvary");
     window->put(4, 7, "Tamas, Toth Istvan, John Zero, et al.");
     window->touch();
