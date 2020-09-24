@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2019 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2020 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -573,8 +573,7 @@ void LetterWindow::oneLine(int i)
             length = curr->length - 4;
             if (length > TAGLINE_LENGTH)
                 length = TAGLINE_LENGTH;
-            strncpy(tagline1, &curr->text[4], TAGLINE_LENGTH);
-            tagline1[length] = '\0';
+            strnzcpy(tagline1, &curr->text[4], length);
         }
         length = text->put(i, 0, curr->text, curr->length);
     } else {

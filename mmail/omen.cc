@@ -294,8 +294,7 @@ void omen::readSystemBBS()
             else {
                 int len = areatmp[x - 1].BrdNameLen;
                 areas[x].name = new char[len + 1];
-                strncpy(areas[x].name, areatmp[x - 1].BrdName, len);
-                areas[x].name[len] = '\0';
+                strnzcpy(areas[x].name, areatmp[x - 1].BrdName, len);
             }
         }
         if (infile)
@@ -344,10 +343,8 @@ bool omenrep::upl_omen::init(FILE *rep)
         na.point = 0;    // points aren't supported :-(
         na.isSet = true;
     }
-    strncpy(subject, omen_rec.subject, omen_rec.sublen);
-    subject[omen_rec.sublen] = '\0';
-    strncpy(to, omen_rec.to, omen_rec.tolen);
-    to[omen_rec.tolen] = '\0';
+    strnzcpy(subject, omen_rec.subject, omen_rec.sublen);
+    strnzcpy(to, omen_rec.to, omen_rec.tolen);
 
     origArea = getshort(&omen_rec.curboard);
 

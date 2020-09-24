@@ -3,7 +3,7 @@
  * QWK
 
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2019 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2020 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "qwk.h"
@@ -528,8 +528,7 @@ void qwkpack::readControlDat()
     q = nextLine();                             // 5: doorserno, BBSid
     strtok(q, ",");
     p = strtok(0, " ");
-    strncpy(packetBaseName, p, 8);
-    packetBaseName[8] = '\0';
+    strnzcpy(packetBaseName, p, 8);
 
     nextLine();                                 // 6: time & date
 

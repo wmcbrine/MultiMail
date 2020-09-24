@@ -3,7 +3,7 @@
  * tagline selection, editing
 
  Copyright 1996-1997 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2020 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -24,10 +24,8 @@ extern "C" int tnamecmp(const void *a, const void *b)
 
 tagline::tagline(const char *tag)
 {
-    if (tag) {
-        strncpy(text, tag, TAGLINE_LENGTH);
-        text[TAGLINE_LENGTH] = '\0';
-    }
+    if (tag)
+        strnzcpy(text, tag, TAGLINE_LENGTH);
     killed = false;
     next = 0;
 }

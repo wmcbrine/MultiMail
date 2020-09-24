@@ -3,7 +3,7 @@
  * miscellaneous routines (global)
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>,
+ Copyright 1997-2020 William McBrine <wmcbrine@gmail.com>,
                      Peter Krefting <peter@softwolves.pp.se>
  Distributed under the GNU General Public License, version 3 or later. */
 
@@ -94,6 +94,16 @@ unsigned long mkdostime(struct tm *unpacked)
     packed |= unpacked->tm_mday;
 
     return packed;
+}
+
+// copy at most len chars, and null-terminate
+void strnzcpy(char *dest, const char *source, size_t len)
+{
+    while (len && *source) {
+        *dest++ = *source++;
+        len--;
+    }
+    *dest = '\0';
 }
 
 // takes off the spaces from the end of a string
@@ -280,8 +290,7 @@ const char *fromAddr(const char *source)
         size_t len = end - index;
         if (len > 99)
             len = 99;
-        strncpy(tmp, index, len);
-        tmp[len] = '\0';
+        strnzcpy(tmp, index, len);
         return tmp;
     }
     return source;
@@ -319,8 +328,7 @@ const char *fromName(const char *source)
         size_t len = end - fr;
         if (len > 99)
             len = 99;
-        strncpy(tmp, fr, len);
-        tmp[len] = '\0';
+        strnzcpy(tmp, fr, len);
         return tmp;
     }
     return source;

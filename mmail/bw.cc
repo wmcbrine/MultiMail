@@ -3,7 +3,7 @@
  * Blue Wave class
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1998-2019 William McBrine <wmcbrine@gmail.com>
+ Copyright 1998-2020 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "bw.h"
@@ -1000,9 +1000,8 @@ bool bwreply::makeOffConfig()
                sizeof infoHeader.keywords);
         memcpy(pdqhead.filters, infoHeader.filters, sizeof infoHeader.filters);
         for (i = 0; i < 3; i++) {
-            strncpy((char *) pdqhead.macros[i],
-                    (const char *) infoHeader.macros[i], 77);
-            pdqhead.macros[i][77] = '\0';
+            strnzcpy((char *) pdqhead.macros[i],
+                     (const char *) infoHeader.macros[i], 77);
         }
         memcpy(pdqhead.password, infoHeader.password,
                sizeof infoHeader.password);

@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * OPX
 
- Copyright 1999-2019 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2020 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "opx.h"
@@ -242,8 +242,7 @@ char *opxpack::pstrget(void *src)
     unsigned len = (unsigned) *((unsigned char *) src);
     char *dest = new char[len + 1];
 
-    strncpy(dest, ((const char *) src) + 1, len);
-    dest[len] = '\0';
+    strnzcpy(dest, ((const char *) src) + 1, len);
 
     return dest;
 }

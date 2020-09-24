@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * SOUP
 
- Copyright 1999-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2020 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "soup.h"
@@ -233,9 +233,8 @@ const char *sheader::Refs()
 
 soup::soup(mmail *mmA) : pktbase(mmA)
 {
-    strncpy(packetBaseName,
-            findBaseName(mm->resourceObject->get(PacketName)), 8);
-    packetBaseName[8] = '\0';
+    strnzcpy(packetBaseName,
+             findBaseName(mm->resourceObject->get(PacketName)), 8);
 
     hasOffConfig = false;  // :-( For now, at least.
 
