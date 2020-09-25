@@ -24,7 +24,7 @@ void putblong(unsigned char *, unsigned long);
 struct tm *getdostime(unsigned long);
 unsigned long mkdostime(struct tm *);
 
-void strnzcpy(char *, const char *, size_t);
+char *strnzcpy(char *, const char *, size_t);
 char *cropesp(char *);
 char *unspace(char *);
 char *strdupplus(const char *);

@@ -97,13 +97,15 @@ unsigned long mkdostime(struct tm *unpacked)
 }
 
 // copy at most len chars, and null-terminate
-void strnzcpy(char *dest, const char *source, size_t len)
+char *strnzcpy(char *dest, const char *source, size_t len)
 {
     while (len && *source) {
         *dest++ = *source++;
         len--;
     }
     *dest = '\0';
+
+    return dest;
 }
 
 // takes off the spaces from the end of a string

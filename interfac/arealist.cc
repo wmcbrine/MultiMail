@@ -161,7 +161,7 @@ void AreaListWindow::oneLine(int i)
     unsigned long attrib = mm.areaList->getType();
 
     if (position + i == active) {
-        p += sprintf(p, "%.20s", mm.areaList->getAreaType());
+        p = strnzcpy(p, mm.areaList->getAreaType(), 20);
 
         if (mm.areaList->isNetmail())
             p += sprintf(p, ", Netmail");

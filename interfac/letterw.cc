@@ -488,7 +488,7 @@ void LetterWindow::UpdateHeader()
         mm.areaList->gotoArea(mm.letterList->getAreaID());
 
     header->attrib(C_LHFROM);
-    p = tmp + sprintf(tmp, "%.*s", maxToFromWidth, mm.letterList->getFrom());
+    p = strnzcpy(tmp, mm.letterList->getFrom(), maxToFromWidth);
     if (mm.areaList->isEmail())
         netAdd(p);
     letterconv_in(tmp);
@@ -498,7 +498,7 @@ void LetterWindow::UpdateHeader()
     if (mm.areaList->hasTo()) {
         p = (char *) mm.letterList->getTo();
         if (*p) {
-            p = tmp + sprintf(tmp, "%.*s", maxToFromWidth, p);
+            p = strnzcpy(tmp, p, maxToFromWidth);
             if (mm.areaList->isReplyArea())
                 if (p != tmp)
                     netAdd(p);
@@ -889,7 +889,7 @@ void LetterWindow::write_header_to_file(FILE *fd)
 
     for (j = 0; j < items; j++)
         if (head[j]) {
-            p = Header + sprintf(Header, "%.511s", head[j]);
+            p = strnzcpy(Header, head[j], 511);
             if (((j == from) && mm.areaList->isEmail())
                 || ((j == to) && mm.areaList->isReplyArea()))
 

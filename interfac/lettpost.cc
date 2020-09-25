@@ -285,19 +285,18 @@ long LetterWindow::reconvert(const char *reply_filename)
 
 void LetterWindow::setToFrom(char key, char *TO, char *FROM)
 {
-    char format[7];
-    sprintf(format, "%%.%ds", mm.areaList->maxToLen());
+    size_t maxlen = mm.areaList->maxToLen();
 
     bool usealias = mm.areaList->getUseAlias();
     if (usealias) {
         const char *name = mm.packet->getAliasName();
-        sprintf(FROM, format, name ? name : "");
+        strnzcpy(FROM, name ? name : "", maxlen);
         if (!FROM[0])
             usealias = false;
     }
     if (!usealias) {
         const char *name = mm.packet->getLoginName();
-        sprintf(FROM, format, name ? name : "");
+        strnzcpy(FROM, name ? name : "", maxlen);
     }
 
     if (mm.areaList->isUsenet()) {
@@ -318,18 +317,18 @@ void LetterWindow::setToFrom(char key, char *TO, char *FROM)
         else
             if (mm.areaList->isInternet()) {
                 if (key == 'O') {
-                    sprintf(TO, format, fromName(mm.letterList->getTo()));
+                    strnzcpy(TO, fromName(mm.letterList->getTo()), maxlen);
                     NM = fromAddr(mm.letterList->getTo());
                 } else {
                     const char *rep = mm.letterList->getReply();
 
-                    sprintf(TO, format, mm.letterList->getFrom());
+                    strnzcpy(TO, mm.letterList->getFrom(), maxlen);
                     if (rep)
                         NM = fromAddr(rep);
                 }
             } else
-                sprintf(TO, format, (key == 'O') ? mm.letterList->getTo() :
-                        mm.letterList->getFrom());
+                strnzcpy(TO, (key == 'O') ? mm.letterList->getTo() :
+                         mm.letterList->getFrom(), maxlen);
 }
 
 void LetterWindow::EnterLetter(int replyto_area, char key)
@@ -520,7 +519,7 @@ void LetterWindow::forward_header(FILE *fd, const char *FROM,
 
     for (j = 0; j < items; j++)
         if (use[j]) {
-            p = Header + sprintf(Header, "%.511s", head[j]);
+            p = strnzcpy(Header, head[j], 511);
             if (((j == from) && mm.areaList->isEmail())
                 || ((j == to) && mm.areaList->isReplyArea()))
 
