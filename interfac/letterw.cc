@@ -504,8 +504,8 @@ void LetterWindow::UpdateHeader()
                     netAdd(p);
         }
     } else
-        sprintf(tmp, "%.*s", maxToFromWidth,
-                (const char *) mm.letterList->getNetAddr());
+        strnzcpy(tmp, (const char *) mm.letterList->getNetAddr(),
+                 maxToFromWidth);
 
     letterconv_in(tmp);
     header->put(2, 8, tmp);
@@ -517,7 +517,7 @@ void LetterWindow::UpdateHeader()
     header->clreol(3, i + 8);
 
     header->attrib(C_LHDATE);
-    sprintf(tmp, "%.30s", mm.letterList->getDate());
+    strnzcpy(tmp, mm.letterList->getDate(), 30);
 
     // Truncate the date to fit, if needed:
     p = tmp;

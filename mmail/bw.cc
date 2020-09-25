@@ -761,8 +761,8 @@ void bwreply::enterLetter(letter_header &newLetter,
     if (na.isSet) {
         msg_attr |= UPL_NETMAIL;
         if (na.isInternet)
-            sprintf((char *) newList->uplRec.net_dest,
-                    "%.99s", (const char *) na);
+            strnzcpy((char *) newList->uplRec.net_dest,
+                     (const char *) na, 99);
         else {
             putshort(newList->uplRec.destzone, na.zone);
             putshort(newList->uplRec.destnet, na.net);

@@ -596,7 +596,7 @@ void qwkpack::readDoorId()
                     hasDrop = true;
                 else
                     if (!strncasecmp(s, "CONTROLNAME", 11))
-                        sprintf(controlname, "%.25s", s + 14);
+                        strnzcpy(controlname, s + 14, 25);
                     else
                         if (!strcasecmp(s, "GREEKQWK"))
                             greekqwk = true;

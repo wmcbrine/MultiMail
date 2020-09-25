@@ -245,8 +245,8 @@ int AddressBook::Edit(Person &p)
     bool end = false;
 
     if (p.netmail_addr.isSet) {
-        sprintf(NAME, "%.99s", p.name);
-        sprintf(NETADD, "%.99s", (const char *) p.netmail_addr);
+        strnzcpy(NAME, p.name, 99);
+        strnzcpy(NETADD, (const char *) p.netmail_addr, 99);
     } else
         NAME[0] = NETADD[0] = '\0';
 

@@ -407,7 +407,7 @@ void PacketListWindow::renamePacket()
         sprintf(question, "New filename for %.39s:", fname);
 
         if (getNumExt(fname) != -1)
-            sprintf(answer, "%.59s", fname);
+            strnzcpy(answer, fname, 59);
         else {
             const char *base = findBaseName(fname);
             int ext = packetList->nextNumExt(base);

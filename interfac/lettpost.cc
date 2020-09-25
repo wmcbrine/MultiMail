@@ -62,7 +62,7 @@ void LetterWindow::QuoteText(FILE *reply)
                 s = "%";
             }
             if (s) {
-                sprintf(TMP, "%.80s", s);
+                strnzcpy(TMP, s, 80);
                 letterconv_in(TMP);
                 fputs(TMP, reply);
                 quotestr++;
@@ -144,7 +144,7 @@ int LetterWindow::EnterHeader(char *FROM, char *TO, char *SUBJ, bool &privat)
     bool hasTo = hasNews || mm.areaList->hasTo();
 
     if (hasNet) {
-        sprintf(NETADD, "%.99s", (const char *) NM);
+        strnzcpy(NETADD, (const char *) NM, 99);
         maxitems++;
     } else
         NM.isSet = false;
@@ -311,7 +311,7 @@ void LetterWindow::setToFrom(char key, char *TO, char *FROM)
         if (!newsgrps)
             newsgrps = mm.areaList->getDescription();
 
-        sprintf(TO, "%.512s", newsgrps);
+        strnzcpy(TO, newsgrps, 512);
     } else
         if (key == 'E')
             strcpy(TO, (To ? To : "All"));
@@ -569,15 +569,15 @@ void LetterWindow::EditLetter(bool forwarding)
             newsflag = mm.areaList->isUsenet();
         }
         setToFrom('E', TO, FROM);
-        sprintf(SUBJ, "%.513s", mm.letterList->getSubject());
+        strnzcpy(SUBJ, mm.letterList->getSubject(), 513);
         privat = false;
     } else {
         const char *newsgrps = mm.letterList->getNewsgrps();
         newsflag = !(!newsgrps);
 
         strcpy(FROM, mm.letterList->getFrom());
-        sprintf(TO, "%.512s", newsflag ? newsgrps : mm.letterList->getTo());
-        sprintf(SUBJ, "%.512s", mm.letterList->getSubject());
+        strnzcpy(TO, newsflag ? newsgrps : mm.letterList->getTo(), 512);
+        strnzcpy(SUBJ, mm.letterList->getSubject(), 512);
         privat = mm.letterList->getPrivate();
     }
 
@@ -689,7 +689,7 @@ bool LetterWindow::SplitLetter(int lines)
     msgid = replyto_num ? strdupplus(mm.letterList->getMsgID()) : 0;
     newsgrps = strdupplus(mm.letterList->getNewsgrps());
 
-    sprintf(ORGSUBJ, "%.510s", mm.letterList->getSubject());
+    strnzcpy(ORGSUBJ, mm.letterList->getSubject(), 510);
 
     unsigned int x = parts;
     unsigned int padsize = 1;
