@@ -187,35 +187,35 @@ class area_header
  public:
     area_header(mmail *, int, const char *, const char *, const char *,
                 const char *, unsigned long, int, int, int, int);
-    inline const char *getShortName() const;
-    inline const char *getName() const;
-    inline const char *getDescription() const;
-    inline const char *getAreaType() const;
-    inline const char *getTear();
-    inline unsigned long getType() const;
-    inline int getNoOfLetters() const;
-    inline int getNoOfUnread();
-    inline int getNoOfMarked();
-    inline int getNoOfPersonal() const;
-    inline bool getUseAlias() const;
-    inline bool isCollection() const;
-    inline bool isReplyArea() const;
-    inline bool isNetmail() const;
-    inline bool isInternet() const;
-    inline bool isEmail() const;
-    inline bool isUsenet() const;
-    inline bool isLatin() const;
-    inline bool isReadOnly() const;
-    inline bool hasTo() const;
-    inline bool hasPublic() const;
-    inline bool hasPrivate() const;
-    inline int maxToLen() const;
-    inline int maxSubLen() const;
-    inline bool hasOffConfig() const;
-    inline void Add();
-    inline void Drop();
-    inline void addReply();
-    inline void killReply();
+    const char *getShortName() const;
+    const char *getName() const;
+    const char *getDescription() const;
+    const char *getAreaType() const;
+    const char *getTear();
+    unsigned long getType() const;
+    int getNoOfLetters() const;
+    int getNoOfUnread();
+    int getNoOfMarked();
+    int getNoOfPersonal() const;
+    bool getUseAlias() const;
+    bool isCollection() const;
+    bool isReplyArea() const;
+    bool isNetmail() const;
+    bool isInternet() const;
+    bool isEmail() const;
+    bool isUsenet() const;
+    bool isLatin() const;
+    bool isReadOnly() const;
+    bool hasTo() const;
+    bool hasPublic() const;
+    bool hasPrivate() const;
+    int maxToLen() const;
+    int maxSubLen() const;
+    bool hasOffConfig() const;
+    void Add();
+    void Drop();
+    void addReply();
+    void killReply();
     bool isActive() const;
 };
 
@@ -342,22 +342,22 @@ class letter_header
     net_address &getNetAddr();
     long getReplyTo() const;
     bool getPrivate() const;
-    inline letter_body *getBody();
+    letter_body *getBody();
     int getLetterID() const;
     int getAreaID() const;
-    inline long getMsgNum() const;
-    inline int getLength() const;
-    inline bool isPersonal() const;
-    inline bool isLatin() const;
+    long getMsgNum() const;
+    int getLength() const;
+    bool isPersonal() const;
+    bool isLatin() const;
     bool isQP() const;
 
     void setLatin(bool);
     void setQP(bool);
 
-    inline bool getRead();
-    inline void setRead();
-    inline int getStatus();
-    inline void setStatus(int);
+    bool getRead();
+    void setRead();
+    int getStatus();
+    void setStatus(int);
 };
 
 class letter_list
