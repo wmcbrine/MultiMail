@@ -99,32 +99,29 @@ unsigned long mkdostime(struct tm *unpacked)
 // copy at most len chars, and null-terminate
 char *strnzcpy(char *dest, const char *source, size_t len)
 {
-    while (len && *source) {
+    while (len-- && *source)
         *dest++ = *source++;
-        len--;
-    }
+
     *dest = '\0';
 
     return dest;
 }
 
 // takes off the spaces from the end of a string
-char *cropesp(char *st)
+void cropesp(char *st)
 {
     char *p;
 
     for (p = st + strlen(st) - 1; (p > st) && (*p == ' '); p--);
     p[1] = '\0';
-    return st;
 }
 
 // converts spaces to underline characters
-char *unspace(char *source)
+void unspace(char *source)
 {
-    for (unsigned c = 0; c < strlen(source); c++)
-        if (source[c] == ' ')
-            source[c] = '_';
-    return source;
+    for (; *source; source++)
+        if (' ' == *source)
+            *source = '_';
 }
 
 // allocate and copy a string

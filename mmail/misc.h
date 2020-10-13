@@ -25,8 +25,8 @@ struct tm *getdostime(unsigned long);
 unsigned long mkdostime(struct tm *);
 
 char *strnzcpy(char *, const char *, size_t);
-char *cropesp(char *);
-char *unspace(char *);
+void cropesp(char *);
+void unspace(char *);
 char *strdupplus(const char *);
 char *strdupblank(const char *);
 char *fullpath(const char *, const char *);
