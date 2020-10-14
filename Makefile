@@ -15,10 +15,12 @@ else
 	POST = strip mm$(E)
 endif
 
-# PREFIX is the base directory under which to install the binary and man
+# INSTALL_PREFIX is the base directory under which to install the binary and man
 # page; generally either /usr/local or /usr (or perhaps /opt...).
+# It can be changed when make is run (e.g. 'make INSTALL_PREFIX=/tmp/pkg install'
+# (or when using 'uninstall', respectively))
 
-PREFIX = /usr/local
+INSTALL_PREFIX = $PWD/pkg
 
 #--------------------------------------------------------------
 # Defaults are for the standard curses setup:
@@ -74,7 +76,7 @@ ifeq ($(SYS),DOS)
 		c:\djgpp\bin\cwsdstub.exe+mm mm.exe; del mm
 endif
 
-HELPDIR = $(PREFIX)/man/man1
+HELPDIR = $(INSTALL_PREFIX)/man/man1
 O = o
 
 .SUFFIXES: .cc
@@ -107,10 +109,23 @@ clean:
 	$(RM) *.o
 	$(RM) mm$(E)
 
-install::
-	install -c -s mm $(PREFIX)/bin
-	install -c -m 644 mm.1 $(HELPDIR)
-	$(RM) $(HELPDIR)/mmail.1
+install:
+	install -D -s mm -t $(INSTALL_PREFIX)/bin
+	install -D -m 644 mm.1 -t $(HELPDIR)
+	if test -f $(HELPDIR)/mmail.1; then	\
+		$(RM) $(HELPDIR)/mmail.1;	\
+	fi
 	ln $(HELPDIR)/mm.1 $(HELPDIR)/mmail.1
+
+uninstall:
+	if test -f mm; then \
+		$(RM) $(INSTALL_PREFIX)/mm; \
+	fi
+	if test -f mm.1; then	\
+		$(RM) $(HELPDIR)/mm.1;	\
+	fi
+	if test -f $(HELPDIR)/mmail.1; then \
+		$(RM) $(HELPDIR)/mmail.1; \
+	fi
 
 include depend
