@@ -3,7 +3,7 @@
  * QWK
 
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2019 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2020 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef QWK_H
@@ -15,8 +15,6 @@
 
 // Offset of the "chunks" field, so it can be written separately
 #define CHUNK_OFFSET 116
-
-#define getQfield(d, s, l) { memcpy(d, s, l); d[l] = '\0'; }
 
 class qheader {
     struct qwkmsg_header {
@@ -47,6 +45,7 @@ class qheader {
     bool init_short(FILE *);
     void output(FILE *);
     void set_length(FILE *, long, long);
+    void get_field(char *, const char *, size_t);
 };
 
 class qwkpack : public pktbase

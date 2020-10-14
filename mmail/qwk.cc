@@ -41,32 +41,26 @@ bool qheader::init(FILE *datFile)
     if (!fread(&qh, 1, sizeof qh, datFile))
         return false;
 
-    getQfield(from, qh.from, 25);
-    getQfield(to, qh.to, 25);
-    getQfield(subject, qh.subject, 25);
+    get_field(from, qh.from, 25);
+    get_field(to, qh.to, 25);
+    get_field(subject, qh.subject, 25);
 
-    cropesp(from);
-    cropesp(to);
-    cropesp(subject);
-
-    getQfield(date, qh.date, 8);
+    memcpy(date, qh.date, 8);
     date[2] = '-';
     date[5] = '-';        // To deal with some broken messages
-    strcat(date, " ");
+    date[8] = ' ';
 
-    getQfield(buf, qh.time, 5);
-    strcat(date, buf);
+    strnzcpy(date + 9, qh.time, 5);
 
-    getQfield(buf, qh.refnum, 8);
+    strnzcpy(buf, qh.refnum, 8);
     refnum = atol(buf);
 
-    getQfield(buf, qh.msgnum, 7);
-    cropesp(buf);
+    get_field(buf, qh.msgnum, 7);
     msgnum = strtol(buf, &err, 10);
     if (*err)
         return false;    // bogus message
 
-    getQfield(buf, qh.chunks, 6);
+    strnzcpy(buf, qh.chunks, 6);
     msglen = (atol(buf) - 1) << 7;
 
     privat = (qh.status == '*') || (qh.status == '+');
@@ -89,11 +83,9 @@ bool qheader::init_short(FILE *datFile)
     if (!fread(&qh, 1, sizeof qh, datFile))
         return false;
 
-    getQfield(to, qh.to, 25);
+    get_field(to, qh.to, 25);
 
-    cropesp(to);
-
-    getQfield(buf, qh.chunks, 6);
+    strnzcpy(buf, qh.chunks, 6);
     rawlen = strtol(buf, &err, 10);
     if ((*err && *err != ' ') || (rawlen < 2)) {
         netblock = true;    // bad header, keep scanning
@@ -167,6 +159,16 @@ void qheader::set_length(FILE *repFile, long headerpos, long curpos)
     fprintf(repFile, "%-6ld", (length >> 7));
     fseek(repFile, headerpos + length, SEEK_SET);
 }
+
+// Return space-padded field as string, stripped and null-terminated
+void qheader::get_field(char *dest, const char *source, size_t len)
+{
+    while (len && (' ' == source[len - 1]))
+        len--;
+    memcpy(dest, source, len);
+    dest[len] = '\0';
+}
+
 
 // -----------------------------------------------------------------
 // The QWK methods
