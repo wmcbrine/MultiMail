@@ -20,7 +20,7 @@ endif
 # It can be changed when make is run (e.g. 'make INSTALL_PREFIX=/tmp/pkg install'
 # (or when using 'uninstall', respectively))
 
-INSTALL_PREFIX = $PWD/pkg
+INSTALL_PREFIX = /usr/local
 
 #--------------------------------------------------------------
 # Defaults are for the standard curses setup:
