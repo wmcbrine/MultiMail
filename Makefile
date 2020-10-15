@@ -118,14 +118,10 @@ install:
 	ln $(HELPDIR)/mm.1 $(HELPDIR)/mmail.1
 
 uninstall:
-	if test -f mm; then \
-		$(RM) $(INSTALL_PREFIX)/mm; \
-	fi
-	if test -f mm.1; then	\
-		$(RM) $(HELPDIR)/mm.1;	\
-	fi
-	if test -f $(HELPDIR)/mmail.1; then \
-		$(RM) $(HELPDIR)/mmail.1; \
-	fi
+	for file in $(INSTALL_PREFIX)/bin/mm $(HELPDIR)/mm.1 $(HELPDIR)/mmail.1; do \
+		if test -f $$file; then	\
+			$(RM) $$file;	\
+		fi;	\
+	done
 
 include depend
