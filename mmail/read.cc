@@ -90,7 +90,7 @@ void main_read_class::init()
 
             for (int c = skip; c < noOfAreas; c++)
                 for (int d = 0; d < noOfLetters[c]; d++)
-                    readStore[c][d] = fgetc(readFile);
+                    setStatus(c, d, fgetc(readFile));
 
             fclose(readFile);
         }
@@ -99,25 +99,32 @@ void main_read_class::init()
 
 void main_read_class::setRead(int area, int letter, bool value)
 {
+    int flag = getStatus(area, letter);
+
     if (value)
-        readStore[area][letter] |= MS_READ;
+        flag |= MS_READ;
     else
-        readStore[area][letter] &= ~MS_READ;
+        flag &= ~MS_READ;
+
+    setStatus(area, letter, flag);
 }
 
 bool main_read_class::getRead(int area, int letter)
 {
-    return !(!(readStore[area][letter] & MS_READ));
+    return !(!(getStatus(area, letter) & MS_READ));
 }
 
 void main_read_class::setStatus(int area, int letter, int value)
 {
-    readStore[area][letter] = value;
+    int *areaP = readStore[area];
+    if (areaP)
+        areaP[letter] = value;
 }
 
 int main_read_class::getStatus(int area, int letter)
 {
-    return readStore[area][letter];
+    int *areaP = readStore[area];
+    return areaP ? areaP[letter] : 0;
 }
 
 int main_read_class::getNoOfUnread(int area)
@@ -125,7 +132,7 @@ int main_read_class::getNoOfUnread(int area)
     int tmp = 0;
 
     for (int c = 0; c < noOfLetters[area]; c++)
-        if (!(readStore[area][c] & MS_READ))
+        if (!(getStatus(area, c) & MS_READ))
             tmp++;
     return tmp;
 }
@@ -135,7 +142,7 @@ int main_read_class::getNoOfMarked(int area)
     int tmp = 0;
 
     for (int c = 0; c < noOfLetters[area]; c++)
-        if (readStore[area][c] & MS_MARKED)
+        if (getStatus(area, c) & MS_MARKED)
             tmp++;
     return tmp;
 }
@@ -166,7 +173,7 @@ bool main_read_class::saveAll()
 
         for (int c = (hasPersArea && !hasPersNdx); c < noOfAreas; c++)
             for (int d = 0; d < noOfLetters[c]; d++)
-                fputc(readStore[c][d], readFile);
+                fputc(getStatus(c, d), readFile);
 
         fclose(readFile);
     }
