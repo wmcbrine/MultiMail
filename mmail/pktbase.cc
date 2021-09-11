@@ -207,8 +207,14 @@ letter_body *pktbase::getBody(letter_header &mhead)
 
     delete bodyString;
 
-    length = limitmem(body[AreaID][LetterID].msgLength);
-    offset = body[AreaID][LetterID].pointer;
+    bodytype *areaP = body[AreaID];
+    if (areaP) {
+        length = limitmem(areaP[LetterID].msgLength);
+        offset = areaP[LetterID].pointer;
+    } else {
+        length = 0;
+        offset = 0;
+    }
 
     bool firstblk = true;
 
