@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * Packet base class -- common methods
 
- Copyright 1999-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "compress.h"

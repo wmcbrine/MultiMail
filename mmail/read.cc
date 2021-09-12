@@ -3,7 +3,7 @@
  * main_read_class, reply_read_class
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "mmail.h"

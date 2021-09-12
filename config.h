@@ -3,7 +3,7 @@
 
 #define MM_MAJOR 0
 #define MM_MINOR 52
-#define MM_YEAR "2020"
+#define MM_YEAR "2021"
 
 #define MM_NAME "MultiMail"
 #define MM_SNAME "MMail"
