@@ -465,6 +465,7 @@ class LetterWindow
         lineattr attr;
 
         Line();
+        void end_line(bool, bool &, bool &);
         void out(FILE *);
     };
 

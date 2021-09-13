@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2020 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -98,6 +98,74 @@ void LetterWindow::DestroyChain()
     letter_in_chain = -1;
 }
 
+static void rotate(unsigned char &ch)
+{
+    if (ch >= 'A' && ch <= 'Z')
+        ch = (ch - 'A' + 13) % 26 + 'A';
+    else if (ch >= 'a' && ch <= 'z')
+        ch = (ch - 'a' + 13) % 26 + 'a';
+}
+
+static bool seen(const char *src)
+{
+    return !strncmp(src, "SEEN-BY:", 8);
+}
+
+static void skip_hidden(char *&src, bool skipSeenBy)
+{
+    while ((*src == 1) || (skipSeenBy && seen(src))) {
+        do
+            src++;
+        while (*src && (*src != '\n'));
+        while (*src == '\n')
+            src++;
+    }
+}
+
+void LetterWindow::Line::end_line(bool inet, bool &insig, bool &skipSeenBy)
+{
+    // Check for sigs:
+
+    if (inet && !insig && (text[0] == '-') && (text[1] == '-') &&
+        (((text[2] == ' ') && (length == 3)) || (length == 2)))
+
+        insig = true;
+
+    if (insig)
+        attr = Sigline;
+
+    // Strip any trailing spaces (2):
+
+    while (length && ((text[length - 1] == ' ') || (text[length - 1] == '\t')))
+        length--;
+
+    // Check for taglines, tearlines, and origin lines:
+
+    if (!inet && (Normal == attr)) {
+        char ch = *text;
+
+        if ((text[1] == ch) && (text[2] == ch) &&
+           ((text[3] == ' ') || (length == 3)))
+
+            switch (ch) {
+            case '.':
+                if (length > 4)
+                    attr = Tagline;
+                break;
+            case '-':
+            case '~':
+                attr = Tearline;
+            }
+        else
+            if (!strncmp(text, " * Origin:", 10))
+                attr = Origin;
+
+        // SEEN-BY: should only appear after Origin:
+        if (Origin == attr)
+            skipSeenBy = true;
+    }
+}
+
 /* Take a message as returned by getBody() -- the whole thing as one C
    string, with paragraphs separated by '\n' -- and turn it into a linked
    list with an array index, wrapping long paragraphs if needed. Also
@@ -105,11 +173,7 @@ void LetterWindow::DestroyChain()
 */
 void LetterWindow::MakeChain(int columns, bool rejoin)
 {
-    static const char *seenby = "SEEN-BY:";
-    const int tabwidth = 8;
-
-    letter_body *msgBody;
-    Line head, *curr;
+    const int TABWIDTH = 8;
 
     int x, orgarea = -1;
     if (mm.areaList->isCollection() && !mm.areaList->isReplyArea()) {
@@ -121,61 +185,29 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
     DestroyChain();
 
     letter_in_chain = mm.letterList->getCurrent();
-    curr = &head;
 
     bool qpenc = mm.letterList->isQP();
     if (hidden)
         mm.letterList->setQP(false);
 
-    msgBody = mm.letterList->getBody();
+    letter_body *msgBody = mm.letterList->getBody();
 
     if (hidden)
         mm.letterList->setQP(qpenc);
 
+    Line head, *curr = &head;
     bool insig = false, skipSeenBy = false;
 
     while (msgBody) {
-        unsigned char each;
 #ifdef BOGUS_WARNING
-        char *src = 0,
+        char *src = 0;
 #else
-        char *src,
+        char *src;
 #endif
-            *dest, *begin;
-
-        int len, maxcol;
-        lineattr tmpattr;
 
         bool wrapped = false;
         bool end = false, allHidden = msgBody->isHidden();
-//#define XFACE
-#ifdef XFACE
-        // Quick X-Face hack
-        if (allHidden) {
-            src = msgBody->getText();
-            const char *c = searchstr(src, "x-face: ");
-            if (c) {
-                char tmp[255];
-                char *xname = mytmpnam();
-                FILE *f = fopen(xname, "w");
-                c += 8;
-                bool end = false;
-                while (!end) {
-                    fputc(*c++, f);
-                    if (!(*c) || (('\n' == *c) && !((' ' == c[1])
-                        || ('\t' == c[1]))))
 
-                        end = true;
-                }
-                fputc('\n', f);
-                fclose(f);
-                sprintf(tmp, "(uncompface -X %s | xv -; rm %s) &",
-                        xname, xname);
-                mysystem(tmp);
-                delete[] xname;
-            }
-        }
-#endif
         if (!hidden && allHidden)
             end = true;
         else {
@@ -185,20 +217,12 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
 
         while (!end) {
             if (!hidden)  // skip ^A lines
-                while ((*src == 1) || (skipSeenBy &&
-                    !strncmp(src, seenby, 8))) {
-
-                    do
-                        src++;
-                    while (*src && (*src != '\n'));
-                    while (*src == '\n')
-                        src++;
-                }
+                skip_hidden(src, skipSeenBy);
 
             if (*src) {
                 curr->next = new Line;
                 curr = curr->next;
-                tmpattr = allHidden ? Hidden : Normal;
+                lineattr tmpattr = allHidden ? Hidden : Normal;
 
                 NumOfLines++;
 
@@ -206,19 +230,19 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
                     src++;
                     tmpattr = Hidden;
                 } else
-                    if (skipSeenBy && !strncmp(src, seenby, 8))
+                    if (skipSeenBy && seen(src))
                         tmpattr = Hidden;
 
-                begin = 0;
+                char *dest, *begin = 0;
                 curr->text = dest = src;
-                len = 0;
+                int len = 0;
 
-                maxcol = columns;
+                int maxcol = columns;
 
                 while (!end && ((len < maxcol) || (rejoin &&
                       (Quoted == tmpattr) && (len < 80)))) {
 
-                    each = *src;
+                    unsigned char each = *src;
 
                     if (each == '\n') {
                         if (wrapped) {
@@ -256,7 +280,7 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
 
                     switch (each) {
                     case '\t':
-                        maxcol -= (tabwidth - (len % tabwidth));
+                        maxcol -= (TABWIDTH - (len % TABWIDTH));
                     case ' ':
                         // begin == start of last word (for wrapping):
 
@@ -279,13 +303,10 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
                             tmpattr = Quoted;
                         break;
                     default:
-                        if (rot13) {
-                            if (each >= 'A' && each <= 'Z')
-                                each = (each - 'A' + 13) % 26 + 'A';
-                            else if (each >= 'a' && each <= 'z')
-                                each = (each - 'a' + 13) % 26 + 'a';
-                        }
+                        if (rot13)
+                            rotate(each);
                     }
+
                     if ((each != ' ') && (each != '\t') && !begin)
                         begin = src;
 
@@ -310,51 +331,10 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
                     wrapped = (Hidden != tmpattr);
                 }
 
-                // Check for sigs:
-
-                const char *ct = curr->text;
-
-                if (inet && !insig && (ct[0] == '-') && (ct[1] == '-') &&
-                    (((ct[2] == ' ') && (len == 3)) || (len == 2)))
-
-                    insig = true;
-
-                if (insig)
-                    tmpattr = Sigline;
-
-                // Strip any trailing spaces (2):
-
-                while (len && ((ct[len - 1] == ' ') || (ct[len - 1] == '\t')))
-                    len--;
-
                 curr->length = len;
-
-                // Check for taglines, tearlines, and origin lines:
-
-                if (!inet && (Normal == tmpattr)) {
-                    each = *ct;
-                    if ((ct[1] == each) && (ct[2] == each) &&
-                        ((ct[3] == ' ') || (len == 3)))
-
-                        switch (each) {
-                        case '.':
-                            if (len > 4)
-                                tmpattr = Tagline;
-                            break;
-                        case '-':
-                        case '~':
-                            tmpattr = Tearline;
-                        }
-                    else
-                        if (!strncmp(ct, " * Origin:", 10)) {
-                            tmpattr = Origin;
-
-                            // SEEN-BY: should only appear after Origin:
-                            skipSeenBy = true;
-                        }
-                }
-
                 curr->attr = tmpattr;
+
+                curr->end_line(inet, insig, skipSeenBy);
 
             } else
                 end = true;
