@@ -3,7 +3,7 @@
  * help windows
 
  Copyright 1996-1997 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -142,7 +142,7 @@ void HelpWindow::h_letterlist()
 
 void HelpWindow::h_letter(bool isAnsi)
 {
-    enum {width = 60, citems = 18, regitems = 7, repitems = 3, ansitems = 12};
+    enum {width = 60, citems = 18, regitems = 7, repitems = 3, ansitems = 13};
 
     static const char *common[citems] = {
         "S - Save letter",
@@ -185,6 +185,7 @@ void HelpWindow::h_letter(bool isAnsi)
         "- - previous",
         "+ - next",
         "@ - toggle at-code parsing",
+        "| - toggle pipe codes",
         "^V - toggle AVATAR parsing",
         "^B - toggle BSAVE parsing",
         "Q - Quit ANSI viewer"

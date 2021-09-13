@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * ANSI image/text viewer
 
- Copyright 1998-2019 William McBrine <wmcbrine@gmail.com>
+ Copyright 1998-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -235,6 +235,7 @@ void AnsiWindow::Init()
     useAltCharset = (result && (result != ((char *) -1)));
 #endif
     atparse = 1;
+    pipeparse = 1;
     avtparse = true;
     bsvparse = true;
 }
@@ -451,6 +452,45 @@ void AnsiWindow::athandle()
     default:
         source.backup(c[0]);
         update('@');
+    }
+}
+
+void AnsiWindow::pipehandle()
+{
+    int result, code;
+    unsigned char c[3];
+
+    c[0] = source.nextchar();
+
+    switch (c[0]) {
+    case '0': case '1': case '2': case '3': case '4':
+    case '5': case '6': case '7': case '8': case '9':
+        c[1] = source.nextchar();
+        c[2] = '\0';
+
+        result = sscanf((const char *)c, "%d", &code);
+
+        if (1 == result) {
+            if (1 == pipeparse) {
+                if (16 > code) {
+                    ccf = pc_colortable[code & 7];
+                    cbr = !(!(code & 8));
+                } else {
+                    ccb = pc_colortable[code & 7];
+                    cfl = !(!(code & 8));
+                }
+
+                attrib = colorcore();
+            }
+        } else {
+            update('|');
+            update(c[0]);
+            update(c[1]);
+        }
+        break;
+    default:
+        update('|');
+        update(c[0]);
     }
 }
 
@@ -854,8 +894,14 @@ void AnsiWindow::MakeChain()
                 }
                 break;
             case '@':
-                if (atparse) {
+                if (atparse)
                     athandle();
+                else
+                    update('@');
+                break;
+            case '|':
+                if (pipeparse) {
+                    pipehandle();
                     break;
                 }
             default:
@@ -1223,6 +1269,12 @@ void AnsiWindow::KeyHandle(int key)
         atparse++;
         if (3 == atparse)
             atparse = 0;
+        ui->redraw();
+        break;
+    case '|':
+        pipeparse++;
+        if (3 == pipeparse)
+            pipeparse = 0;
         ui->redraw();
         break;
     case 22:

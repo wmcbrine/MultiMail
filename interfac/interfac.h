@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef INTERFACE_H
@@ -612,7 +612,7 @@ class AnsiWindow
 #endif
     chtype *chtmp, attrib;  //current attribute
     bool isLatin, avtparse, bsvparse, isbsv;
-    int atparse;
+    int atparse, pipeparse;
 
     void oneLine(int);
     void lineCount();
@@ -624,6 +624,7 @@ class AnsiWindow
     void colorset();
     void pc_colorset(unsigned char);
     void athandle();
+    void pipehandle();
     void cpylow();
     void cpyhigh();
     void cpxhigh();
