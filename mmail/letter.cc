@@ -104,7 +104,7 @@ letter_header::letter_header(const char *subjectA,
     dl = mm.driverList;
     readO = dl->getReadObject(driver);
 
-    const char *cset = mm.resourceObject->get(outCharset);
+    const char *cset = mm.res.get(outCharset);
 
     subject = strdupblank(subjectA);
     headdec(subjectA, cset, subject);
@@ -351,7 +351,7 @@ void letter_list::init()
         letterHeader[c] = driver->getNextLetter();
 
     currentLetter = 0;
-    llmode = mm.resourceObject->getInt(LetterMode) - 1;
+    llmode = mm.res.getInt(LetterMode) - 1;
 
     sort();
     relist();

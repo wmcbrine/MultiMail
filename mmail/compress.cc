@@ -3,7 +3,7 @@
  * compress and decompress packets
 
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1998-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1998-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "compress.h"
@@ -53,8 +53,7 @@ atype getArchiveType(const char *fname)
 }
 
 // clears the working directory and uncompresses the packet into it.
-pktstatus uncompressFile(resource *ro, const char *fname,
-                         const char *todir, bool setAType)
+pktstatus uncompressFile(const char *fname, const char *todir, bool setAType)
 {
     static const int uncstr[] = {
         arjUncompressCommand, zipUncompressCommand,
@@ -69,10 +68,10 @@ pktstatus uncompressFile(resource *ro, const char *fname,
     if (setAType)
         lastAType = at;
 
-    return mysystem2(ro->get(uncstr[at]), fname) ? UNCOMP_FAIL : PKT_OK;
+    return mysystem2(mm.res.get(uncstr[at]), fname) ? UNCOMP_FAIL : PKT_OK;
 }
 
-int compressAddFile(resource *ro, const char *arcdir, const char *arcfile,
+int compressAddFile(const char *arcdir, const char *arcfile,
                     const char *addfname)
 {
     static const int cmpstr[] = {
@@ -95,7 +94,7 @@ int compressAddFile(resource *ro, const char *arcdir, const char *arcfile,
         addfname = "*";
 #endif
     if (!st.readable() || st.writeable()) {
-        const char *cm = ro->get(cmpstr[lastAType]);
+        const char *cm = mm.res.get(cmpstr[lastAType]);
         char *qname = canonize(quotespace(filepath));
         char *cmdline = new char[strlen(qname) + strlen(cm) +
                                  strlen(addfname) + 6];

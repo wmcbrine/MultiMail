@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2019 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -524,7 +524,7 @@ ListWindow::ListWindow()
 {
     position = active = 0;
     oldPos = oldActive = oldHigh = -100;
-    lynxNav = mm.resourceObject->getInt(UseLynxNav);
+    lynxNav = mm.res.getInt(UseLynxNav);
 }
 
 ListWindow::~ListWindow()

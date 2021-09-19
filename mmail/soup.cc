@@ -233,8 +233,7 @@ const char *sheader::Refs()
 
 soup::soup() : pktbase()
 {
-    strnzcpy(packetBaseName,
-             findBaseName(mm.resourceObject->get(PacketName)), 8);
+    strnzcpy(packetBaseName, findBaseName(mm.res.get(PacketName)), 8);
 
     hasOffConfig = false;  // :-( For now, at least.
 
@@ -618,8 +617,8 @@ void soup::readAreas()
 
     // Info not available in SOUP:
 
-    const char *defName = mm.resourceObject->get(UserName);
-    const char *defAddr = mm.resourceObject->get(InetAddr);
+    const char *defName = mm.res.get(UserName);
+    const char *defAddr = mm.res.get(InetAddr);
 
     if (defAddr) {
         if (defName && *defName && strcmp(defName, defAddr)) {
@@ -894,14 +893,14 @@ void souprep::addRep1(FILE *rep, upl_base *node, int recnum)
             fwrite(outlen, 4, 1, destfile);
 
             bool useQPbody = l->privat ?
-                mm.resourceObject->getInt(UseQPMail) :
-                mm.resourceObject->getInt(UseQPNews);
+                mm.res.getInt(UseQPMail) :
+                mm.res.getInt(UseQPNews);
 
             bool useQPhead = l->privat ?
-                mm.resourceObject->getInt(UseQPMailHead) :
-                mm.resourceObject->getInt(UseQPNewsHead);
+                mm.res.getInt(UseQPMailHead) :
+                mm.res.getInt(UseQPNewsHead);
 
-            l->sHead.output(destfile, mm.resourceObject->get(outCharset),
+            l->sHead.output(destfile, mm.res.get(outCharset),
                             useQPhead, useQPbody);
 
             if (useQPbody && l->sHead.has8bit)

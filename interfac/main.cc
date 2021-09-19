@@ -3,7 +3,7 @@
  * main, error
 
  Copyright 1996-1997 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "error.h"
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
         if ('-' == *resName)
             resName++;
 
-        mm.resourceObject->processOneByName(resName, resValue);
+        mm.res.processOneByName(resName, resValue);
 
         ARGV += 2;
         ARGC -= 2;

@@ -53,14 +53,14 @@ PacketListWindow::PacketListWindow()
 
 void PacketListWindow::init()
 {
-    mychdir(mm.resourceObject->get(PacketDir));
+    mychdir(mm.res.get(PacketDir));
     char *tmp = mygetcwd();
     origDir = new oneDir(tmp, 0);
     delete[] tmp;
 
     currDir = origDir;
 
-    sorttype = mm.resourceObject->getInt(PacketSort);
+    sorttype = mm.res.getInt(PacketSort);
     newList();
     if (noFiles)            // If there are any files,
         active = noDirs;    // set active to the first one.
@@ -76,10 +76,10 @@ void PacketListWindow::newList()
 {
     delete packetList;
 
-    mm.resourceObject->set(oldPacketName, (char *) 0);
+    mm.res.set(oldPacketName, (char *) 0);
 
     const char *target = currDir->name;
-    mm.resourceObject->set(PacketDir, target);
+    mm.res.set(PacketDir, target);
 
     time(&currTime);
 
@@ -97,8 +97,7 @@ void PacketListWindow::MakeActiveCore()
 #else
         2;
 #endif
-    list_max_y = LINES - (stline +
-                 (mm.resourceObject->getInt(ExpertMode) ? 5 : 9));
+    list_max_y = LINES - (stline + (mm.res.getInt(ExpertMode) ? 5 : 9));
 
     bool usenum = false;
     int items = NumOfItems();

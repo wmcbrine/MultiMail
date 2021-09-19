@@ -347,7 +347,7 @@ void qwkpack::readIndices()
 
     numMsgs = 0;
 
-    if (mm.resourceObject->getInt(IgnoreNDX) || !externalIndex()) {
+    if (mm.res.getInt(IgnoreNDX) || !externalIndex()) {
         ndx_fake base, *tmpndx = &base;
 
         long counter;
@@ -944,7 +944,7 @@ bool qwkreply::getOffConfig()
     if (qwke) {
         FILE *olc;
 
-        upWorkList = new file_list(mm.resourceObject->get(UpWorkDir));
+        upWorkList = new file_list(mm.res.get(UpWorkDir));
 
         olc = upWorkList->ftryopen("todoor.ext");
         if (olc) {

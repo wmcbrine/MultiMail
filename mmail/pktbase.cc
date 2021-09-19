@@ -517,7 +517,7 @@ pktreply::~pktreply()
 bool pktreply::checkForReplies()
 {
     repFileName();
-    mychdir(mm.resourceObject->get(ReplyDir));
+    mychdir(mm.res.get(ReplyDir));
 
     mystat st(replyPacketName);
     replyExists = st.writeable();
@@ -537,10 +537,9 @@ void pktreply::init()
 
 void pktreply::uncompress()
 {
-    resource *ro = mm.resourceObject;
-    char *tmppath = fullpath(ro->get(ReplyDir), replyPacketName);
+    char *tmppath = fullpath(mm.res.get(ReplyDir), replyPacketName);
 
-    uncompressFile(ro, tmppath, ro->get(UpWorkDir));
+    uncompressFile(tmppath, mm.res.get(UpWorkDir));
 
     delete[] tmppath;
 }
@@ -726,7 +725,7 @@ const char *pktreply::getTear(int)
 
 void pktreply::readRep()
 {
-    upWorkList = new file_list(mm.resourceObject->get(UpWorkDir));
+    upWorkList = new file_list(mm.res.get(UpWorkDir));
 
     FILE *repFile = upWorkList->ftryopen(replyInnerName);
 
@@ -785,7 +784,7 @@ area_header *pktreply::refreshArea()
 
 bool pktreply::makeReply()
 {
-    if (mychdir(mm.resourceObject->get(UpWorkDir)))
+    if (mychdir(mm.res.get(UpWorkDir)))
         fatalError("Could not cd to upworkdir in pktreply::makeReply");
 
     bool offres = mm.areaList->anyChanged();
@@ -814,20 +813,18 @@ bool pktreply::makeReply()
     deleteReplies();
 
     // pack the files
-    int result = compressAddFile(mm.resourceObject,
-                 mm.resourceObject->get(ReplyDir), replyPacketName,
+    int result = compressAddFile(mm.res.get(ReplyDir), replyPacketName,
                  repTemplate(offres));
 
     // clean up the work area
-    clearDirectory(mm.resourceObject->get(UpWorkDir));
+    clearDirectory(mm.res.get(UpWorkDir));
 
     return !result && checkForReplies();
 }
 
 void pktreply::deleteReplies()
 {
-    char *tmppath = fullpath(mm.resourceObject->get(ReplyDir),
-                             replyPacketName);
+    char *tmppath = fullpath(mm.res.get(ReplyDir), replyPacketName);
 
     remove(tmppath);
 

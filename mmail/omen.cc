@@ -67,7 +67,7 @@ void omen::buildIndices()
     char junk[12];
     const char *p;
     int personal = 0;
-    const char *name = mm.resourceObject->get(UserName);
+    const char *name = mm.res.get(UserName);
     size_t nlen = name ? strlen(name) : 0;
     bool checkpers = name && nlen;
 
@@ -215,7 +215,7 @@ void omen::readSystemBBS()
     hasOffConfig = useLatin = 0;
 
     // The following info is unavailable in OMEN:
-    const char *defName = mm.resourceObject->get(UserName);
+    const char *defName = mm.res.get(UserName);
 
     LoginName = strdupplus((defName && *defName) ? defName :
                            "(set on upload)");
@@ -449,7 +449,7 @@ area_header *omenrep::getNextArea()
 letter_header *omenrep::getNextLetter()
 {
     upl_omen *current = (upl_omen *) uplListCurrent;
-    const char *defName = mm.resourceObject->get(UserName);
+    const char *defName = mm.res.get(UserName);
 
     letter_header *newLetter = new letter_header(
         current->subject, current->to, (defName && *defName) ?
@@ -552,7 +552,7 @@ bool omenrep::getOffConfig()
     FILE *olc;
 
     bool status = false;
-    upWorkList = new file_list(mm.resourceObject->get(UpWorkDir));
+    upWorkList = new file_list(mm.res.get(UpWorkDir));
 
     olc = upWorkList->ftryopen("select");
     if (olc) {

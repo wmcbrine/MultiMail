@@ -15,7 +15,7 @@ HelpWindow::HelpWindow()
 
 void HelpWindow::newHelpMenu(const char **keys, const char **func, int it)
 {
-    if (mm.resourceObject->getInt(ExpertMode))
+    if (mm.res.getInt(ExpertMode))
         menu = 0;
     else {
         int x, y, z, end;

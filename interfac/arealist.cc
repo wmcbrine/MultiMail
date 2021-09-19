@@ -3,7 +3,7 @@
  * area list
 
  Copyright 1996-1997 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -277,7 +277,7 @@ void AreaListWindow::MakeActive()
     hasSys = bb && *bb;
     bool hasProg = (bp && *bp) || (dp && *dp);
 
-    list_max_y = LINES - (mm.resourceObject->getInt(ExpertMode) ? 11 : 15)
+    list_max_y = LINES - (mm.res.getInt(ExpertMode) ? 11 : 15)
                  + !hasSys + !hasProg;
     list_max_x = COLS - 6;
     top_offset = 2;
@@ -285,7 +285,7 @@ void AreaListWindow::MakeActive()
     const char *filter = mm.areaList->getFilter();
 
     char *p = tmp + sprintf(tmp, "%.20s | %s Areas",
-                            mm.resourceObject->get(PacketName),
+                            mm.res.get(PacketName),
                             almodes[mm.areaList->getMode()]);
 
     if (NumOfItems() > list_max_y)

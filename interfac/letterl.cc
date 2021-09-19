@@ -4,14 +4,14 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
 
 LetterListWindow::LetterListWindow()
 {
-    lsorttype = mm.resourceObject->getInt(LetterSort);
+    lsorttype = mm.res.getInt(LetterSort);
 }
 
 void LetterListWindow::listSave()
@@ -137,14 +137,14 @@ void LetterListWindow::MakeActiveCore()
     static const char *llmodes[] = {"All", "Unread", "Marked"},
                       *llsorts[] = {"subject", "number", "from", "to"};
 
-    int maxbott = LINES - (mm.resourceObject->getInt(ExpertMode) ? 7 : 11);
+    int maxbott = LINES - (mm.res.getInt(ExpertMode) ? 7 : 11);
     list_max_y = (NumOfItems() < maxbott) ? NumOfItems() : maxbott;
 
     bool too_many = (NumOfItems() > list_max_y);
 
     const char *modestr = llmodes[mm.letterList->getMode()];
     const char *sortstr = llsorts[lsorttype];
-    const char *pn = mm.resourceObject->get(PacketName);
+    const char *pn = mm.res.get(PacketName);
     const char *filter = mm.letterList->getFilter();
 
     int pnlen = strlen(pn);

@@ -932,8 +932,8 @@ void AnsiWindow::statupdate(const char *intro)
 {
     static const char *helpmsg = "F1 or ? - Help ", *mainstat = " ANSI View";
     char *tmp = new char[COLS + 1];
-    const char *pn = mm.resourceObject->get(PacketName);
-    bool expert = mm.resourceObject->getInt(ExpertMode);
+    const char *pn = mm.res.get(PacketName);
+    bool expert = mm.res.getInt(ExpertMode);
 
     int pnlen = strlen(pn);
     if (pnlen > 20)
@@ -1169,7 +1169,7 @@ void AnsiWindow::Save()
     strcpy(oldfname, filename);
 
     if (ui->savePrompt("Save to file:", filename)) {
-        mychdir(mm.resourceObject->get(SaveDir));
+        mychdir(mm.res.get(SaveDir));
         fd = fopen(homify(filename), "at");
         if (fd) {
             unsigned char c;

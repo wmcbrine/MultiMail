@@ -31,8 +31,8 @@ LetterWindow::LetterWindow()
     tagline1[0] = '\0';
     To = 0;
 
-    beepPers = mm.resourceObject->getInt(BeepOnPers);
-    lynxNav = mm.resourceObject->getInt(UseLynxNav);
+    beepPers = mm.res.getInt(BeepOnPers);
+    lynxNav = mm.res.getInt(UseLynxNav);
 }
 
 LetterWindow::~LetterWindow()
@@ -577,8 +577,8 @@ void LetterWindow::DrawStat()
     static const char *helpmsg = " F1 or ? - Help ";
     char format[40], *tmp = new char[COLS + 1];
 
-    bool expert = mm.resourceObject->getInt(ExpertMode);
-    const char *pn = mm.resourceObject->get(PacketName);
+    bool expert = mm.res.getInt(ExpertMode);
+    const char *pn = mm.res.get(PacketName);
 
     int pnlen = strlen(pn);
     if (pnlen > 20)
@@ -620,7 +620,7 @@ void LetterWindow::DrawStat()
 
 void LetterWindow::TimeUpdate()
 {
-    static int mode = mm.resourceObject->getInt(ClockMode);
+    static int mode = mm.res.getInt(ClockMode);
     char tmp[6];
     time_t now = time(0);
 
@@ -797,7 +797,7 @@ bool LetterWindow::Save(int stype)
     strcpy(oldfname, filename);
 
     if (ui->savePrompt("Save to file:", filename)) {
-        mychdir(mm.resourceObject->get(SaveDir));
+        mychdir(mm.res.get(SaveDir));
         fd = fopen(homify(filename), "at");
         if (fd) {
             int num = mm.letterList->noOfActive();
@@ -993,8 +993,8 @@ void LetterWindow::KeyHandle(int key)
         break;
     case 'I':
         {
-            bool stripCR = mm.resourceObject->getInt(StripSoftCR);
-            mm.resourceObject->set(StripSoftCR, !stripCR);
+            bool stripCR = mm.res.getInt(StripSoftCR);
+            mm.res.set(StripSoftCR, !stripCR);
         }
         MakeChainFixPos();
         DrawBody();

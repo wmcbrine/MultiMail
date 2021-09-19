@@ -167,7 +167,7 @@ void bluewave::getblk(int AreaID, long &offset, long blklen,
     bool internet, strip;
 
     internet = (areas[AreaID].network_type == INF_NET_INTERNET);
-    strip = !internet && mm.resourceObject->getInt(StripSoftCR);
+    strip = !internet && mm.res.getInt(StripSoftCR);
 
     for (long count = 0; count < blklen; count++) {
         int kar = fgetc(infile);
@@ -951,7 +951,7 @@ bool bwreply::getOffConfig()
     int areaNo = -1;
     int maxareas = mm.areaList->noOfAreas();
 
-    upWorkList = new file_list(mm.resourceObject->get(UpWorkDir));
+    upWorkList = new file_list(mm.res.get(UpWorkDir));
 
     olc = upWorkList->ftryopen(".pdq");
     if (olc)

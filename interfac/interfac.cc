@@ -12,8 +12,8 @@
 
 Interface::Interface()
 {
-    isoConsole = mm.resourceObject->getInt(Charset);
-    lynxNav = mm.resourceObject->getInt(UseLynxNav);
+    isoConsole = mm.res.getInt(Charset);
+    lynxNav = mm.res.getInt(UseLynxNav);
     searchItem = 0;
     goodbye = 0;
 #ifdef KEY_RESIZE
@@ -26,8 +26,7 @@ Interface::Interface()
     unsaved_reply = any_read = false;
     state = nostate;
     width_min = MINWIDTH;
-    height_min = mm.resourceObject->getInt(ExpertMode) ?
-                 MINHIEXPERT : MINHINORM;
+    height_min = mm.res.getInt(ExpertMode) ? MINHIEXPERT : MINHINORM;
 }
 
 void Interface::init()
@@ -68,7 +67,7 @@ Interface::~Interface()
 void Interface::init_colors()
 {
 #if defined(NCURSES_VERSION) || defined(PDCURSES)
-    bool trans = mm.resourceObject->getInt(Transparency);
+    bool trans = mm.res.getInt(Transparency);
     int bkcol = PAIR_NUMBER(ColorArray[C_SBACK]) & 7;
 #endif
     for (int back = COLOR_BLACK; back <= (COLOR_WHITE); back++)
@@ -91,7 +90,7 @@ void Interface::alive()
     initscr();
     refresh();
 
-    if (mm.resourceObject->getInt(UseColors))
+    if (mm.res.getInt(UseColors))
         start_color();
 
 #if defined(NCURSES_VERSION) || defined(PDCURSES)
@@ -103,7 +102,7 @@ void Interface::alive()
     nonl();
 
 #ifdef USE_MOUSE
-    if (mm.resourceObject->getInt(Mouse))
+    if (mm.res.getInt(Mouse))
         mousemask(BUTTON1_CLICKED | BUTTON1_DOUBLE_CLICKED |
                   BUTTON3_CLICKED, 0);
 #endif
@@ -117,7 +116,7 @@ void Interface::screen_init()
 
     screen = new Win(LINES, COLS, 0, C_SBACK);
 
-    if (mm.resourceObject->getInt(BackFill)) {
+    if (mm.res.getInt(BackFill)) {
         for (int y = 1; y < (LINES - 1); y++)
             for (int x = 1; x < (COLS - 1); x++)
                 screen->put(y, x, MM_BOARD);
@@ -139,7 +138,7 @@ void Interface::screen_init()
 
     // Help window area:
 
-    if (!mm.resourceObject->getInt(ExpertMode)) {
+    if (!mm.res.getInt(ExpertMode)) {
         screen->attrib(C_SSEPBOTT);
         screen->horizline(LINES - 5);
     }
@@ -522,7 +521,7 @@ bool Interface::back()
         if (any_read)
             save_read();
         if (unsaved_reply)
-            if (mm.resourceObject->getInt(AutoSaveReplies) ||
+            if (mm.res.getInt(AutoSaveReplies) ||
                 WarningWindow("The REPLY area has changed. Save changes?")) {
 
                 redraw();
@@ -597,7 +596,7 @@ void Interface::kill_letter()
 
 void Interface::create_reply_packet()
 {
-    static int lines = mm.resourceObject->getInt(MaxLines);
+    static int lines = mm.res.getInt(MaxLines);
     if (lines)
         letterwindow.SplitAll(lines);
 
@@ -703,7 +702,7 @@ int Interface::areaMenu()
 void Interface::setUnsaved()
 {
     unsaved_reply = true;
-    if (mm.resourceObject->getInt(AutoSaveReplies))
+    if (mm.res.getInt(AutoSaveReplies))
         create_reply_packet();
 }
 
@@ -845,7 +844,7 @@ bool Interface::fromCommandLine(const char *pktname)
 
     if (!commandline) {
         char *cdir = mygetcwd();
-        mm.resourceObject->set_noalloc(PacketDir, cdir);
+        mm.res.set_noalloc(PacketDir, cdir);
 
         main();
 

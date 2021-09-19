@@ -105,12 +105,10 @@ net_address::operator const char *()
 
 mmail::mmail()
 {
-    resourceObject = new resource();
 }
 
 mmail::~mmail()
 {
-    delete resourceObject;
 }
 
 void mmail::Delete()
@@ -138,27 +136,26 @@ pktstatus mmail::selectPacket(const char *packetName)
         delete[] fname;
 
         fname = mygetcwd();
-        resourceObject->set_noalloc(PacketDir, fname);
+        res.set_noalloc(PacketDir, fname);
         packetName = x + 1;
     }
-    resourceObject->set(PacketName, packetName);
+    res.set(PacketName, packetName);
 
     // Uncompression is done here
-    char *fpath = fullpath(resourceObject->get(PacketDir), packetName);
+    char *fpath = fullpath(res.get(PacketDir), packetName);
 
-    if (!resourceObject->get(oldPacketName) ||
-        strcmp(packetName, resourceObject->get(oldPacketName))) {
+    if (!res.get(oldPacketName) ||
+        strcmp(packetName, res.get(oldPacketName))) {
 
-        resourceObject->set(oldPacketName, packetName);
-        result = uncompressFile(resourceObject, fpath,
-                                resourceObject->get(WorkDir), true);
+        res.set(oldPacketName, packetName);
+        result = uncompressFile(fpath, res.get(WorkDir), true);
         if (result != PKT_OK)
             return result;
     }
 
     delete[] fpath;
 
-    workList = new file_list(resourceObject->get(WorkDir));
+    workList = new file_list(res.get(WorkDir));
 
     if (!workList->getNoOfFiles()) {
         delete workList;

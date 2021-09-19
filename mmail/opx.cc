@@ -850,7 +850,7 @@ bool opxreply::getOffConfig()
     FILE *olc;
     bool status = false;
 
-    upWorkList = new file_list(mm.resourceObject->get(UpWorkDir));
+    upWorkList = new file_list(mm.res.get(UpWorkDir));
 
     olc = upWorkList->ftryopen("rusrcfg.dat");
     if (olc) {

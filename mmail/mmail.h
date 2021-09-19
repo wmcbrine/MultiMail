@@ -94,7 +94,7 @@ class net_address
 class mmail
 {
  public:
-    resource *resourceObject;
+    resource res;
     file_list *workList;
     driver_list *driverList;
     area_list *areaList;
@@ -457,7 +457,6 @@ class read_class
 
 class main_read_class : public read_class
 {
-    resource *ro;
     specific_driver *driver;
     int noOfAreas, **readStore, *noOfLetters;
     bool hasPersArea, hasPersNdx;

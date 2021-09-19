@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2019 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -23,14 +23,13 @@ void LetterWindow::QuoteText(FILE *reply)
     bool inet = !(!(mm.areaList->getType() & INTERNET));
     const char *From = mm.letterList->getFrom();
 
-    int width = mm.resourceObject->getInt(QuoteWrapCols);
+    int width = mm.res.getInt(QuoteWrapCols);
     if ((width < 20) || (width > 80))
         width = 78;
     width -= inet ? 2 : 6;
 
     char c;
-    const char *s, *quotestr = mm.resourceObject->get(inet ? InetQuote :
-                                                      QuoteHead);
+    const char *s, *quotestr = mm.res.get(inet ? InetQuote : QuoteHead);
 
     // Format header:
 
@@ -358,7 +357,7 @@ void LetterWindow::EnterLetter(int replyto_area, char key)
         const char *s = stripre(mm.letterList->getSubject());
         int len = strlen(s);
 
-        bool useRe = (inet || mm.resourceObject->getInt(ReOnReplies))
+        bool useRe = (inet || mm.res.getInt(ReOnReplies))
                      && ((len + 4) <= mm.areaList->maxSubLen());
         sprintf(SUBJ, useRe ? "Re: %.509s" : "%.512s", s);
     }
@@ -426,7 +425,7 @@ void LetterWindow::EnterLetter(int replyto_area, char key)
 
     bool sigset = false;
 
-    const char *sg = mm.resourceObject->get(sigFile);
+    const char *sg = mm.res.get(sigFile);
     if (sg && *sg) {
         FILE *s = fopen(sg, "rt");
         if (s) {
@@ -444,7 +443,7 @@ void LetterWindow::EnterLetter(int replyto_area, char key)
 
     // Tagline
 
-    bool useTag = mm.resourceObject->getInt(UseTaglines) &&
+    bool useTag = mm.res.getInt(UseTaglines) &&
                   ui->taglines.NumOfItems() && ui->Tagwin();
     if (useTag)
         fprintf(reply, inet ? (sigset ? "\n%s\n" : "\n-- \n%s\n") :
@@ -650,7 +649,7 @@ void LetterWindow::EditLetter(bool forwarding)
 
 bool LetterWindow::SplitLetter(int lines)
 {
-    static int eachmax = mm.resourceObject->getInt(MaxLines);
+    static int eachmax = mm.res.getInt(MaxLines);
 
     if (!lines) {
         char maxlinesA[55];

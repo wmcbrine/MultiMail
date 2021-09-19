@@ -3,7 +3,7 @@
  * address book
 
  Copyright 1996 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -62,7 +62,7 @@ AddressBook::~AddressBook()
 
 void AddressBook::MakeActive(bool NoEnterA)
 {
-    int expmode = mm.resourceObject->getInt(ExpertMode);
+    int expmode = mm.res.getInt(ExpertMode);
     statetype s = ui->prevactive();
     if (s != address)
         inletter = ((s == letter) || (s == littlearealist)) &&
@@ -433,6 +433,6 @@ void AddressBook::DestroyChain()
 
 void AddressBook::Init()
 {
-    addfname = mm.resourceObject->get(AddressFile);
+    addfname = mm.res.get(AddressFile);
     ReadFile();
 }

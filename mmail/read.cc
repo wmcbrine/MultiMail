@@ -19,8 +19,6 @@ read_class::~read_class()
 
 main_read_class::main_read_class(specific_driver *driverA) : driver(driverA)
 {
-    ro = mm.resourceObject;
-
     noOfAreas = driver->getNoOfAreas();
     noOfLetters = new int[noOfAreas];
     readStore = new int *[noOfAreas];
@@ -56,7 +54,7 @@ void main_read_class::init()
     file_header *redfile, *oldfile;
     file_list *wl = mm.workList;
 
-    redfile = wl->existsF(readFilePath(ro->get(PacketName)));
+    redfile = wl->existsF(readFilePath(mm.res.get(PacketName)));
     if (!redfile)
         redfile = wl->existsF(".red");
 
@@ -152,7 +150,7 @@ bool main_read_class::saveAll()
 
     bool oldused = !(!oldFileN);
 
-    if (mychdir(ro->get(WorkDir)))
+    if (mychdir(mm.res.get(WorkDir)))
         fatalError("Unable to change to work directory");
 
     if (oldused) {
@@ -167,7 +165,7 @@ bool main_read_class::saveAll()
     if (!oldused) {
         FILE *readFile;
 
-        readFileN = readFilePath(ro->get(PacketName));
+        readFileN = readFilePath(mm.res.get(PacketName));
         readFile = fopen(readFileN, "wb");
 
         for (int c = (hasPersArea && !hasPersNdx); c < noOfAreas; c++)
@@ -178,7 +176,7 @@ bool main_read_class::saveAll()
     }
 
     // add the .red file to the packet
-    return !compressAddFile(ro, ro->get(PacketDir), ro->get(PacketName),
+    return !compressAddFile(mm.res.get(PacketDir), mm.res.get(PacketName),
                             oldFileN ? oldFileN : readFileN);
 }
 

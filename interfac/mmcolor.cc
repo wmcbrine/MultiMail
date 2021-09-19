@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * color handling, and default colors
 
- Copyright 1998-2017 William McBrine <wmcbrine@gmail.com>,
+ Copyright 1998-2021 William McBrine <wmcbrine@gmail.com>,
                      Ingo Brueckl <ib@wupperonline.de>
  Distributed under the GNU General Public License, version 3 or later. */
 
@@ -267,8 +267,8 @@ const char *ColorClass::decompose(chtype ch)
 
 void ColorClass::Init()
 {
-    const char *configname = mm.resourceObject->get(ColorFile);
-    bool usecol = mm.resourceObject->getInt(UseColors);
+    const char *configname = mm.res.get(ColorFile);
+    bool usecol = mm.res.getInt(UseColors);
 
     names = col_names;
     intro = col_intro;

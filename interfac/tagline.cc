@@ -3,7 +3,7 @@
  * tagline selection, editing
 
  Copyright 1996-1997 Kolossvary Tamas <thomas@vma.bme.hu>
- Copyright 1997-2020 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -46,7 +46,7 @@ TaglineWindow::~TaglineWindow()
 
 void TaglineWindow::MakeActive()
 {
-    int expmode = mm.resourceObject->getInt(ExpertMode);
+    int expmode = mm.res.getInt(ExpertMode);
     nodraw = false;
 
     list_max_y = LINES - (expmode ? 12 : 15);
@@ -367,7 +367,7 @@ void TaglineWindow::Init()
     // Default taglines:
 #include "tagline.h"
 
-    tagname = mm.resourceObject->get(TaglineFile);
+    tagname = mm.res.get(TaglineFile);
 
     bool useDefault = !ReadFile();
 

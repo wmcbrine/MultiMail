@@ -210,7 +210,7 @@ area_list::area_list()
     }
 
     current = 0;
-    almode = mm.resourceObject->getInt(AreaMode) - 1;
+    almode = mm.res.getInt(AreaMode) - 1;
     relist();
 
     // 1. Find out what types of areas we have (i.e. qwk, usenet... )

@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * some low-level routines common to both sides
 
- Copyright 1997-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 /* Most non-ANSI, non-curses stuff is here. */
@@ -104,8 +104,8 @@ int mysystem(const char *cmd)
         endwin();
 
 #ifdef USE_SPAWNO
-    int result = mm.resourceObject->getInt(swapOut) ?
-                 systemo(mm.resourceObject->get(BaseDir), cmd) : -1;
+    int result = mm.res.getInt(swapOut) ?
+                 systemo(mm.res.get(BaseDir), cmd) : -1;
 
     if (-1 == result)
         result = system(cmd);
@@ -167,12 +167,12 @@ char *mytmpnam()
 
     sprintf(name, "tmp%05ld.txt", tcount++);
 
-    return canonize(fullpath(mm.resourceObject->get(BaseDir), name));
+    return canonize(fullpath(mm.res.get(BaseDir), name));
 }
 
 void edit(const char *reply_filename)
 {
-    mysystem2(mm.resourceObject->get(editor), reply_filename);
+    mysystem2(mm.res.get(editor), reply_filename);
 }
 
 #ifdef __WATCOMC__
@@ -493,7 +493,7 @@ ExtraPath::ExtraPath()
         fatalError("No PATH defined!");
 
     const char *orig = error.getOrigDir();
-    const char *home = mm.resourceObject->get(homeDir);
+    const char *home = mm.res.get(homeDir);
 
     size_t len = strlen(oldpath) + strlen(orig) + strlen(home) + 8;
     newpath = new char[len];
