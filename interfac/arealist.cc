@@ -92,7 +92,7 @@ bool LittleAreaListWindow::extrakeys(int key)
         Select();
         if (mm.areaList->getType() & (COLLECTION | READONLY)) {
             areanum = -1;
-            ui->nonFatalError("Cannot reply there");
+            ui.nonFatalError("Cannot reply there");
         } else
             areanum = mm.areaList->getAreaNo();
         break;
@@ -101,14 +101,14 @@ bool LittleAreaListWindow::extrakeys(int key)
         {
             int x = mm.areaList->getAreaNo();
 
-            ui->areas.Select();
+            ui.areas.Select();
             mm.areaList->relist();
-            ui->areas.ResetActive();
+            ui.areas.ResetActive();
 
             mm.areaList->gotoArea(x);
             active = mm.areaList->getActive() - disp;
         }
-        ui->redraw();
+        ui.redraw();
     }
     return false;
 }
@@ -234,12 +234,12 @@ searchret AreaListWindow::oneSearch(int x, const char *item, int mode)
         mm.areaList->getLetterList();
         mm.letterList->setMode(-1);
         mm.letterList->relist();
-        ui->changestate(letterlist);
-        ui->letters.setActive(-1);
-        retval = ui->letters.search(item, mode);
+        ui.changestate(letterlist);
+        ui.letters.setActive(-1);
+        retval = ui.letters.search(item, mode);
         if (retval != True) {
             active = oldactive;
-            ui->changestate(arealist);
+            ui.changestate(arealist);
             delete mm.letterList;
         }
     }
@@ -401,12 +401,12 @@ bool AreaListWindow::extrakeys(int key)
     case 'E':
         if (!(mm.areaList->getType() & (COLLECTION | READONLY))) {
             if ((5 == key) || mm.areaList->isEmail()) {
-                ui->addressbook();
+                ui.addressbook();
                 Select();
             }
-            ui->letterwindow.EnterLetter(mm.areaList->getAreaNo(), 'E');
+            ui.letterwindow.EnterLetter(mm.areaList->getAreaNo(), 'E');
         } else
-            ui->nonFatalError("Cannot reply there");
+            ui.nonFatalError("Cannot reply there");
         break;
 #ifdef USE_MOUSE
     case MM_MOUSE:
@@ -421,7 +421,7 @@ bool AreaListWindow::extrakeys(int key)
     case 'L':
         mm.areaList->relist();
         ResetActive();
-        ui->redraw();
+        ui.redraw();
         break;
     case 'S':
     case MM_INS:
@@ -436,11 +436,11 @@ bool AreaListWindow::extrakeys(int key)
             default:
                 mm.areaList->Drop();
             }
-            ui->setUnsavedNoAuto();
+            ui.setUnsavedNoAuto();
             Move(KEY_DOWN);
             Draw();
         } else
-            ui->nonFatalError("Offline config is unavailable");
+            ui.nonFatalError("Offline config is unavailable");
     }
     return end;
 }

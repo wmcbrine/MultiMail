@@ -209,7 +209,7 @@ void TaglineWindow::EnterTagline(const char *tag)
 
                 MakeChain();
             } else
-                ui->nonFatalError("Already in file");
+                ui.nonFatalError("Already in file");
         }
     }
     Move(KEY_END);
@@ -239,7 +239,7 @@ void TaglineWindow::EditTagline()
 
 void TaglineWindow::kill()
 {
-    if (ui->WarningWindow("Remove this tagline?")) {
+    if (ui.WarningWindow("Remove this tagline?")) {
         if (position)
             position--;
 

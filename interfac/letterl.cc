@@ -20,10 +20,10 @@ void LetterListWindow::listSave()
 
     int marked = !(!mm.areaList->getNoOfMarked());
 
-    int status = ui->WarningWindow("Save which?", saveopts + !marked,
+    int status = ui.WarningWindow("Save which?", saveopts + !marked,
                                    3 + marked);
     if (status) {
-        bool saveok = ui->letterwindow.Save(status);
+        bool saveok = ui.letterwindow.Save(status);
         if ((status == 1) && saveok)
             Move(KEY_DOWN);
     }
@@ -91,11 +91,11 @@ searchret LetterListWindow::oneSearch(int x, const char *item, int mode)
     retval = mm.letterList->filterCheck(item) ? True : False;
 
     if (!retval && (mode == s_fulltext)) {
-        ui->changestate(letter);
-        ui->letterwindow.setPos(-1);
-        retval = ui->letterwindow.search(item);
+        ui.changestate(letter);
+        ui.letterwindow.setPos(-1);
+        retval = ui.letterwindow.search(item);
         if (retval != True)
-            ui->changestate(letterlist);
+            ui.changestate(letterlist);
     }
 
     return retval;
@@ -201,7 +201,7 @@ void LetterListWindow::MakeActive()
     topline = new char[COLS + 1];
 
     setFormat();
-    ui->areas.Select();
+    ui.areas.Select();
     MakeActiveCore();
 }
 
@@ -248,41 +248,41 @@ bool LetterListWindow::extrakeys(int key)
     case 'M':  // Toggle read/unread and marked from letterlist
         mm.letterList->setStatus(mm.letterList->getStatus() ^
                                  ((key == 'U') ? MS_READ : MS_MARKED));
-        ui->setAnyRead();
+        ui.setAnyRead();
         Move(KEY_DOWN);
         Draw();
         break;
     case 5:
     case 'E':
         if (mm.areaList->isReplyArea())
-            ui->letterwindow.KeyHandle('E');
+            ui.letterwindow.KeyHandle('E');
         else
             if (!(mm.areaList->getType() & (COLLECTION | READONLY))) {
                 if ((5 == key) || mm.areaList->isEmail())
-                    ui->addressbook();
-                ui->letterwindow.EnterLetter(mm.areaList->getAreaNo(), 'E');
+                    ui.addressbook();
+                ui.letterwindow.EnterLetter(mm.areaList->getAreaNo(), 'E');
             } else
-                ui->nonFatalError("Cannot reply there");
+                ui.nonFatalError("Cannot reply there");
         break;
     case 2:
     case 6:
     case MM_DEL:
     case 'K':
         if (mm.areaList->isReplyArea())
-            ui->letterwindow.KeyHandle(key);
+            ui.letterwindow.KeyHandle(key);
         break;
     case 'L':
         mm.letterList->relist();
         ResetActive();
-        ui->redraw();
+        ui.redraw();
         break;
     case '$':
         mm.letterList->resort();
-        ui->redraw();
+        ui.redraw();
         break;
     case 'S':
         listSave();
-        ui->redraw();
+        ui.redraw();
     }
     return false;
 }

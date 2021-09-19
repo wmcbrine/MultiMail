@@ -274,7 +274,7 @@ ShadowedWin::ShadowedWin(int height, int width, int topline, coltype backg,
     WINDOW *&newscr = stdscr;
 #  endif
 # endif
-    int xlimit = 2 + (ui->active() != letter);
+    int xlimit = 2 + (ui.active() != letter);
     int firstcol = (COLS - width) / 2;
 
     while ((width + firstcol) > (COLS - xlimit))
@@ -693,7 +693,7 @@ searchret ListWindow::search(const char *item, int mode)
     int limit = NumOfItems();
     searchret found = False;
 
-    statetype orgstate = ui->active();
+    statetype orgstate = ui.active();
     for (int x = active + 1; (x < limit) && (found == False); x++) {
         if (list->keypressed() == 27) {
             found = Abort;
@@ -702,7 +702,7 @@ searchret ListWindow::search(const char *item, int mode)
         found = oneSearch(x, item, mode);
         if (found == True) {
             active = x;
-            if (ui->active() == orgstate)
+            if (ui.active() == orgstate)
                 Draw();
         }
     }
@@ -757,7 +757,7 @@ bool ListWindow::KeyHandle(int key)
                             active = position + mm_mouse_event.y;
                             if (select) {
                                 draw = false;
-                                end = ui->select();
+                                end = ui.select();
                             }
                         }
             }
@@ -767,7 +767,7 @@ bool ListWindow::KeyHandle(int key)
     case MM_LEFT:
         if (lynxNav) {
             draw = false;
-            end = ui->back();
+            end = ui.back();
             break;
         }
     case MM_MINUS:
@@ -776,7 +776,7 @@ bool ListWindow::KeyHandle(int key)
     case MM_RIGHT:
         if (lynxNav) {
             draw = false;
-            end = ui->select();
+            end = ui.select();
             break;
         }
     case '\t':
@@ -811,10 +811,10 @@ bool ListWindow::KeyHandle(int key)
             char item[80];
             *item = '\0';
 
-            if (ui->savePrompt("Filter on:", item))
+            if (ui.savePrompt("Filter on:", item))
                 setFilter(item);
         }
-        ui->redraw();
+        ui.redraw();
         break;
     default:
         draw = false;

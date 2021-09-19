@@ -222,7 +222,7 @@ void HelpWindow::h_letter(bool isAnsi)
 
 void HelpWindow::MakeActive()
 {
-    switch (ui->active()) {
+    switch (ui.active()) {
     case ansi_help:
         h_letter(true);
         break;
@@ -243,7 +243,7 @@ void HelpWindow::MakeActive()
 
 void HelpWindow::Delete()
 {
-    switch (ui->active()) {
+    switch (ui.active()) {
     case ansi_help:
     case letter_help:
         delete (ShadowedWin *) menu;

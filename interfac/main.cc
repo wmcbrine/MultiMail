@@ -11,11 +11,11 @@
 
 #include <locale.h>
 
-Interface *ui = 0;
 const chtype *ColorArray = 0;
 time_t starttime;
 ErrorType error;
 mmail mm;
+Interface ui;
 
 #ifdef USE_MOUSE
 MEVENT mm_mouse_event;
@@ -51,7 +51,8 @@ extern "C" void sigwinchHandler(int sig)
 
 void fatalError(const char *description)
 {
-    delete ui;
+    if (ui.on && !isendwin())
+        endwin();
     fprintf(stderr, "\n\n%s\n\n", description);
     exit(EXIT_FAILURE);
 }
@@ -93,15 +94,12 @@ int main(int argc, char **argv)
         ARGC -= 2;
     }
 
-    ui = new Interface();
-    ui->init();
+    ui.init();
     if (ARGC > 1)
         for (int i = 1; (i < ARGC) &&
-            ui->fromCommandLine(ARGV[i]); i++);
+            ui.fromCommandLine(ARGV[i]); i++);
     else
-        ui->main();
-    delete ui;
-    ui = 0;    // some destructors, executed after this, may check for this
+        ui.main();
 
     return EXIT_SUCCESS;
 }

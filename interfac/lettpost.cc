@@ -231,7 +231,7 @@ int LetterWindow::EnterHeader(char *FROM, char *TO, char *SUBJ, bool &privat)
             privat = true;
             break;
         case 3:
-            if (!ui->WarningWindow("Make letter private?", privat ? 0 : noyes))
+            if (!ui.WarningWindow("Make letter private?", privat ? 0 : noyes))
                 privat = !privat;
         }
     }
@@ -368,8 +368,8 @@ void LetterWindow::EnterLetter(int replyto_area, char key)
         NM.isSet = false;
         delete[] To;
         To = 0;
-        ui->areas.Select();
-        ui->redraw();
+        ui.areas.Select();
+        ui.redraw();
         return;
     }
 
@@ -397,16 +397,16 @@ void LetterWindow::EnterLetter(int replyto_area, char key)
     // Edit the reply
 
     edit(reply_filename);
-    ui->areas.Select();
-    ui->redraw();
+    ui.areas.Select();
+    ui.redraw();
 
     // Check if modified
 
     fileStat.init(reply_filename);
     if (fileStat.fdate() == oldtime)
-        if (ui->WarningWindow("Cancel this letter?")) {
+        if (ui.WarningWindow("Cancel this letter?")) {
             remove(reply_filename);
-            ui->redraw();
+            ui.redraw();
             return;
         }
 
@@ -416,7 +416,7 @@ void LetterWindow::EnterLetter(int replyto_area, char key)
         int origatt = mm.letterList->getStatus();
         mm.letterList->setStatus(origatt | MS_REPLIED);
         if (!(origatt & MS_REPLIED))
-            ui->setAnyRead();
+            ui.setAnyRead();
     }
 
     reply = fopen(reply_filename, "at");
@@ -444,10 +444,10 @@ void LetterWindow::EnterLetter(int replyto_area, char key)
     // Tagline
 
     bool useTag = mm.res.getInt(UseTaglines) &&
-                  ui->taglines.NumOfItems() && ui->Tagwin();
+                  ui.taglines.NumOfItems() && ui.Tagwin();
     if (useTag)
         fprintf(reply, inet ? (sigset ? "\n%s\n" : "\n-- \n%s\n") :
-                "\n... %s\n", ui->taglines.getCurrent());
+                "\n... %s\n", ui.taglines.getCurrent());
     else
         if (!inet)
             fprintf(reply, " \n");
@@ -478,9 +478,9 @@ void LetterWindow::EnterLetter(int replyto_area, char key)
     delete[] To;
     To = 0;
 
-    ui->areas.Select();
-    ui->setUnsaved();
-    ui->redraw();
+    ui.areas.Select();
+    ui.setUnsaved();
+    ui.redraw();
 }
 
 void LetterWindow::forward_header(FILE *fd, const char *FROM,
@@ -512,7 +512,7 @@ void LetterWindow::forward_header(FILE *fd, const char *FROM,
     for (j = from; j < items; j++)
         use[j] = !(!strcasecmp(org[j], head[j]));
 
-    ui->areas.Select();
+    ui.areas.Select();
 
     bool anyused = false;
 
@@ -544,7 +544,7 @@ void LetterWindow::EditLetter(bool forwarding)
 
     NM = mm.letterList->getNetAddr();
 
-    replyto_area = ui->areaMenu();
+    replyto_area = ui.areaMenu();
     if (replyto_area == -1)
         return;
 
@@ -559,8 +559,8 @@ void LetterWindow::EditLetter(bool forwarding)
 
     if (forwarding) {
         if (mm.areaList->isEmail()) {
-            ui->areas.Select();
-            ui->addressbook();
+            ui.areas.Select();
+            ui.addressbook();
             mm.areaList->gotoArea(replyto_area);
         } else {
             NM.isSet = false;
@@ -581,8 +581,8 @@ void LetterWindow::EditLetter(bool forwarding)
 
     if (!EnterHeader(FROM, TO, SUBJ, privat)) {
         NM.isSet = false;
-        ui->areas.Select();
-        ui->redraw();
+        ui.areas.Select();
+        ui.redraw();
         return;
     }
 
@@ -637,14 +637,14 @@ void LetterWindow::EditLetter(bool forwarding)
 
     if (is_reply_area) {
         mm.letterList->rrefresh();
-        ui->letters.ResetActive();
+        ui.letters.ResetActive();
     }
-    ui->areas.Select();
+    ui.areas.Select();
 
     NM.isSet = false;
 
-    ui->redraw();
-    ui->setUnsaved();
+    ui.redraw();
+    ui.setUnsaved();
 }
 
 bool LetterWindow::SplitLetter(int lines)
@@ -655,7 +655,7 @@ bool LetterWindow::SplitLetter(int lines)
         char maxlinesA[55];
 
         sprintf(maxlinesA, "%d", eachmax);
-        if (!ui->savePrompt(
+        if (!ui.savePrompt(
             "Max lines per part? (WARNING: Split is not reversible!)",
             maxlinesA) || !sscanf(maxlinesA, "%d", &eachmax))
 
@@ -664,7 +664,7 @@ bool LetterWindow::SplitLetter(int lines)
     unsigned int maxlines = lines ? lines : eachmax;
 
     if (maxlines < 20) {
-        ui->nonFatalError("Split at less than 20 lines not allowed");
+        ui.nonFatalError("Split at less than 20 lines not allowed");
         return false;
     }
 
@@ -736,16 +736,16 @@ bool LetterWindow::SplitLetter(int lines)
     mm.letterList->rrefresh();
 
     if (!lines) {
-        ui->letters.ResetActive();
-        ui->areas.Select();
-        ui->setUnsaved();
+        ui.letters.ResetActive();
+        ui.areas.Select();
+        ui.setUnsaved();
     }
     return true;
 }
 
 void LetterWindow::GetTagline()
 {
-    ui->taglines.EnterTagline(tagline1);
+    ui.taglines.EnterTagline(tagline1);
     ReDraw();
 }
 
@@ -761,11 +761,11 @@ bool LetterWindow::EditOriginal()
     letter_list *old_list = mm.letterList;
     mm.areaList->gotoArea(REPLY_AREA);
     mm.areaList->getLetterList();
-    ui->areas.ResetActive();
+    ui.areas.ResetActive();
 
     bool found = mm.letterList->findReply(old_area, old_mnum);
 
-    if (found && ui->WarningWindow("A reply exists. Re-edit it?"))
+    if (found && ui.WarningWindow("A reply exists. Re-edit it?"))
         EditLetter(false);
     else
         found = false;
@@ -774,9 +774,9 @@ bool LetterWindow::EditOriginal()
     delete mm.letterList;
     mm.letterList = old_list;
     mm.areaList->gotoArea(orig_area);
-    ui->areas.ResetActive();
+    ui.areas.ResetActive();
     mm.letterList->gotoLetter(orig_mnum);
-    ui->letters.ResetActive();
+    ui.letters.ResetActive();
 
     return found;
 }
@@ -784,10 +784,10 @@ bool LetterWindow::EditOriginal()
 void LetterWindow::SplitAll(int lines)
 {
     letter_list *old_list = 0;
-    statetype state = ui->active();
+    statetype state = ui.active();
     bool list_is_active = (state == letter) || (state == letterlist);
 
-    ui->areas.Select();
+    ui.areas.Select();
     int orig_area = mm.areaList->getAreaNo();
 
     bool is_reply_area = (orig_area == REPLY_AREA) && list_is_active;
@@ -798,7 +798,7 @@ void LetterWindow::SplitAll(int lines)
 
         mm.areaList->gotoArea(REPLY_AREA);
         mm.areaList->getLetterList();
-        ui->areas.ResetActive();
+        ui.areas.ResetActive();
     }
 
     bool anysplit = false;
@@ -813,18 +813,18 @@ void LetterWindow::SplitAll(int lines)
     }
 
     if (is_reply_area)
-        ui->letters.ResetActive();
+        ui.letters.ResetActive();
     else {
         delete mm.letterList;
         if (list_is_active)
             mm.letterList = old_list;
     }
     mm.areaList->gotoArea(orig_area);
-    ui->areas.ResetActive();
+    ui.areas.ResetActive();
 
     if ((state == letter) && !is_reply_area)
         MakeChain(COLS);
 
     if (anysplit)
-        ui->nonFatalError("Some replies were split");
+        ui.nonFatalError("Some replies were split");
 }

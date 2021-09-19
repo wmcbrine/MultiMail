@@ -255,21 +255,21 @@ searchret PacketListWindow::oneSearch(int x, const char *item, int mode)
             mm.checkForReplies();
             mm.openReply();
 
-            ui->redraw();
-            ui->ReportWindow("Searching (ESC to abort)...");
+            ui.redraw();
+            ui.ReportWindow("Searching (ESC to abort)...");
 
             mm.areaList = new area_list();
             mm.areaList->getRepList();
             mm.driverList->initRead();
             mm.areaList->setMode(-1);
             mm.areaList->relist();
-            ui->changestate(arealist);
-            ui->areas.setActive(-1);
-            retval = ui->areas.search(item, mode);
+            ui.changestate(arealist);
+            ui.areas.setActive(-1);
+            retval = ui.areas.search(item, mode);
             if (retval != True) {
                 active = oldactive;
                 mm.Delete();
-                ui->changestate(packetlist);
+                ui.changestate(packetlist);
             }
         } else
             active = oldactive;
@@ -296,7 +296,7 @@ bool PacketListWindow::back()
         position = currDir->position;
         active = currDir->active;
 
-        ui->redraw();
+        ui.redraw();
     } else
         end = true;
     return end;
@@ -345,7 +345,7 @@ bool PacketListWindow::extrakeys(int key)
         break;
     case 'U':
         newList();
-        ui->redraw();
+        ui.redraw();
     }
     return end;
 }
@@ -384,15 +384,15 @@ void PacketListWindow::gotoDir()
     char pathname[70];
     pathname[0] = '\0';
 
-    if (ui->savePrompt("New directory:", pathname) && pathname[0]) {
+    if (ui.savePrompt("New directory:", pathname) && pathname[0]) {
 
         if (newDir(pathname))
-            ui->redraw();
+            ui.redraw();
         else
-            ui->nonFatalError("Could not change to directory");
+            ui.nonFatalError("Could not change to directory");
 
     } else
-        ui->nonFatalError("Change cancelled");
+        ui.nonFatalError("Change cancelled");
 }
 
 void PacketListWindow::renamePacket()
@@ -414,7 +414,7 @@ void PacketListWindow::renamePacket()
             sprintf(answer, "%.55s.%03d", base, ext);
         }
 
-        if (ui->savePrompt(question, answer) && answer[0] &&
+        if (ui.savePrompt(question, answer) && answer[0] &&
             strcmp(fname, answer)) {
 
             const char *expanswer = homify(answer);
@@ -427,13 +427,13 @@ void PacketListWindow::renamePacket()
 
                 if (changeit) {
                     newList();
-                    ui->redraw();
+                    ui.redraw();
                 } else
-                    ui->nonFatalError("Rename failed");
+                    ui.nonFatalError("Rename failed");
             } else
-                ui->nonFatalError("Name already used");
+                ui.nonFatalError("Name already used");
         } else
-            ui->nonFatalError("Rename cancelled");
+            ui.nonFatalError("Rename cancelled");
     }
 }
 
@@ -446,11 +446,11 @@ void PacketListWindow::killPacket()
         sprintf(tmp, "Do you really want to delete %.90s?",
                 packetList->getName());
 
-        if (ui->WarningWindow(tmp)) {
+        if (ui.WarningWindow(tmp)) {
             packetList->kill();
             noFiles = packetList->getNoOfFiles();
         }
-        ui->redraw();
+        ui.redraw();
     }
 }
 
@@ -460,9 +460,9 @@ pktstatus PacketListWindow::OpenPacket()
     if (active < noDirs) {
 
         if (newDir(0))
-            ui->redraw();
+            ui.redraw();
         else
-            ui->nonFatalError("Could not change to directory");
+            ui.nonFatalError("Could not change to directory");
 
         return NEW_DIR;
     } else

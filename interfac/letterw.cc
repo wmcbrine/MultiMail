@@ -360,7 +360,7 @@ void LetterWindow::StatToggle(int mask)
     int stat = mm.letterList->getStatus();
     stat ^= mask;
     mm.letterList->setStatus(stat);
-    ui->setAnyRead();
+    ui.setAnyRead();
     DrawFlags();
 }
 
@@ -377,10 +377,10 @@ void LetterWindow::Draw(bool redo)
         rot13 = false;
         position = 0;
         tagline1[0] = '\0';
-        if (!ui->dontRead()) {
+        if (!ui.dontRead()) {
             if (!mm.letterList->getRead()) {
                 mm.letterList->setRead();  // nem ide kene? de.
-                ui->setAnyRead();
+                ui.setAnyRead();
             }
             if (beepPers && mm.letterList->isPersonal())
                 beep();
@@ -608,7 +608,7 @@ void LetterWindow::DrawStat()
         memcpy(tmp + maxw + pnlen + 1, "...", 3);
 
     if (collflag)
-        ui->areas.Select();
+        ui.areas.Select();
 
     statbar->cursor_on();
     statbar->put(0, 0, tmp);
@@ -667,16 +667,16 @@ void LetterWindow::MakeActive(bool redo)
 bool LetterWindow::Next()
 {
     if (mm.letterList->getActive() < (mm.letterList->noOfActive() - 1)) {
-        ui->letters.Move(KEY_DOWN);
+        ui.letters.Move(KEY_DOWN);
         mm.letterList->gotoActive(mm.letterList->getActive() + 1);
         Draw(true);
         return true;
     } else {
-        ui->back();
+        ui.back();
         doupdate();
-        ui->back();
+        ui.back();
         doupdate();
-        ui->areas.KeyHandle('+');
+        ui.areas.KeyHandle('+');
     }
     return false;
 }
@@ -684,16 +684,16 @@ bool LetterWindow::Next()
 bool LetterWindow::Previous()
 {
     if (mm.letterList->getActive() > 0) {
-        ui->letters.Move(KEY_UP);
+        ui.letters.Move(KEY_UP);
         mm.letterList->gotoActive(mm.letterList->getActive() - 1);
         Draw(true);
         return true;
     } else {
-        ui->back();
+        ui.back();
         doupdate();
-        ui->back();
+        ui.back();
         doupdate();
-        ui->areas.KeyHandle('-');
+        ui.areas.KeyHandle('-');
     }
     return false;
 }
@@ -796,7 +796,7 @@ bool LetterWindow::Save(int stype)
 
     strcpy(oldfname, filename);
 
-    if (ui->savePrompt("Save to file:", filename)) {
+    if (ui.savePrompt("Save to file:", filename)) {
         mychdir(mm.res.get(SaveDir));
         fd = fopen(homify(filename), "at");
         if (fd) {
@@ -820,12 +820,12 @@ bool LetterWindow::Save(int stype)
             if (!stype)
                 MakeChain(COLS);
 
-            ui->setAnyRead();
+            ui.setAnyRead();
         } else {
             char tmp[142];
 
             sprintf(tmp, "%s: Save failed", filename);
-            ui->nonFatalError(tmp);
+            ui.nonFatalError(tmp);
 
             return false;
         }
@@ -834,7 +834,7 @@ bool LetterWindow::Save(int stype)
 
         return true;
     } else {
-        ui->nonFatalError("Save aborted");
+        ui.nonFatalError("Save aborted");
 
         return false;
     }
@@ -861,7 +861,7 @@ void LetterWindow::write_header_to_file(FILE *fd)
         mm.letterList->getNetAddr(), mm.letterList->getSubject()
     };
 
-    ui->areas.Select();
+    ui.areas.Select();
 
     head[to + mm.areaList->hasTo()] = 0;
     if (head[newsg])
@@ -902,7 +902,7 @@ void LetterWindow::write_to_file(FILE *fd)
     stat &= ~MS_MARKED;
     mm.letterList->setStatus(stat);
     if (stat != oldstat)
-        ui->setAnyRead();
+        ui.setAnyRead();
 }
 
 // For searches (may want to start at position == -1):
@@ -932,7 +932,7 @@ searchret LetterWindow::search(const char *item)
 
         if (found == True) {
             position = x;
-            if (ui->active() == letter)
+            if (ui.active() == letter)
                 DrawBody();
         }
     }
@@ -946,7 +946,7 @@ void LetterWindow::KeyHandle(int key)
 
     switch (key) {
     case ERR:                           // no key pressed
-        if (ui->active() == letter)
+        if (ui.active() == letter)
             TimeUpdate();
         break;
 #ifdef USE_MOUSE
@@ -1006,7 +1006,7 @@ void LetterWindow::KeyHandle(int key)
         break;
     case '?':
     case MM_F1:
-        ui->changestate(letter_help);
+        ui.changestate(letter_help);
         break;
     case 'V':
     case 1:                             // Ctrl-A
@@ -1016,9 +1016,9 @@ void LetterWindow::KeyHandle(int key)
             bool cont = false;
             do {
                 Delete();
-                nextAns = ui->ansiLoop(mm.letterList->getBody(),
-                                       mm.letterList->getSubject(),
-                                       mm.letterList->isLatin());
+                nextAns = ui.ansiLoop(mm.letterList->getBody(),
+                                      mm.letterList->getSubject(),
+                                      mm.letterList->isLatin());
                 if (nextAns == 1)
                     cont = Next();
                 else if (nextAns == -1)
@@ -1034,7 +1034,7 @@ void LetterWindow::KeyHandle(int key)
         break;
     case MM_LEFT:
         if (lynxNav) {
-            ui->back();
+            ui.back();
             break;
         }
     case MM_MINUS:
@@ -1045,7 +1045,7 @@ void LetterWindow::KeyHandle(int key)
         break;
     case 6:                             // Ctrl-F
         EditLetter(true);
-        ui->redraw();
+        ui.redraw();
         break;
     default:
         if (mm.areaList->isReplyArea()) {
@@ -1053,15 +1053,15 @@ void LetterWindow::KeyHandle(int key)
             case 'R':
             case 'E':
                 EditLetter(false);
-                ui->redraw();
+                ui.redraw();
                 break;
             case MM_DEL:
             case 'K':
-                ui->kill_letter();
+                ui.kill_letter();
                 break;
             case 2:                     // Ctrl-B
                 SplitLetter();
-                ui->redraw();
+                ui.redraw();
                 break;
             default:
                 Move(key);
@@ -1069,7 +1069,7 @@ void LetterWindow::KeyHandle(int key)
         } else {
             switch (key) {
             case '\t':
-                ui->letters.Next();
+                ui.letters.Next();
                 Draw(true);
                 break;
             case 'M':
@@ -1080,18 +1080,18 @@ void LetterWindow::KeyHandle(int key)
             case 'O':
                 if (mm.letterList->getStatus() & MS_REPLIED)
                     if (EditOriginal()) {
-                        ui->redraw();
+                        ui.redraw();
                         break;
                     }
             case 5:
             case 'E':
-                t_area = ui->areaMenu();
+                t_area = ui.areaMenu();
                 if (t_area != -1) {
                     mm.areaList->gotoArea(t_area);
 
                     if ((5 == key) || mm.areaList->isEmail()) {
                         if ((5 == key) || ('E' == key))
-                            ui->addressbook();
+                            ui.addressbook();
                         else {
                             net_address nm = PickNetAddr();
                             set_Letter_Params(nm, 0);
@@ -1110,9 +1110,9 @@ void LetterWindow::KeyHandle(int key)
                         set_Letter_Params(nm, 0);
                         EnterLetter(t_area, 'N');
                     } else
-                        ui->nonFatalError("No reply address");
+                        ui.nonFatalError("No reply address");
                 } else
-                    ui->nonFatalError("Netmail is not available");
+                    ui.nonFatalError("Netmail is not available");
                 break;
             case 'T':
                 GetTagline();

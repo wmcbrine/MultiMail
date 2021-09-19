@@ -27,6 +27,7 @@ Interface::Interface()
     state = nostate;
     width_min = MINWIDTH;
     height_min = mm.res.getInt(ExpertMode) ? MINHIEXPERT : MINHINORM;
+    on = false;
 }
 
 void Interface::init()
@@ -89,6 +90,7 @@ void Interface::alive()
 {
     initscr();
     refresh();
+    on = true;
 
     if (mm.res.getInt(UseColors))
         start_color();

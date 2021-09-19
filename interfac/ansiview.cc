@@ -1191,7 +1191,7 @@ void AnsiWindow::Save()
 
     strcpy(oldfname, filename);
 
-    if (ui->savePrompt("Save to file:", filename)) {
+    if (ui.savePrompt("Save to file:", filename)) {
         mychdir(mm.res.get(SaveDir));
         fd = fopen(homify(filename), "at");
         if (fd) {
@@ -1207,12 +1207,12 @@ void AnsiWindow::Save()
             char tmp[142];
 
             sprintf(tmp, "%s: Save failed", filename);
-            ui->nonFatalError(tmp);
+            ui.nonFatalError(tmp);
         }
         if (strcmp(filename, oldfname))
             strcpy(keepname, filename);
     } else
-        ui->nonFatalError("Save aborted");
+        ui.nonFatalError("Save aborted");
 }
 
 void AnsiWindow::KeyHandle(int key)
@@ -1268,7 +1268,7 @@ void AnsiWindow::KeyHandle(int key)
         if (position < NumOfLines)
             DrawBody();
         else
-            ui->setKey('\n');
+            ui.setKey('\n');
         break;
     case 'F':
     case MM_NPAGE:
@@ -1292,25 +1292,25 @@ void AnsiWindow::KeyHandle(int key)
         atparse++;
         if (3 == atparse)
             atparse = 0;
-        ui->redraw();
+        ui.redraw();
         break;
     case '|':
         pipeparse++;
         if (3 == pipeparse)
             pipeparse = 0;
-        ui->redraw();
+        ui.redraw();
         break;
     case 22:
         avtparse = !avtparse;
-        ui->redraw();
+        ui.redraw();
         break;
     case 2:
         bsvparse = !bsvparse;
-        ui->redraw();
+        ui.redraw();
         break;
     case MM_F1:
     case '?':
-        ui->changestate(ansi_help);
+        ui.changestate(ansi_help);
     }
     text->delay_update();
 }

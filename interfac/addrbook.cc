@@ -63,7 +63,7 @@ AddressBook::~AddressBook()
 void AddressBook::MakeActive(bool NoEnterA)
 {
     int expmode = mm.res.getInt(ExpertMode);
-    statetype s = ui->prevactive();
+    statetype s = ui.prevactive();
     if (s != address)
         inletter = ((s == letter) || (s == littlearealist)) &&
                    !mm.areaList->isReplyArea();
@@ -169,7 +169,7 @@ void AddressBook::WriteFile()
 void AddressBook::kill()
 {
     if (highlighted) {
-        if (ui->WarningWindow("Remove this address?")) {
+        if (ui.WarningWindow("Remove this address?")) {
             highlighted->killed = true;
 
             if (position)
@@ -188,7 +188,7 @@ void AddressBook::kill()
 void AddressBook::SetLetterThings()
 {
     if (!NoEnter && highlighted)
-        ui->letterwindow.set_Letter_Params(highlighted->netmail_addr,
+        ui.letterwindow.set_Letter_Params(highlighted->netmail_addr,
                                            highlighted->name);
 }
 
@@ -218,15 +218,15 @@ void AddressBook::Add(const char *Name, net_address &Address)
             active = NumOfPersons;
             Draw();
         } else
-            ui->nonFatalError("Already in addressbook");
+            ui.nonFatalError("Already in addressbook");
     } else
-        ui->nonFatalError("No address found");
+        ui.nonFatalError("No address found");
 }
 
 void AddressBook::GetAddress()
 {
     if (inletter)
-        Add(mm.letterList->getFrom(), ui->letterwindow.PickNetAddr());
+        Add(mm.letterList->getFrom(), ui.letterwindow.PickNetAddr());
 }
 
 int AddressBook::HeaderLine(ShadowedWin &win, char *buf, int limit,
@@ -303,7 +303,7 @@ void AddressBook::NewAddress()
     p.netmail_addr.isSet = false;
     if (Edit(p))
         Add(p.name, p.netmail_addr);
-    ui->redraw();
+    ui.redraw();
 }
 
 void AddressBook::ChangeAddress()
@@ -311,7 +311,7 @@ void AddressBook::ChangeAddress()
     if (highlighted)
         if (Edit(*highlighted))
             WriteFile();
-    ui->redraw();
+    ui.redraw();
 }
 
 void AddressBook::oneLine(int i)

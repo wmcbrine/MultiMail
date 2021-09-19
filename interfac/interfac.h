@@ -700,6 +700,7 @@ class Interface
     LetterWindow letterwindow;
     TaglineWindow taglines;
     AnsiWindow ansiwindow;
+    bool on;
 
     Interface();
     ~Interface();
@@ -730,7 +731,7 @@ class Interface
     bool fromCommandLine(const char *);
 };
 
-extern Interface *ui;
+extern Interface ui;
 extern time_t starttime;
 
 #ifdef USE_MOUSE

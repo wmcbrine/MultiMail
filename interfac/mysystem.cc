@@ -100,7 +100,7 @@ char *myfgets(char *s, int size, FILE *stream)
 
 int mysystem(const char *cmd)
 {
-    if (ui && !isendwin())
+    if (ui.on && !isendwin())
         endwin();
 
 #ifdef USE_SPAWNO
@@ -117,7 +117,7 @@ int mysystem(const char *cmd)
     if (result)
         napms(2000);
 
-    if (ui) {
+    if (ui.on) {
 #ifdef PDCURSES
         PDC_set_title(MM_NAME);
 #endif
@@ -475,7 +475,7 @@ void Shell::out()
     refresh();
     mysystem(getenv("COMSPEC"));
 
-    ui->redraw();
+    ui.redraw();
 }
 
 #endif
