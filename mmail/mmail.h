@@ -102,8 +102,6 @@ class mmail
     specific_driver *packet;
     reply_driver *reply;
 
-    mmail();
-    ~mmail();
     pktstatus selectPacket(const char *);
     void Delete();
     bool saveRead();

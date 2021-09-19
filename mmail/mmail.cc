@@ -103,14 +103,6 @@ net_address::operator const char *()
     return netText;
 }
 
-mmail::mmail()
-{
-}
-
-mmail::~mmail()
-{
-}
-
 void mmail::Delete()
 {
     delete areaList;
