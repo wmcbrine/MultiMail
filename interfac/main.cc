@@ -76,28 +76,25 @@ void mm_mouse_get()
 
 int main(int argc, char **argv)
 {
-    char **ARGV = argv;
-    int ARGC = argc;
-
     setlocale(LC_ALL, "");
 
-    while ((ARGC > 2) && ('-' == ARGV[1][0])) {
-        char *resName = ARGV[1] + 1;
-        char *resValue = ARGV[2];
+    while ((argc > 2) && ('-' == argv[1][0])) {
+        char *resName = argv[1] + 1;
+        char *resValue = argv[2];
 
         if ('-' == *resName)
             resName++;
 
         mm.res.processOneByName(resName, resValue);
 
-        ARGV += 2;
-        ARGC -= 2;
+        argv += 2;
+        argc -= 2;
     }
 
     ui.init();
-    if (ARGC > 1)
-        for (int i = 1; (i < ARGC) &&
-            ui.fromCommandLine(ARGV[i]); i++);
+    if (argc > 1)
+        for (int i = 1; (i < argc) &&
+            ui.fromCommandLine(argv[i]); i++);
     else
         ui.main();
 
