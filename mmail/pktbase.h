@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * Packet base class
 
- Copyright 1999-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef PKT_H
@@ -31,7 +31,6 @@ class pktbase : public specific_driver
         ndx_fake *next;
     };
 
-    mmail *mm;
     letter_body *bodyString;
     file_header **bulletins;
 
@@ -57,7 +56,7 @@ class pktbase : public specific_driver
     virtual void postfirstblk(unsigned char *&, letter_header &);
     virtual void endproc(letter_header &);
  public:
-    pktbase(mmail *);
+    pktbase();
     ~pktbase();
     int getXNum(int);
     int getNoOfAreas();
@@ -97,7 +96,6 @@ class pktreply : public reply_driver
         ~upl_base();
     } *uplListHead, *uplListCurrent;
 
-    mmail *mm;
     pktbase *baseClass;
     file_list *upWorkList;
     letter_body *replyText;
@@ -115,7 +113,7 @@ class pktreply : public reply_driver
     virtual void addHeader(FILE *) = 0;
     virtual const char *repTemplate(bool) = 0;
  public:
-    pktreply(mmail *, specific_driver *);
+    pktreply(specific_driver *);
     ~pktreply();
     bool checkForReplies();
     void init();

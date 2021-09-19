@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * SOUP
 
- Copyright 1999-2020 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "soup.h"
@@ -231,10 +231,10 @@ const char *sheader::Refs()
 // The SOUP methods
 // -----------------------------------------------------------------
 
-soup::soup(mmail *mmA) : pktbase(mmA)
+soup::soup() : pktbase()
 {
     strnzcpy(packetBaseName,
-             findBaseName(mm->resourceObject->get(PacketName)), 8);
+             findBaseName(mm.resourceObject->get(PacketName)), 8);
 
     hasOffConfig = false;  // :-( For now, at least.
 
@@ -277,7 +277,7 @@ bool soup::msgopen(int area)
 
         sprintf(tmp, "%.8s.MSG", fname);
 
-        infile = mm->workList->ftryopen(tmp);
+        infile = mm.workList->ftryopen(tmp);
         if (!infile)
             fatalError("Could not open .MSG file");
     }
@@ -288,7 +288,7 @@ area_header *soup::getNextArea()
 {
     int cMsgNum = areas[ID]->nummsgs;
 
-    area_header *tmp = new area_header(mm, ID + 1, areas[ID]->numA,
+    area_header *tmp = new area_header(ID + 1, areas[ID]->numA,
                        areas[ID]->msgfile, areas[ID]->name, "SOUP",
                        areas[ID]->attr | (cMsgNum ? ACTIVE : 0), cMsgNum,
                        0, 99, 511);
@@ -501,7 +501,7 @@ letter_header *soup::getNextLetter()
             msgid = refs;
     }
 
-    letter_header *tmp = new letter_header(mm, sHead.Subject(),
+    letter_header *tmp = new letter_header(sHead.Subject(),
         sHead.To() ? sHead.To() : "All", *fr ? fr : (const char *) na,
         sHead.Date(), msgid, 0, currentLetter, currentLetter + 1,
         currentArea, false, len, this, na, true, sHead.Newsgrps(),
@@ -614,12 +614,12 @@ letter_body *soup::getBody(letter_header &mhead)
 // Area and packet init
 void soup::readAreas()
 {
-    file_list *wl = mm->workList;
+    file_list *wl = mm.workList;
 
     // Info not available in SOUP:
 
-    const char *defName = mm->resourceObject->get(UserName);
-    const char *defAddr = mm->resourceObject->get(InetAddr);
+    const char *defName = mm.resourceObject->get(UserName);
+    const char *defAddr = mm.resourceObject->get(InetAddr);
 
     if (defAddr) {
         if (defName && *defName && strcmp(defName, defAddr)) {
@@ -715,8 +715,7 @@ souprep::upl_soup::upl_soup(const char *name) : pktreply::upl_base(name)
 {
 }
 
-souprep::souprep(mmail *mmA, specific_driver *baseClassA) :
-    pktreply(mmA, baseClassA)
+souprep::souprep(specific_driver *baseClassA) : pktreply(baseClassA)
 {
 }
 
@@ -802,7 +801,7 @@ void souprep::getReplies(FILE *repFile)
 
 area_header *souprep::getNextArea()
 {
-    return new area_header(mm, 0, "REPLY", "REPLIES",
+    return new area_header(0, "REPLY", "REPLIES",
         "Letters written by you", "SOUP replies",
         (COLLECTION | REPLYAREA | ACTIVE | PUBLIC | PRIVATE),
         noOfLetters, 0, 99, 511);
@@ -816,8 +815,8 @@ letter_header *souprep::getNextLetter()
     int cn = current->origArea;
 
     if (ng && (cn == -1)) {
-        for (int c = 2; c < mm->areaList->noOfAreas(); c++)
-            if (strstr(ng, mm->areaList->getDescription(c))) {
+        for (int c = 2; c < mm.areaList->noOfAreas(); c++)
+            if (strstr(ng, mm.areaList->getDescription(c))) {
                 cn = c;
                 break;
             }
@@ -827,7 +826,7 @@ letter_header *souprep::getNextLetter()
         current->origArea = cn;
     }
 
-    letter_header *newLetter = new letter_header(mm,
+    letter_header *newLetter = new letter_header(
         current->sHead.Subject(), to ? fromName(to) : "All",
         current->sHead.From(), current->sHead.Date(),
         current->sHead.Refs(), current->refnum, currentLetter,
@@ -844,7 +843,7 @@ void souprep::enterLetter(letter_header &newLetter,
 {
     upl_soup *newList = new upl_soup(newLetterFileName);
 
-    newList->origArea = mm->areaList->getAreaNo();
+    newList->origArea = mm.areaList->getAreaNo();
     newList->privat = newLetter.getPrivate();
     newList->refnum = newLetter.getReplyTo();
     newList->na = newLetter.getNetAddr();
@@ -895,14 +894,14 @@ void souprep::addRep1(FILE *rep, upl_base *node, int recnum)
             fwrite(outlen, 4, 1, destfile);
 
             bool useQPbody = l->privat ?
-                mm->resourceObject->getInt(UseQPMail) :
-                mm->resourceObject->getInt(UseQPNews);
+                mm.resourceObject->getInt(UseQPMail) :
+                mm.resourceObject->getInt(UseQPNews);
 
             bool useQPhead = l->privat ?
-                mm->resourceObject->getInt(UseQPMailHead) :
-                mm->resourceObject->getInt(UseQPNewsHead);
+                mm.resourceObject->getInt(UseQPMailHead) :
+                mm.resourceObject->getInt(UseQPNewsHead);
 
-            l->sHead.output(destfile, mm->resourceObject->get(outCharset),
+            l->sHead.output(destfile, mm.resourceObject->get(outCharset),
                             useQPhead, useQPbody);
 
             if (useQPbody && l->sHead.has8bit)

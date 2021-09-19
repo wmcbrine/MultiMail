@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * OPX
 
- Copyright 1999-2020 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "opx.h"
@@ -12,11 +12,11 @@
 // The OPX methods
 // -----------------------------------------------------------------
 
-opxpack::opxpack(mmail *mmA) : pktbase(mmA)
+opxpack::opxpack() : pktbase()
 {
     readBrdinfoDat();
 
-    infile = mm->workList->ftryopen("mail.dat");
+    infile = mm.workList->ftryopen("mail.dat");
     if (!infile)
         fatalError("Could not open MAIL.DAT");
 
@@ -33,7 +33,7 @@ area_header *opxpack::getNextArea()
     int cMsgNum = areas[ID].nummsgs;
     bool x = (areas[ID].num == - 1);
 
-    area_header *tmp = new area_header(mm, ID + 1,
+    area_header *tmp = new area_header(ID + 1,
         areas[ID].numA, areas[ID].name,
         (x ? "Letters addressed to you" : areas[ID].name),
         (x ? "OPX personal" : "OPX"),
@@ -60,12 +60,12 @@ void opxpack::buildIndices()
     ndx_fake base, *tmpndx = &base;
 
     long counter, length, personal = 0;
-    long mdatlen = mm->workList->getSize();
+    long mdatlen = mm.workList->getSize();
 
-    bool hasFdx = (mm->workList->exists("mail.fdx") != 0);
+    bool hasFdx = (mm.workList->exists("mail.fdx") != 0);
 
     if (hasFdx) {
-        fdxFile = mm->workList->ftryopen("mail.fdx");
+        fdxFile = mm.workList->ftryopen("mail.fdx");
         if (fdxFile) {
             if (fread(&fhead, FDX_HEAD_SIZE, 1, fdxFile) &&
                 getshort(fhead.PageCount) == 1) {
@@ -176,7 +176,7 @@ letter_header *opxpack::getNextLetter()
 
     currentLetter++;
 
-    return new letter_header(mm, mhead.f.subject, mhead.f.to,
+    return new letter_header(mhead.f.subject, mhead.f.to,
         mhead.f.from, date, 0, getshort(mhead.f.reply), letterID,
         getshort(mhead.msgnum), areaID, privat,
         getshort(mhead.length), this, na,
@@ -257,7 +257,7 @@ void opxpack::readBrdinfoDat()
     int brdCount, extCount;
     bool hasExtra;
 
-    ocfgFile = mm->workList->ftryopen("dusrcfg.dat");
+    ocfgFile = mm.workList->ftryopen("dusrcfg.dat");
     if (ocfgFile) {
         if (fread(&confhead, OCFG_HEAD_SIZE, 1, ocfgFile))
             hasOffConfig = OFFCONFIG;
@@ -268,7 +268,7 @@ void opxpack::readBrdinfoDat()
     } else
         hasOffConfig = 0;
 
-    brdinfoFile = mm->workList->ftryopen("brdinfo.dat");
+    brdinfoFile = mm.workList->ftryopen("brdinfo.dat");
     if (!brdinfoFile)
         fatalError("Could not open BRDINFO.DAT");
 
@@ -318,8 +318,8 @@ void opxpack::readBrdinfoDat()
     maxConf = getshort(header.numofareas) + 1;
     areas = new AREAs[maxConf];
 
-    hasExtra = (mm->workList->exists("extareas.dat") != 0);
-    extCount = hasExtra ? (mm->workList->getSize() / BRD_REC_SIZE) : 0;
+    hasExtra = (mm.workList->exists("extareas.dat") != 0);
+    extCount = hasExtra ? (mm.workList->getSize() / BRD_REC_SIZE) : 0;
     brdCount = maxConf - extCount;
 
     areas[0].num = -1;
@@ -330,7 +330,7 @@ void opxpack::readBrdinfoDat()
     for (c = 1; c < maxConf; c++) {
         if (hasExtra && (c == brdCount)) {
             fclose(brdinfoFile);
-            brdinfoFile = mm->workList->ftryopen("extareas.dat");
+            brdinfoFile = mm.workList->ftryopen("extareas.dat");
             if (!brdinfoFile)
                 fatalError("Could not open EXTAREAS.DAT");
         }
@@ -386,7 +386,7 @@ bool opxpack::readOldFlags()
     int totmsgs, area = -1, lastarea, msgnum;
     letter_list *ll = 0;
 
-    fdxFile = mm->workList->ftryopen(oldFlagsName());
+    fdxFile = mm.workList->ftryopen(oldFlagsName());
     if (!fdxFile)
         return false;
 
@@ -400,7 +400,7 @@ bool opxpack::readOldFlags()
     fseek(fdxFile, 4, SEEK_CUR);
     totmsgs = getshort(fhead.RowsInPage);
 
-    area_list *al = mm->areaList;
+    area_list *al = mm.areaList;
 
     for (int x = 0; x < totmsgs; x++) {
         if (!fread(&frec, FDX_REC_SIZE, 1, fdxFile))
@@ -414,7 +414,7 @@ bool opxpack::readOldFlags()
             delete ll;
             al->gotoArea(getXNum(area) + 1);
             al->getLetterList();
-            ll = mm->letterList;
+            ll = mm.letterList;
             ll->gotoLetter(-1);
         }
 
@@ -472,13 +472,13 @@ bool opxpack::saveOldFlags()
 
     // And now, the body:
 
-    area_list *al = mm->areaList;
+    area_list *al = mm.areaList;
     int maxareas = al->noOfAreas();
     for (int c = 0; c < maxareas; c++) {
         al->gotoArea(c);
         if (!al->isCollection()) {
             al->getLetterList();
-            letter_list *ll = mm->letterList;
+            letter_list *ll = mm.letterList;
 
             for (int d = 0; d < ll->noOfLetter(); d++) {
                 ll->gotoLetter(d);
@@ -523,8 +523,7 @@ opxreply::upl_opx::~upl_opx()
     delete[] msgid;
 }
 
-opxreply::opxreply(mmail *mmA, specific_driver *baseClassA) :
-    pktreply(mmA, baseClassA)
+opxreply::opxreply(specific_driver *baseClassA) : pktreply(baseClassA)
 {
 }
 
@@ -651,7 +650,7 @@ void opxreply::getReplies(FILE *)
 
 area_header *opxreply::getNextArea()
 {
-    return new area_header(mm, 0, "REPLY", "REPLIES",
+    return new area_header(0, "REPLY", "REPLIES",
         "Letters written by you", "OPX replies",
         (COLLECTION | REPLYAREA | ACTIVE | PUBLIC | PRIVATE),
         noOfLetters, 0, 35, 71);
@@ -667,12 +666,12 @@ letter_header *opxreply::getNextLetter()
 
     int area = ((opxpack *) baseClass)->getXNum(current->area) + 1;
 
-    letter_header *newLetter = new letter_header(mm,
+    letter_header *newLetter = new letter_header(
         current->rhead.subject, current->rhead.to,
         current->rhead.from, date, current->msgid,
         getshort(current->rhead.reply), currentLetter, currentLetter,
         area, getshort(current->rhead.attr) & OPX_PRIVATE,
-        current->msglen, this, current->na, mm->areaList->isLatin(area));
+        current->msglen, this, current->na, mm.areaList->isLatin(area));
 
     currentLetter++;
     uplListCurrent = uplListCurrent->nextRecord;
@@ -698,7 +697,7 @@ void opxreply::enterLetter(letter_header &newLetter,
     if (msgid)
         newList->msgid = strdupplus(msgid);
 
-    newList->area = atoi(mm->areaList->getShortName());
+    newList->area = atoi(mm.areaList->getShortName());
     newList->na = newLetter.getNetAddr();
 
     putshort(newList->rhead.attr, attrib);
@@ -851,7 +850,7 @@ bool opxreply::getOffConfig()
     FILE *olc;
     bool status = false;
 
-    upWorkList = new file_list(mm->resourceObject->get(UpWorkDir));
+    upWorkList = new file_list(mm.resourceObject->get(UpWorkDir));
 
     olc = upWorkList->ftryopen("rusrcfg.dat");
     if (olc) {
@@ -869,12 +868,12 @@ bool opxreply::getOffConfig()
             areaOPX = getshort(offrec.confnum);
 
             areaNo = ((opxpack *) baseClass)->getXNum(areaOPX) + 1;
-            mm->areaList->gotoArea(areaNo);
+            mm.areaList->gotoArea(areaNo);
 
             if (offrec.scanned)
-                mm->areaList->Add();
+                mm.areaList->Add();
             else
-                mm->areaList->Drop();
+                mm.areaList->Drop();
         }
         fclose(olc);
         upWorkList->kill();
@@ -897,14 +896,14 @@ bool opxreply::makeOffConfig()
 
     fwrite(((opxpack *) baseClass)->offhead(), OCFG_HEAD_SIZE, 1, olc);
 
-    int oldarea = mm->areaList->getAreaNo();
+    int oldarea = mm.areaList->getAreaNo();
 
-    int maxareas = mm->areaList->noOfAreas();
+    int maxareas = mm.areaList->noOfAreas();
     for (int areaNo = 0; areaNo < maxareas; areaNo++) {
-        mm->areaList->gotoArea(areaNo);
+        mm.areaList->gotoArea(areaNo);
 
-        unsigned long attrib = mm->areaList->getType();
-        int anum = atoi(mm->areaList->getShortName());
+        unsigned long attrib = mm.areaList->getType();
+        int anum = atoi(mm.areaList->getShortName());
 
         if (!(attrib & COLLECTION)) {
             putshort(offrec.confnum, anum);
@@ -913,7 +912,7 @@ bool opxreply::makeOffConfig()
             fwrite(&offrec, OCFG_REC_SIZE, 1, olc);
         }
     }
-    mm->areaList->gotoArea(oldarea);
+    mm.areaList->gotoArea(oldarea);
     fclose(olc);
 
     return true;

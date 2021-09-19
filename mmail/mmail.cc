@@ -3,7 +3,7 @@
  * mmail class
 
  Copyright 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1998-2020 William McBrine <wmcbrine@gmail.com>,
+ Copyright 1998-2021 William McBrine <wmcbrine@gmail.com>,
                      Robert Vukovic <vrobert@uns.ns.ac.yu>
  Distributed under the GNU General Public License, version 3 or later. */
 
@@ -165,7 +165,7 @@ pktstatus mmail::selectPacket(const char *packetName)
         return PKT_NOFILES;
     }
 
-    driverList = new driver_list(this);
+    driverList = new driver_list();
 
     packet = driverList->getDriver(REPLY_AREA + 1);
     reply = driverList->getReplyDriver();

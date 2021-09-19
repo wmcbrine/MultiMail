@@ -3,7 +3,7 @@
  * QWK
 
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2020 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "qwk.h"
@@ -174,16 +174,16 @@ void qheader::get_field(char *dest, const char *source, size_t len)
 // The QWK methods
 // -----------------------------------------------------------------
 
-qwkpack::qwkpack(mmail *mmA) : pktbase(mmA)
+qwkpack::qwkpack() : pktbase()
 {
-    qwke = !(!mm->workList->exists("toreader.ext"));
+    qwke = !(!mm.workList->exists("toreader.ext"));
 
     readControlDat();
     readDoorId();
     if (qwke)
         readToReader();
 
-    infile = mm->workList->ftryopen("messages.dat");
+    infile = mm.workList->ftryopen("messages.dat");
     if (!infile)
         fatalError("Could not open MESSAGES.DAT");
 
@@ -208,7 +208,7 @@ area_header *qwkpack::getNextArea()
     int cMsgNum = areas[ID].nummsgs;
     bool x = (areas[ID].num == -1);
 
-    area_header *tmp = new area_header(mm, ID + 1, areas[ID].numA,
+    area_header *tmp = new area_header(ID + 1, areas[ID].numA,
         areas[ID].name, (x ? "Letters addressed to you" : areas[ID].name),
         (greekqwk ? (x ? "GreekQWK personal" : "GreekQWK") : (qwke ? (x
         ? "QWKE personal" : "QWKE") : (x ? "QWK personal" : "QWK"))),
@@ -234,9 +234,9 @@ bool qwkpack::externalIndex()
     const char *p;
     bool hasNdx;
 
-    hasPers = !(!mm->workList->exists("personal.ndx"));
+    hasPers = !(!mm.workList->exists("personal.ndx"));
 
-    p = mm->workList->exists(".ndx");
+    p = mm.workList->exists(".ndx");
     hasNdx = !(!p);
 
     if (hasNdx) {
@@ -283,9 +283,9 @@ bool qwkpack::externalIndex()
 
             if (x >= 0) {
 
-                idxFile = mm->workList->ftryopen(p);
+                idxFile = mm.workList->ftryopen(p);
                 if (idxFile) {
-                    cMsgNum = mm->workList->getSize() / ndxRecLen;
+                    cMsgNum = mm.workList->getSize() / ndxRecLen;
                     body[x] = new bodytype[cMsgNum];
                     for (int y = 0; y < cMsgNum; y++) {
                         // If any .NDX entries appear corrupted, we're
@@ -313,7 +313,7 @@ bool qwkpack::externalIndex()
                     numMsgs += cMsgNum;
                 }
             }
-            p = hasNdx ? mm->workList->getNext(".ndx") : 0;
+            p = hasNdx ? mm.workList->getNext(".ndx") : 0;
         }
 
         // Clean up after aborting
@@ -347,7 +347,7 @@ void qwkpack::readIndices()
 
     numMsgs = 0;
 
-    if (mm->resourceObject->getInt(IgnoreNDX) || !externalIndex()) {
+    if (mm.resourceObject->getInt(IgnoreNDX) || !externalIndex()) {
         ndx_fake base, *tmpndx = &base;
 
         long counter;
@@ -412,7 +412,7 @@ letter_header *qwkpack::getNextLetter()
         areaID = letterID = -1;
 
     if ((-1 == areaID) || (-1 == letterID))
-        return new letter_header(mm, "MESSAGES.DAT", "READING", "ERROR",
+        return new letter_header("MESSAGES.DAT", "READING", "ERROR",
                                  "ERROR", 0, 0, 0, 0, 0, false, 0, this,
                                  nullNet, false);
 
@@ -420,7 +420,7 @@ letter_header *qwkpack::getNextLetter()
 
     currentLetter++;
 
-    return new letter_header(mm, q.subject, q.to, q.from, q.date, 0,
+    return new letter_header(q.subject, q.to, q.from, q.date, 0,
         q.refnum, letterID, q.msgnum, areaID, q.privat, q.msglen, this,
         nullNet, !(!(areas[areaID].attr & LATINCHAR)));
 }
@@ -506,7 +506,7 @@ void qwkpack::readControlDat()
 {
     char *p, *q;
 
-    infile = mm->workList->ftryopen("control.dat");
+    infile = mm.workList->ftryopen("control.dat");
     if (!infile)
         fatalError("Could not open CONTROL.DAT");
 
@@ -575,7 +575,7 @@ void qwkpack::readDoorId()
 
     greekqwk = false;
 
-    infile = mm->workList->ftryopen("door.id");
+    infile = mm.workList->ftryopen("door.id");
     if (infile) {
         const char *s;
         char tmp[80], *t;
@@ -618,7 +618,7 @@ void qwkpack::readToReader()
 
     hasOffConfig = OFFCONFIG;
 
-    infile = mm->workList->ftryopen("toreader.ext");
+    infile = mm.workList->ftryopen("toreader.ext");
     if (infile) {
         while (!feof(infile)) {
             s = nextLine();
@@ -691,8 +691,7 @@ qwkreply::upl_qwk::upl_qwk(const char *name) : pktreply::upl_base(name)
     memset(&qHead, 0, sizeof(qHead));
 }
 
-qwkreply::qwkreply(mmail *mmA, specific_driver *baseClassA) :
-    pktreply(mmA, baseClassA)
+qwkreply::qwkreply(specific_driver *baseClassA) : pktreply(baseClassA)
 {
     qwke = ((qwkpack *) baseClass)->isQWKE();
     greekqwk = ((qwkpack *) baseClass)->isGreekQWK();
@@ -803,7 +802,7 @@ void qwkreply::getReplies(FILE *repFile)
 
 area_header *qwkreply::getNextArea()
 {
-    return new area_header(mm, 0, "REPLY", "REPLIES",
+    return new area_header(0, "REPLY", "REPLIES",
         "Letters written by you", (greekqwk ? "GreekQWK replies" :
         (qwke ? "QWKE replies" : "QWK replies")),
         (COLLECTION | REPLYAREA | ACTIVE | PUBLIC | PRIVATE),
@@ -818,11 +817,11 @@ letter_header *qwkreply::getNextLetter()
     int area = ((qwkpack *) baseClass)->
         getXNum((int) current->qHead.msgnum) + 1;
 
-    letter_header *newLetter = new letter_header(mm,
+    letter_header *newLetter = new letter_header(
         current->qHead.subject, current->qHead.to, current->qHead.from,
         current->qHead.date, 0, current->qHead.refnum, currentLetter,
         currentLetter, area, current->qHead.privat,
-        current->qHead.msglen, this, nullNet, mm->areaList->isLatin(area));
+        current->qHead.msglen, this, nullNet, mm.areaList->isLatin(area));
 
     currentLetter++;
     uplListCurrent = uplListCurrent->nextRecord;
@@ -845,7 +844,7 @@ void qwkreply::enterLetter(letter_header &newLetter,
     strncpy(newList->qHead.to, newLetter.getTo(),
             sizeof(newList->qHead.to) - 1);
 
-    newList->qHead.msgnum = atol(mm->areaList->getShortName());
+    newList->qHead.msgnum = atol(mm.areaList->getShortName());
     newList->qHead.privat = newLetter.getPrivate();
     newList->qHead.refnum = newLetter.getReplyTo();
 
@@ -945,7 +944,7 @@ bool qwkreply::getOffConfig()
     if (qwke) {
         FILE *olc;
 
-        upWorkList = new file_list(mm->resourceObject->get(UpWorkDir));
+        upWorkList = new file_list(mm.resourceObject->get(UpWorkDir));
 
         olc = upWorkList->ftryopen("todoor.ext");
         if (olc) {
@@ -956,11 +955,11 @@ bool qwkreply::getOffConfig()
                 myfgets(line, sizeof line, olc);
                 if (sscanf(line, "AREA %d %c", &areaQWK, &mode) == 2) {
                     areaNo = ((qwkpack *) baseClass)->getXNum(areaQWK) + 1;
-                    mm->areaList->gotoArea(areaNo);
+                    mm.areaList->gotoArea(areaNo);
                     if (mode == 'D')
-                        mm->areaList->Drop();
+                        mm.areaList->Drop();
                     else
-                        mm->areaList->Add();
+                        mm.areaList->Add();
                 }
             }
             fclose(olc);
@@ -989,21 +988,21 @@ bool qwkreply::makeOffConfig()
         ctrlName = ((qwkpack *) baseClass)->ctrlName();
     }
 
-    int oldarea = mm->areaList->getAreaNo();
+    int oldarea = mm.areaList->getAreaNo();
 
-    int maxareas = mm->areaList->noOfAreas();
+    int maxareas = mm.areaList->noOfAreas();
     for (int areaNo = 0; areaNo < maxareas; areaNo++) {
-        mm->areaList->gotoArea(areaNo);
-        unsigned long attrib = mm->areaList->getType();
+        mm.areaList->gotoArea(areaNo);
+        unsigned long attrib = mm.areaList->getType();
 
         if (attrib & (ADDED | DROPPED)) {
             if (qwke)
                 fprintf(todoor, "AREA %s %c\r\n",
-                        mm->areaList->getShortName(), (attrib & ADDED) ?
+                        mm.areaList->getShortName(), (attrib & ADDED) ?
                         ((attrib & PERSONLY) ? 'p' : ((attrib & PERSALL)
                         ? 'g' : 'a')) : 'D');
             else {
-                ctrlMsg = new letter_header(mm, (attrib & ADDED) ?
+                ctrlMsg = new letter_header((attrib & ADDED) ?
                           "ADD" : "DROP", ctrlName, myname, "", 0, 0, 0,
                           0, areaNo, false, 0, this, bogus, false);
 
@@ -1012,18 +1011,18 @@ bool qwkreply::makeOffConfig()
                 delete ctrlMsg;
 
                 if (attrib & ADDED)
-                    mm->areaList->Drop();
+                    mm.areaList->Drop();
                 else
-                    mm->areaList->Add();
+                    mm.areaList->Add();
             }
         }
     }
-    mm->areaList->gotoArea(oldarea);
+    mm.areaList->gotoArea(oldarea);
 
     if (qwke)
         fclose(todoor);
     else
-        mm->areaList->refreshArea();
+        mm.areaList->refreshArea();
 
     return true;
 }

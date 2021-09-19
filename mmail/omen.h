@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * OMEN
 
- Copyright 1999-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef OMEN_H
@@ -45,7 +45,7 @@ class omen : public pktbase
 
     void prefirstblk();
  public:
-    omen(mmail *);
+    omen();
     ~omen();
     area_header *getNextArea();
     letter_header *getNextLetter();
@@ -77,7 +77,7 @@ class omenrep : public pktreply
     void repFileName();
     const char *repTemplate(bool);
  public:
-    omenrep(mmail *, specific_driver *);
+    omenrep(specific_driver *);
     ~omenrep();
     area_header *getNextArea();
     letter_header *getNextLetter();

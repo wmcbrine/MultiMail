@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@tvnet.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "error.h"
@@ -423,7 +423,7 @@ void Interface::newpacket()
     }
     mm.openReply();
 
-    mm.areaList = new area_list(&mm);
+    mm.areaList = new area_list();
     int noOfReplies = mm.areaList->getRepList();
     mm.driverList->initRead();
     if (mm.getOffConfig() || noOfReplies) {

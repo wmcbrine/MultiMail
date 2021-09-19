@@ -3,7 +3,7 @@
  * letter_header and letter_list
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1997-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "mmail.h"
@@ -91,7 +91,7 @@ bool letter_body::isHidden()
 // Letter header methods
 // -----------------------------------------------------------------
 
-letter_header::letter_header(mmail *mmA, const char *subjectA,
+letter_header::letter_header(const char *subjectA,
     const char *toA, const char *fromA, const char *dateA,
     const char *msgidA, long replyToA, int LetterIDA, long msgNumA,
     int AreaIDA, bool privatA, int lengthA, specific_driver *driverA,
@@ -101,10 +101,10 @@ letter_header::letter_header(mmail *mmA, const char *subjectA,
     length(lengthA), msgNum(msgNumA), netAddr(netAddrA), charset(charsetA),
     qpenc(qpencA)
 {
-    dl = mmA->driverList;
+    dl = mm.driverList;
     readO = dl->getReadObject(driver);
 
-    const char *cset = mmA->resourceObject->get(outCharset);
+    const char *cset = mm.resourceObject->get(outCharset);
 
     subject = strdupblank(subjectA);
     headdec(subjectA, cset, subject);
@@ -121,8 +121,8 @@ letter_header::letter_header(mmail *mmA, const char *subjectA,
     follow = strdupplus(followA);
     reply = strdupplus(replyA);
 
-    const char *login = mmA->packet->getLoginName();
-    const char *alias = mmA->packet->getAliasName();
+    const char *login = mm.packet->getLoginName();
+    const char *alias = mm.packet->getAliasName();
 
     persto = ((login && *login && !strcasecmp(to, login)) ||
               (alias && *alias && !strcasecmp(to, alias)));
@@ -320,10 +320,10 @@ void letter_header::setQP(bool qpencA)
 // Letterlist methods
 // -----------------------------------------------------------------
 
-letter_list::letter_list(mmail *mmA, int areaNumberA, unsigned long typeA) :
-    mm(mmA), areaNumber(areaNumberA), type(typeA)
+letter_list::letter_list(int areaNumberA, unsigned long typeA) :
+    areaNumber(areaNumberA), type(typeA)
 {
-    dl = mm->driverList;
+    dl = mm.driverList;
     driver = dl->getDriver(areaNumber);
     areaNumber -= dl->getOffset(driver);
     readO = dl->getReadObject(driver);
@@ -351,7 +351,7 @@ void letter_list::init()
         letterHeader[c] = driver->getNextLetter();
 
     currentLetter = 0;
-    llmode = mm->resourceObject->getInt(LetterMode) - 1;
+    llmode = mm.resourceObject->getInt(LetterMode) - 1;
 
     sort();
     relist();

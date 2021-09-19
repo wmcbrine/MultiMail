@@ -3,7 +3,7 @@
  * Blue Wave
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1998-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1998-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef BW_H
@@ -44,7 +44,7 @@ class bluewave : public pktbase
     void getblk(int, long &, long, unsigned char *&, unsigned char *&);
     void endproc(letter_header &);
  public:
-    bluewave(mmail *);
+    bluewave();
     ~bluewave();
     bool hasPersonal();
     area_header *getNextArea();
@@ -83,7 +83,7 @@ class bwreply : public pktreply
     void getOLC(FILE *, int &, int);
     void getPDQ(FILE *, int &, int);
  public:
-    bwreply(mmail *, specific_driver *);
+    bwreply(specific_driver *);
     ~bwreply();
     area_header *getNextArea();
     letter_header *getNextLetter();

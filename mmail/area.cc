@@ -3,7 +3,7 @@
  * area_header and area_list
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1998-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1998-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "mmail.h"
@@ -12,18 +12,18 @@
 // Area header methods
 // -----------------------------------------------------------------
 
-area_header::area_header(mmail *mmA, int numA, const char *shortNameA,
+area_header::area_header(int numA, const char *shortNameA,
     const char *nameA, const char *descriptionA, const char *areaTypeA,
     unsigned long typeA, int noOfLettersA, int noOfPersonalA,
-    int maxtolenA, int maxsublenA) : mm(mmA), shortName(shortNameA),
+    int maxtolenA, int maxsublenA) : shortName(shortNameA),
     name(nameA), description(descriptionA), areaType(areaTypeA),
     type(typeA), noOfLetters(noOfLettersA), noOfPersonal(noOfPersonalA),
     maxtolen(maxtolenA), maxsublen(maxsublenA)
 {
     noOfReplies = 0;
 
-    driver = mm->driverList->getDriver(numA);
-    num = numA - mm->driverList->getOffset(driver);
+    driver = mm.driverList->getDriver(numA);
+    num = numA - mm.driverList->getOffset(driver);
 }
 
 const char *area_header::getName() const
@@ -63,12 +63,12 @@ int area_header::getNoOfLetters() const
 
 int area_header::getNoOfUnread()
 {
-    return (mm->driverList->getReadObject(driver))->getNoOfUnread(num);
+    return (mm.driverList->getReadObject(driver))->getNoOfUnread(num);
 }
 
 int area_header::getNoOfMarked()
 {
-    return (mm->driverList->getReadObject(driver))->getNoOfMarked(num);
+    return (mm.driverList->getReadObject(driver))->getNoOfMarked(num);
 }
 
 int area_header::getNoOfPersonal() const
@@ -195,9 +195,9 @@ void area_header::killReply()
 // Arealist methods
 // -----------------------------------------------------------------
 
-area_list::area_list(mmail *mmA) : mm(mmA)
+area_list::area_list()
 {
-    no = mm->packet->getNoOfAreas() + 1;
+    no = mm.packet->getNoOfAreas() + 1;
     filter = 0;
 
     activeHeader = new int[no];
@@ -205,12 +205,12 @@ area_list::area_list(mmail *mmA) : mm(mmA)
 
     specific_driver *actDriver;
     for (int c = 0; c < no; c++) {
-        actDriver = mm->driverList->getDriver(c);
+        actDriver = mm.driverList->getDriver(c);
         areaHeader[c] = actDriver->getNextArea();
     }
 
     current = 0;
-    almode = mm->resourceObject->getInt(AreaMode) - 1;
+    almode = mm.resourceObject->getInt(AreaMode) - 1;
     relist();
 
     // 1. Find out what types of areas we have (i.e. qwk, usenet... )
@@ -269,14 +269,14 @@ int area_list::getRepList()
     current = REPLY_AREA;
     getLetterList();
 
-    int max = mm->letterList->noOfLetter();
+    int max = mm.letterList->noOfLetter();
     for (int x = 0; x < max; x++) {
-        mm->letterList->gotoLetter(x);
-        int area = mm->letterList->getAreaID();
+        mm.letterList->gotoLetter(x);
+        int area = mm.letterList->getAreaID();
         areaHeader[area]->addReply();
     }
 
-    delete mm->letterList;
+    delete mm.letterList;
 
     return max;
 }
@@ -288,14 +288,14 @@ void area_list::updatePers()
     // are valid as the program is currently written, but that are not
     // made elsewhere in this class.
 
-    if (mm->packet->hasPersArea()) {
+    if (mm.packet->hasPersArea()) {
         int c = current;
         current = REPLY_AREA + 1;
         if (isCollection() && !isReplyArea()) {
-            letter_list *ll = mm->letterList;
+            letter_list *ll = mm.letterList;
             getLetterList();
-            delete mm->letterList;
-            mm->letterList = ll;
+            delete mm.letterList;
+            mm.letterList = ll;
         }
         current = c;
     }
@@ -382,7 +382,7 @@ int area_list::getNoOfPersonal() const
 
 void area_list::getLetterList()
 {
-    mm->letterList = new letter_list(mm, current, getType());
+    mm.letterList = new letter_list(current, getType());
 }
 
 int area_list::noOfAreas() const
@@ -430,11 +430,11 @@ void area_list::enterLetter(int areaNo, const char *from, const char *to,
     gotoArea(areaNo);
     areaHeader[current]->addReply();
 
-    letter_header newLetter(mm, subject, to, from, "", replyID,
-                            replyTo, 0, 0, areaNo, privat, 0, mm->reply,
+    letter_header newLetter(subject, to, from, "", replyID,
+                            replyTo, 0, 0, areaNo, privat, 0, mm.reply,
                             netAddress, isLatin(), newsgrp);
 
-    mm->reply->enterLetter(newLetter, filename, length);
+    mm.reply->enterLetter(newLetter, filename, length);
 
     refreshArea();
 }
@@ -442,7 +442,7 @@ void area_list::enterLetter(int areaNo, const char *from, const char *to,
 void area_list::killLetter(int areaNo, long letterNo)
 {
     areaHeader[areaNo]->killReply();
-    mm->reply->killLetter((int) letterNo);
+    mm.reply->killLetter((int) letterNo);
     refreshArea();
 }
 
@@ -450,9 +450,9 @@ void area_list::refreshArea()
 {
     delete areaHeader[REPLY_AREA];
 
-    areaHeader[REPLY_AREA] = mm->reply->refreshArea();
+    areaHeader[REPLY_AREA] = mm.reply->refreshArea();
     if (current == REPLY_AREA)
-        mm->letterList->rrefresh();
+        mm.letterList->rrefresh();
 }
 
 bool area_list::getUseAlias() const

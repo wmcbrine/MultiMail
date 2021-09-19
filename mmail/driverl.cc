@@ -3,7 +3,7 @@
  * driver_list
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1998-2018 William McBrine <wmcbrine@gmail.com>,
+ Copyright 1998-2021 William McBrine <wmcbrine@gmail.com>,
                      Robert Vukovic <vrobert@uns.ns.ac.yu>
  Distributed under the GNU General Public License, version 3 or later. */
 
@@ -31,10 +31,10 @@ reply_driver::~reply_driver()
 // DriverList methods
 // ------------------
 
-driver_list::driver_list(mmail *mm)
+driver_list::driver_list()
 {
     pktype mode;
-    file_list *wl = mm->workList;
+    file_list *wl = mm.workList;
 
     // This is the new way to set the packet type
     if (wl->exists("control.dat") && wl->exists("messages.dat"))
@@ -56,24 +56,24 @@ driver_list::driver_list(mmail *mm)
 
     switch (mode) {
     case PKT_BW:
-        driverList[1].driver = new bluewave(mm);
-        driverList[0].driver = new bwreply(mm, driverList[1].driver);
+        driverList[1].driver = new bluewave();
+        driverList[0].driver = new bwreply(driverList[1].driver);
         break;
     case PKT_QWK:
-        driverList[1].driver = new qwkpack(mm);
-        driverList[0].driver = new qwkreply(mm, driverList[1].driver);
+        driverList[1].driver = new qwkpack();
+        driverList[0].driver = new qwkreply(driverList[1].driver);
         break;
     case PKT_OMEN:
-        driverList[1].driver = new omen(mm);
-        driverList[0].driver = new omenrep(mm, driverList[1].driver);
+        driverList[1].driver = new omen();
+        driverList[0].driver = new omenrep(driverList[1].driver);
         break;
     case PKT_SOUP:
-        driverList[1].driver = new soup(mm);
-        driverList[0].driver = new souprep(mm, driverList[1].driver);
+        driverList[1].driver = new soup();
+        driverList[0].driver = new souprep(driverList[1].driver);
         break;
     case PKT_OPX:
-        driverList[1].driver = new opxpack(mm);
-        driverList[0].driver = new opxreply(mm, driverList[1].driver);
+        driverList[1].driver = new opxpack();
+        driverList[0].driver = new opxreply(driverList[1].driver);
         break;
     default:
         driverList[1].driver = 0;
@@ -83,8 +83,8 @@ driver_list::driver_list(mmail *mm)
     noOfDrivers = (mode != PKT_UNDEF) ? 2 : 0;
 
     if (noOfDrivers) {
-        driverList[1].read = new main_read_class(mm, driverList[1].driver);
-        driverList[0].read = new reply_read_class(mm, driverList[0].driver);
+        driverList[1].read = new main_read_class(driverList[1].driver);
+        driverList[0].read = new reply_read_class(driverList[0].driver);
     } else {
         driverList[1].read = 0;
         driverList[0].read = 0;

@@ -3,7 +3,7 @@
  * QWK
 
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2020 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef QWK_H
@@ -65,7 +65,7 @@ class qwkpack : public pktbase
     void postfirstblk(unsigned char *&, letter_header &);
     void endproc(letter_header &);
  public:
-    qwkpack(mmail *);
+    qwkpack();
     ~qwkpack();
     area_header *getNextArea();
     letter_header *getNextLetter();
@@ -92,7 +92,7 @@ class qwkreply : public pktreply
     void repFileName();
     const char *repTemplate(bool);
  public:
-    qwkreply(mmail *, specific_driver *);
+    qwkreply(specific_driver *);
     ~qwkreply();
     area_header *getNextArea();
     letter_header *getNextLetter();

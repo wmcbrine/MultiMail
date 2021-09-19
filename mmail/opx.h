@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * OPX
 
- Copyright 1999-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef OPX_H
@@ -23,7 +23,7 @@ class opxpack : public pktbase
     void getblk(int, long &, long, unsigned char *&, unsigned char *&);
     void endproc(letter_header &);
  public:
-    opxpack(mmail *);
+    opxpack();
     ~opxpack();
     area_header *getNextArea();
     letter_header *getNextLetter();
@@ -55,7 +55,7 @@ class opxreply : public pktreply
     void repFileName();
     const char *repTemplate(bool);
  public:
-    opxreply(mmail *, specific_driver *);
+    opxreply(specific_driver *);
     ~opxreply();
     area_header *getNextArea();
     letter_header *getNextLetter();

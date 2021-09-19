@@ -3,7 +3,7 @@
  * mmail class
 
  Copyright 1996 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1998-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1998-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef MMAIL_H
@@ -179,13 +179,12 @@ class file_list
 
 class area_header
 {
-    mmail *mm;
     specific_driver *driver;
     const char *shortName, *name, *description, *areaType;
     unsigned long type;
     int noOfLetters, noOfPersonal, noOfReplies, num, maxtolen, maxsublen;
  public:
-    area_header(mmail *, int, const char *, const char *, const char *,
+    area_header(int, const char *, const char *, const char *,
                 const char *, unsigned long, int, int, int, int);
     const char *getShortName() const;
     const char *getName() const;
@@ -221,13 +220,12 @@ class area_header
 
 class area_list
 {
-    mmail *mm;
     area_header **areaHeader;
     int no, noActive, current, *activeHeader;
     int almode;
     char *filter;
  public:
-    area_list(mmail *);
+    area_list();
     ~area_list();
     bool relist();
     int getRepList();
@@ -316,7 +314,7 @@ class letter_header
     net_address netAddr;
     bool charset, qpenc;
  public:
-    letter_header(mmail *, const char *, const char *, const char *,
+    letter_header(const char *, const char *, const char *,
         const char *, const char *, long, int, long, int, bool,
         int, specific_driver *, net_address &, bool = false,
         const char * = 0, const char * = 0, const char * = 0, bool = false);
@@ -362,7 +360,6 @@ class letter_header
 
 class letter_list
 {
-    mmail *mm;
     driver_list *dl;
     specific_driver *driver;
     read_class *readO;
@@ -378,7 +375,7 @@ class letter_list
     void cleanup();
     void sort();
  public:
-    letter_list(mmail *, int, unsigned long);
+    letter_list(int, unsigned long);
     ~letter_list();
     void relist();
     void resort();
@@ -434,7 +431,7 @@ class driver_list
 
     int noOfDrivers;
  public:
-    driver_list(mmail *);
+    driver_list();
     ~driver_list();
     void initRead();
     int getNoOfDrivers() const;
@@ -460,13 +457,12 @@ class read_class
 
 class main_read_class : public read_class
 {
-    mmail *mm;
     resource *ro;
     specific_driver *driver;
     int noOfAreas, **readStore, *noOfLetters;
     bool hasPersArea, hasPersNdx;
  public:
-    main_read_class(mmail *, specific_driver *);
+    main_read_class(specific_driver *);
     ~main_read_class();
     void init();
     void setRead(int, int, bool);
@@ -482,7 +478,7 @@ class main_read_class : public read_class
 class reply_read_class: public read_class
 {
  public:
-    reply_read_class(mmail *, specific_driver *);
+    reply_read_class(specific_driver *);
     ~reply_read_class();
     void init();
     void setRead(int, int, bool);
@@ -540,5 +536,7 @@ class reply_driver : public specific_driver
 
 // Letter sort type flag
 extern int lsorttype;
+
+extern mmail mm;
 
 #endif

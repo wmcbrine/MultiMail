@@ -3,7 +3,7 @@
  * Blue Wave class
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1998-2020 William McBrine <wmcbrine@gmail.com>
+ Copyright 1998-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "bw.h"
@@ -13,7 +13,7 @@
 // The Blue Wave methods
 // -----------------------------------------------------------------
 
-bluewave::bluewave(mmail *mmA) : pktbase(mmA)
+bluewave::bluewave() : pktbase()
 {
     persNdx = 0;
 
@@ -87,7 +87,7 @@ area_header *bluewave::getNextArea()
         ((flags_raw & INF_TO_ALL) ? PERSALL : 0) |
         ((flags_raw & INF_POST) ? 0 : READONLY));
 
-    area_header *tmp = new area_header(mm, ID + 1, isPers ? "PERS" :
+    area_header *tmp = new area_header(ID + 1, isPers ? "PERS" :
         (char *) areas[ID].areanum, isPers ? "PERSONAL" :
         (char *) areas[ID].echotag, (isPers ? "Letters addressed to you" :
         (areas[ID].title[0] ? (char *) areas[ID].title :
@@ -154,7 +154,7 @@ letter_header *bluewave::getNextLetter()
     // Y2K precaution -- the date field may not be 0-terminated:
     ftiRec.date[19] = '\0';
 
-    return new letter_header(mm, (char *) ftiRec.subject,
+    return new letter_header((char *) ftiRec.subject,
         (char *) ftiRec.to, (char *) ftiRec.from, (char *) ftiRec.date,
         0, getshort(ftiRec.replyto), letterID, getshort(ftiRec.msgnum),
         areaID, !(!(flags & MSG_NET_PRIVATE)), msglength, this, na,
@@ -167,7 +167,7 @@ void bluewave::getblk(int AreaID, long &offset, long blklen,
     bool internet, strip;
 
     internet = (areas[AreaID].network_type == INF_NET_INTERNET);
-    strip = !internet && mm->resourceObject->getInt(StripSoftCR);
+    strip = !internet && mm.resourceObject->getInt(StripSoftCR);
 
     for (long count = 0; count < blklen; count++) {
         int kar = fgetc(infile);
@@ -286,7 +286,7 @@ void bluewave::endproc(letter_header &mhead)
 
 void bluewave::findInfBaseName()
 {
-    const char *q = mm->workList->exists(".inf");
+    const char *q = mm.workList->exists(".inf");
     size_t len = strlen(q) - 4;
     if (len > 8)
         len = 8;
@@ -338,7 +338,7 @@ void bluewave::initInf()
 
     // Areas
 
-    maxConf = (mm->workList->getSize() - infoHeaderLen) / infoAreainfoLen + 1;
+    maxConf = (mm.workList->getSize() - infoHeaderLen) / infoAreainfoLen + 1;
 
     areas = new INF_AREA_INFO[maxConf];
     mixID = new int[maxConf];
@@ -364,7 +364,7 @@ void bluewave::initMixID()
 
     FILE *mixFile = openFile("MIX");
 
-    noOfMixRecs = (int) (mm->workList->getSize() / mixStructLen);
+    noOfMixRecs = (int) (mm.workList->getSize() / mixStructLen);
     mixRecord = new MIX_REC[noOfMixRecs];
 
     if (noOfMixRecs && !fread(mixRecord, mixStructLen, noOfMixRecs, mixFile))
@@ -431,7 +431,7 @@ FILE *bluewave::openFile(const char *extent)
 
     sprintf(fname, "%s.%s", packetBaseName, extent);
 
-    tmp = mm->workList->ftryopen(fname);
+    tmp = mm.workList->ftryopen(fname);
     if (!tmp) {
         sprintf(fname, "Could not open .%s file", extent);
         fatalError(fname);
@@ -452,17 +452,17 @@ bool bluewave::readOldFlags()
 {
     FILE *xtiFile;
 
-    xtiFile = mm->workList->ftryopen(oldFlagsName());
+    xtiFile = mm.workList->ftryopen(oldFlagsName());
     if (!xtiFile)
         return false;
 
-    area_list *al = mm->areaList;
+    area_list *al = mm.areaList;
     int maxareas = al->noOfAreas();
     for (int c = 0; c < maxareas; c++) {
         al->gotoArea(c);
         if (!al->isCollection()) {
             al->getLetterList();
-            letter_list *ll = mm->letterList;
+            letter_list *ll = mm.letterList;
 
             for (int d = 0; d < ll->noOfLetter(); d++) {
                 XTI_REC xtiRec;
@@ -497,13 +497,13 @@ bool bluewave::saveOldFlags()
     if (!xtiFile)
         return false;
 
-    area_list *al = mm->areaList;
+    area_list *al = mm.areaList;
     int maxareas = al->noOfAreas();
     for (int c = 0; c < maxareas; c++) {
         al->gotoArea(c);
         if (!al->isCollection()) {
             al->getLetterList();
-            letter_list *ll = mm->letterList;
+            letter_list *ll = mm.letterList;
 
             for (int d = 0; d < ll->noOfLetter(); d++) {
                 ll->gotoLetter(d);
@@ -555,8 +555,7 @@ bwreply::upl_bw::~upl_bw()
     delete[] extsubj;
 }
 
-bwreply::bwreply(mmail *mmA, specific_driver *baseClassA) :
-    pktreply(mmA, baseClassA)
+bwreply::bwreply(specific_driver *baseClassA) : pktreply(baseClassA)
 {
     uplHeader = new UPL_HEADER;
 }
@@ -657,7 +656,7 @@ void bwreply::getReplies(FILE *uplFile)
 
 area_header *bwreply::getNextArea()
 {
-    return new area_header(mm, 0, "REPLY", "REPLIES",
+    return new area_header(0, "REPLY", "REPLIES",
         "Letters written by you", "Blue Wave replies",
         (COLLECTION | REPLYAREA | ACTIVE | PUBLIC | PRIVATE),
         noOfLetters, 0, 35, 71);
@@ -667,8 +666,8 @@ area_header *bwreply::getNextArea()
 int bwreply::getAreaFromTag(const char *tag)
 {
     int areaNo = 0;
-    for (int c = 0; c < mm->areaList->noOfAreas(); c++)
-        if (!strcmp(mm->areaList->getName(c), tag)) {
+    for (int c = 0; c < mm.areaList->noOfAreas(); c++)
+        if (!strcmp(mm.areaList->getName(c), tag)) {
             areaNo = c;
             break;
         }
@@ -709,7 +708,7 @@ letter_header *bwreply::getNextLetter()
             msgid = 0;
     }
 
-    letter_header *newLetter = new letter_header(mm, current->extsubj ?
+    letter_header *newLetter = new letter_header(current->extsubj ?
         current->extsubj : (char *) current->uplRec.subj,
         (char *) current->uplRec.to, (char *) current->uplRec.from,
         date, msgid, getlong(current->uplRec.replyto), currentLetter,
@@ -733,10 +732,10 @@ void bwreply::enterLetter(letter_header &newLetter,
     strncpy((char *) newList->uplRec.from, newLetter.getFrom(), 35);
     strncpy((char *) newList->uplRec.to, newLetter.getTo(), 35);
     strncpy((char *) newList->uplRec.subj, newLetter.getSubject(), 71);
-    strcpy((char *) newList->uplRec.echotag, mm->areaList->getName());
+    strcpy((char *) newList->uplRec.echotag, mm.areaList->getName());
 
-    bool usenet = mm->areaList->isUsenet();
-    bool internet = mm->areaList->isInternet();
+    bool usenet = mm.areaList->isUsenet();
+    bool internet = mm.areaList->isInternet();
 
     if (internet || usenet)
         newList->uplRec.network_type = INF_NET_INTERNET;
@@ -912,13 +911,13 @@ char *bwreply::nextLine(FILE *olc)
 void bwreply::getOffArea(const char *name, int &areaNo, int maxareas)
 {
     for (int c = areaNo + 1; c < maxareas; c++) {
-        mm->areaList->gotoArea(c);
-        if (!strcmp(mm->areaList->getName(), name)) {
-            mm->areaList->Add();
+        mm.areaList->gotoArea(c);
+        if (!strcmp(mm.areaList->getName(), name)) {
+            mm.areaList->Add();
             areaNo = c;
             break;
         } else
-            mm->areaList->Drop();
+            mm.areaList->Drop();
     }
 }
 
@@ -950,9 +949,9 @@ bool bwreply::getOffConfig()
 {
     FILE *olc;
     int areaNo = -1;
-    int maxareas = mm->areaList->noOfAreas();
+    int maxareas = mm.areaList->noOfAreas();
 
-    upWorkList = new file_list(mm->resourceObject->get(UpWorkDir));
+    upWorkList = new file_list(mm.resourceObject->get(UpWorkDir));
 
     olc = upWorkList->ftryopen(".pdq");
     if (olc)
@@ -968,8 +967,8 @@ bool bwreply::getOffConfig()
         upWorkList->kill();
 
         while (++areaNo < maxareas) {
-            mm->areaList->gotoArea(areaNo);
-            mm->areaList->Drop();
+            mm.areaList->gotoArea(areaNo);
+            mm.areaList->Drop();
         }
     }
 
@@ -1016,27 +1015,27 @@ bool bwreply::makeOffConfig()
         fprintf(olc, "[Global Mail Host Configuration]\r\n"
                      "AreaChanges = ON\r\n\r\n");
 
-    int oldarea = mm->areaList->getAreaNo();
+    int oldarea = mm.areaList->getAreaNo();
 
-    int maxareas = mm->areaList->noOfAreas();
+    int maxareas = mm.areaList->noOfAreas();
     for (int x = 0; x < maxareas; x++) {
-        mm->areaList->gotoArea(x);
-        unsigned long attrib = mm->areaList->getType();
+        mm.areaList->gotoArea(x);
+        unsigned long attrib = mm.areaList->getType();
         if (!(attrib & COLLECTION) && (((attrib & ACTIVE)
             && !(attrib & DROPPED)) || (attrib & ADDED))) {
 
             if (oldstyle) {
                 PDQ_REC p;
                 memset(&p, 0, sizeof p);
-                strcpy((char *) (p.echotag), mm->areaList->getName());
+                strcpy((char *) (p.echotag), mm.areaList->getName());
                 fwrite(&p, 1, PDQ_REC_SIZE, olc);
             } else
                 fprintf(olc, "[%s]\r\nScan = %s\r\n\r\n",
-                        mm->areaList->getName(), (attrib & PERSONLY) ?
+                        mm.areaList->getName(), (attrib & PERSONLY) ?
                         "PERSONLY" : ((attrib & PERSALL) ? "PERSALL" : "ALL"));
         }
     }
-    mm->areaList->gotoArea(oldarea);
+    mm.areaList->gotoArea(oldarea);
     fclose(olc);
 
     return true;

@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * SOUP
 
- Copyright 1999-2017 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #ifndef SOUP_H
@@ -52,7 +52,7 @@ class soup : public pktbase
     void buildIndices();
     void readAreas();
  public:
-    soup(mmail *);
+    soup();
     ~soup();
     area_header *getNextArea();
     int getNoOfLetters();
@@ -82,7 +82,7 @@ class souprep : public pktreply
     void repFileName();
     const char *repTemplate(bool);
  public:
-    souprep(mmail *, specific_driver *);
+    souprep(specific_driver *);
     ~souprep();
     area_header *getNextArea();
     letter_header *getNextLetter();

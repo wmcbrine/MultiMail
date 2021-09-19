@@ -4,7 +4,7 @@
 
  Copyright 1996 Kolossvary Tamas <thomas@vma.bme.hu>
  Copyright 1997 John Zero <john@graphisoft.hu>
- Copyright 1997-2020 William McBrine <wmcbrine@gmail.com>
+ Copyright 1997-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "interfac.h"
@@ -259,7 +259,7 @@ searchret PacketListWindow::oneSearch(int x, const char *item, int mode)
             ui->redraw();
             ui->ReportWindow("Searching (ESC to abort)...");
 
-            mm.areaList = new area_list(&mm);
+            mm.areaList = new area_list();
             mm.areaList->getRepList();
             mm.driverList->initRead();
             mm.areaList->setMode(-1);

@@ -2,7 +2,7 @@
  * MultiMail offline mail reader
  * OMEN
 
- Copyright 1999-2019 William McBrine <wmcbrine@gmail.com>
+ Copyright 1999-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "omen.h"
@@ -16,13 +16,13 @@ enum {OM_WRITE = 1, OM_SYSOP = 2, OM_PRIVATE = 4, OM_PUBLIC = 8,
 // The OMEN methods
 // -----------------------------------------------------------------
 
-omen::omen(mmail *mmA) : pktbase(mmA)
+omen::omen() : pktbase()
 {
     strcpy(extent, defExtent());
 
     readSystemBBS();
 
-    infile = mm->workList->ftryopen("newmsg");
+    infile = mm.workList->ftryopen("newmsg");
     if (!infile)
         fatalError("Could not open NEWMSGxy.TXT");
 
@@ -42,7 +42,7 @@ area_header *omen::getNextArea()
     int cMsgNum = areas[ID].nummsgs;
     bool x = (areas[ID].num == -1);
 
-    area_header *tmp = new area_header(mm, ID + 1, areas[ID].numA,
+    area_header *tmp = new area_header(ID + 1, areas[ID].numA,
         areas[ID].name, (x ? "Letters addressed to you" :
         areas[ID].name), (x ? "OMEN personal" : "OMEN"),
         areas[ID].attr | (cMsgNum ? ACTIVE : 0), cMsgNum, 0, 35, 72);
@@ -67,7 +67,7 @@ void omen::buildIndices()
     char junk[12];
     const char *p;
     int personal = 0;
-    const char *name = mm->resourceObject->get(UserName);
+    const char *name = mm.resourceObject->get(UserName);
     size_t nlen = name ? strlen(name) : 0;
     bool checkpers = name && nlen;
 
@@ -190,7 +190,7 @@ letter_header *omen::getNextLetter()
 
     currentLetter++;
 
-    return new letter_header(mm, subject, to, from, date, 0, refnum,
+    return new letter_header(subject, to, from, date, 0, refnum,
         letterID, msgnum, areaID, (priflag == 'P'), len, this, na,
         !(!(areas[areaID].attr & LATINCHAR)));
 }
@@ -210,12 +210,12 @@ void omen::readSystemBBS()
         char BrdName[16];
     } *areatmp;
 
-    file_list *wl = mm->workList;
+    file_list *wl = mm.workList;
 
     hasOffConfig = useLatin = 0;
 
     // The following info is unavailable in OMEN:
-    const char *defName = mm->resourceObject->get(UserName);
+    const char *defName = mm.resourceObject->get(UserName);
 
     LoginName = strdupplus((defName && *defName) ? defName :
                            "(set on upload)");
@@ -378,8 +378,7 @@ void omenrep::upl_omen::output(FILE *rep)
     fwrite(&omen_rec, sizeof omen_rec, 1, rep);
 }
 
-omenrep::omenrep(mmail *mmA, specific_driver *baseClassA) :
-    pktreply(mmA, baseClassA)
+omenrep::omenrep(specific_driver *baseClassA) : pktreply(baseClassA)
 {
 }
 
@@ -441,7 +440,7 @@ void omenrep::getReplies(FILE *repFile)
 
 area_header *omenrep::getNextArea()
 {
-    return new area_header(mm, 0, "REPLY", "REPLIES",
+    return new area_header(0, "REPLY", "REPLIES",
         "Letters written by you",  "OMEN replies",
         (COLLECTION | REPLYAREA | ACTIVE | PUBLIC | PRIVATE),
         noOfLetters, 0, 35, 72);
@@ -450,9 +449,9 @@ area_header *omenrep::getNextArea()
 letter_header *omenrep::getNextLetter()
 {
     upl_omen *current = (upl_omen *) uplListCurrent;
-    const char *defName = mm->resourceObject->get(UserName);
+    const char *defName = mm.resourceObject->get(UserName);
 
-    letter_header *newLetter = new letter_header(mm,
+    letter_header *newLetter = new letter_header(
         current->subject, current->to, (defName && *defName) ?
         defName : "(set on upload)", "(set on upload)", 0,
         current->refnum, currentLetter, currentLetter,
@@ -473,7 +472,7 @@ void omenrep::enterLetter(letter_header &newLetter,
     strncpy(newList->subject, newLetter.getSubject(), 72);
     strncpy(newList->to, newLetter.getTo(), 35);
 
-    newList->origArea = atoi(mm->areaList->getShortName());
+    newList->origArea = atoi(mm.areaList->getShortName());
     newList->privat = newLetter.getPrivate();
     newList->refnum = newLetter.getReplyTo();
     newList->na = newLetter.getNetAddr();
@@ -553,14 +552,14 @@ bool omenrep::getOffConfig()
     FILE *olc;
 
     bool status = false;
-    upWorkList = new file_list(mm->resourceObject->get(UpWorkDir));
+    upWorkList = new file_list(mm.resourceObject->get(UpWorkDir));
 
     olc = upWorkList->ftryopen("select");
     if (olc) {
         char line[128];
         int areaOMEN, areaNo, current = -1;
 
-        area_list *al = mm->areaList;
+        area_list *al = mm.areaList;
         int maxareas = al->noOfAreas();
 
         // Like Blue Wave, areas are dropped unless listed in
@@ -605,19 +604,19 @@ bool omenrep::makeOffConfig()
     if (!todoor)
         return false;
 
-    int oldarea = mm->areaList->getAreaNo();
+    int oldarea = mm.areaList->getAreaNo();
 
-    int maxareas = mm->areaList->noOfAreas();
+    int maxareas = mm.areaList->noOfAreas();
     for (int areaNo = 0; areaNo < maxareas; areaNo++) {
-        mm->areaList->gotoArea(areaNo);
-        unsigned long attrib = mm->areaList->getType();
+        mm.areaList->gotoArea(areaNo);
+        unsigned long attrib = mm.areaList->getType();
 
         if (!(attrib & COLLECTION) && (((attrib & ACTIVE)
             && !(attrib & DROPPED)) || (attrib & ADDED)))
 
-            fprintf(todoor, "%s\n", mm->areaList->getShortName());
+            fprintf(todoor, "%s\n", mm.areaList->getShortName());
     }
-    mm->areaList->gotoArea(oldarea);
+    mm.areaList->gotoArea(oldarea);
     fclose(todoor);
 
     return true;

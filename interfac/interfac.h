@@ -730,7 +730,6 @@ class Interface
     bool fromCommandLine(const char *);
 };
 
-extern mmail mm;
 extern Interface *ui;
 extern time_t starttime;
 

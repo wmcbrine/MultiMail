@@ -18,9 +18,8 @@
 // The packet methods
 // -----------------------------------------------------------------
 
-pktbase::pktbase(mmail *mmA)
+pktbase::pktbase()
 {
-    mm = mmA;
     ID = 0;
     bodyString = 0;
     bulletins = 0;
@@ -365,7 +364,7 @@ void pktbase::fidocheck(letter_header &mhead)
 // Build a list of bulletin files
 void pktbase::listBulletins(const char x[][13], int d, int generic)
 {
-    file_list *wl = mm->workList;
+    file_list *wl = mm.workList;
     int filecount = 0;
 
     bulletins = new file_header *[wl->getNoOfFiles() + 1];
@@ -431,12 +430,12 @@ const char *pktbase::getDoorProg()
 
 file_header *pktbase::getHello()
 {
-    return (hello && *hello) ? mm->workList->existsF(hello) : 0;
+    return (hello && *hello) ? mm.workList->existsF(hello) : 0;
 }
 
 file_header *pktbase::getGoodbye()
 {
-    return (goodbye && *goodbye) ? mm->workList->existsF(goodbye) : 0;
+    return (goodbye && *goodbye) ? mm.workList->existsF(goodbye) : 0;
 }
 
 file_header **pktbase::getBulletins()
@@ -492,9 +491,8 @@ pktreply::upl_base::~upl_base()
     delete[] fname;
 }
 
-pktreply::pktreply(mmail *mmA, specific_driver *baseClassA)
+pktreply::pktreply(specific_driver *baseClassA)
 {
-    mm = mmA;
     baseClass = (pktbase *) baseClassA;
     replyText = 0;
     uplListHead = 0;
@@ -519,7 +517,7 @@ pktreply::~pktreply()
 bool pktreply::checkForReplies()
 {
     repFileName();
-    mychdir(mm->resourceObject->get(ReplyDir));
+    mychdir(mm.resourceObject->get(ReplyDir));
 
     mystat st(replyPacketName);
     replyExists = st.writeable();
@@ -539,7 +537,7 @@ void pktreply::init()
 
 void pktreply::uncompress()
 {
-    resource *ro = mm->resourceObject;
+    resource *ro = mm.resourceObject;
     char *tmppath = fullpath(ro->get(ReplyDir), replyPacketName);
 
     uncompressFile(ro, tmppath, ro->get(UpWorkDir));
@@ -728,7 +726,7 @@ const char *pktreply::getTear(int)
 
 void pktreply::readRep()
 {
-    upWorkList = new file_list(mm->resourceObject->get(UpWorkDir));
+    upWorkList = new file_list(mm.resourceObject->get(UpWorkDir));
 
     FILE *repFile = upWorkList->ftryopen(replyInnerName);
 
@@ -787,10 +785,10 @@ area_header *pktreply::refreshArea()
 
 bool pktreply::makeReply()
 {
-    if (mychdir(mm->resourceObject->get(UpWorkDir)))
+    if (mychdir(mm.resourceObject->get(UpWorkDir)))
         fatalError("Could not cd to upworkdir in pktreply::makeReply");
 
-    bool offres = mm->areaList->anyChanged();
+    bool offres = mm.areaList->anyChanged();
     if (offres)
         offres = makeOffConfig();
     if (!noOfLetters && !offres) {
@@ -816,19 +814,19 @@ bool pktreply::makeReply()
     deleteReplies();
 
     // pack the files
-    int result = compressAddFile(mm->resourceObject,
-                 mm->resourceObject->get(ReplyDir), replyPacketName,
+    int result = compressAddFile(mm.resourceObject,
+                 mm.resourceObject->get(ReplyDir), replyPacketName,
                  repTemplate(offres));
 
     // clean up the work area
-    clearDirectory(mm->resourceObject->get(UpWorkDir));
+    clearDirectory(mm.resourceObject->get(UpWorkDir));
 
     return !result && checkForReplies();
 }
 
 void pktreply::deleteReplies()
 {
-    char *tmppath = fullpath(mm->resourceObject->get(ReplyDir),
+    char *tmppath = fullpath(mm.resourceObject->get(ReplyDir),
                              replyPacketName);
 
     remove(tmppath);

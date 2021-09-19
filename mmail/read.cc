@@ -17,10 +17,9 @@ read_class::~read_class()
 
 /* main_read_class -- for regular areas */
 
-main_read_class::main_read_class(mmail *mmA, specific_driver *driverA) :
-    mm(mmA), driver(driverA)
+main_read_class::main_read_class(specific_driver *driverA) : driver(driverA)
 {
-    ro = mm->resourceObject;
+    ro = mm.resourceObject;
 
     noOfAreas = driver->getNoOfAreas();
     noOfLetters = new int[noOfAreas];
@@ -38,7 +37,7 @@ main_read_class::main_read_class(mmail *mmA, specific_driver *driverA) :
     }
 
     hasPersArea = driver->hasPersArea();
-    hasPersNdx = !(!(mm->workList->exists("personal.ndx")));
+    hasPersNdx = !(!(mm.workList->exists("personal.ndx")));
 }
 
 main_read_class::~main_read_class()
@@ -55,7 +54,7 @@ void main_read_class::init()
     // then look for an old-style file, and use the most recent:
 
     file_header *redfile, *oldfile;
-    file_list *wl = mm->workList;
+    file_list *wl = mm.workList;
 
     redfile = wl->existsF(readFilePath(ro->get(PacketName)));
     if (!redfile)
@@ -194,7 +193,7 @@ const char *main_read_class::readFilePath(const char *FileN)
 /* reply_read_class -- for reply areas */
 /* (Formerly known as dummy_read_class, because it does almost nothing) */
 
-reply_read_class::reply_read_class(mmail *, specific_driver *)
+reply_read_class::reply_read_class(specific_driver *)
 {
 }
 
