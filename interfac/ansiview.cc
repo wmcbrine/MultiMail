@@ -455,6 +455,17 @@ void AnsiWindow::athandle()
     }
 }
 
+static int celerity(unsigned char ch)
+{
+    const char *codez = "kbgcrmywdBGCRMYW";
+    int x = 0;
+
+    while (ch != codez[x] && x < 16)
+        x++;
+
+    return x;
+}
+
 void AnsiWindow::pipehandle()
 {
     int result, code;
@@ -486,6 +497,18 @@ void AnsiWindow::pipehandle()
             update('|');
             update(c[0]);
             update(c[1]);
+        }
+        break;
+    case 'k': case 'b': case 'g': case 'c':
+    case 'r': case 'm': case 'y': case 'w':
+    case 'd': case 'B': case 'G': case 'C':
+    case 'R': case 'M': case 'Y': case 'W':
+        if (1 == pipeparse) {
+            code = celerity(c[0]);
+            ccf = pc_colortable[code & 7];
+            cbr = !(!(code & 8));
+
+            attrib = colorcore();
         }
         break;
     default:
