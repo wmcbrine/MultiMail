@@ -168,6 +168,7 @@ class file_list
     void addItem(file_header **, const char *, int &);
 
     char *expandName(const char *);
+    const char *find_name(const char *);
     FILE *ftryopen(const char *);
     void kill();
     int nextNumExt(const char *);

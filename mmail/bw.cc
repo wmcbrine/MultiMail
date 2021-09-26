@@ -444,7 +444,7 @@ const char *bluewave::oldFlagsName()
     static char xtiFileN[13];
 
     sprintf(xtiFileN, "%s.xti", packetBaseName);
-    return xtiFileN;
+    return mm.workList->find_name(xtiFileN);
 }
 
 // Read in an .XTI file

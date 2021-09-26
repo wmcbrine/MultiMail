@@ -374,7 +374,7 @@ ocfgHeader *opxpack::offhead()
 
 const char *opxpack::oldFlagsName()
 {
-    return "mail.fdx";
+    return mm.workList->find_name("mail.fdx");
 }
 
 // Read in an .FDX file

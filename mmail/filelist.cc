@@ -3,7 +3,7 @@
  * file_header and file_list
 
  Copyright 1996-1997 Toth Istvan <stoty@vma.bme.hu>
- Copyright 1998-2018 William McBrine <wmcbrine@gmail.com>
+ Copyright 1998-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
 #include "mmail.h"
@@ -303,6 +303,12 @@ void file_list::addItem(file_header **list, const char *q, int &filecount)
 char *file_list::expandName(const char *fname)
 {
     return fullpath(DirName, fname);
+}
+
+const char *file_list::find_name(const char *fname)
+{
+    const char *p = exists(fname);
+    return p ? p : fname;
 }
 
 FILE *file_list::ftryopen(const char *fname)
