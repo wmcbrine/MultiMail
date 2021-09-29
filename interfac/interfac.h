@@ -12,6 +12,10 @@
 
 #include "../mmail/mmail.h"
 
+#if defined(MM_WIDE) && !defined(_XOPEN_SOURCE_EXTENDED)
+# define _XOPEN_SOURCE_EXTENDED
+#endif
+
 extern "C" {
 #include <curses.h>
 #include <signal.h>
@@ -110,7 +114,7 @@ extern "C" void sigwinchHandler(int);
 #endif
 
 #ifdef MM_WIDE
-# define MM_BOARD  ((wchar_t) 0x2591)
+# define MM_BOARD  (WACS_BOARD)
 #else
 # define MM_BOARD  (ACS_BOARD)
 #endif
@@ -146,6 +150,7 @@ class Win
     void put(int, int, char);
 #ifdef MM_WIDE
     void put(int, int, wchar_t);
+    void put(int, int, cchar_t *);
 #endif
     void put(int, int, const chtype *, int = 0);
     int put(int, int, const char *, int = -1);

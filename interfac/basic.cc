@@ -73,6 +73,11 @@ void Win::put(int y, int x, wchar_t z)
 
     mvwaddwstr(win, y, x, tmp);
 }
+
+void Win::put(int y, int x, cchar_t *z)
+{
+    mvwadd_wch(win, y, x, z);
+}
 #endif
 
 void Win::put(int y, int x, const chtype *z, int len)
