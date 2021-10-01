@@ -82,7 +82,7 @@ class souprep : public pktreply
     void repFileName();
     const char *repTemplate(bool);
  public:
-    souprep(specific_driver *);
+    souprep();
     ~souprep();
     area_header *getNextArea();
     letter_header *getNextLetter();

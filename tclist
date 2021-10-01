@@ -21,7 +21,6 @@ area.obj
 letter.obj
 read.obj
 compress.obj
-driverl.obj
 pktbase.obj
 -Yo bw.obj
 qwk.obj

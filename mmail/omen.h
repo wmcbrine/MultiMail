@@ -77,7 +77,7 @@ class omenrep : public pktreply
     void repFileName();
     const char *repTemplate(bool);
  public:
-    omenrep(specific_driver *);
+    omenrep();
     ~omenrep();
     area_header *getNextArea();
     letter_header *getNextLetter();

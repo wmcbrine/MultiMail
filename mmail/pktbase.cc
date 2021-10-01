@@ -491,9 +491,8 @@ pktreply::upl_base::~upl_base()
     delete[] fname;
 }
 
-pktreply::pktreply(specific_driver *baseClassA)
+pktreply::pktreply()
 {
-    baseClass = (pktbase *) baseClassA;
     replyText = 0;
     uplListHead = 0;
     replyExists = false;
@@ -721,6 +720,11 @@ file_header **pktreply::getBulletins()
 const char *pktreply::getTear(int)
 {
     return 0;
+}
+
+const char *pktreply::getBaseName()
+{
+    return mm.packet->getBaseName();
 }
 
 void pktreply::readRep()

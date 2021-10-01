@@ -426,7 +426,7 @@ void Interface::newpacket()
 
     mm.areaList = new area_list();
     int noOfReplies = mm.areaList->getRepList();
-    mm.driverList->initRead();
+    mm.initRead();
     if (mm.getOffConfig() || noOfReplies) {
         mm.areaList->setMode(0);
         mm.areaList->relist();

@@ -260,7 +260,7 @@ searchret PacketListWindow::oneSearch(int x, const char *item, int mode)
 
             mm.areaList = new area_list();
             mm.areaList->getRepList();
-            mm.driverList->initRead();
+            mm.initRead();
             mm.areaList->setMode(-1);
             mm.areaList->relist();
             ui.changestate(arealist);

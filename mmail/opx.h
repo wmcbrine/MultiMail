@@ -55,7 +55,7 @@ class opxreply : public pktreply
     void repFileName();
     const char *repTemplate(bool);
  public:
-    opxreply(specific_driver *);
+    opxreply();
     ~opxreply();
     area_header *getNextArea();
     letter_header *getNextLetter();

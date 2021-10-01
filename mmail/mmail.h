@@ -70,7 +70,6 @@ class letter_header;
 class letter_list;
 class specific_driver;
 class reply_driver;
-class driver_list;
 class read_class;
 
 class net_address
@@ -93,14 +92,16 @@ class net_address
 
 class mmail
 {
+    void detect_and_open();
  public:
     resource res;
     file_list *workList;
-    driver_list *driverList;
     area_list *areaList;
     letter_list *letterList;
     specific_driver *packet;
     reply_driver *reply;
+    read_class *packet_read;
+    read_class *reply_read;
 
     pktstatus selectPacket(const char *);
     void Delete();
@@ -110,6 +111,10 @@ class mmail
     void deleteReplies();
     void openReply();
     bool getOffConfig();
+    void initRead();
+    specific_driver *getDriver(int);
+    read_class *getReadObject(specific_driver *);
+    int getOffset(specific_driver *);
 };
 
 class file_header
@@ -301,7 +306,6 @@ class letter_body
 
 class letter_header
 {
-    driver_list *dl;
     read_class *readO;
     specific_driver *driver;
     char *subject, *to, *from, *date, *msgid, *newsgrps, *follow, *reply;
@@ -359,7 +363,6 @@ class letter_header
 
 class letter_list
 {
-    driver_list *dl;
     specific_driver *driver;
     read_class *readO;
     letter_header **letterHeader;
@@ -419,25 +422,6 @@ class letter_list
     const char *getFilter() const;
     void setFilter(const char *);
     const char *filterCheck(const char *);
-};
-
-class driver_list
-{
-    struct driver_struct {
-        specific_driver *driver;
-        read_class *read;
-    } driverList[2];
-
-    int noOfDrivers;
- public:
-    driver_list();
-    ~driver_list();
-    void initRead();
-    int getNoOfDrivers() const;
-    specific_driver *getDriver(int);
-    reply_driver *getReplyDriver();
-    read_class *getReadObject(specific_driver *);
-    int getOffset(specific_driver *);
 };
 
 class read_class
@@ -515,6 +499,7 @@ class specific_driver
     virtual file_header *getGoodbye() = 0;
     virtual file_header **getBulletins() = 0;
     virtual const char *getTear(int) = 0;
+    virtual const char *getBaseName() = 0;
 };
 
 class reply_driver : public specific_driver

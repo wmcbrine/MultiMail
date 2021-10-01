@@ -7,10 +7,6 @@ bw.$(O): mmail/bw.cc mmail/bw.h mmail/pktbase.h mmail/mmail.h \
 compress.$(O): mmail/compress.cc mmail/compress.h mmail/mmail.h \
   mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
   mmail/../interfac/mysystem.h
-driverl.$(O): mmail/driverl.cc mmail/bw.h mmail/pktbase.h mmail/mmail.h \
-  mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
-  mmail/../interfac/mysystem.h mmail/bluewave.h mmail/qwk.h mmail/omen.h \
-  mmail/soup.h mmail/opx.h mmail/opxstrct.h
 filelist.$(O): mmail/filelist.cc mmail/mmail.h mmail/../config.h \
   mmail/../mmail/misc.h mmail/../mmail/resource.h \
   mmail/../interfac/mysystem.h

@@ -96,7 +96,6 @@ class pktreply : public reply_driver
         ~upl_base();
     } *uplListHead, *uplListCurrent;
 
-    pktbase *baseClass;
     file_list *upWorkList;
     letter_body *replyText;
 
@@ -113,7 +112,7 @@ class pktreply : public reply_driver
     virtual void addHeader(FILE *) = 0;
     virtual const char *repTemplate(bool) = 0;
  public:
-    pktreply(specific_driver *);
+    pktreply();
     ~pktreply();
     bool checkForReplies();
     void init();
@@ -139,6 +138,7 @@ class pktreply : public reply_driver
     file_header *getFileList();
     file_header **getBulletins();
     const char *getTear(int);
+    const char *getBaseName();
     void killLetter(int);
     area_header *refreshArea();
     bool makeReply();

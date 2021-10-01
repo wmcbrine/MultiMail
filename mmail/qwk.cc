@@ -691,10 +691,10 @@ qwkreply::upl_qwk::upl_qwk(const char *name) : pktreply::upl_base(name)
     memset(&qHead, 0, sizeof(qHead));
 }
 
-qwkreply::qwkreply(specific_driver *baseClassA) : pktreply(baseClassA)
+qwkreply::qwkreply() : pktreply()
 {
-    qwke = ((qwkpack *) baseClass)->isQWKE();
-    greekqwk = ((qwkpack *) baseClass)->isGreekQWK();
+    qwke = ((qwkpack *) mm.packet)->isQWKE();
+    greekqwk = ((qwkpack *) mm.packet)->isGreekQWK();
 }
 
 qwkreply::~qwkreply()
@@ -814,7 +814,7 @@ letter_header *qwkreply::getNextLetter()
     static net_address nullNet;
     upl_qwk *current = (upl_qwk *) uplListCurrent;
 
-    int area = ((qwkpack *) baseClass)->
+    int area = ((qwkpack *) mm.packet)->
         getXNum((int) current->qHead.msgnum) + 1;
 
     letter_header *newLetter = new letter_header(
@@ -911,14 +911,14 @@ void qwkreply::addRep1(FILE *rep, upl_base *node, int)
 void qwkreply::addHeader(FILE *repFile)
 {
     char tmp[129];
-    sprintf(tmp, "%-128s", baseClass->getBaseName());
+    sprintf(tmp, "%-128s", getBaseName());
     fwrite(tmp, 128, 1, repFile);
 }
 
 void qwkreply::repFileName()
 {
     int x;
-    const char *basename = baseClass->getBaseName();
+    const char *basename = getBaseName();
 
     for (x = 0; basename[x]; x++) {
         replyPacketName[x] = tolower(basename[x]);
@@ -954,7 +954,7 @@ bool qwkreply::getOffConfig()
             while (!feof(olc)) {
                 myfgets(line, sizeof line, olc);
                 if (sscanf(line, "AREA %d %c", &areaQWK, &mode) == 2) {
-                    areaNo = ((qwkpack *) baseClass)->getXNum(areaQWK) + 1;
+                    areaNo = ((qwkpack *) mm.packet)->getXNum(areaQWK) + 1;
                     mm.areaList->gotoArea(areaNo);
                     if (mode == 'D')
                         mm.areaList->Drop();
@@ -984,8 +984,8 @@ bool qwkreply::makeOffConfig()
         if (!todoor)
             return false;
     } else {
-        myname = baseClass->getLoginName();
-        ctrlName = ((qwkpack *) baseClass)->ctrlName();
+        myname = mm.packet->getLoginName();
+        ctrlName = ((qwkpack *) mm.packet)->ctrlName();
     }
 
     int oldarea = mm.areaList->getAreaNo();

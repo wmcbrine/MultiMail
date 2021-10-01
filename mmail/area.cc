@@ -22,8 +22,8 @@ area_header::area_header(int numA, const char *shortNameA,
 {
     noOfReplies = 0;
 
-    driver = mm.driverList->getDriver(numA);
-    num = numA - mm.driverList->getOffset(driver);
+    driver = mm.getDriver(numA);
+    num = numA - mm.getOffset(driver);
 }
 
 const char *area_header::getName() const
@@ -63,12 +63,12 @@ int area_header::getNoOfLetters() const
 
 int area_header::getNoOfUnread()
 {
-    return (mm.driverList->getReadObject(driver))->getNoOfUnread(num);
+    return (mm.getReadObject(driver))->getNoOfUnread(num);
 }
 
 int area_header::getNoOfMarked()
 {
-    return (mm.driverList->getReadObject(driver))->getNoOfMarked(num);
+    return (mm.getReadObject(driver))->getNoOfMarked(num);
 }
 
 int area_header::getNoOfPersonal() const
@@ -205,7 +205,7 @@ area_list::area_list()
 
     specific_driver *actDriver;
     for (int c = 0; c < no; c++) {
-        actDriver = mm.driverList->getDriver(c);
+        actDriver = mm.getDriver(c);
         areaHeader[c] = actDriver->getNextArea();
     }
 

@@ -11,6 +11,14 @@
 #include "compress.h"
 #include "../interfac/error.h"
 
+#include "bw.h"
+#include "qwk.h"
+#include "omen.h"
+#include "soup.h"
+#include "opx.h"
+
+enum pktype {PKT_QWK, PKT_BW, PKT_OMEN, PKT_SOUP, PKT_OPX, PKT_UNDEF};
+
 net_address::net_address()
 {
     isSet = isInternet = false;
@@ -103,10 +111,80 @@ net_address::operator const char *()
     return netText;
 }
 
+specific_driver::~specific_driver()
+{
+}
+
+reply_driver::~reply_driver()
+{
+}
+
+void mmail::detect_and_open()
+{
+    pktype mode;
+
+    if (workList->exists("control.dat") && workList->exists("messages.dat"))
+        mode = PKT_QWK;
+    else
+        if (workList->exists(".inf"))
+            mode = PKT_BW;
+        else
+            if (workList->exists("brdinfo.dat"))
+                mode = PKT_OPX;
+            else
+                if (workList->exists("areas"))
+                    mode = PKT_SOUP;
+                else
+                    if (workList->exists("system"))
+                        mode = PKT_OMEN;
+                    else
+                        mode = PKT_UNDEF;
+
+    switch (mode) {
+    case PKT_BW:
+        packet = new bluewave();
+        reply = new bwreply();
+        break;
+    case PKT_QWK:
+        packet = new qwkpack();
+        reply = new qwkreply();
+        break;
+    case PKT_OMEN:
+        packet = new omen();
+        reply = new omenrep();
+        break;
+    case PKT_SOUP:
+        packet = new soup();
+        reply = new souprep();
+        break;
+    case PKT_OPX:
+        packet = new opxpack();
+        reply = new opxreply();
+        break;
+    default:
+        packet = 0;
+        reply = 0;
+    }
+
+    if (mode != PKT_UNDEF) {
+        packet_read = new main_read_class(packet);
+        reply_read = new reply_read_class(reply);
+    } else {
+        packet_read = 0;
+        reply_read = 0;
+    }
+}
+
 void mmail::Delete()
 {
+    if (packet) {
+        delete reply_read;
+        delete packet_read;
+        delete reply;
+        delete packet;
+    }
+
     delete areaList;
-    delete driverList;
     delete workList;
 }
 
@@ -154,13 +232,9 @@ pktstatus mmail::selectPacket(const char *packetName)
         return PKT_NOFILES;
     }
 
-    driverList = new driver_list();
+    detect_and_open();
 
-    packet = driverList->getDriver(REPLY_AREA + 1);
-    reply = driverList->getReplyDriver();
-
-    if (!driverList->getNoOfDrivers()) {
-        delete driverList;
+    if (!packet) {
         delete workList;
         return PTYPE_UNK;
     }
@@ -170,7 +244,7 @@ pktstatus mmail::selectPacket(const char *packetName)
 // Save last read pointers
 bool mmail::saveRead()
 {
-    return driverList->getReadObject(packet)->saveAll();
+    return mm.getReadObject(packet)->saveAll();
 }
 
 // Is there a reply packet?
@@ -203,3 +277,25 @@ bool mmail::getOffConfig()
     return reply->getOffConfig();
 }
 
+void mmail::initRead()
+{
+    if (reply_read)
+        reply_read->init();
+    if (packet_read)
+        packet_read->init();
+}
+
+specific_driver *mmail::getDriver(int areaNo)
+{
+    return (areaNo != REPLY_AREA) ? packet : reply;
+}
+
+read_class *mmail::getReadObject(specific_driver *driver)
+{
+    return (driver == packet) ? packet_read : reply_read;
+}
+
+int mmail::getOffset(specific_driver *driver)
+{
+    return (driver == packet);
+}

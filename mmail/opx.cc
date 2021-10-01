@@ -523,7 +523,7 @@ opxreply::upl_opx::~upl_opx()
     delete[] msgid;
 }
 
-opxreply::opxreply(specific_driver *baseClassA) : pktreply(baseClassA)
+opxreply::opxreply() : pktreply()
 {
 }
 
@@ -664,7 +664,7 @@ letter_header *opxreply::getNextLetter()
     strftime(date, 30, "%b %d %Y  %H:%M",
              getdostime(getlong(current->rhead.date_written)));
 
-    int area = ((opxpack *) baseClass)->getXNum(current->area) + 1;
+    int area = ((opxpack *) mm.packet)->getXNum(current->area) + 1;
 
     letter_header *newLetter = new letter_header(
         current->rhead.subject, current->rhead.to,
@@ -830,7 +830,7 @@ void opxreply::addHeader(FILE *repFile)
 void opxreply::repFileName()
 {
     int x;
-    const char *basename = baseClass->getBaseName();
+    const char *basename = getBaseName();
 
     for (x = 0; basename[x]; x++) {
         replyPacketName[x] = tolower(basename[x]);
@@ -867,7 +867,7 @@ bool opxreply::getOffConfig()
                 fatalError("Error reading RUSRCFG.DAT");
             areaOPX = getshort(offrec.confnum);
 
-            areaNo = ((opxpack *) baseClass)->getXNum(areaOPX) + 1;
+            areaNo = ((opxpack *) mm.packet)->getXNum(areaOPX) + 1;
             mm.areaList->gotoArea(areaNo);
 
             if (offrec.scanned)
@@ -894,7 +894,7 @@ bool opxreply::makeOffConfig()
     if (!olc)
         return false;
 
-    fwrite(((opxpack *) baseClass)->offhead(), OCFG_HEAD_SIZE, 1, olc);
+    fwrite(((opxpack *) mm.packet)->offhead(), OCFG_HEAD_SIZE, 1, olc);
 
     int oldarea = mm.areaList->getAreaNo();
 

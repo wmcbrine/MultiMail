@@ -714,7 +714,7 @@ souprep::upl_soup::upl_soup(const char *name) : pktreply::upl_base(name)
 {
 }
 
-souprep::souprep(specific_driver *baseClassA) : pktreply(baseClassA)
+souprep::souprep() : pktreply()
 {
 }
 
@@ -944,7 +944,7 @@ void souprep::addHeader(FILE *)
 // set names for reply packet files
 void souprep::repFileName()
 {
-    const char *basename = baseClass->getBaseName();
+    const char *basename = getBaseName();
 
     sprintf(replyPacketName, "%s.rep", basename);
     sprintf(replyInnerName, "REPLIES");

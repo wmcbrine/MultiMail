@@ -101,8 +101,7 @@ letter_header::letter_header(const char *subjectA,
     length(lengthA), msgNum(msgNumA), netAddr(netAddrA), charset(charsetA),
     qpenc(qpencA)
 {
-    dl = mm.driverList;
-    readO = dl->getReadObject(driver);
+    readO = mm.getReadObject(driver);
 
     const char *cset = mm.res.get(outCharset);
 
@@ -242,7 +241,7 @@ int letter_header::getLetterID() const
 
 int letter_header::getAreaID() const
 {
-    return AreaID + dl->getOffset(driver);
+    return AreaID + mm.getOffset(driver);
 }
 
 bool letter_header::getPrivate() const
@@ -323,10 +322,9 @@ void letter_header::setQP(bool qpencA)
 letter_list::letter_list(int areaNumberA, unsigned long typeA) :
     areaNumber(areaNumberA), type(typeA)
 {
-    dl = mm.driverList;
-    driver = dl->getDriver(areaNumber);
-    areaNumber -= dl->getOffset(driver);
-    readO = dl->getReadObject(driver);
+    driver = mm.getDriver(areaNumber);
+    areaNumber -= mm.getOffset(driver);
+    readO = mm.getReadObject(driver);
     isColl = (type & COLLECTION) && !(type & REPLYAREA);
     init();
 }
@@ -408,7 +406,7 @@ void letter_list::cleanup()
 void letter_list::sort()
 {
     if ((noOfLetters > 1) && !(isColl || ((areaNumber +
-        dl->getOffset(driver)) == REPLY_AREA)))
+        mm.getOffset(driver)) == REPLY_AREA)))
 
         qsort(letterHeader, noOfLetters, sizeof(letter_header *),
               (lsorttype == LS_MSGNUM) ? lmsgncomp : lettercomp);

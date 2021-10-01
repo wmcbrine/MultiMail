@@ -555,7 +555,7 @@ bwreply::upl_bw::~upl_bw()
     delete[] extsubj;
 }
 
-bwreply::bwreply(specific_driver *baseClassA) : pktreply(baseClassA)
+bwreply::bwreply() : pktreply()
 {
     uplHeader = new UPL_HEADER;
 }
@@ -853,8 +853,8 @@ void bwreply::addHeader(FILE *uplFile)
     else
         strcpy((char *) newUplHeader.reader_tear, MM_NAME);
 
-    strcpy((char *) newUplHeader.loginname, baseClass->getLoginName());
-    strcpy((char *) newUplHeader.aliasname, baseClass->getAliasName());
+    strcpy((char *) newUplHeader.loginname, mm.packet->getLoginName());
+    strcpy((char *) newUplHeader.aliasname, mm.packet->getAliasName());
 
     fwrite(&newUplHeader, sizeof(UPL_HEADER), 1, uplFile);
 }
@@ -875,7 +875,7 @@ const char *bwreply::freeFileName()
 void bwreply::repFileName()
 {
     int x;
-    const char *basename = baseClass->getBaseName();
+    const char *basename = getBaseName();
 
     for (x = 0; basename[x]; x++) {
         replyPacketName[x] = tolower(basename[x]);
@@ -980,7 +980,7 @@ bool bwreply::makeOffConfig()
 {
     FILE *olc;
     char fname[13];
-    INF_HEADER &infoHeader = ((bluewave *) baseClass)->getInfHeader();
+    INF_HEADER &infoHeader = ((bluewave *) mm.packet)->getInfHeader();
 
     bool oldstyle = (infoHeader.ver < 3);
 

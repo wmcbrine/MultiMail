@@ -83,7 +83,7 @@ class bwreply : public pktreply
     void getOLC(FILE *, int &, int);
     void getPDQ(FILE *, int &, int);
  public:
-    bwreply(specific_driver *);
+    bwreply();
     ~bwreply();
     area_header *getNextArea();
     letter_header *getNextLetter();

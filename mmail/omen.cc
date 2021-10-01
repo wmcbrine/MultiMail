@@ -378,7 +378,7 @@ void omenrep::upl_omen::output(FILE *rep)
     fwrite(&omen_rec, sizeof omen_rec, 1, rep);
 }
 
-omenrep::omenrep(specific_driver *baseClassA) : pktreply(baseClassA)
+omenrep::omenrep() : pktreply()
 {
 }
 
@@ -397,7 +397,7 @@ bool omenrep::getRep1(FILE *rep, upl_omen *l, int recnum)
     if (!l->init(rep))
         return false;
 
-    sprintf(orgname, "msg%s%02d.txt", baseClass->getBaseName(), recnum);
+    sprintf(orgname, "msg%s%02d.txt", getBaseName(), recnum);
 
     orgfile = upWorkList->ftryopen(orgname);
     if (orgfile) {
@@ -455,9 +455,9 @@ letter_header *omenrep::getNextLetter()
         current->subject, current->to, (defName && *defName) ?
         defName : "(set on upload)", "(set on upload)", 0,
         current->refnum, currentLetter, currentLetter,
-        ((omen *) baseClass)->getXNum(current->origArea) + 1,
+        ((omen *) mm.packet)->getXNum(current->origArea) + 1,
         current->privat, current->msglen, this, current->na,
-        ((omen *) baseClass)->isLatin());
+        ((omen *) mm.packet)->isLatin());
 
     currentLetter++;
     uplListCurrent = uplListCurrent->nextRecord;
@@ -491,7 +491,7 @@ void omenrep::addRep1(FILE *rep, upl_base *node, int recnum)
 
     l->output(rep);
 
-    sprintf(dest, "MSG%s%02d.TXT", baseClass->getBaseName(), recnum);
+    sprintf(dest, "MSG%s%02d.TXT", getBaseName(), recnum);
 
     orgfile = fopen(l->fname, "rt");
     if (orgfile) {
@@ -529,10 +529,10 @@ void omenrep::addHeader(FILE *)
 // set names for reply packet files
 void omenrep::repFileName()
 {
-    const char *basename = baseClass->getBaseName();
+    const char *basename = getBaseName();
 
     sprintf(replyPacketName, "return%c%c.%s", tolower(basename[0]),
-            tolower(basename[1]), ((omen *) baseClass)->getExtent());
+            tolower(basename[1]), ((omen *) mm.packet)->getExtent());
     sprintf(replyInnerName, "HEADER%s.BBS", basename);
 }
 
@@ -569,7 +569,7 @@ bool omenrep::getOffConfig()
         do {
             myfgets(line, sizeof line, olc);
             sscanf(line, "%d", &areaOMEN);
-            areaNo = ((omen *) baseClass)->getXNum(areaOMEN) + 1;
+            areaNo = ((omen *) mm.packet)->getXNum(areaOMEN) + 1;
 
             for (int c = current + 1; c < maxareas; c++) {
                 al->gotoArea(c);
@@ -598,7 +598,7 @@ bool omenrep::makeOffConfig()
     FILE *todoor;
     char fname[13];
 
-    sprintf(fname, "SELECT%s.CNF", baseClass->getBaseName());
+    sprintf(fname, "SELECT%s.CNF", getBaseName());
 
     todoor = fopen(fname, "wb");
     if (!todoor)
