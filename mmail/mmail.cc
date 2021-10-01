@@ -19,14 +19,6 @@
 
 enum pktype {PKT_QWK, PKT_BW, PKT_OMEN, PKT_SOUP, PKT_OPX, PKT_UNDEF};
 
-specific_driver::~specific_driver()
-{
-}
-
-reply_driver::~reply_driver()
-{
-}
-
 void mmail::detect_and_open()
 {
     pktype mode;

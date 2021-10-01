@@ -5,8 +5,17 @@
  Copyright 1999-2021 William McBrine <wmcbrine@gmail.com>
  Distributed under the GNU General Public License, version 3 or later. */
 
+#include "mmail.h"
 #include "compress.h"
 #include "pktbase.h"
+
+specific_driver::~specific_driver()
+{
+}
+
+reply_driver::~reply_driver()
+{
+}
 
 /* Not all these methods are used in all derived classes. The formats I
    think of as "QWK-like" -- QWK, OMEN and OPX -- have the most in common:

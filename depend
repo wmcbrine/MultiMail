@@ -30,9 +30,9 @@ omen.$(O): mmail/omen.cc mmail/omen.h mmail/pktbase.h mmail/mmail.h \
 opx.$(O): mmail/opx.cc mmail/opx.h mmail/pktbase.h mmail/mmail.h \
   mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
   mmail/../interfac/mysystem.h mmail/opxstrct.h mmail/compress.h
-pktbase.$(O): mmail/pktbase.cc mmail/compress.h mmail/mmail.h \
-  mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
-  mmail/../interfac/mysystem.h mmail/pktbase.h
+pktbase.$(O): mmail/pktbase.cc mmail/mmail.h mmail/../config.h \
+  mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h mmail/compress.h mmail/pktbase.h
 qwk.$(O): mmail/qwk.cc mmail/qwk.h mmail/pktbase.h mmail/mmail.h \
   mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
   mmail/../interfac/mysystem.h mmail/compress.h
