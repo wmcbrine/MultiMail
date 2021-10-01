@@ -17,6 +17,7 @@ misc.obj
 resource.obj
 mmail.obj
 filelist.obj
+netadd.obj
 area.obj
 letter.obj
 read.obj

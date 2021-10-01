@@ -82,7 +82,7 @@ O = o
 
 all:	mm$(E)
 
-MOBJS = misc.o resource.o mmail.o filelist.o area.o letter.o \
+MOBJS = misc.o resource.o mmail.o filelist.o netadd.o area.o letter.o \
 read.o compress.o pktbase.o bw.o qwk.o omen.o soup.o opx.o
 
 IOBJS = mmcolor.o mysystem.o isoconv.o basic.o interfac.o packet.o \

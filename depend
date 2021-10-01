@@ -19,7 +19,11 @@ misc.$(O): mmail/misc.cc mmail/mmail.h mmail/../config.h \
 mmail.$(O): mmail/mmail.cc mmail/mmail.h mmail/../config.h \
   mmail/../mmail/misc.h mmail/../mmail/resource.h \
   mmail/../interfac/mysystem.h mmail/compress.h \
-  mmail/../interfac/error.h
+  mmail/../interfac/error.h mmail/bw.h mmail/pktbase.h mmail/bluewave.h \
+  mmail/qwk.h mmail/omen.h mmail/soup.h mmail/opx.h mmail/opxstrct.h
+netadd.$(O): mmail/netadd.cc mmail/mmail.h mmail/../config.h \
+  mmail/../mmail/misc.h mmail/../mmail/resource.h \
+  mmail/../interfac/mysystem.h
 omen.$(O): mmail/omen.cc mmail/omen.h mmail/pktbase.h mmail/mmail.h \
   mmail/../config.h mmail/../mmail/misc.h mmail/../mmail/resource.h \
   mmail/../interfac/mysystem.h mmail/compress.h
