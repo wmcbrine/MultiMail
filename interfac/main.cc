@@ -52,7 +52,7 @@ extern "C" void sigwinchHandler(int sig)
 void fatalError(const char *description)
 {
     if (ui.on && !isendwin())
-        endwin();
+        ui.close();
     fprintf(stderr, "\n\n%s\n\n", description);
     exit(EXIT_FAILURE);
 }
@@ -97,6 +97,7 @@ int main(int argc, char **argv)
             ui.fromCommandLine(argv[i]); i++);
     else
         ui.main();
+    ui.close();
 
     return EXIT_SUCCESS;
 }

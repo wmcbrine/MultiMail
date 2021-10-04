@@ -707,10 +707,9 @@ class Interface
     AnsiWindow ansiwindow;
     bool on;
 
-    Interface();
-    ~Interface();
     void init();
     void main();
+    void close();
     int WarningWindow(const char *, const char ** = 0, int = 2);
     int savePrompt(const char *, char *);
     void nonFatalError(const char *);

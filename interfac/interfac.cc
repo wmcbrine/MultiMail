@@ -10,7 +10,7 @@
 #include "error.h"
 #include "interfac.h"
 
-Interface::Interface()
+void Interface::init()
 {
     isoConsole = mm.res.getInt(Charset);
     lynxNav = mm.res.getInt(UseLynxNav);
@@ -28,10 +28,7 @@ Interface::Interface()
     width_min = MINWIDTH;
     height_min = mm.res.getInt(ExpertMode) ? MINHIEXPERT : MINHINORM;
     on = false;
-}
 
-void Interface::init()
-{
     colorlist.Init();
     taglines.Init();
     addresses.Init();
@@ -55,7 +52,7 @@ void Interface::main()
     KeyHandle();
 }
 
-Interface::~Interface()
+void Interface::close()
 {
     delete screen;
     touchwin(stdscr);
@@ -63,6 +60,7 @@ Interface::~Interface()
     leaveok(stdscr, FALSE);
     echo();
     endwin();
+    on = false;
 }
 
 void Interface::init_colors()
