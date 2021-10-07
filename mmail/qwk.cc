@@ -493,6 +493,20 @@ void qwkpack::postfirstblk(unsigned char *&p, letter_header &mhead)
             }
         }
 
+        // Skip Synchronet kludge lines:
+
+        static const char *skippers[] = {"@VIA:", "@TZ:", "@MSGID:",
+            "@REPLY:", "@REPLYTO:"};
+
+        for (int x = 0; x < 5; x++) {
+            q = onecomp(p, extsubj, skippers[x]);
+            if (q) {
+                p = q;
+                anyfound = true;
+                break;
+            }
+        }
+
     } while (anyfound);
 }
 
