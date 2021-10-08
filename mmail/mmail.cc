@@ -23,6 +23,8 @@ void mmail::detect_and_open()
 {
     pktype mode;
 
+    synchro = false;
+
     if (workList->exists("control.dat") && workList->exists("messages.dat"))
         mode = PKT_QWK;
     else

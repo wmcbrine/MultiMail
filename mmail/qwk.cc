@@ -591,12 +591,14 @@ void qwkpack::readDoorId()
 
     infile = mm.workList->ftryopen("door.id");
     if (infile) {
-        const char *s;
+        const char *s, *door;
         char tmp[80], *t;
 
         t = strdupplus(nextLine());     // DOOR =
         s = nextLine();                 // VERSION =
-        sprintf(tmp, "%s %s", strchr(t, '=') + 2, strchr(s, '=') + 2);
+        door = strchr(t, '=') + 2;
+        mm.synchro = !strcmp(door, "Synchronet");
+        sprintf(tmp, "%s %s", door, strchr(s, '=') + 2);
         delete[] t;
         DoorProg = strdupplus(tmp);
 

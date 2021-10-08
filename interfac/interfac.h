@@ -618,7 +618,7 @@ class AnsiWindow
 #endif
     chtype *chtmp, attrib;  //current attribute
     bool isLatin, avtparse, bsvparse, isbsv;
-    int atparse, pipeparse;
+    int atparse, pipeparse, synparse;
 
     void oneLine(int);
     void lineCount();
@@ -631,6 +631,7 @@ class AnsiWindow
     void pc_colorset(unsigned char);
     void athandle();
     void pipehandle();
+    void synhandle();
     void cpylow();
     void cpyhigh();
     void cpxhigh();

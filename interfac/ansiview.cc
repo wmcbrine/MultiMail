@@ -236,6 +236,7 @@ void AnsiWindow::Init()
 #endif
     atparse = 1;
     pipeparse = 1;
+    synparse = 1;
     avtparse = true;
     bsvparse = true;
 }
@@ -514,6 +515,52 @@ void AnsiWindow::pipehandle()
     default:
         update('|');
         update(c[0]);
+    }
+}
+
+static int uppersyn(unsigned char ch)
+{
+    const char *codez = "KRGYBMCW";
+    int x = 0;
+
+    while (ch != codez[x] && x < 8)
+        x++;
+
+    return x;
+}
+
+void AnsiWindow::synhandle()
+{
+    unsigned char c = toupper(source.nextchar());
+
+    if (1 == synparse) {
+        switch (c) {
+        case '0': case '1': case '2': case '3': case '4':
+        case '5': case '6': case '7':
+            ccb = ansi_colortable[c - '0'];
+            break;
+        case 'K': case 'R': case 'G': case 'Y': case 'B':
+        case 'M': case 'C': case 'W':
+            ccf = ansi_colortable[uppersyn(c)];
+            break;
+        case 'H':
+            cbr = true;
+            break;
+        case 'I': case 'F':
+            cfl = true;
+            break;
+        case 'N':
+            ccf = COLOR_WHITE;
+            ccb = COLOR_BLACK;
+            cbr = false;
+            cfl = false;
+            break;
+        default:
+            update(1);
+            update(c);
+        }
+
+        attrib = colorcore();
     }
 }
 
@@ -859,11 +906,18 @@ void AnsiWindow::MakeChain()
             blen -= 2;
         } else
             switch (c) {
-            case 1:                     // hidden lines (in pos 0)
-                if (!cpx) {
-                    do
-                        c = source.nextchar();
-                    while (source.anyleft() && (c != '\n'));
+            case 1:
+                if (mm.synchro) {
+                    if (synparse) {
+                        synhandle();
+                        break;
+                    }
+                } else {                // hidden lines (in pos 0)
+                    if (!cpx) {
+                        do
+                            c = source.nextchar();
+                        while (source.anyleft() && (c != '\n'));
+                    }
                 }
             case 0:
                 break;
@@ -1283,6 +1337,12 @@ void AnsiWindow::KeyHandle(int key)
     case 'A':
     case 1:
         animate();
+        break;
+    case '1':
+        synparse++;
+        if (3 == synparse)
+            synparse = 0;
+        ui.redraw();
         break;
     case 'S':
         Save();

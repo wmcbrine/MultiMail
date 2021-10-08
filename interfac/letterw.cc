@@ -113,7 +113,7 @@ static bool seen(const char *src)
 
 static void skip_hidden(char *&src, bool skipSeenBy)
 {
-    while ((*src == 1) || (skipSeenBy && seen(src))) {
+    while ((*src == 1 && !mm.synchro) || (skipSeenBy && seen(src))) {
         do
             src++;
         while (*src && (*src != '\n'));
@@ -226,7 +226,7 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
 
                 NumOfLines++;
 
-                if (*src == 1) {  // ^A is hidden line marker
+                if (*src == 1 && !mm.synchro) {  // ^A is hidden line marker
                     src++;
                     tmpattr = Hidden;
                 } else
@@ -301,6 +301,12 @@ void LetterWindow::MakeChain(int columns, bool rejoin)
                     case '|':
                         if ((len == 0) && (Normal == tmpattr))
                             tmpattr = Quoted;
+                        break;
+                    case 1:
+                        if (mm.synchro) {
+                            src += 2;
+                            continue;
+                        }
                         break;
                     default:
                         if (rot13)

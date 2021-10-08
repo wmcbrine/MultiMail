@@ -102,6 +102,7 @@ class mmail
     reply_driver *reply;
     read_class *packet_read;
     read_class *reply_read;
+    bool synchro;
 
     pktstatus selectPacket(const char *);
     void Delete();

@@ -186,6 +186,7 @@ void HelpWindow::h_letter(bool isAnsi)
         "+ - next",
         "@ - toggle at-code parsing",
         "| - toggle pipe codes",
+        "1 - toggle Synchronet codes",
         "^V - toggle AVATAR parsing",
         "^B - toggle BSAVE parsing",
         "Q - Quit ANSI viewer"
