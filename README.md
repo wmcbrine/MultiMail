@@ -10,7 +10,7 @@ General Public License.
 
 You can get the latest version at:
 
-   https://wmcbrine.com/mmail/
+   <https://wmcbrine.com/mmail/>
 
 See the [History] file for changes. See [Install] for the installation
 procedure, and the [man page] for information on usage.
