@@ -68,7 +68,7 @@ Credits
 
 MultiMail was originally developed under Linux by Kolossvary Tamas and
 Toth Istvan. John Zero was the maintainer for versions 0.2 through 0.6;
-since version 0.7, the maintainer is William McBrine <wmcbrine@gmail.com>.
+since version 0.7, the maintainer is [William McBrine].
 
 Additional code has been contributed by Peter Krefting, Mark D. Rejhon,
 Ingo Brueckl, Robert Vukovic, and Frederic Cambus.
@@ -96,3 +96,4 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 [SourceForge Page]: https://sourceforge.net/projects/multimail/
 [announce]: https://lists.sourceforge.net/lists/listinfo/multimail-announce
 [discussion]: https://lists.sourceforge.net/lists/listinfo/multimail-user
+[William McBrine]: https://wmcbrine.com/
