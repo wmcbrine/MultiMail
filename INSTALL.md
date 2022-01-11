@@ -9,7 +9,7 @@ precompiled binaries, see the README files that accompany them instead.
     or PKZIP (and/or LHA, ARJ, etc.) to uncompress the packets and
     compress the replies. InfoZip is available from:
 
-    http://infozip.sf.net/
+    <http://infozip.sf.net/>
 
     (PKZIP is the default for DOS; InfoZip is the default for other
     platforms.) The programs should be installed somewhere in the PATH;
@@ -18,11 +18,11 @@ precompiled binaries, see the README files that accompany them instead.
     To compile MultiMail, you'll need curses -- either ncurses, SysV
     curses (e.g., Solaris curses), or PDCurses. You can get ncurses from:
 
-    http://invisible-island.net/ncurses/
+    <https://invisible-island.net/ncurses/>
 
     PDCurses is available at:
 
-    http://pdcurses.org/
+    <https://pdcurses.org/>
 
     (If you're using Linux, you probably already have ncurses and
     InfoZip.)
@@ -32,7 +32,7 @@ precompiled binaries, see the README files that accompany them instead.
     The 16-bit MS-DOS Turbo C++ port also uses Ralf Brown's SPAWNO
     library:
 
-    http://www.cs.cmu.edu/afs/cs.cmu.edu/user/ralf/pub/WWW/files.html
+    <https://www.cs.cmu.edu/afs/cs.cmu.edu/user/ralf/pub/WWW/files.html>
 
 2. Configure it (for compilation) --
     Check the options and paths in the Makefile. If curses.h isn't in
@@ -55,7 +55,7 @@ precompiled binaries, see the README files that accompany them instead.
     to install the manual and binary under /usr/local
     (requires root access). (This doesn't work in DOS, OS/2 or Windows.)
 
-See the man page (mmail.1) and README for more information.
+See the man page (mm.1) and [README.md] for more information.
 
 This package includes some example color schemes, in the "colors"
 directory. To select one, use the "ColorFile" keyword in .mmailrc .
