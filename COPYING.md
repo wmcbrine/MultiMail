@@ -8,8 +8,6 @@ option) any later version.
 
 The file bluewave.h is under a different license:
 
----
-
         The Blue  Wave Offline  Mail System  File  Structures  (hereafter
         known as "structures" or "the structures") were created by George
         Hatchew, and  are the  copyrighted property of George Hatchew and
@@ -36,8 +34,6 @@ The file bluewave.h is under a different license:
         describe the application as a "Blue Wave compatible" offline mail
         application (i.e.  "FooBar: The Blue Wave-Compatible Offline Mail
         Door for Widget BBS").
-
----
 
 The GPL, below, is copyrighted by the Free Software Foundation, but the
 instance of code that it refers to (the MultiMail packet reader) is
