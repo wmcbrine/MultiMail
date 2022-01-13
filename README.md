@@ -91,8 +91,8 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 [Screen shots]: https://wmcbrine.com/mmail/snaps.html
 [Blue Wave]: https://wmcbrine.com/mmail/specs/bwdev300.tar.gz
 [QWK]: https://wmcbrine.com/mmail/specs/qwkspecs.tar.gz
-[OMEN]: https://wmcbrine.com/mmail/specs/omen-i.txt.gz
-[SOUP]: https://wmcbrine.com/mmail/specs/soup12.txt.gz
+[OMEN]: https://wmcbrine.com/mmail/specs/omen-i.txt
+[SOUP]: https://wmcbrine.com/mmail/specs/soup12.txt
 [GitHub Page]: https://github.com/wmcbrine/MultiMail
 [SourceForge Page]: https://sourceforge.net/projects/multimail/
 [announce]: https://lists.sourceforge.net/lists/listinfo/multimail-announce
