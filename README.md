@@ -5,8 +5,8 @@ MultiMail is an offline mail packet reader for Unix / Linux, MS-DOS,
 OS/2, Windows, macOS, and other systems, using a curses-based interface.
 It supports the Blue Wave, QWK, OMEN, SOUP and OPX formats.
 
-MultiMail is free, open source software, distributed under the GNU
-General Public License, version 3 or later.
+MultiMail is free, open source software, distributed under the [GNU
+General Public License][gpl], version 3 or later.
 
 You can get the latest version at:
 
@@ -76,6 +76,7 @@ Ingo Brueckl, Robert Vukovic, and Frederic Cambus.
 Bug reports and suggestions are noted in the [HISTORY] file.
 
 
+[gpl]: LEGAL.md
 [HISTORY]: HISTORY.md
 [INSTALL]: INSTALL.md
 [man page]: mm.1
