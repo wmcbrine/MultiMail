@@ -55,8 +55,8 @@ Other links
 
 * [Screen shots]
 * Format specifications:
-    - [Blue Wave]
-    - [QWK] (including QWKE)
+    - [Blue Wave] ([archive][bwarc])
+    - [QWK] (including QWKE) ([archive][qwkarc])
     - [OMEN]
     - [SOUP]
 * [GitHub Page]
@@ -89,8 +89,10 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 [x86-64 console]: https://wmcbrine.com/mmail/bin/mmw64052.zip
 [x86-64 Terminal]: https://wmcbrine.com/mmail/bin/mmmac052.zip
 [Screen shots]: https://wmcbrine.com/mmail/snaps.html
-[Blue Wave]: https://wmcbrine.com/mmail/specs/bwdev300.tar.gz
-[QWK]: https://wmcbrine.com/mmail/specs/qwkspecs.tar.gz
+[Blue Wave]: https://wmcbrine.com/mmail/specs/bwdev300.txt
+[bwarc]: https://wmcbrine.com/mmail/specs/bwdev300.tar.gz
+[QWK]: https://wmcbrine.com/mmail/specs/qwkspecs.txt
+[qwkarc]: https://wmcbrine.com/mmail/specs/qwkspecs.tar.gz
 [OMEN]: https://wmcbrine.com/mmail/specs/omen-i.txt
 [SOUP]: https://wmcbrine.com/mmail/specs/soup12.txt
 [GitHub Page]: https://github.com/wmcbrine/MultiMail
