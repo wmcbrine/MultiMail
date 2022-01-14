@@ -80,23 +80,30 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 [HISTORY]: HISTORY.md
 [INSTALL]: INSTALL.md
 [man page]: mm.1
+
 [TAR]: https://wmcbrine.com/mmail/bin/mmail-0.52.tar.gz
 [ZIP]: https://wmcbrine.com/mmail/bin/mmsrc052.zip
+
 [x86-32]: https://wmcbrine.com/mmail/bin/mmdos052.zip
 [x86-16]: https://wmcbrine.com/mmail/bin/mmxt052.zip
 [x86-32 VIO]: https://wmcbrine.com/mmail/bin/mmos2052.zip
 [x86-32 console]: https://wmcbrine.com/mmail/bin/mmwin052.zip
 [x86-64 console]: https://wmcbrine.com/mmail/bin/mmw64052.zip
 [x86-64 Terminal]: https://wmcbrine.com/mmail/bin/mmmac052.zip
+
 [Screen shots]: https://wmcbrine.com/mmail/snaps.html
+
 [Blue Wave]: https://wmcbrine.com/mmail/specs/bwdev300.txt
 [bwarc]: https://wmcbrine.com/mmail/specs/bwdev300.tar.gz
 [QWK]: https://wmcbrine.com/mmail/specs/qwkspecs.txt
 [qwkarc]: https://wmcbrine.com/mmail/specs/qwkspecs.tar.gz
 [OMEN]: https://wmcbrine.com/mmail/specs/omen-i.txt
 [SOUP]: https://wmcbrine.com/mmail/specs/soup12.txt
+
 [GitHub Page]: https://github.com/wmcbrine/MultiMail
 [SourceForge Page]: https://sourceforge.net/projects/multimail/
+
 [announce]: https://lists.sourceforge.net/lists/listinfo/multimail-announce
 [discussion]: https://lists.sourceforge.net/lists/listinfo/multimail-user
+
 [William McBrine]: https://wmcbrine.com/
