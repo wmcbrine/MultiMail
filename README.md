@@ -33,15 +33,15 @@ Downloads
     - [TAR]
     - [ZIP]
 * MS-DOS
-    - [x86-32] Also works under Windows 9x, etc.
-    - [x86-16]
+    - [x86-32][dos] Also works under Windows 9x, etc.
+    - [x86-16][xt]
 * OS/2
-    - [x86-32 VIO] Needs at least OS/2 2.0.
+    - [x86-32 VIO][os2] Needs at least OS/2 2.0.
 * Windows
-    - [x86-32 console] Needs 9x or later (tested through 10).
-    - [x86-64 console] Only tested on Windows 10.
+    - [x86-32 console][w32] Needs 9x or later (tested through 10).
+    - [x86-64 console][w64] Only tested on Windows 10.
 * macOS
-    - [x86-64 Terminal] Only tested on macOS 10.14.
+    - [x86-64 Terminal][mac] Only tested on macOS 10.14.
 
 
 Mailing lists
@@ -81,15 +81,15 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 [INSTALL]: INSTALL.md
 [man page]: mm.1
 
-[TAR]: https://wmcbrine.com/mmail/bin/mmail-0.52.tar.gz
-[ZIP]: https://wmcbrine.com/mmail/bin/mmsrc052.zip
+[TAR]: https://github.com/wmcbrine/MultiMail/archive/refs/tags/0.52.tar.gz
+[ZIP]: https://github.com/wmcbrine/MultiMail/archive/refs/tags/0.52.zip
 
-[x86-32]: https://wmcbrine.com/mmail/bin/mmdos052.zip
-[x86-16]: https://wmcbrine.com/mmail/bin/mmxt052.zip
-[x86-32 VIO]: https://wmcbrine.com/mmail/bin/mmos2052.zip
-[x86-32 console]: https://wmcbrine.com/mmail/bin/mmwin052.zip
-[x86-64 console]: https://wmcbrine.com/mmail/bin/mmw64052.zip
-[x86-64 Terminal]: https://wmcbrine.com/mmail/bin/mmmac052.zip
+[dos]: https://github.com/wmcbrine/MultiMail/releases/download/0.52/mmdos052.zip
+[xt]: https://github.com/wmcbrine/MultiMail/releases/download/0.52/mmxt052.zip
+[os2]: https://github.com/wmcbrine/MultiMail/releases/download/0.52/mmos2052.zip
+[w32]: https://github.com/wmcbrine/MultiMail/releases/download/0.52/mmwin052.zip
+[w64]: https://github.com/wmcbrine/MultiMail/releases/download/0.52/mmw64052.zip
+[mac]: https://github.com/wmcbrine/MultiMail/releases/download/0.52/mmmac052.zip
 
 [Screen shots]: https://wmcbrine.com/mmail/snaps.html
 
