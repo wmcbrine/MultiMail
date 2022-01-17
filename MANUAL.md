@@ -681,78 +681,9 @@ UPGRADING
 
 The basic upgrade procedure is to simply copy the new executable over
 the old one. No other files are needed. When you run a new version of
-MultiMail (0.19 or later) for the first time, it automatically updates
-your .mmailrc and ColorFile with any new keywords. (Old keywords, and
-the values you've set for them, are preserved. However, comments are
-lost.) Some notes on specific upgrades:
-
-Version 0.48 adds the .mmailrc option "Mouse", which allows you to
-enable or disable mouse input (for instance, if you don't want to see
-the mouse cursor).
-
-Version 0.45 adds "TempDir". Note that temporary files are handled
-differently in this version, and the TEMP and TMP environment variables
-are ignored. "homeDir" has been removed.
-
-Version 0.43 adds "ClockMode", and makes "UseColors" available in all
-ports. Also note that CPU usage while idle may be higher in some
-configurations.
-
-Version 0.41 adds the option "IgnoreNDX".
-
-Version 0.39 changes the function of the "Transparency" option slightly.
-It now operates on the color set in "Main_Back", rather than Black.
-Also, if you're accustomed to using the mouse to cut and paste under X
-or gpm, note that you now have to hold down the shift key while doing
-this.
-
-Version 0.38 adds "ExpertMode", "Transparency", "UseColors", and
-"BackFill", while removing the options "BuildPersArea", "UseScrollBars",
-"MakeOldFlags", and "AutoSaveRead".
-
-Version 0.37 adds "tarUncompressCommand" and "tarCompressCommand".
-
-Version 0.36 adds "LetterMode" and "AreaMode".
-
-Version 0.33 adds "ReOnReplies", "outCharset", "UseQPMailHead",
-"UseQPNewsHead", "UseQPMail" and "UseQPNews"; changes some
-default values.
-
-Version 0.32 adds "BuildPersArea" and "MakeOldFlags".
-
-Version 0.30 adds "UserName", "InetAddr", "QuoteHead",
-"InetQuote", and "QuoteWrapCols".
-
-Version 0.29 adds "UseScrollBars" and "UseLynxNav".
-
-Version 0.28 adds "MaxLines", "StripSoftCR", and "BeepOnPers".
-
-Version 0.26 adds "AutoSaveReplies", "AutoSaveRead", and
-"UseTaglines".
-
-Version 0.25 adds "Charset", "PacketSort", and "LetterSort". The
-default packet sort is now by time instead of name.
-
-If you're upgrading from 0.19 to 0.20 or later, and you have a
-customized ColorFile, be sure to note the new options.
-
-The ColorFile is new in 0.19. Check it out (~/mmail/colors, by default).
-
-As of 0.16, the HOME environment variable can be overridden with MMAIL,
-or omitted altogether.
-
-If you're upgrading from a version before 0.9, and you have existing
-reply packets (.rep or .new) whose names are partly or wholly in
-uppercase, you must rename them to lowercase before version 0.9 or
-higher will recognize them. (Downloaded packets are not at issue.)
-
-If you're upgrading from a version below 0.8, you may want to manually
-delete the /tmp/$LOGNAME directory created by previous versions. (0.8
-and higher clean out their own temp directories, and use different names
-for each session.)
-
-If you're upgrading from a version prior to 0.7, please note the changes
-in the default directories; previously they were "~/mmail/bwdown", etc.
+MultiMail for the first time, it automatically updates your .mmailrc and
+ColorFile with any new keywords. (Old keywords, and the values you've
+set for them, are preserved. However, comments are lost.)
 
 
 NOTES
