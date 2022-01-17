@@ -79,7 +79,7 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 [gpl]: LEGAL.md
 [HISTORY]: HISTORY.md
 [INSTALL]: INSTALL.md
-[man page]: mm.1
+[man page]: MANUAL.md
 
 [TAR]: https://github.com/wmcbrine/MultiMail/archive/refs/tags/0.52.tar.gz
 [ZIP]: https://github.com/wmcbrine/MultiMail/archive/refs/tags/0.52.zip
