@@ -55,7 +55,7 @@ precompiled binaries, see the README files that accompany them instead.
     to install the manual and binary under /usr/local
     (requires root access). (This doesn't work in DOS, OS/2 or Windows.)
 
-See the man page (mm.1) and [README.md] for more information.
+See the [man page](MANUAL.md) and [README.md] for more information.
 
 This package includes some example color schemes, in the "colors"
 directory. To select one, use the "ColorFile" keyword in .mmailrc .
