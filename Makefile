@@ -80,7 +80,7 @@ O = o
 .SUFFIXES: .cc
 .PHONY: clean dep install
 
-all:	mm$(E)
+all:	mm$(E) mm.1
 
 MOBJS = misc.o resource.o mmail.o filelist.o netadd.o area.o letter.o \
 read.o compress.o pktbase.o bw.o qwk.o omen.o soup.o opx.o
@@ -98,6 +98,9 @@ $(IOBJS) : %.o: $(isrc)/%.cc
 mm$(E):	$(MOBJS) $(IOBJS)
 	$(BUILD) -o mm$(E) $(MOBJS) $(IOBJS) $(LIBS)
 	$(POST)
+
+mm.1:	MANUAL.md
+	md2man-roff MANUAL.md > mm.1
 
 dep:
 	$(CXX) -MM $(msrc)/*.cc | sed s/"\.o"/"\.\$$(O)"/ > depend
