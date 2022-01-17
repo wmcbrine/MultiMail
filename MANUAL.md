@@ -807,13 +807,6 @@ Ingo Brueckl, Robert Vukovic and Mark Crispin.
 BUGS AND KNOWN PROBLEMS
 -----------------------
 
-Red Hat Linux 6.0 (and possibly 6.x) comes with a defective installation
-of ncurses. When linked to this, MultiMail mostly works, but odd effects
-appear when scrolling. (Users describe it as double-spaced.) The problem
-can be fixed by reinstalling ncurses from the source -- not the source RPM
-that comes with Red Hat, but the original source from the ncurses site
-(see INSTALL).
-
 SOUP area type 'M' is not recognized. I have yet to find a program that
 can generate one. :-)
 
