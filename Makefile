@@ -113,7 +113,5 @@ clean:
 install::
 	install -c -s mm $(PREFIX)/bin
 	install -c -m 644 mm.1 $(HELPDIR)
-	$(RM) $(HELPDIR)/mmail.1
-	ln $(HELPDIR)/mm.1 $(HELPDIR)/mmail.1
 
 include depend
