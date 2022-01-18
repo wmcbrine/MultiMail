@@ -97,7 +97,7 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 [bwarc]: https://wmcbrine.com/mmail/specs/bwdev300.tar.gz
 [QWK]: https://wmcbrine.com/mmail/specs/qwkspecs.txt
 [qwkarc]: https://wmcbrine.com/mmail/specs/qwkspecs.tar.gz
-[OMEN]: https://wmcbrine.com/mmail/specs/omen-i.txt
+[OMEN]: https://wmcbrine.com/mmail/specs/omen-i.html
 [SOUP]: https://wmcbrine.com/mmail/specs/soup12.html
 
 [GitHub Page]: https://github.com/wmcbrine/MultiMail
