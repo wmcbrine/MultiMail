@@ -98,7 +98,7 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 [QWK]: https://wmcbrine.com/mmail/specs/qwkspecs.txt
 [qwkarc]: https://wmcbrine.com/mmail/specs/qwkspecs.tar.gz
 [OMEN]: https://wmcbrine.com/mmail/specs/omen-i.txt
-[SOUP]: https://wmcbrine.com/mmail/specs/soup12.md
+[SOUP]: https://wmcbrine.com/mmail/specs/soup12.html
 
 [GitHub Page]: https://github.com/wmcbrine/MultiMail
 [SourceForge Page]: https://sourceforge.net/projects/multimail/
