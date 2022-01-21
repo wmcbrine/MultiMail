@@ -55,8 +55,8 @@ Other links
 
 * [Screen shots]
 * Format specifications:
-    - [Blue Wave] ([archive][bwarc])
-    - [QWK] (including QWKE) ([archive][qwkarc])
+    - [Blue Wave]
+    - [QWK] (including QWKE)
     - [OMEN]
     - [SOUP]
 * [GitHub Page]
@@ -93,10 +93,8 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 
 [Screen shots]: https://wmcbrine.com/mmail/snaps.html
 
-[Blue Wave]: https://wmcbrine.com/mmail/specs/bwdev300.txt
-[bwarc]: https://wmcbrine.com/mmail/specs/bwdev300.tar.gz
-[QWK]: https://wmcbrine.com/mmail/specs/qwkspecs.txt
-[qwkarc]: https://wmcbrine.com/mmail/specs/qwkspecs.tar.gz
+[Blue Wave]: https://wmcbrine.com/mmail/specs/bwdev300.html
+[QWK]: https://wmcbrine.com/mmail/specs/qwkspecs.html
 [OMEN]: https://wmcbrine.com/mmail/specs/omen-i.html
 [SOUP]: https://wmcbrine.com/mmail/specs/soup12.html
 
