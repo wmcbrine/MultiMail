@@ -53,14 +53,10 @@ Join the MultiMail [announce] list and/or the [discussion] list.
 Other links
 -----------
 
-* [Screen shots]
-* Format specifications:
-    - [Blue Wave]
-    - [QWK] (including QWKE)
-    - [OMEN]
-    - [SOUP]
+* [Screen Shots]
 * [GitHub Page]
 * [SourceForge Page]
+* [Offline Formats]
 
 
 Credits
@@ -91,15 +87,10 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 [w64]: https://github.com/wmcbrine/MultiMail/releases/download/0.52/mmw64052.zip
 [mac]: https://github.com/wmcbrine/MultiMail/releases/download/0.52/mmmac052.zip
 
-[Screen shots]: https://wmcbrine.com/mmail/snaps.html
-
-[Blue Wave]: https://wmcbrine.com/mmail/specs/bwdev300.html
-[QWK]: https://wmcbrine.com/mmail/specs/qwkspecs.html
-[OMEN]: https://wmcbrine.com/mmail/specs/omen-i.html
-[SOUP]: https://wmcbrine.com/mmail/specs/soup12.html
-
+[Screen Shots]: https://wmcbrine.com/mmail/snaps.html
 [GitHub Page]: https://github.com/wmcbrine/MultiMail
 [SourceForge Page]: https://sourceforge.net/projects/multimail/
+[Offline Formats]: https://wmcbrine.com/mmail/specs/qwkspecs.html
 
 [announce]: https://lists.sourceforge.net/lists/listinfo/multimail-announce
 [discussion]: https://lists.sourceforge.net/lists/listinfo/multimail-user
