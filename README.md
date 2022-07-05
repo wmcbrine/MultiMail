@@ -87,7 +87,7 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 [w64]: https://github.com/wmcbrine/MultiMail/releases/download/0.52/mmw64052.zip
 [mac]: https://github.com/wmcbrine/MultiMail/releases/download/0.52/mmmac052.zip
 
-[Screen Shots]: https://wmcbrine.com/mmail/snaps.html
+[Screen Shots]: https://wmcbrine.com/mmail/snaps/
 [GitHub Page]: https://github.com/wmcbrine/MultiMail
 [SourceForge Page]: https://sourceforge.net/projects/multimail/
 [Offline Formats]: https://wmcbrine.com/mmail/specs/
