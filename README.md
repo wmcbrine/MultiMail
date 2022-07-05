@@ -90,7 +90,7 @@ Bug reports and suggestions are noted in the [HISTORY] file.
 [Screen Shots]: https://wmcbrine.com/mmail/snaps.html
 [GitHub Page]: https://github.com/wmcbrine/MultiMail
 [SourceForge Page]: https://sourceforge.net/projects/multimail/
-[Offline Formats]: https://wmcbrine.com/mmail/specs/qwkspecs.html
+[Offline Formats]: https://wmcbrine.com/mmail/specs/
 
 [announce]: https://lists.sourceforge.net/lists/listinfo/multimail-announce
 [discussion]: https://lists.sourceforge.net/lists/listinfo/multimail-user
