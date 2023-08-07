@@ -1,5 +1,5 @@
-MultiMail
-=========
+MultiMail Offline Reader
+========================
 
 MultiMail is an offline mail packet reader for Unix / Linux, MS-DOS,
 OS/2, Windows, macOS, and other systems, using a curses-based interface.
